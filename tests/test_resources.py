@@ -43,9 +43,11 @@ class ResourceTests(unittest.TestCase):
         permission=b.permit_parameter('permission',request)
         return b.finish(b.admit('operation',request,permission))
 
-    def parent(self):
+    def parent(self, *, control=None):
         b=PlanBuilder('parent',self.specs)
         message=b.literal('message','Text','hello')
+        if control is not None:
+            message=b.restrict('request-control',message,control)
         intent=b.prepare('request',b.tool('send'),message)
         permit=b.authorize('permission',intent)
         condition=b.literal('condition','Bool',True)
@@ -189,6 +191,18 @@ class ResourceTests(unittest.TestCase):
 
     def test_permit_moves_to_task_and_operation_returns_by_join(self):
         b,intent,permit,_=self.parent()
+        scope=b.scope('scope',{'u':1})
+        task=b.spawn('task',scope,self.submit(),{'u':1},inputs={'request':intent,'permission':permit})
+        result=b.join('operation',task)
+        b.close_scope('closed',scope)
+        unlabelled=b.finish(handled(b,result))
+        self.start(unlabelled)
+        with self.assertRaises(FlowDenied):
+            self.execute(unlabelled)
+        self.assertEqual(self.calls,[])
+        # Joining the returned Operation introduces its tool source bound.
+        # Prepare the request in that context before moving its permit.
+        b,intent,permit,_=self.parent(control=self.specs.tools['send'].output_label)
         scope=b.scope('scope',{'u':1})
         task=b.spawn('task',scope,self.submit(),{'u':1},inputs={'request':intent,'permission':permit})
         result=b.join('operation',task)

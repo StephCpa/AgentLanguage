@@ -1,5 +1,6 @@
 from concurrent.futures import ThreadPoolExecutor
 import json
+from al0.semantics import execution_site
 from pathlib import Path
 import subprocess
 import sys
@@ -174,8 +175,8 @@ class DynamicBudgetTests(unittest.TestCase):
         plan=self.split_plan()
         self.start(plan)
         secret=Label({'owner'})
-        first=self.store.bind_budget_amount(self.run,self.who,'funds','split',{'u':2},control=secret)
-        replay=self.store.bind_budget_amount(self.run,self.who,'funds','split',{'u':7})
+        first=self.store.bind_budget_amount(self.run,self.who,execution_site('funds'),'split',{'u':2},control=secret)
+        replay=self.store.bind_budget_amount(self.run,self.who,execution_site('funds'),'split',{'u':7})
         self.assertEqual(first,replay)
         value=self.execute(plan,{'amount':Value({'u':7})})
         self.assertEqual(value.label,secret)

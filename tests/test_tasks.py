@@ -183,7 +183,7 @@ class TaskTests(unittest.TestCase):
             self.store.finish_task(lease,self.principal,'parent')
         child_lease=self.store.claim_task(child,self.principal)
         self.store.finish_task(child_lease,self.principal,'child')
-        self.store.join_task(child,self.principal)
+        self.store.join_task(child,self.principal,parent_lease=lease)
         self.store.finish_task(lease,self.principal,'parent')
         self.store.join_task(parent,self.principal)
         self.store.close_scope(self.scope,self.principal)

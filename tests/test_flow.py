@@ -1,3 +1,4 @@
+from al0.semantics import execution_site
 import json
 from contextlib import closing
 from pathlib import Path
@@ -255,7 +256,7 @@ class FlowRuntimeTests(unittest.TestCase):
             self.execute(plan)
         self.assertEqual([n for n,_ in self.calls],['vault'])
         with closing(sqlite3.connect(self.path)) as db:
-            phase=db.execute("SELECT phase FROM attempts JOIN operations ON attempts.operation=operations.id WHERE node='operation'").fetchone()[0]
+            phase=db.execute("SELECT phase FROM attempts JOIN operations ON attempts.operation=operations.id WHERE node=?",(execution_site('operation'),)).fetchone()[0]
         self.assertEqual(phase,'Queued')
 
     def test_task_inputs_and_completed_return_preserve_label(self):

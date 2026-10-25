@@ -253,30 +253,10 @@ class PlanBuilder:
         return self._add(name,'capability',tool=spec.name)
 
     def _cap_spec(self,cap: Ref[Cap[Any]]) -> Tool:
-        ref=self._ref(cap)
-        node=next(n for n in self._nodes if n['id']==ref)
-        if node['op']=='take':
-            taken=self._type_of(cap)
-            if taken.kind=='Cap':
-                return self.catalog.tools[taken.name]
-        while node['op']=='attenuate':
-            node=next(n for n in self._nodes if n['id']==node['cap'])
-        if node['op']=='capability':
-            return self.catalog.tools[node['tool']]
-        if node['op']=='parameter' and node['kind']=='Cap':
-            return self.catalog.tools[node['type']]
-        if node['op'] in ('join','race'):
-            ref=node['task'] if node['op']=='join' else node['tasks'][0]
-            task=next(n for n in self._nodes if n['id']==ref)
-            typ=check_plan(task['plan'],self.catalog).result_type
-            if typ is not None and typ.kind=='Cap':
-                return self.catalog.tools[typ.name]
-        if node['op'] in ('invoke','invoke_caps','if','match_task','match_admission','match_variant'):
-            child=node['plan'] if 'plan' in node else next(iter(node['cases'].values()))
-            typ=check_plan(child,self.catalog).result_type
-            if typ is not None and typ.kind=='Cap':
-                return self.catalog.tools[typ.name]
-        raise TypeCheckError('expected a capability reference')
+        typ=self._type_of(cap)
+        if typ.kind!='Cap':
+            raise TypeCheckError('expected a capability reference')
+        return self.catalog.tools[typ.name]
 
     def attenuate(self,name: str,cap: Ref[Cap[O]],*,expires: int | None=None,
                   max_attempts: int | None=None,constraints: dict[str, Any] | None=None) -> Ref[Cap[O]]:

@@ -4,6 +4,7 @@ from pathlib import Path
 import tempfile
 from threading import Barrier
 
+from al0.semantics import execution_site
 from al0.data import Principal
 from al0.demo import Endpoint, adapters, catalog
 from al0.execute import Broker, Interpreter
@@ -61,7 +62,7 @@ def demo(directory):
     return {'result':result.data,'replayed_result':replayed.data,'winner':winner,
             'winner_after_replay':next(e['data']['winner'] for e in store.events(run,principal) if e['kind']=='RaceSelected'),
             'budget':store.budget(run,principal),'endpoint':endpoint.state(),
-            'write_after_selection':next(e['sequence'] for e in events if e['kind']=='Admitted' and e['data']['node']=='merge') > next(e['sequence'] for e in events if e['kind']=='RaceSelected'),
+            'write_after_selection':next(e['sequence'] for e in events if e['kind']=='Admitted' and e['data']['node']==execution_site('merge')) > next(e['sequence'] for e in events if e['kind']=='RaceSelected'),
             'race_decisions':sum(e['kind']=='RaceSelected' for e in store.events(run,principal))}
 
 

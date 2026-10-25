@@ -1,0 +1,64 @@
+{
+  "repository": "StephCpa/AgentLanguage",
+  "head_commit": "62c49e7d0fe56bf31991d6e6d1a7d8e40dbfcc0b",
+  "workflow_run": 40240346716,
+  "url": "https://github.com/StephCpa/AgentLanguage/actions/runs/40240346716",
+  "jobs": [
+    {
+      "id": 121310598187,
+      "name": "Regression and typing (Python 3.10)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 121310598451,
+      "name": "Regression and typing (Python 3.12)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 121310598480,
+      "name": "Installed wheel (copies)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 121310598536,
+      "name": "Installed wheel (symlinks)",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "regressions": [
+    {
+      "python": "3.10.22",
+      "tests": 950,
+      "skipped": 0,
+      "seconds": 124.939,
+      "log_excerpt": [
+        "2026-10-25T22:28:25.4507911Z Successfully set up CPython (3.10.22)",
+        "2026-10-25T22:28:26.6819160Z   Downloading mypy-1.18.2-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.2 kB)",
+        "2026-10-25T22:28:26.7899203Z Downloading mypy-1.18.2-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (13.2 MB)",
+        "2026-10-25T22:28:28.3900436Z Successfully installed mypy-1.18.2 mypy_extensions-1.1.0 pathspec-1.1.1 tomli-2.5.0 typing_extensions-4.16.0",
+        "2026-10-25T22:30:34.2582733Z Ran 950 tests in 124.939s",
+        "2026-10-25T22:30:34.2583568Z OK"
+      ]
+    },
+    {
+      "python": "3.12.15",
+      "tests": 950,
+      "skipped": 0,
+      "seconds": 132.847,
+      "log_excerpt": [
+        "2026-10-25T22:28:25.2753517Z Successfully set up CPython (3.12.15)",
+        "2026-10-25T22:28:26.2348850Z   Downloading mypy-1.18.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.2 kB)",
+        "2026-10-25T22:28:26.3197265Z Downloading mypy-1.18.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (13.3 MB)",
+        "2026-10-25T22:28:27.7338444Z Successfully installed mypy-1.18.2 mypy_extensions-1.1.0 pathspec-1.1.1 typing_extensions-4.16.0",
+        "2026-10-25T22:30:41.1468874Z Ran 950 tests in 132.847s",
+        "2026-10-25T22:30:41.1470879Z OK"
+      ]
+    }
+  ],
+  "typing": "mypy==1.18.2 mandatory in both regression jobs",
+  "wheel": "Both symlinks and copies environments verified before independent installed consumer audit"
+}

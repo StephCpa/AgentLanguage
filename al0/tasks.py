@@ -135,9 +135,11 @@ class TaskMixin:
             raise StateConflict('scope speculative flag must be boolean')
         with self._tx() as db:
             owner = self._run(db, run, principal)
+            self._check_access_actor(db,run,parent_lease)
             parent = None
             if parent_lease is not None:
                 parent = self._task(db,parent_lease.task,principal)
+                self._lease(parent,parent_lease)
                 if parent['run'] != run:
                     raise StateConflict('nested scope must use its parent task funding')
                 allocation = parent['allocation'] if allocation is None else allocation
@@ -186,6 +188,9 @@ class TaskMixin:
                         raise StateConflict('bundle input template differs from its resource manifest')
         with self._tx() as db:
             owner = self._task(db, parent, principal)
+            # Returning an existing spawn also schedules a TaskRunner. Fence
+            # the parent before that replay path can reclaim a child worker.
+            self._scope_controller(db,owner,principal,parent_lease)
             if caps is not None:
                 self._check_capability_map(db,owner['run'],caps)
             control=control.join(self._task_flow(db,parent)[0],*(Label.from_data(v.get('label')) for v in inputs.values()))
@@ -353,28 +358,53 @@ class TaskMixin:
             row = self._task(db, task, principal)
             if row['kind'] != 'Task':
                 raise StateConflict('use close_scope to release a scope')
+            self._outcome_receiver(db,row,principal,parent_lease)
             self._receive_resources(db,row,principal,parent_lease)
             self._release_task(db, row, cancel=False)
             self.fault('before_task_join_commit')
         self.fault('after_task_join_commit')
         return self.task_snapshot(task, principal)
 
-    def handoff_task(self, task, principal):
+    def handoff_task(self, task, principal, *, parent_lease=None):
+        return self._handoff_task(task,principal,parent_lease=parent_lease,supervisor=False)
+
+    def supervise_task(self, task, principal):
+        """Explicit trusted-host cancellation, outside a worker access context."""
+        return self._handoff_task(task,principal,parent_lease=None,supervisor=True)
+
+    def _handoff_task(self, task, principal, *, parent_lease, supervisor):
         with self._tx() as db:
             row = self._task(db, task, principal)
             if row['kind'] != 'Task':
                 raise StateConflict('use close_scope to cancel a scope')
+            if supervisor:
+                if self._resource_access.get() is not None:
+                    raise StateConflict('supervisor cancellation requires a separate host context')
+            else:
+                self._outcome_receiver(db,row,principal,parent_lease)
             for child in self._subtree(db, task):
                 self._release_task(db, child, cancel=True)
             self.fault('before_handoff_commit')
         self.fault('after_handoff_commit')
         return self.task_snapshot(task, principal)
 
-    def close_scope(self, scope, principal, *, cancel=False):
+    def close_scope(self, scope, principal, *, cancel=False, parent_lease=None):
+        return self._close_scope(scope,principal,cancel=cancel,parent_lease=parent_lease,supervisor=False)
+
+    def supervise_scope(self, scope, principal):
+        """Explicit trusted-host subtree cancellation; never a worker fallback."""
+        return self._close_scope(scope,principal,cancel=True,parent_lease=None,supervisor=True)
+
+    def _close_scope(self, scope, principal, *, cancel, parent_lease, supervisor):
         with self._tx() as db:
             row = self._task(db, scope, principal)
             if row['kind'] != 'Scope':
                 raise StateConflict('only scope roots can be closed with close_scope')
+            if supervisor:
+                if self._resource_access.get() is not None:
+                    raise StateConflict('supervisor cancellation requires a separate host context')
+            else:
+                self._scope_controller(db,row,principal,parent_lease)
             if row['disposition'] != 'Attached':
                 return
             children = self._subtree(db, scope)
@@ -440,13 +470,15 @@ class TaskMixin:
         received=self._receive_resources(db,row,principal,parent_lease)
         return accept_record(payload,received)
 
+    def _scope_controller(self, db, scope, principal, parent_lease):
+        self._check_access_actor(db,scope['run'],parent_lease)
+        actor=self._custody_actor(db,scope['run'],principal,parent_lease)
+        if actor!=self._scope_sender(db,scope):
+            raise StateConflict('task controller is outside the parent scope')
+
     def _outcome_receiver(self, db, row, principal, parent_lease):
-        if parent_lease is not None or self._resource_access.get() is not None:
-            self._check_access_actor(db,row['run'],parent_lease)
-            actor=self._custody_actor(db,row['run'],principal,parent_lease)
-            parent=self._task(db,row['parent'],principal)
-            if actor!=self._scope_sender(db,parent):
-                raise StateConflict('outcome receiver is outside the task scope')
+        parent=self._task(db,row['parent'],principal)
+        self._scope_controller(db,parent,principal,parent_lease)
 
     def take_task_outcome(self, task, principal, *, parent_lease=None, cancel=False):
         """Freeze the observation and responsibility transfer in one transaction."""

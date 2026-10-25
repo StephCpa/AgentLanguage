@@ -356,7 +356,8 @@ with tempfile.TemporaryDirectory() as directory:
 
 
 def audit(python, wheel):
-    python, wheel = Path(python).resolve(), Path(wheel).resolve()
+    # Resolving a POSIX venv's python symlink selects the base environment.
+    python, wheel = Path(python).absolute(), Path(wheel).resolve()
     with zipfile.ZipFile(wheel) as archive:
         if 'al0/py.typed' not in archive.namelist():
             raise AssertionError('wheel is missing the PEP 561 marker')

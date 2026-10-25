@@ -427,7 +427,6 @@ class Store(AllocationMixin, TaskMixin, FlowMixin, ControlMixin, AdmissionMixin,
             if op['cancelled'] or op['closed']:
                 raise StateConflict("operation is closed to new dispatch")
             intent = self._intent(op['intent'])
-            self._new_work(db, op['run'], intent)
             self._task_effect(db,self._operation_allocation(db,operation),intent)
             # Preserve the throwing API's historical authorization-first error
             # precedence. Only the checked API classifies a blocked dispatch,
@@ -447,10 +446,18 @@ class Store(AllocationMixin, TaskMixin, FlowMixin, ControlMixin, AdmissionMixin,
                     raise
                 ticket = DispatchBlocked('FlowDenied' if isinstance(error, FlowDenied) else 'AuthorizationUnavailable')
             else:
+                # Admission does not freeze time. Check a queued retry's deadline
+                # at the transaction that grants its actual dispatch right.
+                dispatch_time = self.clock()
+                if row['seq'] > 1:
+                    contract = self._contract(db, intent)
+                    if (not contract['retry_window'] or op['first_started'] is None
+                            or dispatch_time >= op['first_started'] + contract['retry_window']):
+                        raise ContractError('queued retry is outside its endpoint deduplication window')
                 db.execute("UPDATE attempts SET phase='DispatchStarted' WHERE id=?", (attempt,))
                 db.execute("UPDATE outbox SET accepted=1 WHERE attempt=?", (attempt,))
                 db.execute("UPDATE operations SET business='Unknown', first_started=COALESCE(first_started,?) WHERE id=?",
-                           (self.clock(), operation))
+                           (dispatch_time, operation))
                 self._event(db, op['run'], "DispatchStarted", operation=operation, attempt=attempt)
                 ticket = Dispatch(operation, attempt, intent, row['upper_bound'])
         if isinstance(ticket, DispatchBlocked):

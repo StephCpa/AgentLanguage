@@ -8,6 +8,8 @@
 
 **Slot** 表示源程序中的一次逻辑激活：`(run_id, program_version, node_id, activation_id)`。`node_id` 由编译器固定；循环迭代、子任务及动态计划拥有持久分配的 activation。恢复读回已有 activation，不根据新的调度顺序重算编号。
 
+当前解释器对根与嵌套位置统一计算 `site:` + `digest(['site', path, node])`，根路径为空列表。节点名即使形似 branch/site 键也仅作为结构化输入，不能与另一层路径直接混用；底层 Store 的宿主自选 slot 仍由调用者管理。该变化通过独立执行语义版本拒绝旧计划身份恢复，详见[固定提交审计修复](46-audit-remediation.md)。
+
 **Operation** 表示一次业务意图。首次接纳时分配随机 operation ID，并在同一事务中写入唯一 slot 映射。同 slot、同描述的重复请求返回同一决定；同 slot、不同描述返回 `ReplayMismatch`。不同 slot 可以携带相同内容，因为用户可能确实要求再次执行。
 
 **Attempt** 表示一次可能独立产生收费的外部调用。每次重发创建新的 attempt 和预留，即使服务端复用相同业务幂等键。适配器必须禁用不可见的自动重试，或声明可执行的总发送次数及总费用上界。只有端点明确承诺去重计费时，才可共用对应计费责任。

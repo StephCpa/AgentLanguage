@@ -73,10 +73,20 @@ def plan_label(plan, catalog):
     source, so its boundary result includes this bound, even for constant returns.
     """
     import json
+    from .ir import check_plan
     document=json.loads(plan.encoded)
     result=PUBLIC
     def walk(doc):
         nonlocal result
+        checked = check_plan(doc, catalog)
+        def sources(typ):
+            nonlocal result
+            if typ.kind in ('Operation', 'OpRef', 'Snapshot'):
+                result = result.join(catalog.tools[typ.name].output_label)
+            for _, member in typ.members:
+                sources(member)
+        for _, typ in checked.node_types:
+            sources(typ)
         for node in doc['nodes']:
             if node['op']=='restrict':
                 result=result.join(Label.from_data(node['label']))

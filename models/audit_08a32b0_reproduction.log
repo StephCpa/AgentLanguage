@@ -1,0 +1,84 @@
+======================================================================
+ERROR: test_f5_finish_allows_existing_queue (tests.test_audit_regressions.AuditRegressions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "E:\AgentLanguage\tests\test_audit_regressions.py", line 119, in test_f5_finish_allows_existing_queue
+    self.store.start_attempt(op, attempt, self.who)
+  File "E:\AgentLanguage\al0\store.py", line 415, in start_attempt
+    return self._start_attempt(operation, attempt, principal, task_lease=task_lease)
+  File "E:\AgentLanguage\al0\store.py", line 430, in _start_attempt
+    self._new_work(db, op['run'], intent)
+  File "E:\AgentLanguage\al0\store.py", line 223, in _new_work
+    raise StateConflict('finished workflow only admits registered reconciliation work')
+al0.errors.StateConflict: finished workflow only admits registered reconciliation work
+
+======================================================================
+ERROR: test_f6_bundle_cap_can_be_attenuated_twice (tests.test_audit_regressions.AuditRegressions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "E:\AgentLanguage\tests\test_audit_regressions.py", line 132, in test_f6_bundle_cap_can_be_attenuated_twice
+    plan = b.finish(b.attenuate('second', cap, max_attempts=2))
+  File "E:\AgentLanguage\al0\sdk.py", line 283, in attenuate
+    spec=self._cap_spec(cap)
+  File "E:\AgentLanguage\al0\sdk.py", line 279, in _cap_spec
+    raise TypeCheckError('expected a capability reference')
+al0.errors.TypeCheckError: expected a capability reference
+
+======================================================================
+FAIL: test_f1_operation_parameter_contributes_private_output_bound (tests.test_audit_regressions.AuditRegressions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "E:\AgentLanguage\tests\test_audit_regressions.py", line 51, in test_f1_operation_parameter_contributes_private_output_bound
+    self.assertEqual(plan_label(b.finish(value), catalog), PRIVATE)
+AssertionError: Label(readers=None, taints=frozenset()) != Label(readers=frozenset({'owner'}), taints=frozenset({'private-status'}))
+
+======================================================================
+FAIL: test_f2_retry_cannot_dispatch_at_expiry_after_restart (tests.test_audit_regressions.AuditRegressions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "E:\AgentLanguage\tests\test_audit_regressions.py", line 60, in test_f2_retry_cannot_dispatch_at_expiry_after_restart
+    with self.assertRaises(ContractError):
+AssertionError: ContractError not raised
+
+======================================================================
+FAIL: test_f3_stale_parent_exception_cleanup_cannot_cancel_child (tests.test_audit_regressions.AuditRegressions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "E:\AgentLanguage\tests\test_audit_regressions.py", line 87, in test_f3_stale_parent_exception_cleanup_cannot_cancel_child
+    with self.assertRaises(StateConflict):
+AssertionError: StateConflict not raised
+
+======================================================================
+FAIL: test_f3_stale_parent_handoff_cannot_cancel_child (tests.test_audit_regressions.AuditRegressions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "E:\AgentLanguage\tests\test_audit_regressions.py", line 81, in test_f3_stale_parent_handoff_cannot_cancel_child
+    with self.assertRaises(StateConflict):
+AssertionError: StateConflict not raised
+
+======================================================================
+FAIL: test_f4_root_name_cannot_alias_nested_observation (tests.test_audit_regressions.AuditRegressions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "E:\AgentLanguage\tests\test_audit_regressions.py", line 112, in test_f4_root_name_cannot_alias_nested_observation
+    self.assertEqual(result.data, {'first': 1, 'second': 2})
+AssertionError: {'first': 1, 'second': 1} != {'first': 1, 'second': 2}
+- {'first': 1, 'second': 1}
+?                        ^
+
++ {'first': 1, 'second': 2}
+?                        ^
+
+
+======================================================================
+FAIL: test_f7_wheel_gate_does_not_resolve_interpreter_symlink (tests.test_audit_regressions.AuditRegressions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "E:\AgentLanguage\tests\test_audit_regressions.py", line 153, in test_f7_wheel_gate_does_not_resolve_interpreter_symlink
+    self.assertEqual(Path(invoked[0][0]), requested.absolute())
+AssertionError: WindowsPath('C:/Users/76790/AppData/Local/Temp/tmpoq35jgzg/base-python') != WindowsPath('C:/Users/76790/AppData/Local/Temp/tmpoq35jgzg/venv/bin/python')
+
+----------------------------------------------------------------------
+Ran 8 tests in 1.095s
+
+FAILED (failures=6, errors=2)

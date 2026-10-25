@@ -10,7 +10,7 @@ from .errors import ReplayMismatch, StateConflict
 from .execute import Interpreter, Suspended, Value, capture_value
 from .ir import CheckedPlan, MOVED_RESOURCES, check_plan
 from .bundle_types import is_affine
-from .flow import PUBLIC, plan_label
+from .flow import Label, PUBLIC, plan_label
 from .limits import ExecutionBudget
 from .bundles import value_refs, return_refs, accept_result, capability_resources
 
@@ -103,7 +103,7 @@ class TaskScope:
         try:
             self.pool = ThreadPoolExecutor(max_workers=self.max_workers)
         except BaseException:
-            self.broker.store.close_scope(self.scope, self.principal, cancel=True)
+            self.broker.store.close_scope(self.scope, self.principal, cancel=True, parent_lease=self.parent_lease)
             raise
         return self
 
@@ -160,9 +160,15 @@ class TaskScope:
     def handoff(self, task):
         if task in self.consumed:
             raise StateConflict('task handle already consumed in this scope execution')
-        snapshot = self.broker.store.handoff_task(task,self.principal)
+        snapshot = self.broker.store.handoff_task(task,self.principal,parent_lease=self.parent_lease)
         self.consumed.add(task)
-        return snapshot
+        label = self.broker.store.task_label(task,self.principal)
+        if isinstance(snapshot['result'],dict):
+            label = label.join(Label.from_data(snapshot['result'].get('label')))
+        # The language receives a labelled control receipt, not an internal
+        # snapshot containing serialized values, resource records and funding.
+        return Value({key:snapshot[key] for key in ('state','disposition')}
+                     | {'task':task}, label=label)
 
     def join_outcome(self, task):
         if task in self.consumed:
@@ -224,7 +230,7 @@ class TaskScope:
         clean = False
         try:
             if exc_type is not None:
-                store.close_scope(self.scope, self.principal, cancel=True)
+                store.close_scope(self.scope, self.principal, cancel=True, parent_lease=self.parent_lease)
                 return False
             pending = {future: task for task, future in self.futures.items() if task not in self.consumed}
             # Observe failures as they finish, even if an earlier-spawned
@@ -234,15 +240,15 @@ class TaskScope:
                 try:
                     result=future.result()
                 except Suspended:
-                    store.handoff_task(task, self.principal)
+                    store.handoff_task(task, self.principal, parent_lease=self.parent_lease)
                 else:
                     if return_refs(result) or result.bundle is not None or result.variant is not None and is_affine(result.variant):
                         raise StateConflict('resource-returning tasks require an explicit join or handoff')
-                    store.join_task(task, self.principal)
-            store.close_scope(self.scope, self.principal)
+                    store.join_task(task, self.principal, parent_lease=self.parent_lease)
+            store.close_scope(self.scope, self.principal, parent_lease=self.parent_lease)
             clean = True
         except BaseException:
-            store.close_scope(self.scope, self.principal, cancel=True)
+            store.close_scope(self.scope, self.principal, cancel=True, parent_lease=self.parent_lease)
             raise
         finally:
             self.pool.shutdown(wait=clean and all(f.done() for f in self.futures.values()), cancel_futures=True)

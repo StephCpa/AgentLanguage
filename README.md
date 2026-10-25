@@ -54,6 +54,7 @@ AL-0 是面向 Agent 的小型受检语言提案。它将模型候选、检查�
 43. [提供方拒绝与派发阻止设计](docs/43-inference-provider-outcomes.md)：已接纳责任、受检派发阻止、可信响应封套及错误分类。
 44. [受检提供方结果](docs/44-checked-inference-provider-outcomes.md)：可信 Refused、队列阻止后的 Waiting、取消退款、迟到费用与组合调度。
 45. [持久 ContextView 设计](docs/45-context-views.md)：来源与角色、必选约束、容量与筛选、固定快照、标签依赖及受检接入。
+46. [固定提交审计修复](docs/46-audit-remediation.md)：七项问题、跨模块组合回归、独立语义版本、旧记录边界及 Linux 安装验收。
 
 ## 运行参考实现
 

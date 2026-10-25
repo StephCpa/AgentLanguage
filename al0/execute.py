@@ -23,6 +23,7 @@ from .inference_progress import progress_type
 from .inference_admission import call_type
 from .inference_response import InferenceResponse, classify_inference, refused
 from .store import DispatchBlocked
+from .semantics import execution_site
 
 
 @dataclass(frozen=True)
@@ -488,7 +489,7 @@ class Interpreter:
         for node in doc['nodes']:
             execution.step()
             name, op = node['id'], node['op']
-            site=name if not path else 'branch:'+digest([list(path),name])
+            site=execution_site(name, path)
             access=store.resource_access(run,principal,self.resources.values(),task_lease=task_lease) if self.custody else nullcontext({})
             with access as presented:
                 try:
@@ -654,8 +655,10 @@ class Interpreter:
                         pc[0]=pc[0].join(store.task_label(task,principal))
                         if op=='join':
                             result=scope.join(task)
+                        elif op=='handoff':
+                            result=scope.handoff(task)
                         else:
-                            result=Value({'handoff':scope.handoff,'join_outcome':scope.join_outcome,
+                            result=Value({'join_outcome':scope.join_outcome,
                                           'cancel_outcome':scope.cancel_outcome}[op](task))
                             if op!='handoff' and result.data['kind']=='Completed' and self.custody:
                                 self._remember_resources(value_refs(Value.from_record(result.data['payload'])).values())

@@ -98,3 +98,5 @@ python -m scripts.check_installed_typing --wheel dist/typing-audit/al0_reference
 ```
 
 构造接口报告写入 `models/sdk_type_audit.json`，安装包报告写入 `models/sdk_wheel_audit.json`。单元测试在未安装 mypy 时会明确跳过可选静态检查；该跳过不能算静态验收通过，独立命令始终要求固定版本工具并在缺失时失败。CI 可设置 `AL0_TYPING_PYTHON` 选择工具环境、`AL0_TYPING_REPORT` 保存结果。本轮完整回归启用了该检查。
+
+审计修复后，wheel 脚本对 `--python` 只做绝对路径转换，保留 POSIX venv 符号链接所决定的环境；wheel 文件本身仍可解引用。`.github/workflows/ci.yml` 已配置 Python 3.10/3.12 全量与固定 mypy，以及独立 symlinks/copies venv 安装验收。SDK 的 Cap 来源推断也改为共享 IR 类型查询，覆盖 Bundle/Variant 及连续衰减，具体矩阵和本轮结果见[审计修复](46-audit-remediation.md)。

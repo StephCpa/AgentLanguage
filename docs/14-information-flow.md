@@ -53,7 +53,7 @@ Intent 把准备时的标签写入规范化描述，标签参与 intent digest�
 每个任务持久保存两个标签：
 
 - `control`：任务创建时的控制依赖，合并父上下文及显式输入标签。
-- `upper_bound`：合并 control、所有嵌入子计划和结果分支中的工具输出声明与 restrict 标签。
+- `upper_bound`：合并 control、所有嵌入子计划和结果分支中的工具输出声明与 restrict 标签，以及共享检查器识别出的 Operation/OpRef/Snapshot 工具来源；递归覆盖 Bundle/Variant 成员。
 
 上界扫描所有静态分支，不依赖某次实际执行选择。子任务从 control 开始执行，所以不会仅因为稍后可能读取私密数据，就禁止此前独立的公开调用。在任务边界，Completed 结果及 Failed、Waiting、Cancelled 结果都合并 upper_bound。这样，即使私密调用失败、没有返回值，或者任务仅返回常量，其结果种类仍保留可能影响它的私密依赖。
 
@@ -70,6 +70,8 @@ schema 升至 8，新增 `tool_flows` 和 `task_flows`。工具版本内的流�
 任务的 control、upper_bound 与身份、输入和预算分配在同一事务内保存。标签字段写入已有值和 outcome 记录，不依赖独立的旁路缓存。公开且无 taint 的旧值记录仍可省略 label；公开 Intent 仍可省略 flow。
 
 数据库结构支持从既有受支持版本 2 至 7 迁移，保留账本与未决责任。工具目录指纹新增 `flow_semantics=1`，防止新解释器以旧语义的程序身份继续运行；旧 run 不会仅因数据库迁移就自动变成带信息流证明的新 run。旧任务没有记录的标签不能追溯重建。旧执行应由匹配其原语义的运行时完成责任处理，或通过后续显式迁移协议处理。
+
+上段记录最初信息流实现的版本。当前审计修复已将 `flow_semantics` 升至 2，并加入 `execution_semantics=2`；数据库仍为 schema 21。旧计划及旧已完成任务不能通过新受检入口直接恢复。handoff 的控制回执同时合并任务上界与实际结果标签，不输出内部结果记录。兼容边界与验证见[审计修复](46-audit-remediation.md)。
 
 ## 实际验证
 

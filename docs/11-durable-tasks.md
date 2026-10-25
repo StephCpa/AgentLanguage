@@ -31,6 +31,8 @@ Scope 根使用 Open，关闭后为 Completed 或 Cancelled。`Runtime` 是持�
 
 TaskLease 是可信宿主的代次令牌，不是远程认证凭据。宿主及数据库仍在可信基中；不能据此宣称恶意 Python 插件隔离或分布式工作节点的安全认证已经完成。
 
+审计修复后，嵌套 join、handoff、close_scope、异常退出和已有 scope/spawn 的恢复也校验当前父 lease。可信宿主若要越过父工作线程执行取消，须显式使用 `supervise_task` 或 `supervise_scope`，且不能处于工作线程资源访问上下文；它们不是失效 lease 的自动回退路径。语言 handoff 返回带标签的 task/state/disposition 回执，内部快照只供可信 Store 调用者读取，详见[审计修复](46-audit-remediation.md)。
+
 ## 作用域退出的事务边界
 
 任务接纳和派发都会核对任务状态、预算归属和当前 epoch。退出、接纳、派发共用 Store 的事务串行化边界。

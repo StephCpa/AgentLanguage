@@ -1,3 +1,4 @@
+from al0.semantics import execution_site
 from contextlib import closing
 import json
 from pathlib import Path
@@ -184,7 +185,7 @@ class ControlTests(unittest.TestCase):
 
     def complete_work(self):
         with closing(sqlite3.connect(self.path)) as db:
-            operation=db.execute("SELECT id FROM operations WHERE run=? AND node='operation'",(self.run,)).fetchone()[0]
+            operation=db.execute("SELECT id FROM operations WHERE run=? AND node=?",(self.run,execution_site('operation'))).fetchone()[0]
         attempt=self.store.snapshot(operation,self.who)['attempts'][0]['id']
         self.store.business_result(operation,self.who,provider='work',evidence_id='late:'+operation,outcome='Applied',details={'output':{}})
         self.store.settle(attempt,self.who,provider='work',evidence_id='bill:'+attempt,actual={'u':1})

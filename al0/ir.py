@@ -19,6 +19,7 @@ from .bundle_types import is_affine, is_pure_type, controlled
 from .inference import ERROR_FIELDS, result_type as inference_type
 from .inference_progress import progress_type
 from .inference_admission import REJECTION_FIELDS, call_type
+from .semantics import FLOW_SEMANTICS, EXECUTION_SEMANTICS
 
 
 BUSINESS_STATES = frozenset({'NotDispatched', 'Pending', 'Unknown', 'Applied', 'ProvenNoEffect'})
@@ -178,7 +179,8 @@ class Catalog:
             if not tool.flow_json:
                 del specs[name]['flow_json']
         # The new interpreter semantics must not silently resume a pre-label run.
-        return digest({'flow_semantics':1, 'schemas': self._schemas, 'tools': specs})
+        return digest({'flow_semantics':FLOW_SEMANTICS, 'execution_semantics':EXECUTION_SEMANTICS,
+                       'schemas': self._schemas, 'tools': specs})
 
 
 @dataclass(frozen=True)

@@ -11,7 +11,7 @@ from al0.sdk import (Candidate, Cap, Checked, DataRef, Intent, Observation, Oper
 
 JsonValue: TypeAlias = str | int | bool | None | list['JsonValue'] | dict[str, 'JsonValue']
 
-CATALOG_FINGERPRINT = 'f937bd97a44d0e06db9ce9ef7e8fec58146c5e5ee01193f769da3d87ab60c64b'
+CATALOG_FINGERPRINT = '892ced01a2ac1c8b98b490cc6c0f3c8d32693bf7ddd5f0ba58a4e156e042694a'
 
 Schema_Payload = TypedDict('Schema_Payload', {'count': int, 'text': str})
 

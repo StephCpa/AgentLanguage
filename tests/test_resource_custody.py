@@ -285,7 +285,7 @@ class ResourceCustodyTests(unittest.TestCase):
         with self.access((),lease):
             self.store.join_task(nested,self.who,parent_lease=lease)
         returned=self.store.task_resource_result(nested,self.who)
-        self.store.close_scope(nested_scope,self.who)
+        self.store.close_scope(nested_scope,self.who,parent_lease=lease)
         self.assertEqual(self.held(returned['permit'])['owner'],task)
         self.admit(task,lease,returned)
 

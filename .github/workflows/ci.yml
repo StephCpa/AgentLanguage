@@ -1,0 +1,85 @@
+name: AL-0 acceptance
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  regression:
+    name: Regression and typing (Python ${{ matrix.python }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ['3.10', '3.12']
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install pinned typing dependency
+        run: python -m pip install 'mypy==1.18.2'
+      - name: Full regression including mandatory typing gate
+        env:
+          AL0_TYPING_REPORT: models/sdk_type_audit.json
+        run: |
+          export AL0_TYPING_PYTHON="$(command -v python)"
+          python -m unittest discover -q 2>&1 | tee models/ci_regression.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: regression-python-${{ matrix.python }}
+          path: |
+            models/ci_regression.log
+            models/sdk_type_audit.json
+
+  installed-wheel:
+    name: Installed wheel (${{ matrix.venv-mode }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        venv-mode: [symlinks, copies]
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Build wheel and create typing environment
+        run: |
+          python -m pip wheel --no-deps . --wheel-dir dist/ci
+          python -m venv --${{ matrix.venv-mode }} .venv
+          .venv/bin/python -m pip install 'mypy==1.18.2'
+      - name: Verify environment mode
+        env:
+          VENV_MODE: ${{ matrix.venv-mode }}
+        run: |
+          python - <<'PY'
+          import os
+          from pathlib import Path
+          assert Path('.venv/bin/python').is_symlink() == (os.environ['VENV_MODE'] == 'symlinks')
+          PY
+          .venv/bin/python -c 'import sys; assert sys.prefix != sys.base_prefix'
+      - name: Audit independent installed consumer
+        run: |
+          python -m scripts.check_installed_typing \
+            --python .venv/bin/python \
+            --wheel dist/ci/al0_reference-0.1.0-py3-none-any.whl \
+            --output models/sdk_wheel_audit.json 2>&1 | tee models/ci_wheel.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: installed-wheel-${{ matrix.venv-mode }}
+          path: |
+            models/ci_wheel.log
+            models/sdk_wheel_audit.json

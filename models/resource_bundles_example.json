@@ -1,0 +1,33 @@
+{
+  "result": {
+    "first": "Done",
+    "note": "ready",
+    "second": "Done"
+  },
+  "replay": {
+    "first": "Done",
+    "note": "ready",
+    "second": "Done"
+  },
+  "identical_ir": true,
+  "provider_calls": [
+    [
+      "first",
+      1
+    ],
+    [
+      "second",
+      1
+    ]
+  ],
+  "budget": {
+    "u": {
+      "total": 10,
+      "free": 8,
+      "reserved": 0,
+      "confirmed": 2,
+      "retired": 0
+    }
+  },
+  "replay_added_events": 0
+}

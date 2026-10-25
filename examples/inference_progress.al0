@@ -1,0 +1,30 @@
+workflow success(result: Candidate<Text>) uses {} {
+    let preserved: Variant<{Error: InferenceError, Success: Candidate<Text>, Waiting: Operation<"model">}> = variant("Success", result);
+    return preserved;
+}
+workflow error(result: InferenceError) uses {} {
+    let preserved: Variant<{Error: InferenceError, Success: Candidate<Text>, Waiting: Operation<"model">}> = variant("Error", result);
+    return preserved;
+}
+workflow resume(result: Operation<"model">) uses {"infer:model"} {
+    let progress = resume_infer(result);
+    return progress;
+}
+workflow waiting(result: Operation<"model">) uses {"tasks", "infer:model"} {
+    let group = scope({}, false);
+    let worker = spawn_with(group, resume, {}, {result: result});
+    let progress = join(worker);
+    let closed = close_scope(group);
+    return progress;
+}
+workflow step(index: Int, state: Variant<{Error: InferenceError, Success: Candidate<Text>, Waiting: Operation<"model">}>) uses {"tasks", "infer:model"} {
+    let next = match_variant(state, {Success: success, Error: error, Waiting: waiting}, {});
+    return next;
+}
+workflow inference-progress() uses {"infer:model", "tasks"} {
+    let prompt: Text = "question";
+    let initial = infer_progress("model", prompt);
+    let count: Int = 3;
+    let loop = repeat(count, 5, initial, step, {});
+    return loop;
+}

@@ -1,0 +1,17 @@
+fn accumulate(value: Int, delta: Int) -> Int {
+    let next = add(value, delta);
+    return next;
+}
+
+workflow batch(index: Int, state: Int) -> Int uses {"observe:emit"} {
+    let next = call(accumulate, {value: state, delta: index});
+    let sent = observe("emit", next);
+    return next;
+}
+
+workflow bounded-batches() -> Int uses {"observe:emit"} {
+    let count: Int = 4;
+    let initial: Int = 0;
+    let total = repeat(count, 10, initial, batch, {});
+    return total;
+}

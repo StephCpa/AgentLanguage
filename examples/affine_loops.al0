@@ -1,0 +1,22 @@
+workflow sample(index: Int) uses {"infer:model"} {
+    let candidate = infer_result("model", index);
+    return candidate;
+}
+workflow worker(funds: Budget, index: Int) -> Budget uses {"infer:model"} {
+    let sample = invoke_with(sample, funds, {index: index});
+    return funds;
+}
+workflow step(index: Int, state: Budget) -> Budget uses {"tasks", "infer:model"} {
+    let scope = scope({}, false);
+    let task = spawn_with(scope, worker, {}, {funds: state, index: index});
+    let returned = join(task);
+    let closed = close_scope(scope);
+    return returned;
+}
+workflow affine-loop() -> Bool uses {"budget", "tasks", "infer:model"} {
+    let funds = split_budget({u: 5});
+    let count: Int = 3;
+    let loop = repeat(count, 5, funds, step, {});
+    let released = join_budget(loop);
+    return released;
+}

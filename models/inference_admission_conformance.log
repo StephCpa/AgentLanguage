@@ -1,0 +1,35 @@
+{
+  "passed": true,
+  "runtime_integrated": true,
+  "schedules": 120,
+  "steps": 600,
+  "state_and_replay_checks": 5760,
+  "rejection_traces": [
+    {
+      "initial_authorized": false,
+      "initial_funded": false,
+      "first": "Rejected",
+      "new_position": "Started"
+    },
+    {
+      "initial_authorized": false,
+      "initial_funded": true,
+      "first": "Rejected",
+      "new_position": "Started"
+    },
+    {
+      "initial_authorized": true,
+      "initial_funded": false,
+      "first": "Rejected",
+      "new_position": "Started"
+    }
+  ],
+  "scope": "one pending admitted call; permutations of one late business fact, bill, revoke, cancel and observation; fixed replay after each step",
+  "not_covered": [
+    "arbitrary programs",
+    "task transfer and race",
+    "provider refusal",
+    "multiple attempts",
+    "all SQLite execution interleavings"
+  ]
+}

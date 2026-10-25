@@ -1,0 +1,22 @@
+{
+  "identical_ir": true,
+  "case": "Success",
+  "replay_equal": true,
+  "calls": 1,
+  "endpoint_cost": 1,
+  "reserved_before_bill": 1,
+  "budget": {
+    "u": {
+      "total": 10,
+      "free": 9,
+      "reserved": 0,
+      "confirmed": 1,
+      "retired": 0
+    }
+  },
+  "observations": [
+    "Waiting",
+    "Success"
+  ],
+  "replay_added_events": 0
+}

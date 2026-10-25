@@ -1,0 +1,230 @@
+{
+  "transitive_boundary": {
+    "states": 60,
+    "transitions": 120,
+    "terminal_states": 5,
+    "violation_states": {},
+    "shortest_counterexamples": {}
+  },
+  "leaf_only": {
+    "states": 80,
+    "transitions": 158,
+    "terminal_states": 8,
+    "violation_states": {
+      "new_work_without_live_ancestor": 20
+    },
+    "shortest_counterexamples": {
+      "new_work_without_live_ancestor": [
+        {
+          "action": "derive reports-only child",
+          "state": {
+            "root_active": true,
+            "child_exists": true,
+            "child_active": true,
+            "argument_cap": "",
+            "permit_channel": "",
+            "phase": "idle",
+            "recovered": false,
+            "reserved": 0,
+            "confirmed": 0,
+            "unauthorized": false,
+            "boundary_breach": false,
+            "outside_effect": false
+          }
+        },
+        {
+          "action": "revoke root",
+          "state": {
+            "root_active": false,
+            "child_exists": true,
+            "child_active": true,
+            "argument_cap": "",
+            "permit_channel": "",
+            "phase": "idle",
+            "recovered": false,
+            "reserved": 0,
+            "confirmed": 0,
+            "unauthorized": false,
+            "boundary_breach": false,
+            "outside_effect": false
+          }
+        },
+        {
+          "action": "enter child boundary with child",
+          "state": {
+            "root_active": false,
+            "child_exists": true,
+            "child_active": true,
+            "argument_cap": "child",
+            "permit_channel": "",
+            "phase": "idle",
+            "recovered": false,
+            "reserved": 0,
+            "confirmed": 0,
+            "unauthorized": false,
+            "boundary_breach": false,
+            "outside_effect": false
+          }
+        },
+        {
+          "action": "authorize reports",
+          "state": {
+            "root_active": false,
+            "child_exists": true,
+            "child_active": true,
+            "argument_cap": "child",
+            "permit_channel": "reports",
+            "phase": "idle",
+            "recovered": false,
+            "reserved": 0,
+            "confirmed": 0,
+            "unauthorized": true,
+            "boundary_breach": false,
+            "outside_effect": false
+          }
+        }
+      ]
+    }
+  },
+  "ambient_only": {
+    "states": 148,
+    "transitions": 316,
+    "terminal_states": 12,
+    "violation_states": {
+      "captured_cap_exceeds_invocation_boundary": 88,
+      "dispatch_outside_invocation_constraints": 16
+    },
+    "shortest_counterexamples": {
+      "captured_cap_exceeds_invocation_boundary": [
+        {
+          "action": "derive reports-only child",
+          "state": {
+            "root_active": true,
+            "child_exists": true,
+            "child_active": true,
+            "argument_cap": "",
+            "permit_channel": "",
+            "phase": "idle",
+            "recovered": false,
+            "reserved": 0,
+            "confirmed": 0,
+            "unauthorized": false,
+            "boundary_breach": false,
+            "outside_effect": false
+          }
+        },
+        {
+          "action": "enter child boundary with root",
+          "state": {
+            "root_active": true,
+            "child_exists": true,
+            "child_active": true,
+            "argument_cap": "root",
+            "permit_channel": "",
+            "phase": "idle",
+            "recovered": false,
+            "reserved": 0,
+            "confirmed": 0,
+            "unauthorized": false,
+            "boundary_breach": true,
+            "outside_effect": false
+          }
+        }
+      ],
+      "dispatch_outside_invocation_constraints": [
+        {
+          "action": "derive reports-only child",
+          "state": {
+            "root_active": true,
+            "child_exists": true,
+            "child_active": true,
+            "argument_cap": "",
+            "permit_channel": "",
+            "phase": "idle",
+            "recovered": false,
+            "reserved": 0,
+            "confirmed": 0,
+            "unauthorized": false,
+            "boundary_breach": false,
+            "outside_effect": false
+          }
+        },
+        {
+          "action": "enter child boundary with root",
+          "state": {
+            "root_active": true,
+            "child_exists": true,
+            "child_active": true,
+            "argument_cap": "root",
+            "permit_channel": "",
+            "phase": "idle",
+            "recovered": false,
+            "reserved": 0,
+            "confirmed": 0,
+            "unauthorized": false,
+            "boundary_breach": true,
+            "outside_effect": false
+          }
+        },
+        {
+          "action": "authorize admin",
+          "state": {
+            "root_active": true,
+            "child_exists": true,
+            "child_active": true,
+            "argument_cap": "root",
+            "permit_channel": "admin",
+            "phase": "idle",
+            "recovered": false,
+            "reserved": 0,
+            "confirmed": 0,
+            "unauthorized": false,
+            "boundary_breach": true,
+            "outside_effect": false
+          }
+        },
+        {
+          "action": "admit and reserve",
+          "state": {
+            "root_active": true,
+            "child_exists": true,
+            "child_active": true,
+            "argument_cap": "root",
+            "permit_channel": "admin",
+            "phase": "queued",
+            "recovered": false,
+            "reserved": 1,
+            "confirmed": 0,
+            "unauthorized": false,
+            "boundary_breach": true,
+            "outside_effect": false
+          }
+        },
+        {
+          "action": "commit dispatch",
+          "state": {
+            "root_active": true,
+            "child_exists": true,
+            "child_active": true,
+            "argument_cap": "root",
+            "permit_channel": "admin",
+            "phase": "exposed",
+            "recovered": false,
+            "reserved": 1,
+            "confirmed": 0,
+            "unauthorized": false,
+            "boundary_breach": true,
+            "outside_effect": true
+          }
+        }
+      ]
+    }
+  },
+  "witnessed_behaviors": {
+    "allowed_child_dispatch": true,
+    "cancel_refunds_unexposed": true,
+    "revocation_preserves_exposed_reservation": true,
+    "late_fee_after_revocation": true,
+    "completed_recovery_after_revocation": true
+  }
+}

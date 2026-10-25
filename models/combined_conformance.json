@@ -1,0 +1,29 @@
+{
+  "scope": "selected model traces against Store; separate provider effects/fees; no full refinement proof",
+  "crash_mode": "Store reopen in corpus; forced process exits tested separately",
+  "apply": {
+    "states": 548,
+    "transitions": 1344,
+    "coverage_obligations": 319,
+    "selected_traces": 98,
+    "selected_steps": 641,
+    "replayed_distinct_states": 157,
+    "replayed_distinct_edges": 202,
+    "coverage_definition": "action x security/control/cost partition; all feasible adjacent action pairs",
+    "passed_traces": 98,
+    "replay_rejection_duplicate_probes": 2967
+  },
+  "reject": {
+    "states": 548,
+    "transitions": 1344,
+    "coverage_obligations": 316,
+    "selected_traces": 96,
+    "selected_steps": 630,
+    "replayed_distinct_states": 156,
+    "replayed_distinct_edges": 199,
+    "coverage_definition": "action x security/control/cost partition; all feasible adjacent action pairs",
+    "passed_traces": 96,
+    "replay_rejection_duplicate_probes": 2923
+  },
+  "elapsed_seconds": 141.25
+}

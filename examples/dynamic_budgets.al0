@@ -1,0 +1,30 @@
+fn allocation(units: Int) -> Json {
+    let one: Int = 1;
+    let total = add(units, one);
+    let amount = resources({u: total});
+    return amount;
+}
+
+workflow emit-one(message: Text) -> Observation<Text> uses {"observe:emit"} {
+    let value = observe("emit", message);
+    return value;
+}
+
+workflow worker(message: Text, amount: Json) -> Observation<Text>
+uses {"budget", "observe:emit"} {
+    let funds = split_budget(amount);
+    let value = invoke_with(emit-one, funds, {message: message});
+    let released = join_budget(funds);
+    return value;
+}
+
+workflow dynamic-budgets(units: Int) -> Observation<Text>
+uses {"tasks", "budget", "observe:emit"} {
+    let amount = call(allocation, {units: units});
+    let message: Text = "hello";
+    let group = scope(amount, false);
+    let task = spawn_with(group, worker, amount, {message: message, amount: amount});
+    let result = join(task);
+    let closed = close_scope(group);
+    return result;
+}

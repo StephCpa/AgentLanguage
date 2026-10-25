@@ -1,0 +1,25 @@
+workflow submit(request: Intent<"send">, permission: Permit<request>) -> Operation<"send">
+uses {"admit:send@output"} {
+    let operation = admit(request, permission);
+    return operation;
+}
+
+workflow complete(operation: Operation<"send">) -> Text uses {} {
+    let status = await(operation);
+    let result: Text = match_business(status, {
+        NotDispatched: "Waiting", Pending: "Waiting", Unknown: "NeedsReconciliation",
+        Applied: "Done", ProvenNoEffect: "Rejected"
+    });
+    return result;
+}
+
+workflow resource-branches() -> Text
+uses {"authorize:send@output", "admit:send@output"} {
+    let message: Text = "hello";
+    let request = prepare("send", message);
+    let permission = authorize(request);
+    let selected: Bool = true;
+    let operation = if(selected, submit, submit, {request: request, permission: permission});
+    let result = if(selected, complete, complete, {operation: operation});
+    return result;
+}

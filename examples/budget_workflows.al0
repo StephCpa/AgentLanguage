@@ -1,0 +1,19 @@
+workflow emit-one(message: Text) -> Observation<Text> uses {"observe:emit"} {
+    let value = observe("emit", message);
+    return value;
+}
+
+workflow funded(funds: Budget, message: Text) -> Observation<Text> uses {"observe:emit", "budget"} {
+    let value = invoke_with(emit-one, funds, {message: message});
+    let released = join_budget(funds);
+    return value;
+}
+
+workflow budget-workflows() -> Observation<Text> uses {"budget", "observe:emit"} {
+    let message: Text = "hello";
+    let work = split_budget({u: 3});
+    let reserve = split_budget({u: 2});
+    let result = invoke(funded, {funds: work, message: message});
+    let released = join_budget(reserve);
+    return result;
+}

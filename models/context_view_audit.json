@@ -1,0 +1,551 @@
+{
+  "passed": true,
+  "runtime_integrated": false,
+  "count_unit": "synthetic; not provider tokens",
+  "baseline": {
+    "passed": true,
+    "states": 3576,
+    "transitions": 11324,
+    "reachable_cases": [
+      "Dispatched",
+      "FilteredReady",
+      "FixedAcrossEnvironmentChange",
+      "HistoricalReadAfterCancel",
+      "Ready",
+      "TooLarge"
+    ]
+  },
+  "mutants": {
+    "drop_mandatory": {
+      "passed": false,
+      "states_examined": 325,
+      "violations": [
+        "mandatory_preserved"
+      ],
+      "initial": {
+        "source": 0,
+        "counter": 0,
+        "limit": 4,
+        "policy": "Filter",
+        "private": false,
+        "authorized": true,
+        "cancelled": false,
+        "binding": null,
+        "prepared": null,
+        "fixed": null,
+        "observed": null,
+        "admitted": false,
+        "sent": null,
+        "dispatch_authorized": true,
+        "dispatch_cancelled": false
+      },
+      "trace": [
+        "bind_inputs",
+        "prepare"
+      ],
+      "final": {
+        "source": 0,
+        "counter": 0,
+        "limit": 4,
+        "policy": "Filter",
+        "private": false,
+        "authorized": true,
+        "cancelled": false,
+        "binding": {
+          "source": 0,
+          "counter": 0,
+          "limit": 4,
+          "policy": "Filter",
+          "private": false
+        },
+        "prepared": {
+          "binding": {
+            "source": 0,
+            "counter": 0,
+            "limit": 4,
+            "policy": "Filter",
+            "private": false
+          },
+          "kind": "Ready",
+          "selected": [
+            "public"
+          ],
+          "count": 3,
+          "private": false
+        },
+        "fixed": null,
+        "observed": null,
+        "admitted": false,
+        "sent": null,
+        "dispatch_authorized": true,
+        "dispatch_cancelled": false
+      }
+    },
+    "drop_excluded_label": {
+      "passed": false,
+      "states_examined": 475,
+      "violations": [
+        "selection_label_preserved"
+      ],
+      "initial": {
+        "source": 0,
+        "counter": 0,
+        "limit": 6,
+        "policy": "Filter",
+        "private": true,
+        "authorized": true,
+        "cancelled": false,
+        "binding": null,
+        "prepared": null,
+        "fixed": null,
+        "observed": null,
+        "admitted": false,
+        "sent": null,
+        "dispatch_authorized": true,
+        "dispatch_cancelled": false
+      },
+      "trace": [
+        "bind_inputs",
+        "prepare"
+      ],
+      "final": {
+        "source": 0,
+        "counter": 0,
+        "limit": 6,
+        "policy": "Filter",
+        "private": true,
+        "authorized": true,
+        "cancelled": false,
+        "binding": {
+          "source": 0,
+          "counter": 0,
+          "limit": 6,
+          "policy": "Filter",
+          "private": true
+        },
+        "prepared": {
+          "binding": {
+            "source": 0,
+            "counter": 0,
+            "limit": 6,
+            "policy": "Filter",
+            "private": true
+          },
+          "kind": "Ready",
+          "selected": [
+            "mandatory",
+            "public"
+          ],
+          "count": 5,
+          "private": false
+        },
+        "fixed": null,
+        "observed": null,
+        "admitted": false,
+        "sent": null,
+        "dispatch_authorized": true,
+        "dispatch_cancelled": false
+      }
+    },
+    "clear_failure_label": {
+      "passed": false,
+      "states_examined": 295,
+      "violations": [
+        "failure_label_preserved"
+      ],
+      "initial": {
+        "source": 0,
+        "counter": 0,
+        "limit": 4,
+        "policy": "Fail",
+        "private": true,
+        "authorized": true,
+        "cancelled": false,
+        "binding": null,
+        "prepared": null,
+        "fixed": null,
+        "observed": null,
+        "admitted": false,
+        "sent": null,
+        "dispatch_authorized": true,
+        "dispatch_cancelled": false
+      },
+      "trace": [
+        "bind_inputs",
+        "prepare"
+      ],
+      "final": {
+        "source": 0,
+        "counter": 0,
+        "limit": 4,
+        "policy": "Fail",
+        "private": true,
+        "authorized": true,
+        "cancelled": false,
+        "binding": {
+          "source": 0,
+          "counter": 0,
+          "limit": 4,
+          "policy": "Fail",
+          "private": true
+        },
+        "prepared": {
+          "binding": {
+            "source": 0,
+            "counter": 0,
+            "limit": 4,
+            "policy": "Fail",
+            "private": true
+          },
+          "kind": "TooLarge",
+          "selected": [],
+          "count": 2,
+          "private": false
+        },
+        "fixed": null,
+        "observed": null,
+        "admitted": false,
+        "sent": null,
+        "dispatch_authorized": true,
+        "dispatch_cancelled": false
+      }
+    },
+    "replay_reads_latest_source": {
+      "passed": false,
+      "states_examined": 1710,
+      "violations": [
+        "fixed_observation"
+      ],
+      "initial": {
+        "source": 0,
+        "counter": 0,
+        "limit": 4,
+        "policy": "Fail",
+        "private": false,
+        "authorized": true,
+        "cancelled": false,
+        "binding": null,
+        "prepared": null,
+        "fixed": null,
+        "observed": null,
+        "admitted": false,
+        "sent": null,
+        "dispatch_authorized": true,
+        "dispatch_cancelled": false
+      },
+      "trace": [
+        "bind_inputs",
+        "source_changes",
+        "prepare",
+        "commit",
+        "read_or_recover"
+      ],
+      "final": {
+        "source": 1,
+        "counter": 0,
+        "limit": 4,
+        "policy": "Fail",
+        "private": false,
+        "authorized": true,
+        "cancelled": false,
+        "binding": {
+          "source": 0,
+          "counter": 0,
+          "limit": 4,
+          "policy": "Fail",
+          "private": false
+        },
+        "prepared": null,
+        "fixed": {
+          "binding": {
+            "source": 0,
+            "counter": 0,
+            "limit": 4,
+            "policy": "Fail",
+            "private": false
+          },
+          "kind": "TooLarge",
+          "selected": [],
+          "count": 2,
+          "private": false
+        },
+        "observed": {
+          "binding": {
+            "source": 1,
+            "counter": 0,
+            "limit": 4,
+            "policy": "Fail",
+            "private": false
+          },
+          "kind": "TooLarge",
+          "selected": [],
+          "count": 2,
+          "private": false
+        },
+        "admitted": false,
+        "sent": null,
+        "dispatch_authorized": true,
+        "dispatch_cancelled": false
+      }
+    },
+    "dispatch_uses_latest_counter": {
+      "passed": false,
+      "states_examined": 2643,
+      "violations": [
+        "sent_fixed_view"
+      ],
+      "initial": {
+        "source": 0,
+        "counter": 0,
+        "limit": 6,
+        "policy": "Filter",
+        "private": false,
+        "authorized": true,
+        "cancelled": false,
+        "binding": null,
+        "prepared": null,
+        "fixed": null,
+        "observed": null,
+        "admitted": false,
+        "sent": null,
+        "dispatch_authorized": true,
+        "dispatch_cancelled": false
+      },
+      "trace": [
+        "bind_inputs",
+        "counter_changes",
+        "prepare",
+        "commit",
+        "admit",
+        "dispatch"
+      ],
+      "final": {
+        "source": 0,
+        "counter": 1,
+        "limit": 6,
+        "policy": "Filter",
+        "private": false,
+        "authorized": true,
+        "cancelled": false,
+        "binding": {
+          "source": 0,
+          "counter": 0,
+          "limit": 6,
+          "policy": "Filter",
+          "private": false
+        },
+        "prepared": null,
+        "fixed": {
+          "binding": {
+            "source": 0,
+            "counter": 0,
+            "limit": 6,
+            "policy": "Filter",
+            "private": false
+          },
+          "kind": "Ready",
+          "selected": [
+            "mandatory",
+            "public"
+          ],
+          "count": 5,
+          "private": false
+        },
+        "observed": null,
+        "admitted": true,
+        "sent": {
+          "binding": {
+            "source": 0,
+            "counter": 1,
+            "limit": 6,
+            "policy": "Filter",
+            "private": false
+          },
+          "kind": "TooLarge",
+          "selected": [],
+          "count": 2,
+          "private": false
+        },
+        "dispatch_authorized": true,
+        "dispatch_cancelled": false
+      }
+    },
+    "dispatch_after_revoke": {
+      "passed": false,
+      "states_examined": 2657,
+      "violations": [
+        "dispatch_authorized"
+      ],
+      "initial": {
+        "source": 0,
+        "counter": 0,
+        "limit": 6,
+        "policy": "Filter",
+        "private": false,
+        "authorized": true,
+        "cancelled": false,
+        "binding": null,
+        "prepared": null,
+        "fixed": null,
+        "observed": null,
+        "admitted": false,
+        "sent": null,
+        "dispatch_authorized": true,
+        "dispatch_cancelled": false
+      },
+      "trace": [
+        "bind_inputs",
+        "prepare",
+        "commit",
+        "admit",
+        "revoke",
+        "dispatch"
+      ],
+      "final": {
+        "source": 0,
+        "counter": 0,
+        "limit": 6,
+        "policy": "Filter",
+        "private": false,
+        "authorized": false,
+        "cancelled": false,
+        "binding": {
+          "source": 0,
+          "counter": 0,
+          "limit": 6,
+          "policy": "Filter",
+          "private": false
+        },
+        "prepared": null,
+        "fixed": {
+          "binding": {
+            "source": 0,
+            "counter": 0,
+            "limit": 6,
+            "policy": "Filter",
+            "private": false
+          },
+          "kind": "Ready",
+          "selected": [
+            "mandatory",
+            "public"
+          ],
+          "count": 5,
+          "private": false
+        },
+        "observed": null,
+        "admitted": true,
+        "sent": {
+          "binding": {
+            "source": 0,
+            "counter": 0,
+            "limit": 6,
+            "policy": "Filter",
+            "private": false
+          },
+          "kind": "Ready",
+          "selected": [
+            "mandatory",
+            "public"
+          ],
+          "count": 5,
+          "private": false
+        },
+        "dispatch_authorized": false,
+        "dispatch_cancelled": false
+      }
+    },
+    "reopen_failure": {
+      "passed": false,
+      "states_examined": 1720,
+      "violations": [
+        "fixed_observation"
+      ],
+      "initial": {
+        "source": 0,
+        "counter": 0,
+        "limit": 4,
+        "policy": "Fail",
+        "private": false,
+        "authorized": true,
+        "cancelled": false,
+        "binding": null,
+        "prepared": null,
+        "fixed": null,
+        "observed": null,
+        "admitted": false,
+        "sent": null,
+        "dispatch_authorized": true,
+        "dispatch_cancelled": false
+      },
+      "trace": [
+        "bind_inputs",
+        "capacity_changes",
+        "prepare",
+        "commit",
+        "read_or_recover"
+      ],
+      "final": {
+        "source": 0,
+        "counter": 0,
+        "limit": 10,
+        "policy": "Fail",
+        "private": false,
+        "authorized": true,
+        "cancelled": false,
+        "binding": {
+          "source": 0,
+          "counter": 0,
+          "limit": 4,
+          "policy": "Fail",
+          "private": false
+        },
+        "prepared": null,
+        "fixed": {
+          "binding": {
+            "source": 0,
+            "counter": 0,
+            "limit": 4,
+            "policy": "Fail",
+            "private": false
+          },
+          "kind": "TooLarge",
+          "selected": [],
+          "count": 2,
+          "private": false
+        },
+        "observed": {
+          "binding": {
+            "source": 0,
+            "counter": 0,
+            "limit": 10,
+            "policy": "Fail",
+            "private": false
+          },
+          "kind": "Ready",
+          "selected": [
+            "mandatory",
+            "source-v0",
+            "public"
+          ],
+          "count": 8,
+          "private": false
+        },
+        "admitted": false,
+        "sent": null,
+        "dispatch_authorized": true,
+        "dispatch_cancelled": false
+      }
+    }
+  },
+  "scope": "one binding/view/request; three text materials; two source/counter versions; Fail or whole-material Filter",
+  "not_covered": [
+    "production Store correspondence",
+    "real tokenizers or providers",
+    "summary workflows",
+    "multiple views/requests",
+    "full label lattice, role partitioning and protected value provenance",
+    "task custody, leases and complete finance protocol",
+    "process or SQLite crash tests"
+  ]
+}

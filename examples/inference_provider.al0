@@ -1,0 +1,5 @@
+workflow inference-provider() uses {"infer:model"} {
+    let prompt: Text = "question";
+    let result = try_infer("model", prompt);
+    return result;
+}

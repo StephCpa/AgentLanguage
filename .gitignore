@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.venv-typing/
+.venv-typing-pure/
+.mypy_cache/
+build/
+dist/
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm

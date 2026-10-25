@@ -1,0 +1,57 @@
+{
+  "Accepted": {
+    "result": "Done",
+    "replay": "Done",
+    "identical_ir": true,
+    "budget": {
+      "u": {
+        "total": 10,
+        "free": 9,
+        "reserved": 0,
+        "confirmed": 1,
+        "retired": 0
+      }
+    },
+    "replay_added_events": 0
+  },
+  "Deferred": {
+    "result": "Done",
+    "replay": "Done",
+    "identical_ir": true,
+    "budget": {
+      "u": {
+        "total": 10,
+        "free": 9,
+        "reserved": 0,
+        "confirmed": 1,
+        "retired": 0
+      }
+    },
+    "replay_added_events": 0
+  },
+  "Denied": {
+    "result": "Denied",
+    "replay": "Denied",
+    "identical_ir": true,
+    "budget": {
+      "u": {
+        "total": 10,
+        "free": 10,
+        "reserved": 0,
+        "confirmed": 0,
+        "retired": 0
+      }
+    },
+    "replay_added_events": 0
+  },
+  "provider_calls": [
+    [
+      "Accepted",
+      1
+    ],
+    [
+      "Deferred",
+      1
+    ]
+  ]
+}

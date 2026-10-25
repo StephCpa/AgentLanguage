@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "runtime_integrated": true,
+  "refusal_schedules": 120,
+  "blocked_schedules": 6,
+  "steps": 618,
+  "refusal_check_groups": 5760,
+  "blocked_check_groups": 126,
+  "scope": "one pending call then late refusal/bill/revoke/cancel/observe, or one unexposed revoked queue then observe/cancel/replay",
+  "not_covered": [
+    "arbitrary programs",
+    "multiple attempts",
+    "all task and race interleavings",
+    "all SQLite interleavings"
+  ]
+}

@@ -1,0 +1,15 @@
+======================================================================
+FAIL: test_every_existing_ir_operation_has_a_source_form (tests.test_frontend.FrontendTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "E:\AgentLanguage\tests\test_frontend.py", line 281, in test_every_existing_ir_operation_has_a_source_form
+    self.assertEqual(found,set(FIELDS))
+AssertionError: Items in the second set but not the first:
+'unpack'
+'take'
+'pack'
+
+----------------------------------------------------------------------
+Ran 662 tests in 413.564s
+
+FAILED (failures=1)

@@ -1,0 +1,644 @@
+{
+  "passed": true,
+  "mypy": "mypy 1.18.2 (compiled: no)",
+  "python": "E:\\AgentLanguage\\.venv-typing-pure\\Scripts\\python.exe",
+  "scope": "public SDK authoring API, Catalog generator, generated bindings and fixtures; imported kernel bodies are not strictly checked",
+  "public_methods": [
+    "admit",
+    "attenuate",
+    "authorize",
+    "authorize_with",
+    "await_result",
+    "borrow_operation",
+    "budget_parameter",
+    "bundle_parameter",
+    "call",
+    "cancel_outcome",
+    "cap_parameter",
+    "capability",
+    "check",
+    "close_scope",
+    "compute",
+    "field",
+    "finish",
+    "handoff",
+    "if_else",
+    "infer",
+    "infer_progress",
+    "infer_result",
+    "inspect",
+    "intent_parameter",
+    "invoke",
+    "invoke_caps",
+    "join",
+    "join_budget",
+    "join_outcome",
+    "literal",
+    "match_admission",
+    "match_business",
+    "match_task",
+    "match_variant",
+    "observe",
+    "operation_parameter",
+    "opref_parameter",
+    "pack",
+    "parameter",
+    "permit_parameter",
+    "prepare",
+    "race",
+    "reconcile",
+    "record",
+    "repeat",
+    "resources",
+    "restrict",
+    "resume_infer",
+    "scope",
+    "spawn",
+    "spawn_caps",
+    "split_budget",
+    "take",
+    "tool",
+    "try_admit",
+    "try_infer",
+    "unpack",
+    "variant",
+    "variant_parameter"
+  ],
+  "positive_sources": [
+    "al0/sdk.py",
+    "examples/repair_sdk.py",
+    "tests/type_cases/positive.py",
+    "tests/type_cases/runtime_only.py",
+    "al0/codegen.py",
+    "examples/generated_repair_bindings.py",
+    "examples/generated_repair.py",
+    "tests/type_cases/codegen_catalog.py",
+    "tests/type_cases/generated_catalog.py",
+    "tests/type_cases/codegen_positive.py",
+    "tests/type_cases/inference_responses.py"
+  ],
+  "positive_plans_accepted_by_ir": 26,
+  "negative_cases": [
+    {
+      "case": "wrong_model_input",
+      "line": 9,
+      "diagnostics": [
+        {
+          "code": "misc",
+          "message": "Cannot infer value of type parameter \"I\" of \"infer\" of \"PlanBuilder\""
+        }
+      ]
+    },
+    {
+      "case": "candidate_bypasses_check",
+      "line": 13,
+      "diagnostics": [
+        {
+          "code": "misc",
+          "message": "Cannot infer value of type parameter \"I\" of \"prepare\" of \"PlanBuilder\""
+        }
+      ]
+    },
+    {
+      "case": "authorize_data",
+      "line": 17,
+      "diagnostics": [
+        {
+          "code": "arg-type",
+          "message": "Argument 2 to \"authorize\" of \"PlanBuilder\" has incompatible type \"Ref[str]\"; expected \"Ref[Intent[Never]]\""
+        }
+      ]
+    },
+    {
+      "case": "wrong_permit_category",
+      "line": 21,
+      "diagnostics": [
+        {
+          "code": "arg-type",
+          "message": "Argument 3 to \"admit\" of \"PlanBuilder\" has incompatible type \"Ref[Budget]\"; expected \"Ref[Permit[str]]\""
+        }
+      ]
+    },
+    {
+      "case": "incompatible_permit",
+      "line": 25,
+      "diagnostics": [
+        {
+          "code": "misc",
+          "message": "Cannot infer value of type parameter \"A\" of \"admit\" of \"PlanBuilder\""
+        }
+      ]
+    },
+    {
+      "case": "incompatible_cap",
+      "line": 29,
+      "diagnostics": [
+        {
+          "code": "misc",
+          "message": "Cannot infer value of type parameter \"A\" of \"authorize_with\" of \"PlanBuilder\""
+        }
+      ]
+    },
+    {
+      "case": "await_borrowed_operation",
+      "line": 33,
+      "diagnostics": [
+        {
+          "code": "arg-type",
+          "message": "Argument 2 to \"await_result\" of \"PlanBuilder\" has incompatible type \"Ref[OpRef[str]]\"; expected \"Ref[Operation[Never]]\""
+        }
+      ]
+    },
+    {
+      "case": "inspect_funds",
+      "line": 37,
+      "diagnostics": [
+        {
+          "code": "arg-type",
+          "message": "Argument 2 to \"inspect\" of \"PlanBuilder\" has incompatible type \"Ref[Budget]\"; expected \"Ref[Operation[Never]] | Ref[OpRef[Never]]\""
+        }
+      ]
+    },
+    {
+      "case": "close_task",
+      "line": 41,
+      "diagnostics": [
+        {
+          "code": "arg-type",
+          "message": "Argument 2 to \"close_scope\" of \"PlanBuilder\" has incompatible type \"Ref[Task[str]]\"; expected \"Ref[Scope]\""
+        }
+      ]
+    },
+    {
+      "case": "join_scope",
+      "line": 45,
+      "diagnostics": [
+        {
+          "code": "arg-type",
+          "message": "Argument 2 to \"join\" of \"PlanBuilder\" has incompatible type \"Ref[Scope]\"; expected \"Ref[Task[Never]]\""
+        }
+      ]
+    },
+    {
+      "case": "scope_as_budget",
+      "line": 49,
+      "diagnostics": [
+        {
+          "code": "arg-type",
+          "message": "Argument 2 to \"join_budget\" of \"PlanBuilder\" has incompatible type \"Ref[Scope]\"; expected \"Ref[Budget]\""
+        }
+      ]
+    },
+    {
+      "case": "noninteger_resources",
+      "line": 53,
+      "diagnostics": [
+        {
+          "code": "dict-item",
+          "message": "Dict entry 0 has incompatible type \"str\": \"Ref[str]\"; expected \"str\": \"Ref[int] | Ref[Candidate[int]] | Ref[Observation[int]] | Ref[Checked[int]]\""
+        }
+      ]
+    },
+    {
+      "case": "nonboolean_condition",
+      "line": 57,
+      "diagnostics": [
+        {
+          "code": "arg-type",
+          "message": "Argument 2 to \"if_else\" of \"PlanBuilder\" has incompatible type \"Ref[str]\"; expected \"Ref[bool] | Ref[Candidate[bool]] | Ref[Observation[bool]] | Ref[Checked[bool]]\""
+        }
+      ]
+    },
+    {
+      "case": "inconsistent_branches",
+      "line": 61,
+      "diagnostics": [
+        {
+          "code": "misc",
+          "message": "Cannot infer value of type parameter \"T\" of \"if_else\" of \"PlanBuilder\""
+        }
+      ]
+    },
+    {
+      "case": "wrong_invoke_result",
+      "line": 65,
+      "diagnostics": [
+        {
+          "code": "arg-type",
+          "message": "Argument 2 to \"invoke\" of \"PlanBuilder\" has incompatible type \"CheckedPlan[str]\"; expected \"CheckedPlan[int]\""
+        }
+      ]
+    },
+    {
+      "case": "wrong_task_result",
+      "line": 69,
+      "diagnostics": [
+        {
+          "code": "arg-type",
+          "message": "Argument 3 to \"spawn\" of \"PlanBuilder\" has incompatible type \"CheckedPlan[str]\"; expected \"CheckedPlan[int]\""
+        }
+      ]
+    },
+    {
+      "case": "wrong_join_result",
+      "line": 73,
+      "diagnostics": [
+        {
+          "code": "arg-type",
+          "message": "Argument 2 to \"join\" of \"PlanBuilder\" has incompatible type \"Ref[Task[str]]\"; expected \"Ref[Task[int]]\""
+        }
+      ]
+    },
+    {
+      "case": "wrong_literal_result",
+      "line": 77,
+      "diagnostics": [
+        {
+          "code": "arg-type",
+          "message": "Argument 3 to \"literal\" of \"PlanBuilder\" has incompatible type \"str\"; expected \"int\""
+        }
+      ]
+    },
+    {
+      "case": "noninteger_loop_count",
+      "line": 81,
+      "diagnostics": [
+        {
+          "code": "arg-type",
+          "message": "Argument 2 to \"repeat\" of \"PlanBuilder\" has incompatible type \"Ref[str]\"; expected \"Ref[int] | Ref[Candidate[int]] | Ref[Observation[int]] | Ref[Checked[int]]\""
+        }
+      ]
+    },
+    {
+      "case": "wrong_loop_state",
+      "line": 85,
+      "diagnostics": [
+        {
+          "code": "misc",
+          "message": "Cannot infer value of type parameter \"T\" of \"repeat\" of \"PlanBuilder\""
+        }
+      ]
+    },
+    {
+      "case": "incompatible_race",
+      "line": 89,
+      "diagnostics": [
+        {
+          "code": "arg-type",
+          "message": "Argument 2 to \"race\" of \"PlanBuilder\" has incompatible type \"list[object]\"; expected \"Sequence[Ref[Task[Never]]]\""
+        }
+      ]
+    },
+    {
+      "case": "invalid_literal_budget",
+      "line": 93,
+      "diagnostics": [
+        {
+          "code": "dict-item",
+          "message": "Dict entry 0 has incompatible type \"str\": \"str\"; expected \"str\": \"int\""
+        }
+      ]
+    },
+    {
+      "case": "wrong_snapshot_type",
+      "line": 97,
+      "diagnostics": [
+        {
+          "code": "arg-type",
+          "message": "Argument 2 to \"await_result\" of \"PlanBuilder\" has incompatible type \"Ref[Operation[str]]\"; expected \"Ref[Operation[int]]\""
+        }
+      ]
+    },
+    {
+      "case": "task_outcome_is_not_business_status",
+      "line": 101,
+      "diagnostics": [
+        {
+          "code": "arg-type",
+          "message": "Argument 2 to \"match_business\" of \"PlanBuilder\" has incompatible type \"Ref[TaskOutcome[str]]\"; expected \"Ref[Snapshot[Never]]\""
+        }
+      ]
+    },
+    {
+      "case": "inconsistent_task_branches",
+      "line": 105,
+      "diagnostics": [
+        {
+          "code": "misc",
+          "message": "Cannot infer value of type parameter \"T\" of \"match_task\" of \"PlanBuilder\""
+        }
+      ]
+    },
+    {
+      "case": "unpack_scalar_budget",
+      "line": 109,
+      "diagnostics": [
+        {
+          "code": "arg-type",
+          "message": "Argument 2 to \"unpack\" of \"PlanBuilder\" has incompatible type \"Ref[Budget]\"; expected \"Ref[Bundle]\""
+        }
+      ]
+    },
+    {
+      "case": "pack_unreferenced_data",
+      "line": 113,
+      "diagnostics": [
+        {
+          "code": "dict-item",
+          "message": "Dict entry 0 has incompatible type \"str\": \"bool\"; expected \"str\": \"Ref[Any]\""
+        }
+      ]
+    },
+    {
+      "case": "take_without_unpack",
+      "line": 117,
+      "diagnostics": [
+        {
+          "code": "arg-type",
+          "message": "Argument 2 to \"take\" of \"PlanBuilder\" has incompatible type \"Ref[Bundle]\"; expected \"Ref[Unpacked]\""
+        }
+      ]
+    },
+    {
+      "case": "inject_raw_variant_payload",
+      "line": 121,
+      "diagnostics": [
+        {
+          "code": "arg-type",
+          "message": "Argument 4 to \"variant\" of \"PlanBuilder\" has incompatible type \"int\"; expected \"Ref[Any]\""
+        }
+      ]
+    },
+    {
+      "case": "match_bundle_as_variant",
+      "line": 125,
+      "diagnostics": [
+        {
+          "code": "arg-type",
+          "message": "Argument 2 to \"match_variant\" of \"PlanBuilder\" has incompatible type \"Ref[Bundle]\"; expected \"Ref[Variant]\""
+        }
+      ]
+    },
+    {
+      "case": "unpack_variant_as_bundle",
+      "line": 129,
+      "diagnostics": [
+        {
+          "code": "arg-type",
+          "message": "Argument 2 to \"unpack\" of \"PlanBuilder\" has incompatible type \"Ref[Variant]\"; expected \"Ref[Bundle]\""
+        }
+      ]
+    },
+    {
+      "case": "inference_result_is_not_candidate",
+      "line": 135,
+      "diagnostics": [
+        {
+          "code": "assignment",
+          "message": "Incompatible types in assignment (expression has type \"Ref[Variant]\", variable has type \"Ref[Candidate[str]]\")"
+        }
+      ]
+    },
+    {
+      "case": "inference_result_input_type",
+      "line": 136,
+      "diagnostics": [
+        {
+          "code": "misc",
+          "message": "Cannot infer value of type parameter \"I\" of \"infer_result\" of \"PlanBuilder\""
+        }
+      ]
+    },
+    {
+      "case": "resume_candidate_not_operation",
+      "line": 140,
+      "diagnostics": [
+        {
+          "code": "arg-type",
+          "message": "Argument 2 to \"resume_infer\" of \"PlanBuilder\" has incompatible type \"Ref[Candidate[str]]\"; expected \"Ref[Operation[Never]]\""
+        }
+      ]
+    },
+    {
+      "case": "resume_readonly_not_control",
+      "line": 141,
+      "diagnostics": [
+        {
+          "code": "arg-type",
+          "message": "Argument 2 to \"resume_infer\" of \"PlanBuilder\" has incompatible type \"Ref[OpRef[str]]\"; expected \"Ref[Operation[Never]]\""
+        }
+      ]
+    },
+    {
+      "case": "progress_not_candidate",
+      "line": 142,
+      "diagnostics": [
+        {
+          "code": "assignment",
+          "message": "Incompatible types in assignment (expression has type \"Ref[Variant]\", variable has type \"Ref[Candidate[str]]\")"
+        }
+      ]
+    },
+    {
+      "case": "try_infer_input_type",
+      "line": 146,
+      "diagnostics": [
+        {
+          "code": "misc",
+          "message": "Cannot infer value of type parameter \"I\" of \"try_infer\" of \"PlanBuilder\""
+        }
+      ]
+    },
+    {
+      "case": "try_infer_not_candidate",
+      "line": 147,
+      "diagnostics": [
+        {
+          "code": "assignment",
+          "message": "Incompatible types in assignment (expression has type \"Ref[Variant]\", variable has type \"Ref[Candidate[str]]\")"
+        }
+      ]
+    },
+    {
+      "case": "provider_response_kind",
+      "line": 151,
+      "diagnostics": [
+        {
+          "code": "arg-type",
+          "message": "Argument 1 to \"InferenceResponse\" has incompatible type \"Literal['Pending']\"; expected \"Literal['Output', 'Refused']\""
+        }
+      ]
+    },
+    {
+      "case": "provider_fee_type",
+      "line": 152,
+      "diagnostics": [
+        {
+          "code": "dict-item",
+          "message": "Dict entry 0 has incompatible type \"str\": \"float\"; expected \"str\": \"int\""
+        }
+      ]
+    }
+  ],
+  "generated_binding_negative_cases": [
+    {
+      "case": "record_field_type",
+      "line": 6,
+      "diagnostics": [
+        {
+          "code": "typeddict-item",
+          "message": "Incompatible types (expression has type \"int\", TypedDict item \"text\" has type \"str\")"
+        }
+      ]
+    },
+    {
+      "case": "missing_record_field",
+      "line": 10,
+      "diagnostics": [
+        {
+          "code": "typeddict-item",
+          "message": "Missing key \"count\" for TypedDict \"Schema_Payload\""
+        }
+      ]
+    },
+    {
+      "case": "unknown_record_field",
+      "line": 14,
+      "diagnostics": [
+        {
+          "code": "typeddict-unknown-key",
+          "message": "Extra key \"extra\" for TypedDict \"Schema_Payload\""
+        }
+      ]
+    },
+    {
+      "case": "nested_record_field",
+      "line": 18,
+      "diagnostics": [
+        {
+          "code": "typeddict-item",
+          "message": "Incompatible types (expression has type \"str\", TypedDict item \"count\" has type \"int\")"
+        }
+      ]
+    },
+    {
+      "case": "generated_tool_input",
+      "line": 22,
+      "diagnostics": [
+        {
+          "code": "arg-type",
+          "message": "Argument 2 to \"infer_compose\" of \"Bindings\" has incompatible type \"Ref[int]\"; expected \"Ref[str] | Ref[Candidate[str]] | Ref[Observation[str]] | Ref[Checked[str]]\""
+        }
+      ]
+    },
+    {
+      "case": "nonexistent_tool_kind",
+      "line": 26,
+      "diagnostics": [
+        {
+          "code": "attr-defined",
+          "message": "\"Bindings\" has no attribute \"observe_compose\""
+        }
+      ]
+    },
+    {
+      "case": "json_float",
+      "line": 30,
+      "diagnostics": [
+        {
+          "code": "arg-type",
+          "message": "Argument 2 to \"literal_Json\" of \"Bindings\" has incompatible type \"float\"; expected \"JsonValue\""
+        }
+      ]
+    },
+    {
+      "case": "candidate_parameter_erasure",
+      "line": 34,
+      "diagnostics": [
+        {
+          "code": "assignment",
+          "message": "Incompatible types in assignment (expression has type \"Ref[Candidate[Schema_Payload]]\", variable has type \"Ref[Schema_Payload]\")"
+        }
+      ]
+    },
+    {
+      "case": "candidate_projection_erasure",
+      "line": 39,
+      "diagnostics": [
+        {
+          "code": "assignment",
+          "message": "Incompatible types in assignment (expression has type \"Ref[Candidate[str]]\", variable has type \"Ref[str]\")"
+        }
+      ]
+    },
+    {
+      "case": "same_shape_tool_permit",
+      "line": 43,
+      "diagnostics": [
+        {
+          "code": "misc",
+          "message": "Cannot infer value of type parameter \"A\" of \"admit\" of \"PlanBuilder\""
+        }
+      ]
+    },
+    {
+      "case": "same_shape_tool_cap",
+      "line": 47,
+      "diagnostics": [
+        {
+          "code": "misc",
+          "message": "Cannot infer value of type parameter \"A\" of \"authorize_with\" of \"PlanBuilder\""
+        }
+      ]
+    },
+    {
+      "case": "generated_reconciliation_target",
+      "line": 51,
+      "diagnostics": [
+        {
+          "code": "arg-type",
+          "message": "Argument 2 to \"reconcile_query_a\" of \"Bindings\" has incompatible type \"Ref[Operation[Tool_send_b]]\"; expected \"Ref[Operation[Tool_send_a]]\""
+        }
+      ]
+    },
+    {
+      "case": "generated_model_operation_identity",
+      "line": 55,
+      "diagnostics": [
+        {
+          "code": "arg-type",
+          "message": "Argument 2 to \"resume_infer_compose\" of \"Bindings\" has incompatible type \"Ref[Operation[Tool_send_b]]\"; expected \"Ref[Operation[Tool_compose]]\""
+        }
+      ]
+    },
+    {
+      "case": "generated_try_infer_input",
+      "line": 59,
+      "diagnostics": [
+        {
+          "code": "arg-type",
+          "message": "Argument 2 to \"try_infer_compose\" of \"Bindings\" has incompatible type \"Ref[int]\"; expected \"Ref[str] | Ref[Candidate[str]] | Ref[Observation[str]] | Ref[Checked[str]]\""
+        }
+      ]
+    }
+  ],
+  "generated_binding_plans_accepted_by_ir": 9,
+  "statically_accepted_but_shared_checker_rejected": [
+    "reused_permit",
+    "different_intent_same_type",
+    "foreign_owner",
+    "tool_kind",
+    "declared_schema",
+    "dynamic_projection",
+    "boolean_budget"
+  ],
+  "dynamic_boundaries": [
+    "runtime-selected schema/tool bindings",
+    "structural TypedDict values",
+    "parameter dictionaries",
+    "general compute/field/record/resources result provenance",
+    "affine ownership and concrete intent identity",
+    "JSON-decoded plans"
+  ],
+  "elapsed_seconds": 8.937
+}

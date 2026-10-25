@@ -1,0 +1,13 @@
+{
+  "catalog_version": 1,
+  "schemas": {},
+  "tools": [{
+    "name": "emit",
+    "kind": "observe",
+    "input_type": "Int",
+    "output_type": "Int",
+    "scope": "output",
+    "upper_bound": {"u": 1},
+    "shared_write": true
+  }]
+}

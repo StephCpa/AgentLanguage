@@ -1,0 +1,34 @@
+======================================================================
+ERROR: test_unknown_to_proven_no_effect_returns_error (tests.test_inference_results.InferenceResultTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "E:\AgentLanguage\tests\test_inference_results.py", line 119, in test_unknown_to_proven_no_effect_returns_error
+    self.assertEqual(self.repeat().data['payload']['data']['code'],'NoResult')
+  File "E:\AgentLanguage\tests\test_inference_results.py", line 50, in repeat
+    result=self.execute();before=len(self.store.events(self.run,self.who))
+  File "E:\AgentLanguage\tests\test_inference_results.py", line 42, in execute
+    return Interpreter(self.broker).run(self.p,self.run,self.who,self.grants,**kwargs)
+  File "E:\AgentLanguage\al0\execute.py", line 447, in run
+    return self._execute(checked,run,principal,grants,allocation,task_lease,contexts,recover_tasks,bindings,pc=[control],execution=execution)
+  File "E:\AgentLanguage\al0\execute.py", line 752, in _execute
+    result = self.broker.inference_output(operation, principal, spec,
+  File "E:\AgentLanguage\al0\execute.py", line 316, in inference_output
+    tag, payload = classify_inference(self.catalog, spec, state)
+  File "E:\AgentLanguage\al0\inference_response.py", line 42, in classify_inference
+    is_refusal = refused(state)
+  File "E:\AgentLanguage\al0\inference_response.py", line 27, in refused
+    marker = details.get('inference_outcome')
+AttributeError: 'NoneType' object has no attribute 'get'
+
+======================================================================
+FAIL: test_revocation_after_admission_is_not_preflight_rejection (tests.test_inference_admission.InferenceAdmissionTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "E:\AgentLanguage\tests\test_inference_admission.py", line 246, in test_revocation_after_admission_is_not_preflight_rejection
+    with self.assertRaises(AuthorizationDenied):self.execute()
+AssertionError: AuthorizationDenied not raised
+
+----------------------------------------------------------------------
+Ran 113 tests in 110.022s
+
+FAILED (failures=1, errors=1)

@@ -1,0 +1,26 @@
+workflow inference-results() uses {"tasks", "infer:model", "check:verify", "authorize:send@output", "admit:send@output"} {
+    let prompt: Text = "draft message";
+    let group = scope({u: 1}, false);
+    let draft = spawn_with(group, draft, {u: 1}, {prompt: prompt});
+    let outcome = join(draft);
+    let closed = close_scope(group);
+    let result = match_variant(outcome, {Success: success, Error: error}, {});
+    return result;
+}
+workflow draft(prompt: Text) uses {"infer:model"} {
+    let result = infer_result("model", prompt);
+    return result;
+}
+workflow success(result: Candidate<Text>) uses {"check:verify", "authorize:send@output", "admit:send@output"} {
+    let checked = check("verify", result);
+    let request = prepare("send", checked);
+    let permission = authorize(request);
+    let operation = admit(request, permission);
+    let state = await(operation);
+    let result-text: Text = match_business(state, {Applied: "Done", ProvenNoEffect: "NoEffect", Pending: "Pending", Unknown: "Unknown", NotDispatched: "Queued"});
+    return result-text;
+}
+workflow error(result: InferenceError) uses {} {
+    let code = field(result, "code");
+    return code;
+}

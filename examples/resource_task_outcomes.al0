@@ -1,0 +1,80 @@
+workflow submit(request: Intent<"send">, permission: Permit<request>) -> Operation<"send">
+uses {"admit:send@output"} {
+    let operation = admit(request, permission);
+    return operation;
+}
+
+workflow produce(funds: Budget, request: Intent<"send">, permission: Permit<request>)
+-> Bundle<{funds: Budget, request: Intent<"send">, permission: Permit<request>, operation: Operation<"send">, note: Text}>
+uses {"authorize:send@output", "admit:send@output"} {
+    let message: Text = "first";
+    let first = prepare("send", message);
+    let approved = authorize(first);
+    let operation = admit(first, approved);
+    let note: Text = "ready";
+    let packet = pack({funds: funds, request: request, permission: permission, operation: operation, note: note});
+    return packet;
+}
+
+workflow completed(result: Bundle<{funds: Budget, request: Intent<"send">, permission: Permit<request>, operation: Operation<"send">, note: Text}>) -> Report
+uses {"admit:send@output", "budget"} {
+    let opened = unpack(result);
+    let funds = take(opened, "funds");
+    let request = take(opened, "request");
+    let permission = take(opened, "permission");
+    let operation = take(opened, "operation");
+    let note = take(opened, "note");
+    let first-state = await(operation);
+    let first: Text = match_business(first-state, {Applied: "Done", ProvenNoEffect: "Rejected", Pending: "Waiting", NotDispatched: "Waiting", Unknown: "Unknown"});
+    let second-operation = invoke_with(submit, funds, {request: request, permission: permission});
+    let released = join_budget(funds);
+    let second-state = await(second-operation);
+    let second: Text = match_business(second-state, {Applied: "Done", ProvenNoEffect: "Rejected", Pending: "Waiting", NotDispatched: "Waiting", Unknown: "Unknown"});
+    let report = record("Report", {first: first, second: second, note: note});
+    return report;
+}
+
+workflow fallback() -> Report uses {} {
+    let report: Report = {first: "Unavailable", second: "Unavailable", note: "Runtime owns remaining responsibility"};
+    return report;
+}
+
+workflow resource-outcomes() -> Report
+uses {"authorize:send@output", "budget", "tasks", "admit:send@output"} {
+    let message: Text = "second";
+    let request = prepare("send", message);
+    let permission = authorize(request);
+    let funds = split_budget({u: 3});
+    let scope = scope({u: 1}, false);
+    let task = spawn_with(scope, produce, {u: 1}, {funds: funds, request: request, permission: permission});
+    let outcome = join_outcome(task);
+    let closed = close_scope(scope);
+    let report = match_task(outcome, {Completed: completed, Failed: fallback, Waiting: fallback, Cancelled: fallback}, {});
+    return report;
+}
+
+workflow candidate(funds: Budget, note: Text) -> Bundle<{inner: Bundle<{funds: Budget, note: Text}>}>
+uses {} {
+    let inner = pack({funds: funds, note: note});
+    let packet = pack({inner: inner});
+    return packet;
+}
+
+workflow resource-race() -> Text uses {"tasks", "budget"} {
+    let scope = scope({}, true);
+    let first-funds = split_budget({u: 2});
+    let second-funds = split_budget({u: 2});
+    let a: Text = "first";
+    let first = spawn_with(scope, candidate, {}, {funds: first-funds, note: a});
+    let z: Text = "second";
+    let second = spawn_with(scope, candidate, {}, {funds: second-funds, note: z});
+    let packet = race([first, second]);
+    let closed = close_scope(scope);
+    let outer = unpack(packet);
+    let member = take(outer, "inner");
+    let inner = unpack(member);
+    let funds = take(inner, "funds");
+    let note = take(inner, "note");
+    let released = join_budget(funds);
+    return note;
+}

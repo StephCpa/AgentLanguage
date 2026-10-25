@@ -1,0 +1,46 @@
+workflow submit(request: Intent<"send">, permission: Permit<request>) -> Operation<"send"> uses {"admit:send@output"} {
+ let operation=admit(request,permission); return operation;
+}
+workflow accepted(result: Operation<"send">, funds: Budget) -> Variant<{Accepted: Bundle<{funds: Budget, operation: Operation<"send">}>, Deferred: Bundle<{funds: Budget, permission: Permit<request>, request: Intent<"send">}>, Denied: Bundle<{funds: Budget, reason: Text}>}> uses {} {
+ let packet=pack({operation:result,funds:funds}); let value: Variant<{Accepted: Bundle<{funds: Budget, operation: Operation<"send">}>, Deferred: Bundle<{funds: Budget, permission: Permit<request>, request: Intent<"send">}>, Denied: Bundle<{funds: Budget, reason: Text}>}>=variant("Accepted",packet); return value;
+}
+workflow deferred(request: Intent<"send">, result: Permit<request>, funds: Budget) -> Variant<{Accepted: Bundle<{funds: Budget, operation: Operation<"send">}>, Deferred: Bundle<{funds: Budget, permission: Permit<request>, request: Intent<"send">}>, Denied: Bundle<{funds: Budget, reason: Text}>}> uses {} {
+ let packet=pack({request:request,permission:result,funds:funds}); let value: Variant<{Accepted: Bundle<{funds: Budget, operation: Operation<"send">}>, Deferred: Bundle<{funds: Budget, permission: Permit<request>, request: Intent<"send">}>, Denied: Bundle<{funds: Budget, reason: Text}>}>=variant("Deferred",packet); return value;
+}
+workflow denied(funds: Budget) -> Variant<{Accepted: Bundle<{funds: Budget, operation: Operation<"send">}>, Deferred: Bundle<{funds: Budget, permission: Permit<request>, request: Intent<"send">}>, Denied: Bundle<{funds: Budget, reason: Text}>}> uses {} {
+ let reason: Text="Denied"; let packet=pack({funds:funds,reason:reason}); let value: Variant<{Accepted: Bundle<{funds: Budget, operation: Operation<"send">}>, Deferred: Bundle<{funds: Budget, permission: Permit<request>, request: Intent<"send">}>, Denied: Bundle<{funds: Budget, reason: Text}>}>=variant("Denied",packet); return value;
+}
+workflow producer(request: Intent<"send">, permission: Permit<request>, funds: Budget) -> Variant<{Accepted: Bundle<{funds: Budget, operation: Operation<"send">}>, Deferred: Bundle<{funds: Budget, permission: Permit<request>, request: Intent<"send">}>, Denied: Bundle<{funds: Budget, reason: Text}>}> uses {"admit:send@output"} {
+ let decision=try_admit(request,permission);
+ let result=match_admission(decision,{Admitted:accepted,Returned:deferred,NoPermit:denied},{request:request,funds:funds}); return result;
+}
+workflow handle-accepted(result: Bundle<{funds: Budget, operation: Operation<"send">}>) -> Text uses {"budget"} {
+ let opened=unpack(result); let funds=take(opened,"funds"); let operation=take(opened,"operation"); let closed=join_budget(funds);
+ let handled-state=await(operation);
+ let handled: Text=match_business(handled-state,{Applied:"Done",ProvenNoEffect:"Rejected",Pending:"Waiting",NotDispatched:"Waiting",Unknown:"Unknown"}); return handled;
+}
+workflow handle-deferred(result: Bundle<{funds: Budget, permission: Permit<request>, request: Intent<"send">}>) -> Text uses {"admit:send@output","budget"} {
+ let opened=unpack(result); let funds=take(opened,"funds"); let request=take(opened,"request"); let permission=take(opened,"permission");
+ let operation=invoke_with(submit,funds,{request:request,permission:permission}); let closed=join_budget(funds);
+ let handled-state=await(operation);
+ let handled: Text=match_business(handled-state,{Applied:"Done",ProvenNoEffect:"Rejected",Pending:"Waiting",NotDispatched:"Waiting",Unknown:"Unknown"}); return handled;
+}
+workflow handle-denied(result: Bundle<{funds: Budget, reason: Text}>) -> Text uses {"budget"} {
+ let opened=unpack(result); let funds=take(opened,"funds"); let reason=take(opened,"reason"); let closed=join_budget(funds); return reason;
+}
+workflow completed(result: Variant<{Accepted: Bundle<{funds: Budget, operation: Operation<"send">}>, Deferred: Bundle<{funds: Budget, permission: Permit<request>, request: Intent<"send">}>, Denied: Bundle<{funds: Budget, reason: Text}>}>) -> Text uses {"budget","admit:send@output"} {
+ let handled=match_variant(result,{Accepted:handle-accepted,Deferred:handle-deferred,Denied:handle-denied},{}); return handled;
+}
+workflow failed() -> Text uses {} { let result: Text="Unavailable"; return result; }
+workflow variant-funded() -> Text uses {"authorize:send@output","budget","tasks","admit:send@output"} {
+ let message: Text="hello"; let request=prepare("send",message); let permit=authorize(request); let funds=split_budget({u:2});
+ let scope=scope({u:1},false); let task=spawn_with(scope,producer,{u:1},{request:request,permission:permit,funds:funds});
+ let outcome=join_outcome(task); let closed=close_scope(scope);
+ let result=match_task(outcome,{Completed:completed,Failed:failed,Waiting:failed,Cancelled:failed},{}); return result;
+}
+workflow variant-deferred() -> Text uses {"authorize:send@output","budget","tasks","admit:send@output"} {
+ let message: Text="hello"; let request=prepare("send",message); let permit=authorize(request); let funds=split_budget({u:2});
+ let scope=scope({},false); let task=spawn_with(scope,producer,{},{request:request,permission:permit,funds:funds});
+ let outcome=join_outcome(task); let closed=close_scope(scope);
+ let result=match_task(outcome,{Completed:completed,Failed:failed,Waiting:failed,Cancelled:failed},{}); return result;
+}

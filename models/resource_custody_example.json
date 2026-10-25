@@ -1,0 +1,24 @@
+{
+  "budget": {
+    "cost": {
+      "total": 10,
+      "free": 8,
+      "reserved": 0,
+      "confirmed": 2,
+      "retired": 0
+    }
+  },
+  "business": "Applied",
+  "attempt_funding": [
+    "073d3926-c878-4240-b037-3e026bc0c607",
+    "4ed59981-ed49-4c9a-bcea-e6447578dd10"
+  ],
+  "distinct_funding_accounts": true,
+  "provider_effects": 1,
+  "provider_fees": 2,
+  "return_generations": {
+    "funds": 3,
+    "operation": 2
+  },
+  "replay_added_events": 0
+}

@@ -1,0 +1,47 @@
+workflow check-child(patch: Candidate<Patch>) -> Checked<Patch, TestsPassed>
+uses {"check:patch-tests"} {
+    let tested = check("patch-tests", patch);
+    return tested;
+}
+
+workflow apply-checked-result(result: Checked<Patch, TestsPassed>) -> Text
+uses {"authorize:repo.merge@repo", "admit:repo.merge@repo"} {
+    let intent = prepare("repo.merge", result);
+    let permit = authorize(intent);
+    let operation = admit(intent, permit);
+    let status = await(operation);
+    let message: Text = match_business(status, {
+        Applied: "Done", ProvenNoEffect: "NeedsRevision", Pending: "Waiting",
+        Unknown: "NeedsReconciliation", NotDispatched: "Waiting"
+    });
+    return message;
+}
+
+workflow failed() uses {} {
+    let message: Text = "NeedsRevision";
+    return message;
+}
+workflow waiting() uses {} {
+    let message: Text = "NeedsReconciliation";
+    return message;
+}
+workflow cancelled() uses {} {
+    let message: Text = "Cancelled";
+    return message;
+}
+
+workflow task-outcomes() -> Text
+uses {"infer:code-model", "tasks", "check:patch-tests",
+      "authorize:repo.merge@repo", "admit:repo.merge@repo"} {
+    let request: Text = "Fix the example at version 7.";
+    let draft = infer("code-model", request);
+    let checks = scope({units: 2}, false);
+    let checker = spawn_with(checks, check-child, {units: 1}, {patch: draft});
+    let outcome = join_outcome(checker);
+    let closed = close_scope(checks);
+    let answer = match_task(outcome, {
+        Completed: apply-checked-result, Failed: failed,
+        Waiting: waiting, Cancelled: cancelled
+    }, {});
+    return answer;
+}

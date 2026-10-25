@@ -1,0 +1,176 @@
+======================================================================
+FAIL: test_generated_corpus_against_runtime_and_external_oracle (tests.test_combined_protocol.CombinedRuntimeTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "E:\AgentLanguage\models\combined_conformance.py", line 213, in verify
+    call()
+  File "E:\AgentLanguage\models\combined_conformance.py", line 207, in <lambda>
+    rejected = [(dispatch_error(expected, i), lambda i=i: self.store.start_attempt(self.op, self.attempts[i], self.who))
+  File "E:\AgentLanguage\al0\store.py", line 415, in start_attempt
+    return self._start_attempt(operation, attempt, principal, task_lease=task_lease)
+  File "E:\AgentLanguage\al0\store.py", line 434, in _start_attempt
+    raise StateConflict("attempt cannot acquire a second dispatch right")
+al0.errors.StateConflict: attempt cannot acquire a second dispatch right
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\AgentLanguage\models\combined_conformance.py", line 244, in replay
+    probes += h.verify(following)
+  File "E:\AgentLanguage\models\combined_conformance.py", line 215, in verify
+    assert type(exc).__name__ == error, (type(exc).__name__, error)
+AssertionError: ('StateConflict', 'AuthorizationDenied')
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\AgentLanguage\tests\test_combined_protocol.py", line 80, in test_generated_corpus_against_runtime_and_external_oracle
+    report = run(evidence_path=evidence)
+  File "E:\AgentLanguage\models\combined_conformance.py", line 269, in run
+    record = replay(Path(temp)/f'{mode}-{i}', trace, mode)
+  File "E:\AgentLanguage\models\combined_conformance.py", line 246, in replay
+    raise AssertionError((mode, position, trace, as_diagnostic(state))) from exc
+AssertionError: ('apply', 3, ('crash', 'recover', 'dispatch:0', 'revoke', 'cancel', 'launch:0', 'endpoint:0', 'business'), {'business': 'Unknown', 'cancelled': False, 'revoked': False, 'recovery': 2, 'ledger': {'total': 2, 'free': 1, 'reserved': 1, 'confirmed': 0, 'retired': 0}})
+
+======================================================================
+FAIL: test_process_exit_after_dispatch_commit_loses_unsent_ticket (tests.test_combined_protocol.CombinedRuntimeTests) (mode='apply', fault=None)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "E:\AgentLanguage\models\combined_conformance.py", line 213, in verify
+    call()
+  File "E:\AgentLanguage\models\combined_conformance.py", line 207, in <lambda>
+    rejected = [(dispatch_error(expected, i), lambda i=i: self.store.start_attempt(self.op, self.attempts[i], self.who))
+  File "E:\AgentLanguage\al0\store.py", line 415, in start_attempt
+    return self._start_attempt(operation, attempt, principal, task_lease=task_lease)
+  File "E:\AgentLanguage\al0\store.py", line 434, in _start_attempt
+    raise StateConflict("attempt cannot acquire a second dispatch right")
+al0.errors.StateConflict: attempt cannot acquire a second dispatch right
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\AgentLanguage\tests\test_combined_protocol.py", line 146, in check_crash
+    h.verify(state)
+  File "E:\AgentLanguage\models\combined_conformance.py", line 215, in verify
+    assert type(exc).__name__ == error, (type(exc).__name__, error)
+AssertionError: ('StateConflict', 'AuthorizationDenied')
+
+======================================================================
+FAIL: test_process_exit_after_dispatch_commit_loses_unsent_ticket (tests.test_combined_protocol.CombinedRuntimeTests) (mode='reject', fault=None)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "E:\AgentLanguage\models\combined_conformance.py", line 213, in verify
+    call()
+  File "E:\AgentLanguage\models\combined_conformance.py", line 207, in <lambda>
+    rejected = [(dispatch_error(expected, i), lambda i=i: self.store.start_attempt(self.op, self.attempts[i], self.who))
+  File "E:\AgentLanguage\al0\store.py", line 415, in start_attempt
+    return self._start_attempt(operation, attempt, principal, task_lease=task_lease)
+  File "E:\AgentLanguage\al0\store.py", line 434, in _start_attempt
+    raise StateConflict("attempt cannot acquire a second dispatch right")
+al0.errors.StateConflict: attempt cannot acquire a second dispatch right
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\AgentLanguage\tests\test_combined_protocol.py", line 146, in check_crash
+    h.verify(state)
+  File "E:\AgentLanguage\models\combined_conformance.py", line 215, in verify
+    assert type(exc).__name__ == error, (type(exc).__name__, error)
+AssertionError: ('StateConflict', 'AuthorizationDenied')
+
+======================================================================
+FAIL: test_process_exit_after_retry_and_first_remote_execution (tests.test_combined_protocol.CombinedRuntimeTests) (mode='apply', fault=None)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "E:\AgentLanguage\models\combined_conformance.py", line 213, in verify
+    call()
+  File "E:\AgentLanguage\models\combined_conformance.py", line 207, in <lambda>
+    rejected = [(dispatch_error(expected, i), lambda i=i: self.store.start_attempt(self.op, self.attempts[i], self.who))
+  File "E:\AgentLanguage\al0\store.py", line 415, in start_attempt
+    return self._start_attempt(operation, attempt, principal, task_lease=task_lease)
+  File "E:\AgentLanguage\al0\store.py", line 434, in _start_attempt
+    raise StateConflict("attempt cannot acquire a second dispatch right")
+al0.errors.StateConflict: attempt cannot acquire a second dispatch right
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\AgentLanguage\tests\test_combined_protocol.py", line 146, in check_crash
+    h.verify(state)
+  File "E:\AgentLanguage\models\combined_conformance.py", line 215, in verify
+    assert type(exc).__name__ == error, (type(exc).__name__, error)
+AssertionError: ('StateConflict', 'AuthorizationDenied')
+
+======================================================================
+FAIL: test_process_exit_after_retry_and_first_remote_execution (tests.test_combined_protocol.CombinedRuntimeTests) (mode='reject', fault=None)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "E:\AgentLanguage\models\combined_conformance.py", line 213, in verify
+    call()
+  File "E:\AgentLanguage\models\combined_conformance.py", line 207, in <lambda>
+    rejected = [(dispatch_error(expected, i), lambda i=i: self.store.start_attempt(self.op, self.attempts[i], self.who))
+  File "E:\AgentLanguage\al0\store.py", line 415, in start_attempt
+    return self._start_attempt(operation, attempt, principal, task_lease=task_lease)
+  File "E:\AgentLanguage\al0\store.py", line 434, in _start_attempt
+    raise StateConflict("attempt cannot acquire a second dispatch right")
+al0.errors.StateConflict: attempt cannot acquire a second dispatch right
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\AgentLanguage\tests\test_combined_protocol.py", line 146, in check_crash
+    h.verify(state)
+  File "E:\AgentLanguage\models\combined_conformance.py", line 215, in verify
+    assert type(exc).__name__ == error, (type(exc).__name__, error)
+AssertionError: ('StateConflict', 'AuthorizationDenied')
+
+======================================================================
+FAIL: test_process_exit_with_inflight_request_and_late_provider_completion (tests.test_combined_protocol.CombinedRuntimeTests) (mode='apply', fault=None)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "E:\AgentLanguage\models\combined_conformance.py", line 213, in verify
+    call()
+  File "E:\AgentLanguage\models\combined_conformance.py", line 207, in <lambda>
+    rejected = [(dispatch_error(expected, i), lambda i=i: self.store.start_attempt(self.op, self.attempts[i], self.who))
+  File "E:\AgentLanguage\al0\store.py", line 415, in start_attempt
+    return self._start_attempt(operation, attempt, principal, task_lease=task_lease)
+  File "E:\AgentLanguage\al0\store.py", line 434, in _start_attempt
+    raise StateConflict("attempt cannot acquire a second dispatch right")
+al0.errors.StateConflict: attempt cannot acquire a second dispatch right
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\AgentLanguage\tests\test_combined_protocol.py", line 146, in check_crash
+    h.verify(state)
+  File "E:\AgentLanguage\models\combined_conformance.py", line 215, in verify
+    assert type(exc).__name__ == error, (type(exc).__name__, error)
+AssertionError: ('StateConflict', 'AuthorizationDenied')
+
+======================================================================
+FAIL: test_process_exit_with_inflight_request_and_late_provider_completion (tests.test_combined_protocol.CombinedRuntimeTests) (mode='reject', fault=None)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "E:\AgentLanguage\models\combined_conformance.py", line 213, in verify
+    call()
+  File "E:\AgentLanguage\models\combined_conformance.py", line 207, in <lambda>
+    rejected = [(dispatch_error(expected, i), lambda i=i: self.store.start_attempt(self.op, self.attempts[i], self.who))
+  File "E:\AgentLanguage\al0\store.py", line 415, in start_attempt
+    return self._start_attempt(operation, attempt, principal, task_lease=task_lease)
+  File "E:\AgentLanguage\al0\store.py", line 434, in _start_attempt
+    raise StateConflict("attempt cannot acquire a second dispatch right")
+al0.errors.StateConflict: attempt cannot acquire a second dispatch right
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\AgentLanguage\tests\test_combined_protocol.py", line 146, in check_crash
+    h.verify(state)
+  File "E:\AgentLanguage\models\combined_conformance.py", line 215, in verify
+    assert type(exc).__name__ == error, (type(exc).__name__, error)
+AssertionError: ('StateConflict', 'AuthorizationDenied')
+
+----------------------------------------------------------------------
+Ran 932 tests in 552.428s
+
+FAILED (failures=7)

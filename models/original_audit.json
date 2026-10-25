@@ -1,0 +1,123 @@
+{
+  "budget_naive_release": {
+    "reachable_states": 84,
+    "transitions": 198,
+    "terminal_states": 6,
+    "bad_states": 8,
+    "shortest_bad_trace_length": 7,
+    "shortest_bad_trace": [
+      {
+        "action": "A.reserve",
+        "after": {
+          "confirmed_spend": 0,
+          "held": 1,
+          "actual_charge": 0
+        }
+      },
+      {
+        "action": "A.send",
+        "after": {
+          "confirmed_spend": 0,
+          "held": 1,
+          "actual_charge": 0
+        }
+      },
+      {
+        "action": "A.cancel_in_flight",
+        "after": {
+          "confirmed_spend": 0,
+          "held": 0,
+          "actual_charge": 0
+        }
+      },
+      {
+        "action": "A.remote_charge",
+        "after": {
+          "confirmed_spend": 0,
+          "held": 0,
+          "actual_charge": 1
+        }
+      },
+      {
+        "action": "B.reserve",
+        "after": {
+          "confirmed_spend": 0,
+          "held": 1,
+          "actual_charge": 1
+        }
+      },
+      {
+        "action": "B.send",
+        "after": {
+          "confirmed_spend": 0,
+          "held": 1,
+          "actual_charge": 1
+        }
+      },
+      {
+        "action": "B.remote_charge",
+        "after": {
+          "confirmed_spend": 0,
+          "held": 1,
+          "actual_charge": 2
+        }
+      }
+    ],
+    "max_actual_charge": 2,
+    "max_confirmed_plus_held": 2,
+    "actual_le_confirmed_plus_held_in_all_states": false
+  },
+  "budget_retain_until_settlement": {
+    "reachable_states": 36,
+    "transitions": 56,
+    "terminal_states": 5,
+    "bad_states": 0,
+    "shortest_bad_trace_length": null,
+    "shortest_bad_trace": [],
+    "max_actual_charge": 1,
+    "max_confirmed_plus_held": 1,
+    "actual_le_confirmed_plus_held_in_all_states": true
+  },
+  "version_client_check_only": {
+    "reachable_states": 8,
+    "transitions": 7,
+    "terminal_states": 3,
+    "bad_states": 1,
+    "shortest_bad_trace_length": 3,
+    "shortest_bad_trace": [
+      {
+        "action": "client.check_version",
+        "after": {
+          "version": 0,
+          "phase": "checked",
+          "stale_commit": false
+        }
+      },
+      {
+        "action": "other_actor.update_version",
+        "after": {
+          "version": 1,
+          "phase": "checked",
+          "stale_commit": false
+        }
+      },
+      {
+        "action": "endpoint.commit",
+        "after": {
+          "version": 1,
+          "phase": "committed",
+          "stale_commit": true
+        }
+      }
+    ]
+  },
+  "version_endpoint_atomic_cas": {
+    "reachable_states": 7,
+    "transitions": 7,
+    "terminal_states": 2,
+    "bad_states": 0,
+    "shortest_bad_trace_length": null,
+    "shortest_bad_trace": []
+  },
+  "scope": "Exhaustive finite-state design audit only; no real services or language implementation tested."
+}

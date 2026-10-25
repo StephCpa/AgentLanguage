@@ -1,0 +1,31 @@
+workflow submit(request: Intent<"send">, permission: Permit<request>) -> Operation<"send">
+uses {"admit:send@output"} {
+    let operation = admit(request, permission);
+    return operation;
+}
+
+workflow funded(funds: Budget, request: Intent<"send">, permission: Permit<request>) -> Operation<"send">
+uses {"admit:send@output", "budget"} {
+    let operation = invoke_with(submit, funds, {request: request, permission: permission});
+    let released = join_budget(funds);
+    return operation;
+}
+
+workflow typed-task-resources() -> Text
+uses {"authorize:send@output", "budget", "tasks", "admit:send@output"} {
+    let message: Text = "hello";
+    let request = prepare("send", message);
+    let permission = authorize(request);
+    let funds = split_budget({u: 2});
+    let group = scope({}, false);
+    let task = spawn_with(group, funded, {}, {funds: funds, request: request, permission: permission});
+    let operation = join(task);
+    let closed = close_scope(group);
+    let state = await(operation);
+    let result: Text = match_business(state, {
+        Applied: "Done", ProvenNoEffect: "Rejected", NotDispatched: "Waiting",
+        Pending: "Waiting", Unknown: "NeedsReconciliation"
+    });
+    return result;
+}
+

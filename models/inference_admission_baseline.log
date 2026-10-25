@@ -1,0 +1,22 @@
+======================================================================
+FAIL: test_v19_migration_process_cuts (tests.test_inference_progress.InferenceProgressTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "E:\AgentLanguage\tests\test_inference_progress.py", line 354, in test_v19_migration_process_cuts
+    self.assertEqual(db.execute('PRAGMA user_version').fetchone()[0],19 if point.startswith('before') else 20)
+AssertionError: 21 != 20
+
+======================================================================
+FAIL: test_process_exit_after_v17_migration_commit (tests.test_inference_results.InferenceResultTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "E:\AgentLanguage\tests\test_inference_results.py", line 271, in test_process_exit_after_v17_migration_commit
+    def test_process_exit_after_v17_migration_commit(self):self.migrate('after_attempt_funding_migration_commit')
+  File "E:\AgentLanguage\tests\test_inference_results.py", line 265, in migrate
+    self.assertEqual(db.execute('PRAGMA user_version').fetchone()[0],17 if point.startswith('before') else 20)
+AssertionError: 21 != 20
+
+----------------------------------------------------------------------
+Ran 80 tests in 66.476s
+
+FAILED (failures=2)

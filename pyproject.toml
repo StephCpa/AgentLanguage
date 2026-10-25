@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "al0-reference"
+version = "0.1.0"
+description = "AL-0 checked plan and durable execution research implementation"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+typing = ["mypy==1.18.2"]
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+follow_imports = "silent"
+show_error_codes = true
+pretty = false
+files = ["al0/sdk.py", "examples/repair_sdk.py", "tests/type_cases/positive.py", "tests/type_cases/runtime_only.py", "al0/codegen.py", "examples/generated_repair_bindings.py", "examples/generated_repair.py", "tests/type_cases/codegen_catalog.py", "tests/type_cases/generated_catalog.py", "tests/type_cases/codegen_positive.py", "tests/type_cases/inference_responses.py"]
+
+[tool.setuptools.package-data]
+al0 = ["py.typed"]
+
+[tool.setuptools.packages.find]
+include = ["al0*"]

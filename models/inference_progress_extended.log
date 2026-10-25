@@ -1,0 +1,41 @@
+======================================================================
+ERROR: test_private_labels_survive_waiting_and_success (tests.test_inference_progress.InferenceProgressTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "E:\AgentLanguage\tests\test_inference_progress.py", line 225, in test_private_labels_survive_waiting_and_success
+    old=Interpreter(self.broker).run(self.p,self.run,self.who,self.grants,inputs={'prompt':Value('secret',label=label)})
+  File "E:\AgentLanguage\al0\execute.py", line 439, in run
+    return self._execute(checked,run,principal,grants,allocation,task_lease,contexts,recover_tasks,bindings,pc=[control],execution=execution)
+  File "E:\AgentLanguage\al0\execute.py", line 731, in _execute
+    operation = self.broker.admit_call(run, principal, site, spec.name, source, grants[spec.name], allocation=allocation, task_lease=task_lease)
+  File "E:\AgentLanguage\al0\execute.py", line 250, in admit_call
+    permit = self.store.authorize(run, principal, intent, grant, authorization_key=authorization_site('call', node, task_lease), task_lease=task_lease)
+  File "E:\AgentLanguage\al0\store.py", line 300, in authorize
+    self._check_flow(db,intent)
+  File "E:\AgentLanguage\al0\flow_store.py", line 41, in _check_flow
+    intent.label.check_sink(policy['recipients'],policy['accepted_taints'])
+  File "E:\AgentLanguage\al0\flow.py", line 54, in check_sink
+    raise FlowDenied('recipient is outside the value and control-flow confidentiality policy')
+al0.errors.FlowDenied: recipient is outside the value and control-flow confidentiality policy
+
+======================================================================
+FAIL: test_task_cancel_before_observation (tests.test_inference_progress.InferenceProgressTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "E:\AgentLanguage\tests\test_inference_progress.py", line 259, in test_task_cancel_before_observation
+    def test_task_cancel_before_observation(self):self.cancellation('before_inference_observation_transaction',0)
+  File "E:\AgentLanguage\tests\test_inference_progress.py", line 253, in cancellation
+    self.assertEqual(cancelled,['Cancelled']);self.assertEqual(len(self.rows()),observations)
+AssertionError: Lists differ: [] != ['Cancelled']
+
+Second list contains 1 additional elements.
+First extra element 0:
+'Cancelled'
+
+- []
++ ['Cancelled']
+
+----------------------------------------------------------------------
+Ran 86 tests in 49.603s
+
+FAILED (failures=1, errors=1)

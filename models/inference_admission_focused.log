@@ -1,0 +1,28 @@
+======================================================================
+ERROR: test_budget_refund_does_not_reopen_rejected_position (tests.test_inference_admission.InferenceAdmissionTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "E:\AgentLanguage\tests\test_inference_admission.py", line 93, in test_budget_refund_does_not_reopen_rejected_position
+    self.start(amount=1);funds=self.store.split(self.run,self.who,{'u':1},key='held')
+AttributeError: 'Store' object has no attribute 'split'
+
+======================================================================
+ERROR: test_closed_funding_is_not_rejection (tests.test_inference_admission.InferenceAdmissionTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "E:\AgentLanguage\tests\test_inference_admission.py", line 141, in test_closed_funding_is_not_rejection
+    self.start();funds=self.store.split(self.run,self.who,{'u':1},key='closed');self.store.join(funds,self.who)
+AttributeError: 'Store' object has no attribute 'split'
+
+======================================================================
+ERROR: test_request_and_funding_bindings_cannot_change (tests.test_inference_admission.InferenceAdmissionTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "E:\AgentLanguage\tests\test_inference_admission.py", line 100, in test_request_and_funding_bindings_cannot_change
+    funds=self.store.split(self.run,self.who,{},key='other')
+AttributeError: 'Store' object has no attribute 'split'
+
+----------------------------------------------------------------------
+Ran 28 tests in 39.516s
+
+FAILED (errors=3)

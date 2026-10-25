@@ -1,0 +1,36 @@
+======================================================================
+FAIL: test_budget_cannot_escape_as_a_task_result (tests.test_budget_workflows.BudgetWorkflowTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "E:\AgentLanguage\tests\test_budget_workflows.py", line 193, in test_budget_cannot_escape_as_a_task_result
+    with self.assertRaisesRegex(TypeCheckError,'transferable'):
+AssertionError: TypeCheckError not raised
+
+======================================================================
+FAIL: test_resources_cannot_be_sent_to_tasks (tests.test_resources.ResourceTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "E:\AgentLanguage\tests\test_resources.py", line 196, in test_resources_cannot_be_sent_to_tasks
+    with self.assertRaises(TypeCheckError):
+AssertionError: TypeCheckError not raised
+
+======================================================================
+FAIL: test_budget_inputs_cannot_use_cap_transport (tests.test_task_capabilities.TaskCapabilityTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "E:\AgentLanguage\tests\test_task_capabilities.py", line 258, in test_budget_inputs_cannot_use_cap_transport
+    with self.assertRaises(TypeCheckError):
+AssertionError: TypeCheckError not raised
+
+======================================================================
+FAIL: test_budget_result_still_needs_ownership_protocol (tests.test_task_capabilities.TaskCapabilityTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "E:\AgentLanguage\tests\test_task_capabilities.py", line 245, in test_budget_result_still_needs_ownership_protocol
+    with self.assertRaises(TypeCheckError):
+AssertionError: TypeCheckError not raised
+
+----------------------------------------------------------------------
+Ran 631 tests in 400.654s
+
+FAILED (failures=4)

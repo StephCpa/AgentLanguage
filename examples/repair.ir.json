@@ -1,0 +1,19 @@
+{
+  "ir_version": 1,
+  "name": "repair-example",
+  "uses": ["infer:code-model", "check:patch-tests", "authorize:repo.merge@repo", "admit:repo.merge@repo"],
+  "nodes": [
+    {"id": "request", "op": "literal", "type": "Text", "value": "Fix the off-by-one error at base version 7."},
+    {"id": "draft", "op": "infer", "tool": "code-model", "input": "request"},
+    {"id": "tested", "op": "check", "tool": "patch-tests", "input": "draft"},
+    {"id": "intent", "op": "prepare", "tool": "repo.merge", "input": "tested"},
+    {"id": "permit", "op": "authorize", "intent": "intent"},
+    {"id": "operation", "op": "admit", "intent": "intent", "permit": "permit"},
+    {"id": "status", "op": "await", "operation": "operation"},
+    {"id": "result", "op": "match_business", "input": "status", "type": "Text", "cases": {
+      "NotDispatched": "Waiting", "Pending": "Waiting", "Unknown": "NeedsReconciliation",
+      "Applied": "Done", "ProvenNoEffect": "NeedsRevision"
+    }}
+  ],
+  "return": "result"
+}

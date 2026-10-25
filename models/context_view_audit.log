@@ -1,0 +1,29 @@
+{
+  "passed": true,
+  "runtime_integrated": false,
+  "count_unit": "synthetic; not provider tokens",
+  "baseline": {
+    "passed": true,
+    "states": 3576,
+    "transitions": 11324,
+    "reachable_cases": [
+      "Dispatched",
+      "FilteredReady",
+      "FixedAcrossEnvironmentChange",
+      "HistoricalReadAfterCancel",
+      "Ready",
+      "TooLarge"
+    ]
+  },
+  "scope": "one binding/view/request; three text materials; two source/counter versions; Fail or whole-material Filter",
+  "not_covered": [
+    "production Store correspondence",
+    "real tokenizers or providers",
+    "summary workflows",
+    "multiple views/requests",
+    "full label lattice, role partitioning and protected value provenance",
+    "task custody, leases and complete finance protocol",
+    "process or SQLite crash tests"
+  ]
+}
+targeted_mutants 7

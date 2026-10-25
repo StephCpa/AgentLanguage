@@ -1,0 +1,69 @@
+{
+  "forgotten_rejection": {
+    "states": 50,
+    "transitions": 85,
+    "terminal_states": 5,
+    "violation_states": {
+      "rejected_slot_reopened": 12
+    },
+    "shortest_counterexamples": {
+      "rejected_slot_reopened": [
+        {
+          "action": "admit slot 0: Returned",
+          "state": {
+            "held": true,
+            "granted": true,
+            "consumed": -1,
+            "decisions": [
+              "Returned",
+              ""
+            ],
+            "ever_rejected": [
+              true,
+              false
+            ]
+          }
+        },
+        {
+          "action": "refund earlier queued operation",
+          "state": {
+            "held": false,
+            "granted": true,
+            "consumed": -1,
+            "decisions": [
+              "Returned",
+              ""
+            ],
+            "ever_rejected": [
+              true,
+              false
+            ]
+          }
+        },
+        {
+          "action": "admit slot 0: Admitted",
+          "state": {
+            "held": false,
+            "granted": true,
+            "consumed": 0,
+            "decisions": [
+              "Admitted",
+              ""
+            ],
+            "ever_rejected": [
+              true,
+              false
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "durable_rejection": {
+    "states": 38,
+    "transitions": 51,
+    "terminal_states": 8,
+    "violation_states": {},
+    "shortest_counterexamples": {}
+  }
+}

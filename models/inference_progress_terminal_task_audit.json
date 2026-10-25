@@ -1,0 +1,25 @@
+{
+  "completed_task_terminal_late_bill": {
+    "case": "Success",
+    "calls": 1,
+    "budget": {
+      "total": 10,
+      "free": 9,
+      "reserved": 0,
+      "confirmed": 1,
+      "retired": 0
+    }
+  },
+  "cancel_after_terminal_observation": {
+    "stored_case": "Success",
+    "published_task_case": "Cancelled",
+    "calls": 1,
+    "budget": {
+      "total": 10,
+      "free": 9,
+      "reserved": 0,
+      "confirmed": 1,
+      "retired": 0
+    }
+  }
+}

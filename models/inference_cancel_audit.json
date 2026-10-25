@@ -1,0 +1,8 @@
+{
+  "cancel_at": "after_call_business_record",
+  "task_outcome": "Cancelled",
+  "inference_results": 0,
+  "provider_calls": 1,
+  "confirmed_cost": 1,
+  "stale_publication_rejected": true
+}

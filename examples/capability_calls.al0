@@ -1,0 +1,21 @@
+workflow deliver(permission: Cap<"send">, message: Message) -> Text
+uses {"authorize:send@outbox", "admit:send@outbox"} {
+    let request = prepare("send", message);
+    let permit = authorize_with(request, permission);
+    let operation = admit(request, permit);
+    let state = await(operation);
+    let result: Text = match_business(state, {
+        Applied: "Done", ProvenNoEffect: "Rejected", NotDispatched: "Waiting",
+        Pending: "Waiting", Unknown: "NeedsReconciliation"
+    });
+    return result;
+}
+
+workflow capability-calls() -> Text
+uses {"cap:send@outbox", "authorize:send@outbox", "admit:send@outbox"} {
+    let base = capability("send");
+    let reports = attenuate(base, {max_attempts: 1, constraints: {channel: "reports"}});
+    let message: Message = {channel: "reports", text: "hello"};
+    let result = invoke_caps(deliver, {send: reports}, {permission: reports, message: message});
+    return result;
+}

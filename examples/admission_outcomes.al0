@@ -1,0 +1,29 @@
+workflow accepted(result: Operation<"send">) -> Text uses {} {
+    let state = await(result);
+    let text: Text = match_business(state, {
+        Applied: "Done", NotDispatched: "Waiting", Pending: "Waiting",
+        Unknown: "NeedsReconciliation", ProvenNoEffect: "Rejected"
+    });
+    return text;
+}
+
+workflow returned(request: Intent<"send">, result: Permit<request>, reason: Json)
+-> Text uses {} {
+    let text: Text = "Deferred";
+    return text;
+}
+
+workflow denied(reason: Json) -> Text uses {} {
+    let text: Text = "Denied";
+    return text;
+}
+
+workflow admission-outcomes() -> Text uses {"authorize:send@output", "admit:send@output"} {
+    let message: Text = "hello";
+    let request = prepare("send", message);
+    let permission = authorize(request);
+    let admission: Admission<"send"> = try_admit(request, permission);
+    let result = match_admission(admission,
+        {Admitted: accepted, Returned: returned, NoPermit: denied}, {request: request});
+    return result;
+}

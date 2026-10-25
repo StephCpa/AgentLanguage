@@ -1,0 +1,768 @@
+{
+  "passed": true,
+  "scope": "Executable proposal for affine custody across a durable task boundary.\n\nThis is a protocol model, not a Store implementation or a refinement proof.\nOne parent, one child, one permit/intent, one operation, two budget allocations,\nat most two attempts and one crash/recovery. Transactions are atomic. Grant,\nprincipal, label and schema validity are assumed, not proved by this model.\n",
+  "states": 1629,
+  "transitions": 5174,
+  "rejected_requests": {
+    "publish": 1483,
+    "join": 1015,
+    "cancel_child": 1103,
+    "recover": 1086,
+    "replay_spawn": 577,
+    "stale_generation": 1629,
+    "stale_epoch": 1629,
+    "retry": 6384,
+    "admit": 6502,
+    "spawn": 1595,
+    "crash": 1086,
+    "dispatch": 5720,
+    "provider": 2094,
+    "bill": 2376
+  },
+  "scenarios": {
+    "returned_operation_uses_two_funding_origins": {
+      "actions": [
+        "admit:parent:1",
+        "spawn",
+        "dispatch:child:0",
+        "crash",
+        "provider:0",
+        "recover",
+        "retry:child:2",
+        "publish",
+        "join",
+        "dispatch:parent:1",
+        "cancel_child",
+        "provider:1",
+        "bill:1",
+        "bill:0"
+      ],
+      "free": [
+        0,
+        3,
+        1
+      ],
+      "confirmed": 2,
+      "reserved": 0
+    },
+    "cancelled_child_keeps_exposed_liability": {
+      "actions": [
+        "spawn",
+        "admit:child:2",
+        "dispatch:child:0",
+        "cancel_child",
+        "crash",
+        "provider:0",
+        "recover",
+        "bill:0"
+      ],
+      "free": [
+        5,
+        0,
+        0
+      ],
+      "confirmed": 1,
+      "reserved": 0
+    },
+    "unused_permit_returns_with_new_generation": {
+      "actions": [
+        "spawn",
+        "publish",
+        "join",
+        "replay_spawn",
+        "join",
+        "admit:parent:1",
+        "dispatch:parent:0",
+        "provider:0",
+        "bill:0"
+      ],
+      "free": [
+        0,
+        3,
+        2
+      ],
+      "confirmed": 1,
+      "reserved": 0
+    },
+    "cancelled_escrow_closes_only_queued_reservation": {
+      "actions": [
+        "admit:parent:1",
+        "spawn",
+        "dispatch:child:0",
+        "retry:child:2",
+        "publish",
+        "cancel_child",
+        "provider:0",
+        "bill:0"
+      ],
+      "free": [
+        5,
+        0,
+        0
+      ],
+      "confirmed": 1,
+      "reserved": 0
+    }
+  },
+  "coverage": {
+    "child_states": {
+      "Absent": 51,
+      "Running": 219,
+      "Returning": 219,
+      "Cancelled": 438,
+      "Joined": 702
+    },
+    "recovery_states": {
+      "0": 543,
+      "1": 543,
+      "2": 543
+    },
+    "funding_sequences": [
+      "",
+      "1",
+      "1,1",
+      "1,2",
+      "2",
+      "2,1"
+    ],
+    "returned_exposed_operation": 666,
+    "cancelled_unsettled_exposure": 336
+  },
+  "mutants": {
+    "partial_spawn": {
+      "invariant": "spawn_bundle_not_atomic",
+      "actions": [
+        "spawn"
+      ],
+      "violations": [
+        "spawn_bundle_not_atomic"
+      ],
+      "state": {
+        "resources": [
+          {
+            "owner": "child",
+            "generation": 1
+          },
+          {
+            "owner": "absent",
+            "generation": 0
+          },
+          {
+            "owner": "parent",
+            "generation": 0
+          },
+          {
+            "owner": "child",
+            "generation": 1
+          }
+        ],
+        "child": "Running",
+        "child_cancelled": false,
+        "recovery": 0,
+        "epoch": 0,
+        "free": [
+          0,
+          4,
+          2
+        ],
+        "opened": [
+          true,
+          true
+        ],
+        "attempts": [],
+        "admitted": 0,
+        "operation_open": false,
+        "operation_creator": "",
+        "confirmed": 0,
+        "bad_access": "",
+        "wrong_cleanup": false,
+        "spawn_receipt": [
+          {
+            "owner": "child",
+            "generation": 1
+          },
+          {
+            "owner": "absent",
+            "generation": 0
+          },
+          {
+            "owner": "parent",
+            "generation": 0
+          },
+          {
+            "owner": "child",
+            "generation": 1
+          }
+        ]
+      }
+    },
+    "publish_without_escrow": {
+      "invariant": "return_published_before_join",
+      "actions": [
+        "spawn",
+        "publish"
+      ],
+      "violations": [
+        "return_published_before_join"
+      ],
+      "state": {
+        "resources": [
+          {
+            "owner": "parent",
+            "generation": 2
+          },
+          {
+            "owner": "absent",
+            "generation": 0
+          },
+          {
+            "owner": "parent",
+            "generation": 2
+          },
+          {
+            "owner": "parent",
+            "generation": 2
+          }
+        ],
+        "child": "Returning",
+        "child_cancelled": false,
+        "recovery": 0,
+        "epoch": 0,
+        "free": [
+          0,
+          4,
+          2
+        ],
+        "opened": [
+          true,
+          true
+        ],
+        "attempts": [],
+        "admitted": 0,
+        "operation_open": false,
+        "operation_creator": "",
+        "confirmed": 0,
+        "bad_access": "",
+        "wrong_cleanup": false,
+        "spawn_receipt": [
+          {
+            "owner": "child",
+            "generation": 1
+          },
+          {
+            "owner": "absent",
+            "generation": 0
+          },
+          {
+            "owner": "child",
+            "generation": 1
+          },
+          {
+            "owner": "child",
+            "generation": 1
+          }
+        ]
+      }
+    },
+    "replay_restores_custody": {
+      "invariant": "custody_resurrected_by_replay",
+      "actions": [
+        "spawn",
+        "publish",
+        "replay_spawn"
+      ],
+      "violations": [
+        "custody_resurrected_by_replay"
+      ],
+      "state": {
+        "resources": [
+          {
+            "owner": "child",
+            "generation": 1
+          },
+          {
+            "owner": "absent",
+            "generation": 0
+          },
+          {
+            "owner": "child",
+            "generation": 1
+          },
+          {
+            "owner": "child",
+            "generation": 1
+          }
+        ],
+        "child": "Returning",
+        "child_cancelled": false,
+        "recovery": 0,
+        "epoch": 0,
+        "free": [
+          0,
+          4,
+          2
+        ],
+        "opened": [
+          true,
+          true
+        ],
+        "attempts": [],
+        "admitted": 0,
+        "operation_open": false,
+        "operation_creator": "",
+        "confirmed": 0,
+        "bad_access": "",
+        "wrong_cleanup": false,
+        "spawn_receipt": [
+          {
+            "owner": "child",
+            "generation": 1
+          },
+          {
+            "owner": "absent",
+            "generation": 0
+          },
+          {
+            "owner": "child",
+            "generation": 1
+          },
+          {
+            "owner": "child",
+            "generation": 1
+          }
+        ]
+      }
+    },
+    "ignore_generation": {
+      "invariant": "stale_custody_token_accepted",
+      "actions": [
+        "spawn",
+        "publish",
+        "join",
+        "stale_generation"
+      ],
+      "violations": [
+        "stale_custody_token_accepted"
+      ],
+      "state": {
+        "resources": [
+          {
+            "owner": "parent",
+            "generation": 3
+          },
+          {
+            "owner": "absent",
+            "generation": 0
+          },
+          {
+            "owner": "parent",
+            "generation": 3
+          },
+          {
+            "owner": "parent",
+            "generation": 3
+          }
+        ],
+        "child": "Joined",
+        "child_cancelled": false,
+        "recovery": 0,
+        "epoch": 0,
+        "free": [
+          0,
+          4,
+          2
+        ],
+        "opened": [
+          true,
+          true
+        ],
+        "attempts": [],
+        "admitted": 0,
+        "operation_open": false,
+        "operation_creator": "",
+        "confirmed": 0,
+        "bad_access": "stale_generation",
+        "wrong_cleanup": false,
+        "spawn_receipt": [
+          {
+            "owner": "child",
+            "generation": 1
+          },
+          {
+            "owner": "absent",
+            "generation": 0
+          },
+          {
+            "owner": "child",
+            "generation": 1
+          },
+          {
+            "owner": "child",
+            "generation": 1
+          }
+        ]
+      }
+    },
+    "ignore_epoch": {
+      "invariant": "stale_worker_accepted",
+      "actions": [
+        "crash",
+        "recover",
+        "stale_epoch"
+      ],
+      "violations": [
+        "stale_worker_accepted"
+      ],
+      "state": {
+        "resources": [
+          {
+            "owner": "parent",
+            "generation": 0
+          },
+          {
+            "owner": "absent",
+            "generation": 0
+          },
+          {
+            "owner": "parent",
+            "generation": 0
+          },
+          {
+            "owner": "absent",
+            "generation": 0
+          }
+        ],
+        "child": "Absent",
+        "child_cancelled": false,
+        "recovery": 2,
+        "epoch": 1,
+        "free": [
+          2,
+          4,
+          0
+        ],
+        "opened": [
+          true,
+          false
+        ],
+        "attempts": [],
+        "admitted": 0,
+        "operation_open": false,
+        "operation_creator": "",
+        "confirmed": 0,
+        "bad_access": "stale_epoch",
+        "wrong_cleanup": false,
+        "spawn_receipt": []
+      }
+    },
+    "move_attempt_funding": {
+      "invariant": "attempt_funding_changed",
+      "actions": [
+        "admit:parent:1",
+        "spawn"
+      ],
+      "violations": [
+        "attempt_funding_changed"
+      ],
+      "state": {
+        "resources": [
+          {
+            "owner": "spent",
+            "generation": 1
+          },
+          {
+            "owner": "child",
+            "generation": 2
+          },
+          {
+            "owner": "child",
+            "generation": 1
+          },
+          {
+            "owner": "child",
+            "generation": 1
+          }
+        ],
+        "child": "Running",
+        "child_cancelled": false,
+        "recovery": 0,
+        "epoch": 0,
+        "free": [
+          0,
+          2,
+          2
+        ],
+        "opened": [
+          true,
+          true
+        ],
+        "attempts": [
+          {
+            "funding": 2,
+            "reserved_from": 1,
+            "phase": "Queued",
+            "delivered": false,
+            "held": true,
+            "billed": false
+          }
+        ],
+        "admitted": 1,
+        "operation_open": true,
+        "operation_creator": "parent",
+        "confirmed": 0,
+        "bad_access": "",
+        "wrong_cleanup": false,
+        "spawn_receipt": [
+          {
+            "owner": "spent",
+            "generation": 1
+          },
+          {
+            "owner": "child",
+            "generation": 2
+          },
+          {
+            "owner": "child",
+            "generation": 1
+          },
+          {
+            "owner": "child",
+            "generation": 1
+          }
+        ]
+      }
+    },
+    "refund_to_controller": {
+      "invariant": "allocation_accounting_mismatch",
+      "actions": [
+        "spawn",
+        "admit:child:1",
+        "dispatch:child:0",
+        "provider:0",
+        "bill:0"
+      ],
+      "violations": [
+        "allocation_accounting_mismatch"
+      ],
+      "state": {
+        "resources": [
+          {
+            "owner": "spent",
+            "generation": 2
+          },
+          {
+            "owner": "child",
+            "generation": 1
+          },
+          {
+            "owner": "child",
+            "generation": 1
+          },
+          {
+            "owner": "child",
+            "generation": 1
+          }
+        ],
+        "child": "Running",
+        "child_cancelled": false,
+        "recovery": 0,
+        "epoch": 0,
+        "free": [
+          0,
+          2,
+          3
+        ],
+        "opened": [
+          true,
+          true
+        ],
+        "attempts": [
+          {
+            "funding": 1,
+            "reserved_from": 1,
+            "phase": "Exposed",
+            "delivered": true,
+            "held": false,
+            "billed": true
+          }
+        ],
+        "admitted": 1,
+        "operation_open": true,
+        "operation_creator": "child",
+        "confirmed": 1,
+        "bad_access": "",
+        "wrong_cleanup": false,
+        "spawn_receipt": [
+          {
+            "owner": "child",
+            "generation": 1
+          },
+          {
+            "owner": "absent",
+            "generation": 0
+          },
+          {
+            "owner": "child",
+            "generation": 1
+          },
+          {
+            "owner": "child",
+            "generation": 1
+          }
+        ]
+      }
+    },
+    "origin_based_cleanup": {
+      "invariant": "cleanup_touched_foreign_custody",
+      "actions": [
+        "spawn",
+        "publish",
+        "join",
+        "cancel_child"
+      ],
+      "violations": [
+        "cleanup_touched_foreign_custody"
+      ],
+      "state": {
+        "resources": [
+          {
+            "owner": "parent",
+            "generation": 3
+          },
+          {
+            "owner": "absent",
+            "generation": 0
+          },
+          {
+            "owner": "parent",
+            "generation": 3
+          },
+          {
+            "owner": "runtime",
+            "generation": 4
+          }
+        ],
+        "child": "Joined",
+        "child_cancelled": true,
+        "recovery": 0,
+        "epoch": 0,
+        "free": [
+          2,
+          4,
+          0
+        ],
+        "opened": [
+          true,
+          false
+        ],
+        "attempts": [],
+        "admitted": 0,
+        "operation_open": false,
+        "operation_creator": "",
+        "confirmed": 0,
+        "bad_access": "",
+        "wrong_cleanup": true,
+        "spawn_receipt": [
+          {
+            "owner": "child",
+            "generation": 1
+          },
+          {
+            "owner": "absent",
+            "generation": 0
+          },
+          {
+            "owner": "child",
+            "generation": 1
+          },
+          {
+            "owner": "child",
+            "generation": 1
+          }
+        ]
+      }
+    },
+    "refund_exposed_on_cancel": {
+      "invariant": "external_liability_uncovered",
+      "actions": [
+        "spawn",
+        "admit:child:1",
+        "dispatch:child:0",
+        "cancel_child"
+      ],
+      "violations": [
+        "external_liability_uncovered",
+        "allocation_accounting_mismatch"
+      ],
+      "state": {
+        "resources": [
+          {
+            "owner": "spent",
+            "generation": 2
+          },
+          {
+            "owner": "runtime",
+            "generation": 2
+          },
+          {
+            "owner": "runtime",
+            "generation": 2
+          },
+          {
+            "owner": "runtime",
+            "generation": 2
+          }
+        ],
+        "child": "Cancelled",
+        "child_cancelled": true,
+        "recovery": 0,
+        "epoch": 0,
+        "free": [
+          6,
+          0,
+          0
+        ],
+        "opened": [
+          false,
+          false
+        ],
+        "attempts": [
+          {
+            "funding": 1,
+            "reserved_from": 1,
+            "phase": "Exposed",
+            "delivered": false,
+            "held": false,
+            "billed": false
+          }
+        ],
+        "admitted": 1,
+        "operation_open": false,
+        "operation_creator": "child",
+        "confirmed": 0,
+        "bad_access": "",
+        "wrong_cleanup": false,
+        "spawn_receipt": [
+          {
+            "owner": "child",
+            "generation": 1
+          },
+          {
+            "owner": "absent",
+            "generation": 0
+          },
+          {
+            "owner": "child",
+            "generation": 1
+          },
+          {
+            "owner": "child",
+            "generation": 1
+          }
+        ]
+      }
+    }
+  },
+  "runtime_integrated": false,
+  "whole_language_proof": false
+}

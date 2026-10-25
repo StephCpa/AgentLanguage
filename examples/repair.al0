@@ -1,0 +1,18 @@
+// The same workflow as repair.ir.json and repair_sdk.py.
+workflow repair-example() -> Text
+uses {"infer:code-model", "check:patch-tests",
+      "authorize:repo.merge@repo", "admit:repo.merge@repo"} {
+    let request: Text = "Fix the off-by-one error at base version 7.";
+    let draft = infer("code-model", request);
+    let tested = check("patch-tests", draft);
+    let intent = prepare("repo.merge", tested);
+    let permit = authorize(intent);
+    let operation = admit(intent, permit);
+    let status = await(operation);
+    let result: Text = match_business(status, {
+        NotDispatched: "Waiting", Pending: "Waiting",
+        Unknown: "NeedsReconciliation", Applied: "Done",
+        ProvenNoEffect: "NeedsRevision"
+    });
+    return result;
+}

@@ -1,0 +1,922 @@
+{
+  "scope": "Five independent finite models; no full protocol, compiler, real endpoint, liveness, or unbounded proof.",
+  "no_effect_mutant": {
+    "states": 40,
+    "transitions": 74,
+    "terminal_states": 3,
+    "violation_states": {
+      "actual_cost_not_covered": 9,
+      "ledger_exceeds_budget": 7,
+      "actual_cost_exceeds_budget": 8
+    },
+    "shortest_counterexamples": {
+      "actual_cost_not_covered": [
+        {
+          "action": "call1.reserve",
+          "state": {
+            "calls": [
+              {
+                "phase": "reserved",
+                "held": 1,
+                "charged": false,
+                "settled": false
+              },
+              {
+                "phase": "idle",
+                "held": 0,
+                "charged": false,
+                "settled": false
+              }
+            ],
+            "confirmed": 0,
+            "effect": false
+          }
+        },
+        {
+          "action": "call1.send",
+          "state": {
+            "calls": [
+              {
+                "phase": "sent",
+                "held": 1,
+                "charged": false,
+                "settled": false
+              },
+              {
+                "phase": "idle",
+                "held": 0,
+                "charged": false,
+                "settled": false
+              }
+            ],
+            "confirmed": 0,
+            "effect": false
+          }
+        },
+        {
+          "action": "call1.business_no_effect",
+          "state": {
+            "calls": [
+              {
+                "phase": "no_effect",
+                "held": 0,
+                "charged": false,
+                "settled": false
+              },
+              {
+                "phase": "idle",
+                "held": 0,
+                "charged": false,
+                "settled": false
+              }
+            ],
+            "confirmed": 0,
+            "effect": false
+          }
+        },
+        {
+          "action": "call1.provider_charge",
+          "state": {
+            "calls": [
+              {
+                "phase": "no_effect",
+                "held": 0,
+                "charged": true,
+                "settled": false
+              },
+              {
+                "phase": "idle",
+                "held": 0,
+                "charged": false,
+                "settled": false
+              }
+            ],
+            "confirmed": 0,
+            "effect": false
+          }
+        }
+      ],
+      "ledger_exceeds_budget": [
+        {
+          "action": "call1.reserve",
+          "state": {
+            "calls": [
+              {
+                "phase": "reserved",
+                "held": 1,
+                "charged": false,
+                "settled": false
+              },
+              {
+                "phase": "idle",
+                "held": 0,
+                "charged": false,
+                "settled": false
+              }
+            ],
+            "confirmed": 0,
+            "effect": false
+          }
+        },
+        {
+          "action": "call1.send",
+          "state": {
+            "calls": [
+              {
+                "phase": "sent",
+                "held": 1,
+                "charged": false,
+                "settled": false
+              },
+              {
+                "phase": "idle",
+                "held": 0,
+                "charged": false,
+                "settled": false
+              }
+            ],
+            "confirmed": 0,
+            "effect": false
+          }
+        },
+        {
+          "action": "call1.business_no_effect",
+          "state": {
+            "calls": [
+              {
+                "phase": "no_effect",
+                "held": 0,
+                "charged": false,
+                "settled": false
+              },
+              {
+                "phase": "idle",
+                "held": 0,
+                "charged": false,
+                "settled": false
+              }
+            ],
+            "confirmed": 0,
+            "effect": false
+          }
+        },
+        {
+          "action": "call1.provider_charge",
+          "state": {
+            "calls": [
+              {
+                "phase": "no_effect",
+                "held": 0,
+                "charged": true,
+                "settled": false
+              },
+              {
+                "phase": "idle",
+                "held": 0,
+                "charged": false,
+                "settled": false
+              }
+            ],
+            "confirmed": 0,
+            "effect": false
+          }
+        },
+        {
+          "action": "call2.reserve",
+          "state": {
+            "calls": [
+              {
+                "phase": "no_effect",
+                "held": 0,
+                "charged": true,
+                "settled": false
+              },
+              {
+                "phase": "reserved",
+                "held": 1,
+                "charged": false,
+                "settled": false
+              }
+            ],
+            "confirmed": 0,
+            "effect": false
+          }
+        },
+        {
+          "action": "call1.billing_settle",
+          "state": {
+            "calls": [
+              {
+                "phase": "done",
+                "held": 0,
+                "charged": true,
+                "settled": true
+              },
+              {
+                "phase": "reserved",
+                "held": 1,
+                "charged": false,
+                "settled": false
+              }
+            ],
+            "confirmed": 1,
+            "effect": false
+          }
+        }
+      ],
+      "actual_cost_exceeds_budget": [
+        {
+          "action": "call1.reserve",
+          "state": {
+            "calls": [
+              {
+                "phase": "reserved",
+                "held": 1,
+                "charged": false,
+                "settled": false
+              },
+              {
+                "phase": "idle",
+                "held": 0,
+                "charged": false,
+                "settled": false
+              }
+            ],
+            "confirmed": 0,
+            "effect": false
+          }
+        },
+        {
+          "action": "call1.send",
+          "state": {
+            "calls": [
+              {
+                "phase": "sent",
+                "held": 1,
+                "charged": false,
+                "settled": false
+              },
+              {
+                "phase": "idle",
+                "held": 0,
+                "charged": false,
+                "settled": false
+              }
+            ],
+            "confirmed": 0,
+            "effect": false
+          }
+        },
+        {
+          "action": "call1.business_no_effect",
+          "state": {
+            "calls": [
+              {
+                "phase": "no_effect",
+                "held": 0,
+                "charged": false,
+                "settled": false
+              },
+              {
+                "phase": "idle",
+                "held": 0,
+                "charged": false,
+                "settled": false
+              }
+            ],
+            "confirmed": 0,
+            "effect": false
+          }
+        },
+        {
+          "action": "call1.provider_charge",
+          "state": {
+            "calls": [
+              {
+                "phase": "no_effect",
+                "held": 0,
+                "charged": true,
+                "settled": false
+              },
+              {
+                "phase": "idle",
+                "held": 0,
+                "charged": false,
+                "settled": false
+              }
+            ],
+            "confirmed": 0,
+            "effect": false
+          }
+        },
+        {
+          "action": "call2.reserve",
+          "state": {
+            "calls": [
+              {
+                "phase": "no_effect",
+                "held": 0,
+                "charged": true,
+                "settled": false
+              },
+              {
+                "phase": "reserved",
+                "held": 1,
+                "charged": false,
+                "settled": false
+              }
+            ],
+            "confirmed": 0,
+            "effect": false
+          }
+        },
+        {
+          "action": "call2.send",
+          "state": {
+            "calls": [
+              {
+                "phase": "no_effect",
+                "held": 0,
+                "charged": true,
+                "settled": false
+              },
+              {
+                "phase": "sent",
+                "held": 1,
+                "charged": false,
+                "settled": false
+              }
+            ],
+            "confirmed": 0,
+            "effect": false
+          }
+        },
+        {
+          "action": "call2.provider_charge",
+          "state": {
+            "calls": [
+              {
+                "phase": "no_effect",
+                "held": 0,
+                "charged": true,
+                "settled": false
+              },
+              {
+                "phase": "sent",
+                "held": 1,
+                "charged": true,
+                "settled": false
+              }
+            ],
+            "confirmed": 0,
+            "effect": false
+          }
+        }
+      ]
+    }
+  },
+  "retry_mutant": {
+    "states": 17,
+    "transitions": 24,
+    "terminal_states": 1,
+    "violation_states": {
+      "actual_cost_exceeds_budget": 4,
+      "actual_cost_not_covered": 2,
+      "ledger_exceeds_budget": 3
+    },
+    "shortest_counterexamples": {
+      "actual_cost_exceeds_budget": [
+        {
+          "action": "call1.reserve",
+          "state": {
+            "calls": [
+              {
+                "phase": "reserved",
+                "held": 1,
+                "charged": false,
+                "settled": false
+              },
+              {
+                "phase": "idle",
+                "held": 0,
+                "charged": false,
+                "settled": false
+              }
+            ],
+            "confirmed": 0,
+            "effect": false
+          }
+        },
+        {
+          "action": "call1.send",
+          "state": {
+            "calls": [
+              {
+                "phase": "sent",
+                "held": 1,
+                "charged": false,
+                "settled": false
+              },
+              {
+                "phase": "idle",
+                "held": 0,
+                "charged": false,
+                "settled": false
+              }
+            ],
+            "confirmed": 0,
+            "effect": false
+          }
+        },
+        {
+          "action": "call1.provider_charge",
+          "state": {
+            "calls": [
+              {
+                "phase": "sent",
+                "held": 1,
+                "charged": true,
+                "settled": false
+              },
+              {
+                "phase": "idle",
+                "held": 0,
+                "charged": false,
+                "settled": false
+              }
+            ],
+            "confirmed": 0,
+            "effect": true
+          }
+        },
+        {
+          "action": "call2.reserve",
+          "state": {
+            "calls": [
+              {
+                "phase": "sent",
+                "held": 1,
+                "charged": true,
+                "settled": false
+              },
+              {
+                "phase": "reserved",
+                "held": 0,
+                "charged": false,
+                "settled": false
+              }
+            ],
+            "confirmed": 0,
+            "effect": true
+          }
+        },
+        {
+          "action": "call2.send",
+          "state": {
+            "calls": [
+              {
+                "phase": "sent",
+                "held": 1,
+                "charged": true,
+                "settled": false
+              },
+              {
+                "phase": "sent",
+                "held": 0,
+                "charged": false,
+                "settled": false
+              }
+            ],
+            "confirmed": 0,
+            "effect": true
+          }
+        },
+        {
+          "action": "call2.provider_charge",
+          "state": {
+            "calls": [
+              {
+                "phase": "sent",
+                "held": 1,
+                "charged": true,
+                "settled": false
+              },
+              {
+                "phase": "sent",
+                "held": 0,
+                "charged": true,
+                "settled": false
+              }
+            ],
+            "confirmed": 0,
+            "effect": true
+          }
+        }
+      ],
+      "actual_cost_not_covered": [
+        {
+          "action": "call1.reserve",
+          "state": {
+            "calls": [
+              {
+                "phase": "reserved",
+                "held": 1,
+                "charged": false,
+                "settled": false
+              },
+              {
+                "phase": "idle",
+                "held": 0,
+                "charged": false,
+                "settled": false
+              }
+            ],
+            "confirmed": 0,
+            "effect": false
+          }
+        },
+        {
+          "action": "call1.send",
+          "state": {
+            "calls": [
+              {
+                "phase": "sent",
+                "held": 1,
+                "charged": false,
+                "settled": false
+              },
+              {
+                "phase": "idle",
+                "held": 0,
+                "charged": false,
+                "settled": false
+              }
+            ],
+            "confirmed": 0,
+            "effect": false
+          }
+        },
+        {
+          "action": "call1.provider_charge",
+          "state": {
+            "calls": [
+              {
+                "phase": "sent",
+                "held": 1,
+                "charged": true,
+                "settled": false
+              },
+              {
+                "phase": "idle",
+                "held": 0,
+                "charged": false,
+                "settled": false
+              }
+            ],
+            "confirmed": 0,
+            "effect": true
+          }
+        },
+        {
+          "action": "call2.reserve",
+          "state": {
+            "calls": [
+              {
+                "phase": "sent",
+                "held": 1,
+                "charged": true,
+                "settled": false
+              },
+              {
+                "phase": "reserved",
+                "held": 0,
+                "charged": false,
+                "settled": false
+              }
+            ],
+            "confirmed": 0,
+            "effect": true
+          }
+        },
+        {
+          "action": "call2.send",
+          "state": {
+            "calls": [
+              {
+                "phase": "sent",
+                "held": 1,
+                "charged": true,
+                "settled": false
+              },
+              {
+                "phase": "sent",
+                "held": 0,
+                "charged": false,
+                "settled": false
+              }
+            ],
+            "confirmed": 0,
+            "effect": true
+          }
+        },
+        {
+          "action": "call2.provider_charge",
+          "state": {
+            "calls": [
+              {
+                "phase": "sent",
+                "held": 1,
+                "charged": true,
+                "settled": false
+              },
+              {
+                "phase": "sent",
+                "held": 0,
+                "charged": true,
+                "settled": false
+              }
+            ],
+            "confirmed": 0,
+            "effect": true
+          }
+        }
+      ],
+      "ledger_exceeds_budget": [
+        {
+          "action": "call1.reserve",
+          "state": {
+            "calls": [
+              {
+                "phase": "reserved",
+                "held": 1,
+                "charged": false,
+                "settled": false
+              },
+              {
+                "phase": "idle",
+                "held": 0,
+                "charged": false,
+                "settled": false
+              }
+            ],
+            "confirmed": 0,
+            "effect": false
+          }
+        },
+        {
+          "action": "call1.send",
+          "state": {
+            "calls": [
+              {
+                "phase": "sent",
+                "held": 1,
+                "charged": false,
+                "settled": false
+              },
+              {
+                "phase": "idle",
+                "held": 0,
+                "charged": false,
+                "settled": false
+              }
+            ],
+            "confirmed": 0,
+            "effect": false
+          }
+        },
+        {
+          "action": "call2.reserve",
+          "state": {
+            "calls": [
+              {
+                "phase": "sent",
+                "held": 1,
+                "charged": false,
+                "settled": false
+              },
+              {
+                "phase": "reserved",
+                "held": 0,
+                "charged": false,
+                "settled": false
+              }
+            ],
+            "confirmed": 0,
+            "effect": false
+          }
+        },
+        {
+          "action": "call2.send",
+          "state": {
+            "calls": [
+              {
+                "phase": "sent",
+                "held": 1,
+                "charged": false,
+                "settled": false
+              },
+              {
+                "phase": "sent",
+                "held": 0,
+                "charged": false,
+                "settled": false
+              }
+            ],
+            "confirmed": 0,
+            "effect": false
+          }
+        },
+        {
+          "action": "call2.provider_charge",
+          "state": {
+            "calls": [
+              {
+                "phase": "sent",
+                "held": 1,
+                "charged": false,
+                "settled": false
+              },
+              {
+                "phase": "sent",
+                "held": 0,
+                "charged": true,
+                "settled": false
+              }
+            ],
+            "confirmed": 0,
+            "effect": true
+          }
+        },
+        {
+          "action": "call2.billing_settle",
+          "state": {
+            "calls": [
+              {
+                "phase": "sent",
+                "held": 1,
+                "charged": false,
+                "settled": false
+              },
+              {
+                "phase": "done",
+                "held": 0,
+                "charged": true,
+                "settled": true
+              }
+            ],
+            "confirmed": 1,
+            "effect": true
+          }
+        }
+      ]
+    }
+  },
+  "checkpoint_mutant": {
+    "states": 4,
+    "transitions": 3,
+    "terminal_states": 1,
+    "violation_states": {
+      "permit_spent_twice": 1
+    },
+    "shortest_counterexamples": {
+      "permit_spent_twice": [
+        {
+          "action": "admit_next_slot",
+          "state": {
+            "pc": 1,
+            "spent": true,
+            "admissions": 1,
+            "restored": false
+          }
+        },
+        {
+          "action": "restore_old_checkpoint",
+          "state": {
+            "pc": 0,
+            "spent": false,
+            "admissions": 1,
+            "restored": true
+          }
+        },
+        {
+          "action": "admit_next_slot",
+          "state": {
+            "pc": 1,
+            "spent": true,
+            "admissions": 2,
+            "restored": true
+          }
+        }
+      ]
+    }
+  },
+  "revocation_mutant": {
+    "states": 8,
+    "transitions": 7,
+    "terminal_states": 3,
+    "violation_states": {
+      "revoked_authority_accepted": 1
+    },
+    "shortest_counterexamples": {
+      "revoked_authority_accepted": [
+        {
+          "action": "client_check",
+          "state": {
+            "phase": "checked",
+            "revoked": false,
+            "stale_acceptance": false
+          }
+        },
+        {
+          "action": "revoke",
+          "state": {
+            "phase": "checked",
+            "revoked": true,
+            "stale_acceptance": false
+          }
+        },
+        {
+          "action": "gateway_accept",
+          "state": {
+            "phase": "accepted",
+            "revoked": true,
+            "stale_acceptance": true
+          }
+        }
+      ]
+    }
+  },
+  "admission_mutant": {
+    "states": 6,
+    "transitions": 5,
+    "terminal_states": 3,
+    "violation_states": {
+      "consumption_without_operation_after_crash": 1
+    },
+    "shortest_counterexamples": {
+      "consumption_without_operation_after_crash": [
+        {
+          "action": "persist_permit_consumption",
+          "state": {
+            "phase": "partial",
+            "spent": true,
+            "operation": false,
+            "crashed": false
+          }
+        },
+        {
+          "action": "crash_and_recover",
+          "state": {
+            "phase": "recovered",
+            "spent": true,
+            "operation": false,
+            "crashed": true
+          }
+        }
+      ]
+    }
+  },
+  "no_effect_fixed": {
+    "states": 13,
+    "transitions": 16,
+    "terminal_states": 2,
+    "violation_states": {},
+    "shortest_counterexamples": {}
+  },
+  "retry_fixed": {
+    "states": 5,
+    "transitions": 4,
+    "terminal_states": 1,
+    "violation_states": {},
+    "shortest_counterexamples": {}
+  },
+  "checkpoint_fixed": {
+    "states": 3,
+    "transitions": 2,
+    "terminal_states": 1,
+    "violation_states": {},
+    "shortest_counterexamples": {}
+  },
+  "revocation_fixed": {
+    "states": 7,
+    "transitions": 7,
+    "terminal_states": 2,
+    "violation_states": {},
+    "shortest_counterexamples": {}
+  },
+  "admission_fixed": {
+    "states": 4,
+    "transitions": 3,
+    "terminal_states": 2,
+    "violation_states": {},
+    "shortest_counterexamples": {}
+  },
+  "retry_fixed_budget_two": {
+    "states": 17,
+    "transitions": 24,
+    "terminal_states": 1,
+    "violation_states": {},
+    "shortest_counterexamples": {},
+    "reaches_two_settled_attempts": true
+  }
+}

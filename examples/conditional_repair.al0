@@ -1,0 +1,30 @@
+// Branches receive explicit checked captures; arithmetic cannot manufacture them.
+workflow apply(patch: Checked<Patch, TestsPassed>) -> Text
+uses {"authorize:repo.merge@repo", "admit:repo.merge@repo"} {
+    let intent = prepare("repo.merge", patch);
+    let permit = authorize(intent);
+    let operation = admit(intent, permit);
+    let state = await(operation);
+    let answer: Text = match_business(state, {
+        Applied: "Done", ProvenNoEffect: "NeedsRevision", NotDispatched: "Waiting",
+        Pending: "Waiting", Unknown: "NeedsReconciliation"
+    });
+    return answer;
+}
+
+workflow reject() -> Text uses {} {
+    let answer: Text = "UnexpectedBaseVersion";
+    return answer;
+}
+
+workflow conditional-repair() -> Text
+uses {"infer:code-model", "check:patch-tests", "authorize:repo.merge@repo", "admit:repo.merge@repo"} {
+    let request: Text = "Fix the example at version 7.";
+    let draft = infer("code-model", request);
+    let tested = check("patch-tests", draft);
+    let base = field(tested, "base_version");
+    let expected: Int = 7;
+    let allowed = eq(base, expected);
+    let answer = if(allowed, apply, reject, {patch: tested});
+    return answer;
+}

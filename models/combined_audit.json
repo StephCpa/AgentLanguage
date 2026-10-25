@@ -1,0 +1,2532 @@
+{
+  "bounds": "one admitted operation; derived grant; two attempts; two cost units; one crash/recovery; fixed time",
+  "apply": {
+    "correct": {
+      "states": 548,
+      "transitions": 1344,
+      "terminal_states": 9,
+      "violation_states": {},
+      "shortest_counterexamples": {}
+    },
+    "cancel_refunds_exposed": {
+      "states": 548,
+      "transitions": 1344,
+      "terminal_states": 9,
+      "violation_states": {
+        "unsettled_attempt_not_reserved": 232,
+        "external_fees_not_covered": 116
+      },
+      "shortest_counterexamples": {
+        "unsettled_attempt_not_reserved": [
+          {
+            "action": "dispatch:0",
+            "state": {
+              "attempts": [
+                {
+                  "phase": "DispatchStarted",
+                  "ticket": true,
+                  "remote": "absent",
+                  "held": true,
+                  "billed": false
+                }
+              ],
+              "business": "Unknown",
+              "cancelled": false,
+              "revoked": false,
+              "recovery": 0,
+              "unauthorized": false
+            }
+          },
+          {
+            "action": "cancel",
+            "state": {
+              "attempts": [
+                {
+                  "phase": "DispatchStarted",
+                  "ticket": true,
+                  "remote": "absent",
+                  "held": false,
+                  "billed": false
+                }
+              ],
+              "business": "Unknown",
+              "cancelled": true,
+              "revoked": false,
+              "recovery": 0,
+              "unauthorized": false
+            }
+          }
+        ],
+        "external_fees_not_covered": [
+          {
+            "action": "dispatch:0",
+            "state": {
+              "attempts": [
+                {
+                  "phase": "DispatchStarted",
+                  "ticket": true,
+                  "remote": "absent",
+                  "held": true,
+                  "billed": false
+                }
+              ],
+              "business": "Unknown",
+              "cancelled": false,
+              "revoked": false,
+              "recovery": 0,
+              "unauthorized": false
+            }
+          },
+          {
+            "action": "cancel",
+            "state": {
+              "attempts": [
+                {
+                  "phase": "DispatchStarted",
+                  "ticket": true,
+                  "remote": "absent",
+                  "held": false,
+                  "billed": false
+                }
+              ],
+              "business": "Unknown",
+              "cancelled": true,
+              "revoked": false,
+              "recovery": 0,
+              "unauthorized": false
+            }
+          },
+          {
+            "action": "launch:0",
+            "state": {
+              "attempts": [
+                {
+                  "phase": "DispatchStarted",
+                  "ticket": false,
+                  "remote": "inflight",
+                  "held": false,
+                  "billed": false
+                }
+              ],
+              "business": "Unknown",
+              "cancelled": true,
+              "revoked": false,
+              "recovery": 0,
+              "unauthorized": false
+            }
+          },
+          {
+            "action": "endpoint:0",
+            "state": {
+              "attempts": [
+                {
+                  "phase": "DispatchStarted",
+                  "ticket": false,
+                  "remote": "received",
+                  "held": false,
+                  "billed": false
+                }
+              ],
+              "business": "Unknown",
+              "cancelled": true,
+              "revoked": false,
+              "recovery": 0,
+              "unauthorized": false
+            }
+          }
+        ]
+      }
+    },
+    "retry_without_reservation": {
+      "states": 548,
+      "transitions": 1344,
+      "terminal_states": 9,
+      "violation_states": {
+        "unsettled_attempt_not_reserved": 306,
+        "external_fees_not_covered": 48
+      },
+      "shortest_counterexamples": {
+        "unsettled_attempt_not_reserved": [
+          {
+            "action": "dispatch:0",
+            "state": {
+              "attempts": [
+                {
+                  "phase": "DispatchStarted",
+                  "ticket": true,
+                  "remote": "absent",
+                  "held": true,
+                  "billed": false
+                }
+              ],
+              "business": "Unknown",
+              "cancelled": false,
+              "revoked": false,
+              "recovery": 0,
+              "unauthorized": false
+            }
+          },
+          {
+            "action": "retry",
+            "state": {
+              "attempts": [
+                {
+                  "phase": "DispatchStarted",
+                  "ticket": true,
+                  "remote": "absent",
+                  "held": true,
+                  "billed": false
+                },
+                {
+                  "phase": "Queued",
+                  "ticket": false,
+                  "remote": "absent",
+                  "held": false,
+                  "billed": false
+                }
+              ],
+              "business": "Unknown",
+              "cancelled": false,
+              "revoked": false,
+              "recovery": 0,
+              "unauthorized": false
+            }
+          }
+        ],
+        "external_fees_not_covered": [
+          {
+            "action": "dispatch:0",
+            "state": {
+              "attempts": [
+                {
+                  "phase": "DispatchStarted",
+                  "ticket": true,
+                  "remote": "absent",
+                  "held": true,
+                  "billed": false
+                }
+              ],
+              "business": "Unknown",
+              "cancelled": false,
+              "revoked": false,
+              "recovery": 0,
+              "unauthorized": false
+            }
+          },
+          {
+            "action": "retry",
+            "state": {
+              "attempts": [
+                {
+                  "phase": "DispatchStarted",
+                  "ticket": true,
+                  "remote": "absent",
+                  "held": true,
+                  "billed": false
+                },
+                {
+                  "phase": "Queued",
+                  "ticket": false,
+                  "remote": "absent",
+                  "held": false,
+                  "billed": false
+                }
+              ],
+              "business": "Unknown",
+              "cancelled": false,
+              "revoked": false,
+              "recovery": 0,
+              "unauthorized": false
+            }
+          },
+          {
+            "action": "launch:0",
+            "state": {
+              "attempts": [
+                {
+                  "phase": "DispatchStarted",
+                  "ticket": false,
+                  "remote": "inflight",
+                  "held": true,
+                  "billed": false
+                },
+                {
+                  "phase": "Queued",
+                  "ticket": false,
+                  "remote": "absent",
+                  "held": false,
+                  "billed": false
+                }
+              ],
+              "business": "Unknown",
+              "cancelled": false,
+              "revoked": false,
+              "recovery": 0,
+              "unauthorized": false
+            }
+          },
+          {
+            "action": "endpoint:0",
+            "state": {
+              "attempts": [
+                {
+                  "phase": "DispatchStarted",
+                  "ticket": false,
+                  "remote": "received",
+                  "held": true,
+                  "billed": false
+                },
+                {
+                  "phase": "Queued",
+                  "ticket": false,
+                  "remote": "absent",
+                  "held": false,
+                  "billed": false
+                }
+              ],
+              "business": "Unknown",
+              "cancelled": false,
+              "revoked": false,
+              "recovery": 0,
+              "unauthorized": false
+            }
+          },
+          {
+            "action": "dispatch:1",
+            "state": {
+              "attempts": [
+                {
+                  "phase": "DispatchStarted",
+                  "ticket": false,
+                  "remote": "received",
+                  "held": true,
+                  "billed": false
+                },
+                {
+                  "phase": "DispatchStarted",
+                  "ticket": true,
+                  "remote": "absent",
+                  "held": false,
+                  "billed": false
+                }
+              ],
+              "business": "Unknown",
+              "cancelled": false,
+              "revoked": false,
+              "recovery": 0,
+              "unauthorized": false
+            }
+          },
+          {
+            "action": "launch:1",
+            "state": {
+              "attempts": [
+                {
+                  "phase": "DispatchStarted",
+                  "ticket": false,
+                  "remote": "received",
+                  "held": true,
+                  "billed": false
+                },
+                {
+                  "phase": "DispatchStarted",
+                  "ticket": false,
+                  "remote": "inflight",
+                  "held": false,
+                  "billed": false
+                }
+              ],
+              "business": "Unknown",
+              "cancelled": false,
+              "revoked": false,
+              "recovery": 0,
+              "unauthorized": false
+            }
+          },
+          {
+            "action": "endpoint:1",
+            "state": {
+              "attempts": [
+                {
+                  "phase": "DispatchStarted",
+                  "ticket": false,
+                  "remote": "received",
+                  "held": true,
+                  "billed": false
+                },
+                {
+                  "phase": "DispatchStarted",
+                  "ticket": false,
+                  "remote": "received",
+                  "held": false,
+                  "billed": false
+                }
+              ],
+              "business": "Unknown",
+              "cancelled": false,
+              "revoked": false,
+              "recovery": 0,
+              "unauthorized": false
+            }
+          }
+        ]
+      }
+    },
+    "leaf_only": {
+      "states": 816,
+      "transitions": 1942,
+      "terminal_states": 17,
+      "violation_states": {
+        "new_work_after_ancestor_revocation": 268
+      },
+      "shortest_counterexamples": {
+        "new_work_after_ancestor_revocation": [
+          {
+            "action": "revoke",
+            "state": {
+              "attempts": [
+                {
+                  "phase": "Queued",
+                  "ticket": false,
+                  "remote": "absent",
+                  "held": true,
+                  "billed": false
+                }
+              ],
+              "business": "NotDispatched",
+              "cancelled": false,
+              "revoked": true,
+              "recovery": 0,
+              "unauthorized": false
+            }
+          },
+          {
+            "action": "dispatch:0",
+            "state": {
+              "attempts": [
+                {
+                  "phase": "DispatchStarted",
+                  "ticket": true,
+                  "remote": "absent",
+                  "held": true,
+                  "billed": false
+                }
+              ],
+              "business": "Unknown",
+              "cancelled": false,
+              "revoked": true,
+              "recovery": 0,
+              "unauthorized": true
+            }
+          }
+        ]
+      }
+    },
+    "corpus": {
+      "states": 548,
+      "transitions": 1344,
+      "coverage_obligations": 319,
+      "selected_traces": 98,
+      "selected_steps": 641,
+      "replayed_distinct_states": 157,
+      "replayed_distinct_edges": 202,
+      "coverage_definition": "action x security/control/cost partition; all feasible adjacent action pairs",
+      "traces": [
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "endpoint:0",
+          "bill:0",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "bill:1",
+          "crash",
+          "recover"
+        ],
+        [
+          "crash",
+          "recover",
+          "dispatch:0",
+          "revoke",
+          "cancel",
+          "launch:0",
+          "endpoint:0",
+          "business"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "dispatch:1",
+          "revoke",
+          "cancel",
+          "launch:1",
+          "crash",
+          "endpoint:1"
+        ],
+        [
+          "cancel",
+          "crash",
+          "recover",
+          "revoke"
+        ],
+        [
+          "dispatch:0",
+          "launch:0",
+          "endpoint:0",
+          "crash",
+          "recover",
+          "bill:0"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "endpoint:0",
+          "dispatch:1",
+          "launch:1",
+          "business",
+          "endpoint:1"
+        ],
+        [
+          "crash",
+          "recover",
+          "dispatch:0",
+          "retry",
+          "dispatch:1",
+          "cancel",
+          "launch:1",
+          "endpoint:1",
+          "bill:1"
+        ],
+        [
+          "dispatch:0",
+          "revoke",
+          "launch:0",
+          "crash",
+          "endpoint:0"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "endpoint:0",
+          "bill:1"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "crash",
+          "recover",
+          "bill:1"
+        ],
+        [
+          "revoke",
+          "crash",
+          "recover",
+          "cancel"
+        ],
+        [
+          "dispatch:0",
+          "launch:0",
+          "endpoint:0",
+          "revoke",
+          "business"
+        ],
+        [
+          "dispatch:0",
+          "launch:0",
+          "endpoint:0",
+          "cancel",
+          "business"
+        ],
+        [
+          "dispatch:0",
+          "cancel",
+          "launch:0",
+          "endpoint:0",
+          "bill:0"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "dispatch:1",
+          "revoke",
+          "launch:1",
+          "endpoint:1",
+          "bill:1"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "cancel",
+          "bill:1"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "business",
+          "launch:0"
+        ],
+        [
+          "dispatch:0",
+          "launch:0",
+          "revoke",
+          "endpoint:0"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "crash",
+          "recover",
+          "dispatch:1"
+        ],
+        [
+          "dispatch:0",
+          "launch:0",
+          "endpoint:0",
+          "retry",
+          "business"
+        ],
+        [
+          "dispatch:0",
+          "revoke",
+          "cancel",
+          "launch:0",
+          "endpoint:0",
+          "business"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "dispatch:1",
+          "launch:1",
+          "cancel",
+          "endpoint:1"
+        ],
+        [
+          "dispatch:0",
+          "launch:0",
+          "endpoint:0",
+          "business",
+          "crash",
+          "recover"
+        ],
+        [
+          "dispatch:0",
+          "launch:0",
+          "endpoint:0",
+          "bill:0",
+          "crash",
+          "recover"
+        ],
+        [
+          "crash",
+          "recover",
+          "dispatch:0",
+          "launch:0",
+          "endpoint:0",
+          "business"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "endpoint:0",
+          "dispatch:1",
+          "business",
+          "launch:1"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "revoke",
+          "bill:1"
+        ],
+        [
+          "crash",
+          "recover",
+          "dispatch:0",
+          "revoke",
+          "launch:0",
+          "endpoint:0",
+          "business"
+        ],
+        [
+          "crash",
+          "recover",
+          "dispatch:0",
+          "cancel",
+          "launch:0",
+          "endpoint:0",
+          "business"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "endpoint:0",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "bill:0",
+          "bill:1"
+        ],
+        [
+          "crash",
+          "recover",
+          "dispatch:0",
+          "retry",
+          "dispatch:1",
+          "revoke",
+          "launch:1",
+          "endpoint:1",
+          "bill:1"
+        ],
+        [
+          "crash",
+          "recover",
+          "dispatch:0",
+          "retry",
+          "dispatch:1",
+          "revoke",
+          "cancel",
+          "launch:1",
+          "endpoint:1",
+          "bill:1"
+        ],
+        [
+          "cancel",
+          "revoke"
+        ],
+        [
+          "dispatch:0",
+          "launch:0",
+          "retry",
+          "endpoint:0"
+        ],
+        [
+          "dispatch:0",
+          "launch:0",
+          "cancel",
+          "endpoint:0"
+        ],
+        [
+          "dispatch:0",
+          "crash",
+          "recover",
+          "retry"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "dispatch:1",
+          "launch:0",
+          "launch:1"
+        ],
+        [
+          "dispatch:0",
+          "launch:0",
+          "endpoint:0",
+          "revoke",
+          "bill:0"
+        ],
+        [
+          "dispatch:0",
+          "launch:0",
+          "endpoint:0",
+          "business",
+          "revoke"
+        ],
+        [
+          "dispatch:0",
+          "launch:0",
+          "endpoint:0",
+          "business",
+          "cancel"
+        ],
+        [
+          "dispatch:0",
+          "launch:0",
+          "endpoint:0",
+          "business",
+          "bill:0"
+        ],
+        [
+          "dispatch:0",
+          "launch:0",
+          "endpoint:0",
+          "bill:0",
+          "revoke"
+        ],
+        [
+          "dispatch:0",
+          "launch:0",
+          "endpoint:0",
+          "bill:0",
+          "retry"
+        ],
+        [
+          "dispatch:0",
+          "launch:0",
+          "endpoint:0",
+          "bill:0",
+          "cancel"
+        ],
+        [
+          "dispatch:0",
+          "launch:0",
+          "endpoint:0",
+          "bill:0",
+          "business"
+        ],
+        [
+          "dispatch:0",
+          "launch:0",
+          "crash",
+          "endpoint:0",
+          "recover"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "dispatch:1",
+          "endpoint:0",
+          "launch:1"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "dispatch:1",
+          "launch:1",
+          "revoke",
+          "endpoint:1"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "dispatch:1",
+          "launch:1",
+          "launch:0",
+          "endpoint:1"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "endpoint:0",
+          "dispatch:1",
+          "bill:0",
+          "launch:1"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "endpoint:0",
+          "business",
+          "crash",
+          "recover"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "endpoint:0",
+          "bill:0",
+          "crash",
+          "recover"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:0",
+          "endpoint:1"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "launch:0",
+          "business"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "business",
+          "bill:1"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "bill:1",
+          "revoke"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "bill:1",
+          "launch:0"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "bill:1",
+          "cancel"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "bill:1",
+          "business"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "dispatch:1",
+          "launch:1",
+          "crash",
+          "recover",
+          "endpoint:1"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "dispatch:1",
+          "launch:1",
+          "crash",
+          "endpoint:1",
+          "recover"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "dispatch:1",
+          "cancel",
+          "launch:1",
+          "crash",
+          "endpoint:1"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "endpoint:0",
+          "dispatch:1",
+          "launch:1",
+          "bill:0",
+          "endpoint:1"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "business",
+          "endpoint:0"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "bill:1",
+          "endpoint:0"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "dispatch:1",
+          "revoke",
+          "cancel",
+          "launch:1",
+          "endpoint:1",
+          "bill:1"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "endpoint:0",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "crash",
+          "recover"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "endpoint:0",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "bill:1",
+          "bill:0"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "endpoint:0",
+          "bill:0",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "crash",
+          "recover"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "revoke"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "cancel"
+        ],
+        [
+          "revoke",
+          "cancel",
+          "crash",
+          "recover"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "dispatch:1",
+          "crash"
+        ],
+        [
+          "dispatch:0",
+          "launch:0",
+          "endpoint:0",
+          "retry",
+          "bill:0"
+        ],
+        [
+          "dispatch:0",
+          "launch:0",
+          "endpoint:0",
+          "cancel",
+          "bill:0"
+        ],
+        [
+          "dispatch:0",
+          "launch:0",
+          "crash",
+          "recover",
+          "endpoint:0"
+        ],
+        [
+          "dispatch:0",
+          "cancel",
+          "launch:0",
+          "crash",
+          "endpoint:0"
+        ],
+        [
+          "dispatch:0",
+          "revoke",
+          "cancel",
+          "launch:0",
+          "endpoint:0",
+          "bill:0"
+        ],
+        [
+          "dispatch:0",
+          "revoke",
+          "cancel",
+          "launch:0",
+          "crash",
+          "endpoint:0"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "endpoint:0",
+          "business",
+          "revoke"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "endpoint:0",
+          "business",
+          "cancel"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "endpoint:0",
+          "business",
+          "bill:0"
+        ],
+        [
+          "dispatch:0",
+          "launch:0",
+          "endpoint:0",
+          "crash",
+          "recover",
+          "business"
+        ],
+        [
+          "crash",
+          "recover",
+          "dispatch:0",
+          "retry",
+          "dispatch:1",
+          "launch:1"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "dispatch:1",
+          "revoke",
+          "launch:1",
+          "crash",
+          "endpoint:1"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "launch:0",
+          "bill:1"
+        ],
+        [
+          "crash",
+          "recover",
+          "dispatch:0",
+          "revoke",
+          "launch:0",
+          "endpoint:0",
+          "bill:0"
+        ],
+        [
+          "crash",
+          "recover",
+          "dispatch:0",
+          "cancel",
+          "launch:0",
+          "endpoint:0",
+          "bill:0"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "endpoint:0",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "revoke"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "endpoint:0",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "cancel"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "endpoint:0",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "business"
+        ],
+        [
+          "crash",
+          "recover",
+          "dispatch:0",
+          "revoke",
+          "cancel",
+          "launch:0",
+          "endpoint:0",
+          "bill:0"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "endpoint:0",
+          "bill:0",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "revoke"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "endpoint:0",
+          "bill:0",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "cancel"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "endpoint:0",
+          "bill:0",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "business"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "endpoint:0",
+          "bill:0",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "bill:1",
+          "revoke"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "endpoint:0",
+          "bill:0",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "bill:1",
+          "cancel"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "endpoint:0",
+          "bill:0",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "bill:1",
+          "business"
+        ]
+      ]
+    }
+  },
+  "reject": {
+    "correct": {
+      "states": 548,
+      "transitions": 1344,
+      "terminal_states": 9,
+      "violation_states": {},
+      "shortest_counterexamples": {}
+    },
+    "cancel_refunds_exposed": {
+      "states": 548,
+      "transitions": 1344,
+      "terminal_states": 9,
+      "violation_states": {
+        "unsettled_attempt_not_reserved": 232,
+        "external_fees_not_covered": 116
+      },
+      "shortest_counterexamples": {
+        "unsettled_attempt_not_reserved": [
+          {
+            "action": "dispatch:0",
+            "state": {
+              "attempts": [
+                {
+                  "phase": "DispatchStarted",
+                  "ticket": true,
+                  "remote": "absent",
+                  "held": true,
+                  "billed": false
+                }
+              ],
+              "business": "Unknown",
+              "cancelled": false,
+              "revoked": false,
+              "recovery": 0,
+              "unauthorized": false
+            }
+          },
+          {
+            "action": "cancel",
+            "state": {
+              "attempts": [
+                {
+                  "phase": "DispatchStarted",
+                  "ticket": true,
+                  "remote": "absent",
+                  "held": false,
+                  "billed": false
+                }
+              ],
+              "business": "Unknown",
+              "cancelled": true,
+              "revoked": false,
+              "recovery": 0,
+              "unauthorized": false
+            }
+          }
+        ],
+        "external_fees_not_covered": [
+          {
+            "action": "dispatch:0",
+            "state": {
+              "attempts": [
+                {
+                  "phase": "DispatchStarted",
+                  "ticket": true,
+                  "remote": "absent",
+                  "held": true,
+                  "billed": false
+                }
+              ],
+              "business": "Unknown",
+              "cancelled": false,
+              "revoked": false,
+              "recovery": 0,
+              "unauthorized": false
+            }
+          },
+          {
+            "action": "cancel",
+            "state": {
+              "attempts": [
+                {
+                  "phase": "DispatchStarted",
+                  "ticket": true,
+                  "remote": "absent",
+                  "held": false,
+                  "billed": false
+                }
+              ],
+              "business": "Unknown",
+              "cancelled": true,
+              "revoked": false,
+              "recovery": 0,
+              "unauthorized": false
+            }
+          },
+          {
+            "action": "launch:0",
+            "state": {
+              "attempts": [
+                {
+                  "phase": "DispatchStarted",
+                  "ticket": false,
+                  "remote": "inflight",
+                  "held": false,
+                  "billed": false
+                }
+              ],
+              "business": "Unknown",
+              "cancelled": true,
+              "revoked": false,
+              "recovery": 0,
+              "unauthorized": false
+            }
+          },
+          {
+            "action": "endpoint:0",
+            "state": {
+              "attempts": [
+                {
+                  "phase": "DispatchStarted",
+                  "ticket": false,
+                  "remote": "received",
+                  "held": false,
+                  "billed": false
+                }
+              ],
+              "business": "Unknown",
+              "cancelled": true,
+              "revoked": false,
+              "recovery": 0,
+              "unauthorized": false
+            }
+          }
+        ]
+      }
+    },
+    "retry_without_reservation": {
+      "states": 548,
+      "transitions": 1344,
+      "terminal_states": 9,
+      "violation_states": {
+        "unsettled_attempt_not_reserved": 306,
+        "external_fees_not_covered": 48
+      },
+      "shortest_counterexamples": {
+        "unsettled_attempt_not_reserved": [
+          {
+            "action": "dispatch:0",
+            "state": {
+              "attempts": [
+                {
+                  "phase": "DispatchStarted",
+                  "ticket": true,
+                  "remote": "absent",
+                  "held": true,
+                  "billed": false
+                }
+              ],
+              "business": "Unknown",
+              "cancelled": false,
+              "revoked": false,
+              "recovery": 0,
+              "unauthorized": false
+            }
+          },
+          {
+            "action": "retry",
+            "state": {
+              "attempts": [
+                {
+                  "phase": "DispatchStarted",
+                  "ticket": true,
+                  "remote": "absent",
+                  "held": true,
+                  "billed": false
+                },
+                {
+                  "phase": "Queued",
+                  "ticket": false,
+                  "remote": "absent",
+                  "held": false,
+                  "billed": false
+                }
+              ],
+              "business": "Unknown",
+              "cancelled": false,
+              "revoked": false,
+              "recovery": 0,
+              "unauthorized": false
+            }
+          }
+        ],
+        "external_fees_not_covered": [
+          {
+            "action": "dispatch:0",
+            "state": {
+              "attempts": [
+                {
+                  "phase": "DispatchStarted",
+                  "ticket": true,
+                  "remote": "absent",
+                  "held": true,
+                  "billed": false
+                }
+              ],
+              "business": "Unknown",
+              "cancelled": false,
+              "revoked": false,
+              "recovery": 0,
+              "unauthorized": false
+            }
+          },
+          {
+            "action": "retry",
+            "state": {
+              "attempts": [
+                {
+                  "phase": "DispatchStarted",
+                  "ticket": true,
+                  "remote": "absent",
+                  "held": true,
+                  "billed": false
+                },
+                {
+                  "phase": "Queued",
+                  "ticket": false,
+                  "remote": "absent",
+                  "held": false,
+                  "billed": false
+                }
+              ],
+              "business": "Unknown",
+              "cancelled": false,
+              "revoked": false,
+              "recovery": 0,
+              "unauthorized": false
+            }
+          },
+          {
+            "action": "launch:0",
+            "state": {
+              "attempts": [
+                {
+                  "phase": "DispatchStarted",
+                  "ticket": false,
+                  "remote": "inflight",
+                  "held": true,
+                  "billed": false
+                },
+                {
+                  "phase": "Queued",
+                  "ticket": false,
+                  "remote": "absent",
+                  "held": false,
+                  "billed": false
+                }
+              ],
+              "business": "Unknown",
+              "cancelled": false,
+              "revoked": false,
+              "recovery": 0,
+              "unauthorized": false
+            }
+          },
+          {
+            "action": "endpoint:0",
+            "state": {
+              "attempts": [
+                {
+                  "phase": "DispatchStarted",
+                  "ticket": false,
+                  "remote": "received",
+                  "held": true,
+                  "billed": false
+                },
+                {
+                  "phase": "Queued",
+                  "ticket": false,
+                  "remote": "absent",
+                  "held": false,
+                  "billed": false
+                }
+              ],
+              "business": "Unknown",
+              "cancelled": false,
+              "revoked": false,
+              "recovery": 0,
+              "unauthorized": false
+            }
+          },
+          {
+            "action": "dispatch:1",
+            "state": {
+              "attempts": [
+                {
+                  "phase": "DispatchStarted",
+                  "ticket": false,
+                  "remote": "received",
+                  "held": true,
+                  "billed": false
+                },
+                {
+                  "phase": "DispatchStarted",
+                  "ticket": true,
+                  "remote": "absent",
+                  "held": false,
+                  "billed": false
+                }
+              ],
+              "business": "Unknown",
+              "cancelled": false,
+              "revoked": false,
+              "recovery": 0,
+              "unauthorized": false
+            }
+          },
+          {
+            "action": "launch:1",
+            "state": {
+              "attempts": [
+                {
+                  "phase": "DispatchStarted",
+                  "ticket": false,
+                  "remote": "received",
+                  "held": true,
+                  "billed": false
+                },
+                {
+                  "phase": "DispatchStarted",
+                  "ticket": false,
+                  "remote": "inflight",
+                  "held": false,
+                  "billed": false
+                }
+              ],
+              "business": "Unknown",
+              "cancelled": false,
+              "revoked": false,
+              "recovery": 0,
+              "unauthorized": false
+            }
+          },
+          {
+            "action": "endpoint:1",
+            "state": {
+              "attempts": [
+                {
+                  "phase": "DispatchStarted",
+                  "ticket": false,
+                  "remote": "received",
+                  "held": true,
+                  "billed": false
+                },
+                {
+                  "phase": "DispatchStarted",
+                  "ticket": false,
+                  "remote": "received",
+                  "held": false,
+                  "billed": false
+                }
+              ],
+              "business": "Unknown",
+              "cancelled": false,
+              "revoked": false,
+              "recovery": 0,
+              "unauthorized": false
+            }
+          }
+        ]
+      }
+    },
+    "leaf_only": {
+      "states": 816,
+      "transitions": 1942,
+      "terminal_states": 17,
+      "violation_states": {
+        "new_work_after_ancestor_revocation": 268
+      },
+      "shortest_counterexamples": {
+        "new_work_after_ancestor_revocation": [
+          {
+            "action": "revoke",
+            "state": {
+              "attempts": [
+                {
+                  "phase": "Queued",
+                  "ticket": false,
+                  "remote": "absent",
+                  "held": true,
+                  "billed": false
+                }
+              ],
+              "business": "NotDispatched",
+              "cancelled": false,
+              "revoked": true,
+              "recovery": 0,
+              "unauthorized": false
+            }
+          },
+          {
+            "action": "dispatch:0",
+            "state": {
+              "attempts": [
+                {
+                  "phase": "DispatchStarted",
+                  "ticket": true,
+                  "remote": "absent",
+                  "held": true,
+                  "billed": false
+                }
+              ],
+              "business": "Unknown",
+              "cancelled": false,
+              "revoked": true,
+              "recovery": 0,
+              "unauthorized": true
+            }
+          }
+        ]
+      }
+    },
+    "corpus": {
+      "states": 548,
+      "transitions": 1344,
+      "coverage_obligations": 316,
+      "selected_traces": 96,
+      "selected_steps": 630,
+      "replayed_distinct_states": 156,
+      "replayed_distinct_edges": 199,
+      "coverage_definition": "action x security/control/cost partition; all feasible adjacent action pairs",
+      "traces": [
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "endpoint:0",
+          "bill:0",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "bill:1",
+          "crash",
+          "recover"
+        ],
+        [
+          "crash",
+          "recover",
+          "dispatch:0",
+          "revoke",
+          "cancel",
+          "launch:0",
+          "endpoint:0",
+          "business"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "dispatch:1",
+          "revoke",
+          "cancel",
+          "launch:1",
+          "crash",
+          "endpoint:1"
+        ],
+        [
+          "cancel",
+          "crash",
+          "recover",
+          "revoke"
+        ],
+        [
+          "dispatch:0",
+          "launch:0",
+          "endpoint:0",
+          "crash",
+          "recover",
+          "bill:0"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "endpoint:0",
+          "dispatch:1",
+          "launch:1",
+          "business",
+          "endpoint:1"
+        ],
+        [
+          "crash",
+          "recover",
+          "dispatch:0",
+          "retry",
+          "dispatch:1",
+          "cancel",
+          "launch:1",
+          "endpoint:1",
+          "bill:1"
+        ],
+        [
+          "dispatch:0",
+          "revoke",
+          "launch:0",
+          "crash",
+          "endpoint:0"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "endpoint:0",
+          "bill:1"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "crash",
+          "recover",
+          "bill:1"
+        ],
+        [
+          "revoke",
+          "crash",
+          "recover",
+          "cancel"
+        ],
+        [
+          "dispatch:0",
+          "launch:0",
+          "endpoint:0",
+          "revoke",
+          "business"
+        ],
+        [
+          "dispatch:0",
+          "launch:0",
+          "endpoint:0",
+          "cancel",
+          "business"
+        ],
+        [
+          "dispatch:0",
+          "cancel",
+          "launch:0",
+          "endpoint:0",
+          "bill:0"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "dispatch:1",
+          "revoke",
+          "launch:1",
+          "endpoint:1",
+          "bill:1"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "cancel",
+          "bill:1"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "business",
+          "launch:0"
+        ],
+        [
+          "dispatch:0",
+          "launch:0",
+          "revoke",
+          "endpoint:0"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "crash",
+          "recover",
+          "dispatch:1"
+        ],
+        [
+          "dispatch:0",
+          "launch:0",
+          "endpoint:0",
+          "retry",
+          "business"
+        ],
+        [
+          "dispatch:0",
+          "revoke",
+          "cancel",
+          "launch:0",
+          "endpoint:0",
+          "business"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "dispatch:1",
+          "launch:1",
+          "cancel",
+          "endpoint:1"
+        ],
+        [
+          "dispatch:0",
+          "launch:0",
+          "endpoint:0",
+          "bill:0",
+          "crash",
+          "recover"
+        ],
+        [
+          "crash",
+          "recover",
+          "dispatch:0",
+          "launch:0",
+          "endpoint:0",
+          "business"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "endpoint:0",
+          "dispatch:1",
+          "business",
+          "launch:1"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "endpoint:0",
+          "business",
+          "crash",
+          "recover"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "revoke",
+          "bill:1"
+        ],
+        [
+          "crash",
+          "recover",
+          "dispatch:0",
+          "revoke",
+          "launch:0",
+          "endpoint:0",
+          "business"
+        ],
+        [
+          "crash",
+          "recover",
+          "dispatch:0",
+          "cancel",
+          "launch:0",
+          "endpoint:0",
+          "business"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "endpoint:0",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "bill:0",
+          "bill:1"
+        ],
+        [
+          "crash",
+          "recover",
+          "dispatch:0",
+          "retry",
+          "dispatch:1",
+          "revoke",
+          "launch:1",
+          "endpoint:1",
+          "bill:1"
+        ],
+        [
+          "crash",
+          "recover",
+          "dispatch:0",
+          "retry",
+          "dispatch:1",
+          "revoke",
+          "cancel",
+          "launch:1",
+          "endpoint:1",
+          "bill:1"
+        ],
+        [
+          "cancel",
+          "revoke"
+        ],
+        [
+          "dispatch:0",
+          "launch:0",
+          "retry",
+          "endpoint:0"
+        ],
+        [
+          "dispatch:0",
+          "launch:0",
+          "cancel",
+          "endpoint:0"
+        ],
+        [
+          "dispatch:0",
+          "crash",
+          "recover",
+          "retry"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "dispatch:1",
+          "launch:0",
+          "launch:1"
+        ],
+        [
+          "dispatch:0",
+          "launch:0",
+          "endpoint:0",
+          "revoke",
+          "bill:0"
+        ],
+        [
+          "dispatch:0",
+          "launch:0",
+          "endpoint:0",
+          "business",
+          "cancel"
+        ],
+        [
+          "dispatch:0",
+          "launch:0",
+          "endpoint:0",
+          "business",
+          "bill:0"
+        ],
+        [
+          "dispatch:0",
+          "launch:0",
+          "endpoint:0",
+          "bill:0",
+          "revoke"
+        ],
+        [
+          "dispatch:0",
+          "launch:0",
+          "endpoint:0",
+          "bill:0",
+          "retry"
+        ],
+        [
+          "dispatch:0",
+          "launch:0",
+          "endpoint:0",
+          "bill:0",
+          "cancel"
+        ],
+        [
+          "dispatch:0",
+          "launch:0",
+          "endpoint:0",
+          "bill:0",
+          "business"
+        ],
+        [
+          "dispatch:0",
+          "launch:0",
+          "crash",
+          "endpoint:0",
+          "recover"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "endpoint:0",
+          "business",
+          "revoke"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "dispatch:1",
+          "endpoint:0",
+          "launch:1"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "dispatch:1",
+          "launch:1",
+          "revoke",
+          "endpoint:1"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "dispatch:1",
+          "launch:1",
+          "launch:0",
+          "endpoint:1"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "endpoint:0",
+          "dispatch:1",
+          "bill:0",
+          "launch:1"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "endpoint:0",
+          "bill:0",
+          "crash",
+          "recover"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:0",
+          "endpoint:1"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "launch:0",
+          "business"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "business",
+          "bill:1"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "bill:1",
+          "revoke"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "bill:1",
+          "launch:0"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "bill:1",
+          "cancel"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "bill:1",
+          "business"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "dispatch:1",
+          "launch:1",
+          "crash",
+          "recover",
+          "endpoint:1"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "dispatch:1",
+          "launch:1",
+          "crash",
+          "endpoint:1",
+          "recover"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "dispatch:1",
+          "cancel",
+          "launch:1",
+          "crash",
+          "endpoint:1"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "endpoint:0",
+          "dispatch:1",
+          "launch:1",
+          "bill:0",
+          "endpoint:1"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "business",
+          "endpoint:0"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "bill:1",
+          "endpoint:0"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "dispatch:1",
+          "revoke",
+          "cancel",
+          "launch:1",
+          "endpoint:1",
+          "bill:1"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "endpoint:0",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "crash",
+          "recover"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "endpoint:0",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "bill:1",
+          "bill:0"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "endpoint:0",
+          "bill:0",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "crash",
+          "recover"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "revoke"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "cancel"
+        ],
+        [
+          "revoke",
+          "cancel",
+          "crash",
+          "recover"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "dispatch:1",
+          "crash"
+        ],
+        [
+          "dispatch:0",
+          "launch:0",
+          "endpoint:0",
+          "retry",
+          "bill:0"
+        ],
+        [
+          "dispatch:0",
+          "launch:0",
+          "endpoint:0",
+          "cancel",
+          "bill:0"
+        ],
+        [
+          "dispatch:0",
+          "launch:0",
+          "crash",
+          "recover",
+          "endpoint:0"
+        ],
+        [
+          "dispatch:0",
+          "cancel",
+          "launch:0",
+          "crash",
+          "endpoint:0"
+        ],
+        [
+          "dispatch:0",
+          "revoke",
+          "cancel",
+          "launch:0",
+          "endpoint:0",
+          "bill:0"
+        ],
+        [
+          "dispatch:0",
+          "revoke",
+          "cancel",
+          "launch:0",
+          "crash",
+          "endpoint:0"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "endpoint:0",
+          "business",
+          "cancel"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "endpoint:0",
+          "business",
+          "bill:0"
+        ],
+        [
+          "dispatch:0",
+          "launch:0",
+          "endpoint:0",
+          "crash",
+          "recover",
+          "business"
+        ],
+        [
+          "crash",
+          "recover",
+          "dispatch:0",
+          "retry",
+          "dispatch:1",
+          "launch:1"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "dispatch:1",
+          "revoke",
+          "launch:1",
+          "crash",
+          "endpoint:1"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "launch:0",
+          "bill:1"
+        ],
+        [
+          "crash",
+          "recover",
+          "dispatch:0",
+          "revoke",
+          "launch:0",
+          "endpoint:0",
+          "bill:0"
+        ],
+        [
+          "crash",
+          "recover",
+          "dispatch:0",
+          "cancel",
+          "launch:0",
+          "endpoint:0",
+          "bill:0"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "endpoint:0",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "revoke"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "endpoint:0",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "cancel"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "endpoint:0",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "business"
+        ],
+        [
+          "crash",
+          "recover",
+          "dispatch:0",
+          "revoke",
+          "cancel",
+          "launch:0",
+          "endpoint:0",
+          "bill:0"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "endpoint:0",
+          "bill:0",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "revoke"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "endpoint:0",
+          "bill:0",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "cancel"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "endpoint:0",
+          "bill:0",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "business"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "endpoint:0",
+          "bill:0",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "bill:1",
+          "revoke"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "endpoint:0",
+          "bill:0",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "bill:1",
+          "cancel"
+        ],
+        [
+          "dispatch:0",
+          "retry",
+          "launch:0",
+          "endpoint:0",
+          "bill:0",
+          "dispatch:1",
+          "launch:1",
+          "endpoint:1",
+          "bill:1",
+          "business"
+        ]
+      ]
+    }
+  }
+}

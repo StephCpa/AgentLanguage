@@ -1,0 +1,113 @@
+{
+  "identical_ir": true,
+  "cases": {
+    "Success": {
+      "case": "Started",
+      "detail": "Success",
+      "calls": 1,
+      "endpoint_cost": 1,
+      "permits": 1,
+      "budget": {
+        "u": {
+          "total": 10,
+          "free": 9,
+          "reserved": 0,
+          "confirmed": 1,
+          "retired": 0
+        }
+      },
+      "replay_equal": true,
+      "replay_added_events": 0
+    },
+    "InvalidOutput": {
+      "case": "Started",
+      "detail": "Error",
+      "calls": 1,
+      "endpoint_cost": 1,
+      "permits": 1,
+      "budget": {
+        "u": {
+          "total": 10,
+          "free": 9,
+          "reserved": 0,
+          "confirmed": 1,
+          "retired": 0
+        }
+      },
+      "replay_equal": true,
+      "replay_added_events": 0
+    },
+    "Pending": {
+      "case": "Started",
+      "detail": "Waiting",
+      "calls": 1,
+      "endpoint_cost": 1,
+      "permits": 1,
+      "budget": {
+        "u": {
+          "total": 10,
+          "free": 9,
+          "reserved": 1,
+          "confirmed": 0,
+          "retired": 0
+        }
+      },
+      "replay_equal": true,
+      "replay_added_events": 0
+    },
+    "BudgetExceeded": {
+      "case": "Rejected",
+      "detail": "BudgetExceeded",
+      "calls": 0,
+      "endpoint_cost": 0,
+      "permits": 0,
+      "budget": {
+        "u": {
+          "total": 0,
+          "free": 0,
+          "reserved": 0,
+          "confirmed": 0,
+          "retired": 0
+        }
+      },
+      "replay_equal": true,
+      "replay_added_events": 0
+    },
+    "NoGrant": {
+      "case": "Rejected",
+      "detail": "AuthorizationUnavailable",
+      "calls": 0,
+      "endpoint_cost": 0,
+      "permits": 0,
+      "budget": {
+        "u": {
+          "total": 10,
+          "free": 10,
+          "reserved": 0,
+          "confirmed": 0,
+          "retired": 0
+        }
+      },
+      "replay_equal": true,
+      "replay_added_events": 0
+    },
+    "Revoked": {
+      "case": "Rejected",
+      "detail": "AuthorizationUnavailable",
+      "calls": 0,
+      "endpoint_cost": 0,
+      "permits": 0,
+      "budget": {
+        "u": {
+          "total": 10,
+          "free": 10,
+          "reserved": 0,
+          "confirmed": 0,
+          "retired": 0
+        }
+      },
+      "replay_equal": true,
+      "replay_added_events": 0
+    }
+  }
+}

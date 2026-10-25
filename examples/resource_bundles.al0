@@ -1,0 +1,55 @@
+workflow submit(request: Intent<"send">, permission: Permit<request>) -> Operation<"send">
+uses {"admit:send@output"} {
+    let operation = admit(request, permission);
+    return operation;
+}
+
+workflow produce(funds: Budget, request: Intent<"send">, permission: Permit<request>)
+-> Bundle<{funds: Budget, request: Intent<"send">, permission: Permit<request>, operation: Operation<"send">, note: Text}>
+uses {"authorize:send@output", "admit:send@output"} {
+    let message: Text = "first";
+    let first = prepare("send", message);
+    let approved = authorize(first);
+    let operation = admit(first, approved);
+    let note: Text = "ready";
+    let packet = pack({funds: funds, request: request, permission: permission, operation: operation, note: note});
+    return packet;
+}
+
+workflow forward(packet: Bundle<{funds: Budget, request: Intent<"send">, permission: Permit<request>, operation: Operation<"send">, note: Text}>)
+-> Bundle<{funds: Budget, request: Intent<"send">, permission: Permit<request>, operation: Operation<"send">, note: Text}>
+uses {} {
+    return packet;
+}
+
+workflow resource-bundles() -> Report
+uses {"authorize:send@output", "budget", "tasks", "admit:send@output"} {
+    let message: Text = "second";
+    let request = prepare("send", message);
+    let permission = authorize(request);
+    let funds = split_budget({u: 3});
+    let scope = scope({u: 1}, false);
+    let task = spawn_with(scope, produce, {u: 1}, {funds: funds, request: request, permission: permission});
+    let packet = join(task);
+    let relay = spawn_with(scope, forward, {}, {packet: packet});
+    let returned = join(relay);
+    let closed = close_scope(scope);
+    let opened = unpack(returned);
+    let returned-funds = take(opened, "funds");
+    let returned-request = take(opened, "request");
+    let returned-permission = take(opened, "permission");
+    let returned-operation = take(opened, "operation");
+    let returned-note = take(opened, "note");
+    let first-state = await(returned-operation);
+    let first: Text = match_business(first-state, {
+        Applied: "Done", ProvenNoEffect: "Rejected", Pending: "Waiting", NotDispatched: "Waiting", Unknown: "Unknown"
+    });
+    let second-operation = invoke_with(submit, returned-funds, {request: returned-request, permission: returned-permission});
+    let released = join_budget(returned-funds);
+    let second-state = await(second-operation);
+    let second: Text = match_business(second-state, {
+        Applied: "Done", ProvenNoEffect: "Rejected", Pending: "Waiting", NotDispatched: "Waiting", Unknown: "Unknown"
+    });
+    let report = record("Report", {first: first, second: second, note: returned-note});
+    return report;
+}

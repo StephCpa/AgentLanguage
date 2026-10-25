@@ -1,0 +1,30 @@
+workflow narrow(permission: Cap<"send">) -> Cap<"send">
+uses {"cap:send@outbox"} {
+    let reports = attenuate(permission, {max_attempts: 1, constraints: {channel: "reports"}});
+    return reports;
+}
+
+workflow deliver(permission: Cap<"send">, message: Message) -> Text
+uses {"authorize:send@outbox", "admit:send@outbox"} {
+    let request = prepare("send", message);
+    let permit = authorize_with(request, permission);
+    let operation = admit(request, permit);
+    let state = await(operation);
+    let result: Text = match_business(state, {
+        Applied: "Done", ProvenNoEffect: "Rejected", NotDispatched: "Waiting",
+        Pending: "Waiting", Unknown: "NeedsReconciliation"
+    });
+    return result;
+}
+
+workflow task-capabilities() -> Text
+uses {"cap:send@outbox", "tasks", "authorize:send@outbox", "admit:send@outbox"} {
+    let base = capability("send");
+    let group = scope({}, false);
+    let task = spawn_caps(group, narrow, {}, {send: base}, {permission: base});
+    let reports = join(task);
+    let closed = close_scope(group);
+    let message: Message = {channel: "reports", text: "hello"};
+    let result = invoke_caps(deliver, {send: reports}, {permission: reports, message: message});
+    return result;
+}

@@ -1,0 +1,35 @@
+{
+  "identical_ir": true,
+  "result": true,
+  "replay": true,
+  "calls": [
+    [
+      0,
+      1
+    ],
+    [
+      1,
+      1
+    ],
+    [
+      2,
+      1
+    ]
+  ],
+  "budget": {
+    "u": {
+      "total": 10,
+      "free": 7,
+      "reserved": 0,
+      "confirmed": 3,
+      "retired": 0
+    }
+  },
+  "receipt_steps": [
+    -1,
+    0,
+    1,
+    2
+  ],
+  "replay_added_events": 0
+}

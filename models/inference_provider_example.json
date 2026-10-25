@@ -1,0 +1,86 @@
+{
+  "identical_ir": true,
+  "cases": {
+    "Output": {
+      "outer": "Started",
+      "case": "Success",
+      "code": null,
+      "calls": 1,
+      "endpoint_cost": 1,
+      "before_resolution": {
+        "u": {
+          "total": 10,
+          "free": 9,
+          "reserved": 0,
+          "confirmed": 1,
+          "retired": 0
+        }
+      },
+      "budget": {
+        "u": {
+          "total": 10,
+          "free": 9,
+          "reserved": 0,
+          "confirmed": 1,
+          "retired": 0
+        }
+      },
+      "replay_equal": true,
+      "replay_added_events": 0
+    },
+    "Refused": {
+      "outer": "Started",
+      "case": "Error",
+      "code": "Refused",
+      "calls": 1,
+      "endpoint_cost": 1,
+      "before_resolution": {
+        "u": {
+          "total": 10,
+          "free": 9,
+          "reserved": 1,
+          "confirmed": 0,
+          "retired": 0
+        }
+      },
+      "budget": {
+        "u": {
+          "total": 10,
+          "free": 9,
+          "reserved": 0,
+          "confirmed": 1,
+          "retired": 0
+        }
+      },
+      "replay_equal": true,
+      "replay_added_events": 0
+    },
+    "Blocked": {
+      "outer": "Started",
+      "case": "Waiting",
+      "code": null,
+      "calls": 0,
+      "endpoint_cost": 0,
+      "before_resolution": {
+        "u": {
+          "total": 10,
+          "free": 9,
+          "reserved": 1,
+          "confirmed": 0,
+          "retired": 0
+        }
+      },
+      "budget": {
+        "u": {
+          "total": 10,
+          "free": 10,
+          "reserved": 0,
+          "confirmed": 0,
+          "retired": 0
+        }
+      },
+      "replay_equal": true,
+      "replay_added_events": 0
+    }
+  }
+}

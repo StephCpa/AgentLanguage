@@ -1,6 +1,7 @@
 from concurrent.futures import ThreadPoolExecutor
 from contextlib import closing
 import json
+from al0.semantics import execution_site
 from pathlib import Path
 import sqlite3
 import subprocess
@@ -96,9 +97,9 @@ class InferenceAdmissionTests(unittest.TestCase):
 
     def test_request_and_funding_bindings_cannot_change(self):
         self.start(amount=0);self.execute()
-        with self.assertRaises(ReplayMismatch):self.direct('result',Value('different'))
+        with self.assertRaises(ReplayMismatch):self.direct(execution_site('result'),Value('different'))
         funds=self.store.split_budget(self.run,self.who,'other',{})
-        with self.assertRaises(ReplayMismatch):self.direct('result',allocation=funds)
+        with self.assertRaises(ReplayMismatch):self.direct(execution_site('result'),allocation=funds)
 
     def test_two_slots_compete_for_last_unit(self):
         self.start(amount=1);self.response=Response('candidate',None);barrier=Barrier(2)

@@ -1,4 +1,5 @@
 import json
+from al0.semantics import execution_site
 from pathlib import Path
 import tempfile
 import subprocess
@@ -319,7 +320,7 @@ class TypedTaskResourcesTests(unittest.TestCase):
         plan=budget_plan(self.specs,onward=True)
         self.replay(plan)
         with self.store._tx() as db:
-            task=db.execute("SELECT id FROM tasks WHERE run=? AND task_key='task'",(self.run,)).fetchone()[0]
+            task=db.execute('SELECT id FROM tasks WHERE run=? AND task_key=?',(self.run,execution_site('task'))).fetchone()[0]
         original=self.store.task_execution_inputs(task,self.who)['funds']['resource']
         self.assertEqual(original['generation'],1)
         accepted=self.store.task_resource_result(task,self.who)['result']

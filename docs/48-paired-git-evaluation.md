@@ -52,7 +52,7 @@ python -m scripts.git_pair_evaluation compare `
   --output <new-results-folder> --python <python-with-mypy-1.18.2> --seed 20261026
 ```
 
-也可用 `evaluate --package … --arm al0|sdk --submission … --output … --fault normal|lost_reply|crash_after_push` 定位单格。SDK 输入必须是已审阅的可信本地 Python；构造子进程**不是沙箱**。未来接入不可信 coding agent 时，需要把构造和类型检查放在不含凭据、无法修改 evaluator/宿主数据的隔离执行环境，再把数据 IR 交给宿主。当前结果不能支持对恶意 Python 提交的安全承诺。
+也可用 `evaluate --package … --arm al0|sdk --submission … --output … --fault normal|lost_reply|crash_after_push` 定位单格。默认本地模式的 SDK 输入必须是已审阅的可信 Python；普通构造子进程**不是沙箱**。新增的 `--builder-image` 可选择[隔离构造后端](49-isolated-plan-construction.md)，在容器中运行类型检查和构造，再由宿主复核数据 IR；不提供不可用时的本地回退。
 
 每格保留提交源码、生成绑定、IR、构造与执行诊断、Git 接受记录、运行时 SQLite、事件、原始结果及评分。汇总保存 seed、实际执行顺序、任务配置摘要、工具目录指纹、实现版本及源码摘要。`host.json` 含运行授权，仅用于本地恢复，不应上传；对外归档选择不含授权的报告和校准日志。计时是带进程启动和诊断开销的阶段耗时，不能当作独立语言的运行性能或开发修复时间。
 

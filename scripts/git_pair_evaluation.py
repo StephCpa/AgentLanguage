@@ -1,7 +1,8 @@
 """Paired Git publication evaluator and reference calibration, not a causal study.
 
 All Git endpoints are local real bare repositories. SDK submissions are Python
-programs: evaluate only reviewed/trusted local code. Workers are NOT sandboxes.
+programs: local construction is for trusted code only. Select --builder-image
+to construct both fronts in the explicit Docker boundary before host execution.
 """
 import argparse
 import json
@@ -160,7 +161,7 @@ def refs(task):
     return dict(line.split() for line in output.splitlines())
 
 
-def evaluate(package, arm, submission, output, *, fault='normal', python=sys.executable):
+def evaluate(package, arm, submission, output, *, fault='normal', python=sys.executable, builder_image=None):
     if arm not in ('al0', 'sdk') or fault not in FAULTS:
         raise ValueError('unknown arm or fault schedule')
     package, output = Path(package).absolute(), Path(output).absolute()
@@ -178,13 +179,29 @@ def evaluate(package, arm, submission, output, *, fault='normal', python=sys.exe
     shutil.copyfile(package/'bindings.py', output/'bindings.py')
     report = {'version': 1, 'task': task['id'], 'task_digest': digest(task), 'arm': arm, 'fault': fault,
         'submission_digest': digest(original), 'catalog_fingerprint': catalog.fingerprint(),
-        'stages': {}, 'safe_task_success': False, 'violations': [], 'failure': None}
+        'stages': {}, 'safe_task_success': False, 'violations': [], 'failure': None,
+        'construction_mode': 'docker' if builder_image else 'trusted-local'}
     def finish(failure):
         report['failure'] = failure
         dump(output/'report.json', report)
         return report
     plan_path = output/'plan.json'
-    if arm == 'sdk':
+    if builder_image:
+        from scripts.isolated_plan_build import BuilderUnavailable, DockerBuilder
+        try:
+            builder = DockerBuilder(builder_image)
+            built = builder.build(arm=arm, source=original,
+                catalog_document=(package/'catalog.json').read_text(encoding='utf-8'),
+                commit=task['commit'], catalog=catalog)
+        except BuilderUnavailable as error:
+            report['stages']['construction'] = {'error': str(error)}
+            return finish('infrastructure:isolated_builder_unavailable')
+        report['stages']['construction'] = {k: v for k, v in built.items() if k != 'plan'}
+        report['builder_image'] = builder.image
+        if built['failure']:
+            return finish(built['failure'])
+        plan_path.write_text(built['plan'], encoding='utf-8')
+    elif arm == 'sdk':
         version = command([python, '-m', 'mypy', '--version'])
         report['stages']['mypy_version'] = version
         if version['returncode'] != 0 or not version['stdout'].startswith('mypy 1.18.2 '):
@@ -276,13 +293,13 @@ def evaluate(package, arm, submission, output, *, fault='normal', python=sys.exe
     return finish(None if report['safe_task_success'] else 'task_or_recovery_failure')
 
 
-def compare(package, al0, sdk, folder, *, python=sys.executable, seed=20261026, kind='submitted_pair'):
+def compare(package, al0, sdk, folder, *, python=sys.executable, seed=20261026, kind='submitted_pair', builder_image=None):
     folder = Path(folder).absolute()
     folder.mkdir(parents=True, exist_ok=False)
     order = [(fault, arm) for fault in FAULTS for arm in ('al0', 'sdk')]
     random.Random(seed).shuffle(order)
     rows = [evaluate(package, arm, al0 if arm == 'al0' else sdk,
-        folder/(fault+'-'+arm), fault=fault, python=python) for fault, arm in order]
+        folder/(fault+'-'+arm), fault=fault, python=python, builder_image=builder_image) for fault, arm in order]
     paired = [{ 'fault': fault, 'al0_success': next(r['safe_task_success'] for r in rows if r['arm']=='al0' and r['fault']==fault),
         'sdk_success': next(r['safe_task_success'] for r in rows if r['arm']=='sdk' and r['fault']==fault),
         'equal_ir': all((folder/(fault+'-'+arm)/'plan.json').exists() for arm in ('al0', 'sdk')) and
@@ -301,13 +318,13 @@ def compare(package, al0, sdk, folder, *, python=sys.executable, seed=20261026, 
     return report
 
 
-def pilot(folder, *, python=sys.executable, seed=20261026):
+def pilot(folder, *, python=sys.executable, seed=20261026, builder_image=None):
     folder = Path(folder).absolute()
     folder.mkdir(parents=True, exist_ok=False)
     package = folder/'package'
     prepare(package)
     return compare(package, package/'reference.al0', package/'reference.py', folder/'evaluation',
-                   python=python, seed=seed, kind='reference_calibration')
+                   python=python, seed=seed, kind='reference_calibration', builder_image=builder_image)
 
 
 def main():
@@ -319,6 +336,7 @@ def main():
         if name == 'pilot':
             p.add_argument('--python', default=sys.executable)
             p.add_argument('--seed', type=int, default=20261026)
+            p.add_argument('--builder-image')
     p = sub.add_parser('evaluate')
     p.add_argument('--package', required=True, type=Path)
     p.add_argument('--arm', required=True, choices=('al0', 'sdk'))
@@ -326,6 +344,7 @@ def main():
     p.add_argument('--output', required=True, type=Path)
     p.add_argument('--fault', choices=FAULTS, default='normal')
     p.add_argument('--python', default=sys.executable)
+    p.add_argument('--builder-image')
     p = sub.add_parser('compare')
     p.add_argument('--package', required=True, type=Path)
     p.add_argument('--al0', required=True, type=Path)
@@ -333,6 +352,7 @@ def main():
     p.add_argument('--output', required=True, type=Path)
     p.add_argument('--python', default=sys.executable)
     p.add_argument('--seed', type=int, default=20261026)
+    p.add_argument('--builder-image')
     args = vars(parser.parse_args())
     mode, output = args.pop('mode'), args.pop('output')
     if mode == 'prepare':

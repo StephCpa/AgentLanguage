@@ -83,3 +83,31 @@ jobs:
           path: |
             models/ci_wheel.log
             models/sdk_wheel_audit.json
+
+  isolated-construction:
+    name: Isolated plan construction (Linux Docker)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Build the source-bound construction image
+        run: |
+          python -m scripts.build_plan_builder_image --tag al0-plan-builder:ci \
+            --output models/isolated_builder_image.json
+      - name: Validate actual isolation and paired recovery
+        run: |
+          python -m scripts.check_isolated_builder --image al0-plan-builder:ci \
+            --output models/isolated_builder_ci.json 2>&1 | tee models/isolated_builder_ci.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: isolated-plan-construction
+          path: |
+            models/isolated_builder_image.json
+            models/isolated_builder_ci.json
+            models/isolated_builder_ci.log

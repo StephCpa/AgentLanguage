@@ -1,0 +1,2361 @@
+{
+  "version": 1,
+  "image": "sha256:d2e1ae508ec36ecd252d8cb5910e6d77a18633b97d4b9fbf73d6d12e2d01e8b3",
+  "checks": {
+    "both_fronts_real_git_recovery": true,
+    "static_gate_precedes_python_import": true,
+    "read_only_no_host_secret_no_network_no_capabilities": true,
+    "host_file_unchanged": true,
+    "host_rechecks_untrusted_ir": true,
+    "bounded_output_and_container_removed": true,
+    "deadline_removes_container_and_descendants": true,
+    "no_fallback_on_missing_image": true,
+    "no_construction_containers_left": true
+  },
+  "probes": {
+    "bad_type": {
+      "failure": "static_rejection",
+      "stages": {
+        "typecheck": {
+          "mode": "typecheck",
+          "image": "sha256:d2e1ae508ec36ecd252d8cb5910e6d77a18633b97d4b9fbf73d6d12e2d01e8b3",
+          "policy_version": "1",
+          "container": "al0-build-30f5ca2f929e45d6a794e4ae088fe7c6",
+          "returncode": 1,
+          "timeout": false,
+          "output_limited": false,
+          "stdout": "/input/submission.py:8: error: Incompatible types (expression has type \"int\", TypedDict item \"commit\" has type \"str\")  [typeddict-item]\nFound 1 error in 1 file (checked 2 source files)\n",
+          "stderr": "",
+          "removed": true,
+          "container_state": {
+            "Status": "exited",
+            "Running": false,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 0,
+            "ExitCode": 1,
+            "Error": "",
+            "StartedAt": "2026-10-26T11:36:29.821221334Z",
+            "FinishedAt": "2026-10-26T11:36:31.494637577Z"
+          },
+          "observed_policy": {
+            "NetworkMode": "none",
+            "ReadonlyRootfs": true,
+            "CapDrop": [
+              "ALL"
+            ],
+            "SecurityOpt": [
+              "no-new-privileges=true"
+            ],
+            "Memory": 536870912,
+            "MemorySwap": 536870912,
+            "NanoCpus": 1000000000,
+            "PidsLimit": 64,
+            "Tmpfs": {
+              "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+            },
+            "LogConfig": {
+              "Type": "none",
+              "Config": {}
+            },
+            "user": "65534:65534",
+            "mounts": [
+              {
+                "destination": "/input",
+                "type": "bind",
+                "rw": false
+              }
+            ]
+          },
+          "attach_returncode": 1,
+          "seconds": 1.8126887150000073
+        }
+      },
+      "plan": null
+    },
+    "restrictions": {
+      "failure": null,
+      "stages": {
+        "typecheck": {
+          "mode": "typecheck",
+          "image": "sha256:d2e1ae508ec36ecd252d8cb5910e6d77a18633b97d4b9fbf73d6d12e2d01e8b3",
+          "policy_version": "1",
+          "container": "al0-build-012d0aeb86c540958b436c22b1973635",
+          "returncode": 0,
+          "timeout": false,
+          "output_limited": false,
+          "stdout": "Success: no issues found in 2 source files\n",
+          "stderr": "",
+          "removed": true,
+          "container_state": {
+            "Status": "exited",
+            "Running": false,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 0,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2026-10-26T11:36:31.638312381Z",
+            "FinishedAt": "2026-10-26T11:36:33.435694487Z"
+          },
+          "observed_policy": {
+            "NetworkMode": "none",
+            "ReadonlyRootfs": true,
+            "CapDrop": [
+              "ALL"
+            ],
+            "SecurityOpt": [
+              "no-new-privileges=true"
+            ],
+            "Memory": 536870912,
+            "MemorySwap": 536870912,
+            "NanoCpus": 1000000000,
+            "PidsLimit": 64,
+            "Tmpfs": {
+              "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+            },
+            "LogConfig": {
+              "Type": "none",
+              "Config": {}
+            },
+            "user": "65534:65534",
+            "mounts": [
+              {
+                "destination": "/input",
+                "type": "bind",
+                "rw": false
+              }
+            ]
+          },
+          "attach_returncode": 0,
+          "seconds": 1.9125638200000026
+        },
+        "sdk": {
+          "mode": "sdk",
+          "image": "sha256:d2e1ae508ec36ecd252d8cb5910e6d77a18633b97d4b9fbf73d6d12e2d01e8b3",
+          "policy_version": "1",
+          "container": "al0-build-434749919980488287f97373772388ee",
+          "returncode": 0,
+          "timeout": false,
+          "output_limited": false,
+          "stdout": "{\"ir_version\":1,\"name\":\"paired-publication\",\"nodes\":[{\"id\":\"request\",\"op\":\"literal\",\"type\":\"GitPublishRequest\",\"value\":{\"commit\":\"c9ad07d8585d8536049f9ecae66a837a5be5e6cf\"}},{\"id\":\"intent\",\"input\":\"request\",\"op\":\"prepare\",\"tool\":\"git.publish\"},{\"id\":\"permission\",\"intent\":\"intent\",\"op\":\"authorize\"},{\"id\":\"operation\",\"intent\":\"intent\",\"op\":\"admit\",\"permit\":\"permission\"},{\"id\":\"initial\",\"op\":\"await\",\"operation\":\"operation\"},{\"cases\":{\"Applied\":\"Published\",\"NotDispatched\":\"Queued\",\"Pending\":\"Pending\",\"ProvenNoEffect\":\"NoEffect\",\"Unknown\":\"Unknown\"},\"id\":\"initial_result\",\"input\":\"initial\",\"op\":\"match_business\",\"type\":\"Text\"},{\"id\":\"query\",\"op\":\"reconcile\",\"operation\":\"operation\",\"tool\":\"git.query\"},{\"cases\":{\"Applied\":\"Published\",\"NotDispatched\":\"Queued\",\"Pending\":\"Pending\",\"ProvenNoEffect\":\"NoEffect\",\"Unknown\":\"Unknown\"},\"id\":\"result\",\"input\":\"query\",\"op\":\"match_business\",\"type\":\"Text\"}],\"return\":\"result\",\"uses\":[\"authorize:git.publish@git:4c322956b62e4f4d6ab7620d5d1d9f6fd8e1b78b4b498e32da14380338b35a71\",\"admit:git.publish@git:4c322956b62e4f4d6ab7620d5d1d9f6fd8e1b78b4b498e32da14380338b35a71\",\"reconcile:git.query\"]}\n",
+          "stderr": "",
+          "removed": true,
+          "container_state": {
+            "Status": "exited",
+            "Running": false,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 0,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2026-10-26T11:36:33.554413754Z",
+            "FinishedAt": "2026-10-26T11:36:33.753385536Z"
+          },
+          "observed_policy": {
+            "NetworkMode": "none",
+            "ReadonlyRootfs": true,
+            "CapDrop": [
+              "ALL"
+            ],
+            "SecurityOpt": [
+              "no-new-privileges=true"
+            ],
+            "Memory": 536870912,
+            "MemorySwap": 536870912,
+            "NanoCpus": 1000000000,
+            "PidsLimit": 64,
+            "Tmpfs": {
+              "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+            },
+            "LogConfig": {
+              "Type": "none",
+              "Config": {}
+            },
+            "user": "65534:65534",
+            "mounts": [
+              {
+                "destination": "/input",
+                "type": "bind",
+                "rw": false
+              }
+            ]
+          },
+          "attach_returncode": 0,
+          "seconds": 0.36060970500000167
+        }
+      },
+      "plan": "{\"ir_version\":1,\"name\":\"paired-publication\",\"nodes\":[{\"id\":\"request\",\"op\":\"literal\",\"type\":\"GitPublishRequest\",\"value\":{\"commit\":\"c9ad07d8585d8536049f9ecae66a837a5be5e6cf\"}},{\"id\":\"intent\",\"input\":\"request\",\"op\":\"prepare\",\"tool\":\"git.publish\"},{\"id\":\"permission\",\"intent\":\"intent\",\"op\":\"authorize\"},{\"id\":\"operation\",\"intent\":\"intent\",\"op\":\"admit\",\"permit\":\"permission\"},{\"id\":\"initial\",\"op\":\"await\",\"operation\":\"operation\"},{\"cases\":{\"Applied\":\"Published\",\"NotDispatched\":\"Queued\",\"Pending\":\"Pending\",\"ProvenNoEffect\":\"NoEffect\",\"Unknown\":\"Unknown\"},\"id\":\"initial_result\",\"input\":\"initial\",\"op\":\"match_business\",\"type\":\"Text\"},{\"id\":\"query\",\"op\":\"reconcile\",\"operation\":\"operation\",\"tool\":\"git.query\"},{\"cases\":{\"Applied\":\"Published\",\"NotDispatched\":\"Queued\",\"Pending\":\"Pending\",\"ProvenNoEffect\":\"NoEffect\",\"Unknown\":\"Unknown\"},\"id\":\"result\",\"input\":\"query\",\"op\":\"match_business\",\"type\":\"Text\"}],\"return\":\"result\",\"uses\":[\"authorize:git.publish@git:4c322956b62e4f4d6ab7620d5d1d9f6fd8e1b78b4b498e32da14380338b35a71\",\"admit:git.publish@git:4c322956b62e4f4d6ab7620d5d1d9f6fd8e1b78b4b498e32da14380338b35a71\",\"reconcile:git.query\"]}"
+    },
+    "forged_ir": {
+      "failure": "ir_rejection",
+      "stages": {
+        "typecheck": {
+          "mode": "typecheck",
+          "image": "sha256:d2e1ae508ec36ecd252d8cb5910e6d77a18633b97d4b9fbf73d6d12e2d01e8b3",
+          "policy_version": "1",
+          "container": "al0-build-ed42544eeaf94dfda8483846b7e8aa04",
+          "returncode": 0,
+          "timeout": false,
+          "output_limited": false,
+          "stdout": "Success: no issues found in 2 source files\n",
+          "stderr": "",
+          "removed": true,
+          "container_state": {
+            "Status": "exited",
+            "Running": false,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 0,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2026-10-26T11:36:33.918470957Z",
+            "FinishedAt": "2026-10-26T11:36:35.608827123Z"
+          },
+          "observed_policy": {
+            "NetworkMode": "none",
+            "ReadonlyRootfs": true,
+            "CapDrop": [
+              "ALL"
+            ],
+            "SecurityOpt": [
+              "no-new-privileges=true"
+            ],
+            "Memory": 536870912,
+            "MemorySwap": 536870912,
+            "NanoCpus": 1000000000,
+            "PidsLimit": 64,
+            "Tmpfs": {
+              "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+            },
+            "LogConfig": {
+              "Type": "none",
+              "Config": {}
+            },
+            "user": "65534:65534",
+            "mounts": [
+              {
+                "destination": "/input",
+                "type": "bind",
+                "rw": false
+              }
+            ]
+          },
+          "attach_returncode": 0,
+          "seconds": 1.8135627810000017
+        },
+        "sdk": {
+          "mode": "sdk",
+          "image": "sha256:d2e1ae508ec36ecd252d8cb5910e6d77a18633b97d4b9fbf73d6d12e2d01e8b3",
+          "policy_version": "1",
+          "container": "al0-build-7b8a3870cb834d7e82362530bda779fb",
+          "returncode": 0,
+          "timeout": false,
+          "output_limited": false,
+          "stdout": "{\"ir_version\": 1, \"name\": \"paired-publication\", \"nodes\": [{\"id\": \"request\", \"op\": \"mint_permit\", \"type\": \"GitPublishRequest\", \"value\": {\"commit\": \"c9ad07d8585d8536049f9ecae66a837a5be5e6cf\"}}, {\"id\": \"intent\", \"input\": \"request\", \"op\": \"prepare\", \"tool\": \"git.publish\"}, {\"id\": \"permission\", \"intent\": \"intent\", \"op\": \"authorize\"}, {\"id\": \"operation\", \"intent\": \"intent\", \"op\": \"admit\", \"permit\": \"permission\"}, {\"id\": \"initial\", \"op\": \"await\", \"operation\": \"operation\"}, {\"cases\": {\"Applied\": \"Published\", \"NotDispatched\": \"Queued\", \"Pending\": \"Pending\", \"ProvenNoEffect\": \"NoEffect\", \"Unknown\": \"Unknown\"}, \"id\": \"initial_result\", \"input\": \"initial\", \"op\": \"match_business\", \"type\": \"Text\"}, {\"id\": \"query\", \"op\": \"reconcile\", \"operation\": \"operation\", \"tool\": \"git.query\"}, {\"cases\": {\"Applied\": \"Published\", \"NotDispatched\": \"Queued\", \"Pending\": \"Pending\", \"ProvenNoEffect\": \"NoEffect\", \"Unknown\": \"Unknown\"}, \"id\": \"result\", \"input\": \"query\", \"op\": \"match_business\", \"type\": \"Text\"}], \"return\": \"result\", \"uses\": [\"authorize:git.publish@git:4c322956b62e4f4d6ab7620d5d1d9f6fd8e1b78b4b498e32da14380338b35a71\", \"admit:git.publish@git:4c322956b62e4f4d6ab7620d5d1d9f6fd8e1b78b4b498e32da14380338b35a71\", \"reconcile:git.query\"]}\n",
+          "stderr": "",
+          "removed": true,
+          "container_state": {
+            "Status": "exited",
+            "Running": false,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 0,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2026-10-26T11:36:35.729963123Z",
+            "FinishedAt": "2026-10-26T11:36:35.927460359Z"
+          },
+          "observed_policy": {
+            "NetworkMode": "none",
+            "ReadonlyRootfs": true,
+            "CapDrop": [
+              "ALL"
+            ],
+            "SecurityOpt": [
+              "no-new-privileges=true"
+            ],
+            "Memory": 536870912,
+            "MemorySwap": 536870912,
+            "NanoCpus": 1000000000,
+            "PidsLimit": 64,
+            "Tmpfs": {
+              "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+            },
+            "LogConfig": {
+              "Type": "none",
+              "Config": {}
+            },
+            "user": "65534:65534",
+            "mounts": [
+              {
+                "destination": "/input",
+                "type": "bind",
+                "rw": false
+              }
+            ]
+          },
+          "attach_returncode": 0,
+          "seconds": 0.3071268599999968
+        }
+      },
+      "plan": null,
+      "diagnostic": {
+        "error": "TypeCheckError",
+        "message": "invalid or unsupported IR node"
+      }
+    },
+    "output_flood": {
+      "failure": "construction_limit",
+      "stages": {
+        "typecheck": {
+          "mode": "typecheck",
+          "image": "sha256:d2e1ae508ec36ecd252d8cb5910e6d77a18633b97d4b9fbf73d6d12e2d01e8b3",
+          "policy_version": "1",
+          "container": "al0-build-7b85382f7d0544289f66c93c8d10a55b",
+          "returncode": 0,
+          "timeout": false,
+          "output_limited": false,
+          "stdout": "Success: no issues found in 2 source files\n",
+          "stderr": "",
+          "removed": true,
+          "container_state": {
+            "Status": "exited",
+            "Running": false,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 0,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2026-10-26T11:36:36.061312472Z",
+            "FinishedAt": "2026-10-26T11:36:37.735685061Z"
+          },
+          "observed_policy": {
+            "NetworkMode": "none",
+            "ReadonlyRootfs": true,
+            "CapDrop": [
+              "ALL"
+            ],
+            "SecurityOpt": [
+              "no-new-privileges=true"
+            ],
+            "Memory": 536870912,
+            "MemorySwap": 536870912,
+            "NanoCpus": 1000000000,
+            "PidsLimit": 64,
+            "Tmpfs": {
+              "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+            },
+            "LogConfig": {
+              "Type": "none",
+              "Config": {}
+            },
+            "user": "65534:65534",
+            "mounts": [
+              {
+                "destination": "/input",
+                "type": "bind",
+                "rw": false
+              }
+            ]
+          },
+          "attach_returncode": 0,
+          "seconds": 1.8107156030000056
+        },
+        "sdk": {
+          "mode": "sdk",
+          "image": "sha256:d2e1ae508ec36ecd252d8cb5910e6d77a18633b97d4b9fbf73d6d12e2d01e8b3",
+          "policy_version": "1",
+          "container": "al0-build-0b6bd876855348f38342fd088aca277e",
+          "returncode": null,
+          "timeout": false,
+          "output_limited": true,
+          "stdout": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "stderr": "",
+          "removed": true,
+          "container_state": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 4338,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2026-10-26T11:36:37.872841522Z",
+            "FinishedAt": "0001-01-01T00:00:00Z"
+          },
+          "observed_policy": {
+            "NetworkMode": "none",
+            "ReadonlyRootfs": true,
+            "CapDrop": [
+              "ALL"
+            ],
+            "SecurityOpt": [
+              "no-new-privileges=true"
+            ],
+            "Memory": 536870912,
+            "MemorySwap": 536870912,
+            "NanoCpus": 1000000000,
+            "PidsLimit": 64,
+            "Tmpfs": {
+              "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+            },
+            "LogConfig": {
+              "Type": "none",
+              "Config": {}
+            },
+            "user": "65534:65534",
+            "mounts": [
+              {
+                "destination": "/input",
+                "type": "bind",
+                "rw": false
+              }
+            ]
+          },
+          "attach_returncode": 1,
+          "seconds": 0.2817707890000065
+        }
+      },
+      "plan": null
+    },
+    "timeout_with_child": {
+      "failure": "construction_limit",
+      "stages": {
+        "typecheck": {
+          "mode": "typecheck",
+          "image": "sha256:d2e1ae508ec36ecd252d8cb5910e6d77a18633b97d4b9fbf73d6d12e2d01e8b3",
+          "policy_version": "1",
+          "container": "al0-build-742411f20c7c4847a8a1a9a8951c6df3",
+          "returncode": 0,
+          "timeout": false,
+          "output_limited": false,
+          "stdout": "Success: no issues found in 2 source files\n",
+          "stderr": "",
+          "removed": true,
+          "container_state": {
+            "Status": "exited",
+            "Running": false,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 0,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2026-10-26T11:36:38.158698093Z",
+            "FinishedAt": "2026-10-26T11:36:39.804585342Z"
+          },
+          "observed_policy": {
+            "NetworkMode": "none",
+            "ReadonlyRootfs": true,
+            "CapDrop": [
+              "ALL"
+            ],
+            "SecurityOpt": [
+              "no-new-privileges=true"
+            ],
+            "Memory": 536870912,
+            "MemorySwap": 536870912,
+            "NanoCpus": 1000000000,
+            "PidsLimit": 64,
+            "Tmpfs": {
+              "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+            },
+            "LogConfig": {
+              "Type": "none",
+              "Config": {}
+            },
+            "user": "65534:65534",
+            "mounts": [
+              {
+                "destination": "/input",
+                "type": "bind",
+                "rw": false
+              }
+            ]
+          },
+          "attach_returncode": 0,
+          "seconds": 1.760170169999995
+        },
+        "sdk": {
+          "mode": "sdk",
+          "image": "sha256:d2e1ae508ec36ecd252d8cb5910e6d77a18633b97d4b9fbf73d6d12e2d01e8b3",
+          "policy_version": "1",
+          "container": "al0-build-4f61944ca9704abab63ff02d7b035103",
+          "returncode": null,
+          "timeout": true,
+          "output_limited": false,
+          "stdout": "",
+          "stderr": "",
+          "removed": true,
+          "container_state": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 4542,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2026-10-26T11:36:39.917369584Z",
+            "FinishedAt": "0001-01-01T00:00:00Z"
+          },
+          "observed_policy": {
+            "NetworkMode": "none",
+            "ReadonlyRootfs": true,
+            "CapDrop": [
+              "ALL"
+            ],
+            "SecurityOpt": [
+              "no-new-privileges=true"
+            ],
+            "Memory": 536870912,
+            "MemorySwap": 536870912,
+            "NanoCpus": 1000000000,
+            "PidsLimit": 64,
+            "Tmpfs": {
+              "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+            },
+            "LogConfig": {
+              "Type": "none",
+              "Config": {}
+            },
+            "user": "65534:65534",
+            "mounts": [
+              {
+                "destination": "/input",
+                "type": "bind",
+                "rw": false
+              }
+            ]
+          },
+          "attach_returncode": 137,
+          "seconds": 30.082187196999996
+        }
+      },
+      "plan": null
+    },
+    "unavailable": {
+      "version": 1,
+      "task": "publish-approved-commit",
+      "task_digest": "f3728fdd50d2eecd556ec0acac7bd06a0030633f911c8d97daa35987491939c3",
+      "arm": "sdk",
+      "fault": "normal",
+      "submission_digest": "917c033d5c56621c2edc78162aa3879ea78650992b91a7eb39e02edc6a82d593",
+      "catalog_fingerprint": "4cbc4377db3baec989cf9d9d17a8494e9867d80de63567ee1bcfa66b47087eea",
+      "stages": {
+        "construction": {
+          "error": "builder image unavailable; build it explicitly before evaluation"
+        }
+      },
+      "safe_task_success": false,
+      "violations": [],
+      "failure": "infrastructure:isolated_builder_unavailable",
+      "construction_mode": "docker"
+    }
+  },
+  "paired": {
+    "version": 1,
+    "kind": "submitted_pair",
+    "seed": 20261026,
+    "order": [
+      [
+        "crash_after_push",
+        "sdk"
+      ],
+      [
+        "lost_reply",
+        "al0"
+      ],
+      [
+        "lost_reply",
+        "sdk"
+      ],
+      [
+        "crash_after_push",
+        "al0"
+      ],
+      [
+        "normal",
+        "sdk"
+      ],
+      [
+        "normal",
+        "al0"
+      ]
+    ],
+    "development_tasks": 1,
+    "fault_schedules": 3,
+    "assigned_cells": 6,
+    "successes": 6,
+    "pairs": [
+      {
+        "fault": "normal",
+        "al0_success": true,
+        "sdk_success": true,
+        "equal_ir": true
+      },
+      {
+        "fault": "lost_reply",
+        "al0_success": true,
+        "sdk_success": true,
+        "equal_ir": true
+      },
+      {
+        "fault": "crash_after_push",
+        "al0_success": true,
+        "sdk_success": true,
+        "equal_ir": true
+      }
+    ],
+    "causal_language_benefit": "not_measured",
+    "rows": [
+      {
+        "version": 1,
+        "task": "publish-approved-commit",
+        "task_digest": "f3728fdd50d2eecd556ec0acac7bd06a0030633f911c8d97daa35987491939c3",
+        "arm": "sdk",
+        "fault": "crash_after_push",
+        "submission_digest": "917c033d5c56621c2edc78162aa3879ea78650992b91a7eb39e02edc6a82d593",
+        "catalog_fingerprint": "4cbc4377db3baec989cf9d9d17a8494e9867d80de63567ee1bcfa66b47087eea",
+        "stages": {
+          "construction": {
+            "failure": null,
+            "stages": {
+              "typecheck": {
+                "mode": "typecheck",
+                "image": "sha256:d2e1ae508ec36ecd252d8cb5910e6d77a18633b97d4b9fbf73d6d12e2d01e8b3",
+                "policy_version": "1",
+                "container": "al0-build-88bd9e3313444f6d9c757f0c20d0223e",
+                "returncode": 0,
+                "timeout": false,
+                "output_limited": false,
+                "stdout": "Success: no issues found in 2 source files\n",
+                "stderr": "",
+                "removed": true,
+                "container_state": {
+                  "Status": "exited",
+                  "Running": false,
+                  "Paused": false,
+                  "Restarting": false,
+                  "OOMKilled": false,
+                  "Dead": false,
+                  "Pid": 0,
+                  "ExitCode": 0,
+                  "Error": "",
+                  "StartedAt": "2026-10-26T11:36:19.842056029Z",
+                  "FinishedAt": "2026-10-26T11:36:21.537544508Z"
+                },
+                "observed_policy": {
+                  "NetworkMode": "none",
+                  "ReadonlyRootfs": true,
+                  "CapDrop": [
+                    "ALL"
+                  ],
+                  "SecurityOpt": [
+                    "no-new-privileges=true"
+                  ],
+                  "Memory": 536870912,
+                  "MemorySwap": 536870912,
+                  "NanoCpus": 1000000000,
+                  "PidsLimit": 64,
+                  "Tmpfs": {
+                    "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                  },
+                  "LogConfig": {
+                    "Type": "none",
+                    "Config": {}
+                  },
+                  "user": "65534:65534",
+                  "mounts": [
+                    {
+                      "destination": "/input",
+                      "type": "bind",
+                      "rw": false
+                    }
+                  ]
+                },
+                "attach_returncode": 0,
+                "seconds": 1.818003190000006
+              },
+              "sdk": {
+                "mode": "sdk",
+                "image": "sha256:d2e1ae508ec36ecd252d8cb5910e6d77a18633b97d4b9fbf73d6d12e2d01e8b3",
+                "policy_version": "1",
+                "container": "al0-build-0a727831dfaf4bf2a8318db91bdf1ece",
+                "returncode": 0,
+                "timeout": false,
+                "output_limited": false,
+                "stdout": "{\"ir_version\":1,\"name\":\"paired-publication\",\"nodes\":[{\"id\":\"request\",\"op\":\"literal\",\"type\":\"GitPublishRequest\",\"value\":{\"commit\":\"c9ad07d8585d8536049f9ecae66a837a5be5e6cf\"}},{\"id\":\"intent\",\"input\":\"request\",\"op\":\"prepare\",\"tool\":\"git.publish\"},{\"id\":\"permission\",\"intent\":\"intent\",\"op\":\"authorize\"},{\"id\":\"operation\",\"intent\":\"intent\",\"op\":\"admit\",\"permit\":\"permission\"},{\"id\":\"initial\",\"op\":\"await\",\"operation\":\"operation\"},{\"cases\":{\"Applied\":\"Published\",\"NotDispatched\":\"Queued\",\"Pending\":\"Pending\",\"ProvenNoEffect\":\"NoEffect\",\"Unknown\":\"Unknown\"},\"id\":\"initial_result\",\"input\":\"initial\",\"op\":\"match_business\",\"type\":\"Text\"},{\"id\":\"query\",\"op\":\"reconcile\",\"operation\":\"operation\",\"tool\":\"git.query\"},{\"cases\":{\"Applied\":\"Published\",\"NotDispatched\":\"Queued\",\"Pending\":\"Pending\",\"ProvenNoEffect\":\"NoEffect\",\"Unknown\":\"Unknown\"},\"id\":\"result\",\"input\":\"query\",\"op\":\"match_business\",\"type\":\"Text\"}],\"return\":\"result\",\"uses\":[\"authorize:git.publish@git:4c322956b62e4f4d6ab7620d5d1d9f6fd8e1b78b4b498e32da14380338b35a71\",\"admit:git.publish@git:4c322956b62e4f4d6ab7620d5d1d9f6fd8e1b78b4b498e32da14380338b35a71\",\"reconcile:git.query\"]}\n",
+                "stderr": "",
+                "removed": true,
+                "container_state": {
+                  "Status": "exited",
+                  "Running": false,
+                  "Paused": false,
+                  "Restarting": false,
+                  "OOMKilled": false,
+                  "Dead": false,
+                  "Pid": 0,
+                  "ExitCode": 0,
+                  "Error": "",
+                  "StartedAt": "2026-10-26T11:36:21.657294383Z",
+                  "FinishedAt": "2026-10-26T11:36:21.850827099Z"
+                },
+                "observed_policy": {
+                  "NetworkMode": "none",
+                  "ReadonlyRootfs": true,
+                  "CapDrop": [
+                    "ALL"
+                  ],
+                  "SecurityOpt": [
+                    "no-new-privileges=true"
+                  ],
+                  "Memory": 536870912,
+                  "MemorySwap": 536870912,
+                  "NanoCpus": 1000000000,
+                  "PidsLimit": 64,
+                  "Tmpfs": {
+                    "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                  },
+                  "LogConfig": {
+                    "Type": "none",
+                    "Config": {}
+                  },
+                  "user": "65534:65534",
+                  "mounts": [
+                    {
+                      "destination": "/input",
+                      "type": "bind",
+                      "rw": false
+                    }
+                  ]
+                },
+                "attach_returncode": 0,
+                "seconds": 0.3125643380000014
+              }
+            }
+          },
+          "first": {
+            "returncode": 77,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false,
+            "seconds": 0.1343817329999979
+          },
+          "resume": {
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false,
+            "seconds": 0.13982590000000528
+          },
+          "replay": {
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false,
+            "seconds": 0.11825365999999349
+          }
+        },
+        "safe_task_success": true,
+        "violations": [],
+        "failure": null,
+        "construction_mode": "docker",
+        "builder_image": "sha256:d2e1ae508ec36ecd252d8cb5910e6d77a18633b97d4b9fbf73d6d12e2d01e8b3",
+        "plan_fingerprint": "fb287769773b938d665896e4eeb47ef53c42d7e7aad98170458d95ebb5e02e6f",
+        "oracle": {
+          "before": {},
+          "after": {
+            "refs/heads/al0/publish/4cfec8de81102538c6041e88b52a3b11c9b335aa834e0edfaf56fce70a72968b": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+          },
+          "changed": {
+            "refs/heads/al0/publish/4cfec8de81102538c6041e88b52a3b11c9b335aa834e0edfaf56fce70a72968b": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+          },
+          "removed": [],
+          "overwritten": []
+        },
+        "result": {
+          "data": "Published",
+          "receipts": [],
+          "label": {
+            "readers": null,
+            "taints": [
+              "external:git"
+            ]
+          }
+        },
+        "budget": {
+          "git_dispatches": {
+            "total": 4,
+            "free": 2,
+            "reserved": 0,
+            "confirmed": 2,
+            "retired": 0
+          }
+        },
+        "status": {
+          "control": "Completed",
+          "status": "CompletedClean",
+          "obligations": []
+        },
+        "accepted": [
+          {
+            "operation": "03f8f849-95b5-49a1-81b0-04f72848228f",
+            "output": {
+              "ref": "refs/heads/al0/publish/4cfec8de81102538c6041e88b52a3b11c9b335aa834e0edfaf56fce70a72968b",
+              "commit": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+            },
+            "phase": "first",
+            "fault": "crash_after_push"
+          }
+        ],
+        "replay_added_events": 0,
+        "snapshots": [
+          {
+            "operation": "03f8f849-95b5-49a1-81b0-04f72848228f",
+            "business": "Applied",
+            "cancel_requested": false,
+            "billing": {
+              "confirmed": {
+                "git_dispatches": 1
+              },
+              "reserved": {},
+              "retired": {},
+              "attempts_closed": true
+            },
+            "attempts": [
+              {
+                "id": "011c2786-f832-4cb0-8bd8-090f13b93602",
+                "operation": "03f8f849-95b5-49a1-81b0-04f72848228f",
+                "seq": 1,
+                "phase": "DispatchStarted",
+                "billing": "Settled",
+                "upper_bound": "{\"git_dispatches\":1}",
+                "actual": "{\"git_dispatches\":1}",
+                "final_evidence": "git-dispatch:011c2786-f832-4cb0-8bd8-090f13b93602"
+              }
+            ],
+            "business_evidence": {
+              "details": {
+                "output": {
+                  "commit": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                  "ref": "refs/heads/al0/publish/4cfec8de81102538c6041e88b52a3b11c9b335aa834e0edfaf56fce70a72968b"
+                }
+              },
+              "intent": "0e8eb9d8f6399431bc7cae8580950846710f94bca5d914f95813768fe2815f05",
+              "kind": "business",
+              "operation": "03f8f849-95b5-49a1-81b0-04f72848228f",
+              "outcome": "Applied"
+            }
+          },
+          {
+            "operation": "21f3f492-869b-41b6-9631-4c1bc258af31",
+            "business": "Applied",
+            "cancel_requested": false,
+            "billing": {
+              "confirmed": {
+                "git_dispatches": 1
+              },
+              "reserved": {},
+              "retired": {},
+              "attempts_closed": true
+            },
+            "attempts": [
+              {
+                "id": "09829c53-7879-44df-9a86-8afe2ba956d7",
+                "operation": "21f3f492-869b-41b6-9631-4c1bc258af31",
+                "seq": 1,
+                "phase": "DispatchStarted",
+                "billing": "Settled",
+                "upper_bound": "{\"git_dispatches\":1}",
+                "actual": "{\"git_dispatches\":1}",
+                "final_evidence": "billing:09829c53-7879-44df-9a86-8afe2ba956d7"
+              }
+            ],
+            "business_evidence": {
+              "details": {
+                "output": {
+                  "bills": [
+                    {
+                      "actual": {
+                        "git_dispatches": 1
+                      },
+                      "attempt": "011c2786-f832-4cb0-8bd8-090f13b93602",
+                      "evidence_id": "git-dispatch:011c2786-f832-4cb0-8bd8-090f13b93602"
+                    }
+                  ],
+                  "business": {
+                    "details": {
+                      "output": {
+                        "commit": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                        "ref": "refs/heads/al0/publish/4cfec8de81102538c6041e88b52a3b11c9b335aa834e0edfaf56fce70a72968b"
+                      }
+                    },
+                    "evidence_id": "git-ref:404e126be45e98bbdda4c2ed200a3f1532798a9bf6044c3ecfe0f49b23650a92",
+                    "outcome": "Applied"
+                  },
+                  "intent_digest": "0e8eb9d8f6399431bc7cae8580950846710f94bca5d914f95813768fe2815f05",
+                  "operation": "03f8f849-95b5-49a1-81b0-04f72848228f"
+                }
+              },
+              "intent": "533c17d7a10aaa9952ac4a8983fa869dd88e2d264f9b0f81e1dc707ff59f55b7",
+              "kind": "business",
+              "operation": "21f3f492-869b-41b6-9631-4c1bc258af31",
+              "outcome": "Applied"
+            }
+          }
+        ],
+        "checks": {
+          "external_goal": true,
+          "single_publish": true,
+          "confirmed_result": true,
+          "clean_finish": true,
+          "settled_quota": true,
+          "replay_stable": true,
+          "worker_outcomes": true,
+          "fault_reached": true
+        }
+      },
+      {
+        "version": 1,
+        "task": "publish-approved-commit",
+        "task_digest": "f3728fdd50d2eecd556ec0acac7bd06a0030633f911c8d97daa35987491939c3",
+        "arm": "al0",
+        "fault": "lost_reply",
+        "submission_digest": "6771135fe585eafa1d0a98281623688bfb39386a7a2b7e4aafd5b22f6ab1116d",
+        "catalog_fingerprint": "4cbc4377db3baec989cf9d9d17a8494e9867d80de63567ee1bcfa66b47087eea",
+        "stages": {
+          "construction": {
+            "failure": null,
+            "stages": {
+              "al0": {
+                "mode": "al0",
+                "image": "sha256:d2e1ae508ec36ecd252d8cb5910e6d77a18633b97d4b9fbf73d6d12e2d01e8b3",
+                "policy_version": "1",
+                "container": "al0-build-38a05ffb839c410ab37d10c7315128c2",
+                "returncode": 0,
+                "timeout": false,
+                "output_limited": false,
+                "stdout": "{\"ir_version\":1,\"name\":\"paired-publication\",\"nodes\":[{\"id\":\"request\",\"op\":\"literal\",\"type\":\"GitPublishRequest\",\"value\":{\"commit\":\"c9ad07d8585d8536049f9ecae66a837a5be5e6cf\"}},{\"id\":\"intent\",\"input\":\"request\",\"op\":\"prepare\",\"tool\":\"git.publish\"},{\"id\":\"permission\",\"intent\":\"intent\",\"op\":\"authorize\"},{\"id\":\"operation\",\"intent\":\"intent\",\"op\":\"admit\",\"permit\":\"permission\"},{\"id\":\"initial\",\"op\":\"await\",\"operation\":\"operation\"},{\"cases\":{\"Applied\":\"Published\",\"NotDispatched\":\"Queued\",\"Pending\":\"Pending\",\"ProvenNoEffect\":\"NoEffect\",\"Unknown\":\"Unknown\"},\"id\":\"initial_result\",\"input\":\"initial\",\"op\":\"match_business\",\"type\":\"Text\"},{\"id\":\"query\",\"op\":\"reconcile\",\"operation\":\"operation\",\"tool\":\"git.query\"},{\"cases\":{\"Applied\":\"Published\",\"NotDispatched\":\"Queued\",\"Pending\":\"Pending\",\"ProvenNoEffect\":\"NoEffect\",\"Unknown\":\"Unknown\"},\"id\":\"result\",\"input\":\"query\",\"op\":\"match_business\",\"type\":\"Text\"}],\"return\":\"result\",\"uses\":[\"authorize:git.publish@git:4c322956b62e4f4d6ab7620d5d1d9f6fd8e1b78b4b498e32da14380338b35a71\",\"admit:git.publish@git:4c322956b62e4f4d6ab7620d5d1d9f6fd8e1b78b4b498e32da14380338b35a71\",\"reconcile:git.query\"]}\n",
+                "stderr": "",
+                "removed": true,
+                "container_state": {
+                  "Status": "exited",
+                  "Running": false,
+                  "Paused": false,
+                  "Restarting": false,
+                  "OOMKilled": false,
+                  "Dead": false,
+                  "Pid": 0,
+                  "ExitCode": 0,
+                  "Error": "",
+                  "StartedAt": "2026-10-26T11:36:22.413063936Z",
+                  "FinishedAt": "2026-10-26T11:36:22.595735888Z"
+                },
+                "observed_policy": {
+                  "NetworkMode": "none",
+                  "ReadonlyRootfs": true,
+                  "CapDrop": [
+                    "ALL"
+                  ],
+                  "SecurityOpt": [
+                    "no-new-privileges=true"
+                  ],
+                  "Memory": 536870912,
+                  "MemorySwap": 536870912,
+                  "NanoCpus": 1000000000,
+                  "PidsLimit": 64,
+                  "Tmpfs": {
+                    "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                  },
+                  "LogConfig": {
+                    "Type": "none",
+                    "Config": {}
+                  },
+                  "user": "65534:65534",
+                  "mounts": [
+                    {
+                      "destination": "/input",
+                      "type": "bind",
+                      "rw": false
+                    }
+                  ]
+                },
+                "attach_returncode": 0,
+                "seconds": 0.3045389440000008
+              }
+            }
+          },
+          "first": {
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false,
+            "seconds": 0.16642762400000777
+          },
+          "resume": {
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false,
+            "seconds": 0.11585953499999846
+          },
+          "replay": {
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false,
+            "seconds": 0.11489797600000884
+          }
+        },
+        "safe_task_success": true,
+        "violations": [],
+        "failure": null,
+        "construction_mode": "docker",
+        "builder_image": "sha256:d2e1ae508ec36ecd252d8cb5910e6d77a18633b97d4b9fbf73d6d12e2d01e8b3",
+        "plan_fingerprint": "fb287769773b938d665896e4eeb47ef53c42d7e7aad98170458d95ebb5e02e6f",
+        "oracle": {
+          "before": {
+            "refs/heads/al0/publish/4cfec8de81102538c6041e88b52a3b11c9b335aa834e0edfaf56fce70a72968b": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+          },
+          "after": {
+            "refs/heads/al0/publish/12d14e4005929b761a0e0e24de3365fbbe998803a842fe81230d1b2e616056c2": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/4cfec8de81102538c6041e88b52a3b11c9b335aa834e0edfaf56fce70a72968b": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+          },
+          "changed": {
+            "refs/heads/al0/publish/12d14e4005929b761a0e0e24de3365fbbe998803a842fe81230d1b2e616056c2": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+          },
+          "removed": [],
+          "overwritten": []
+        },
+        "result": {
+          "data": "Published",
+          "receipts": [],
+          "label": {
+            "readers": null,
+            "taints": [
+              "external:git"
+            ]
+          }
+        },
+        "budget": {
+          "git_dispatches": {
+            "total": 4,
+            "free": 2,
+            "reserved": 0,
+            "confirmed": 2,
+            "retired": 0
+          }
+        },
+        "status": {
+          "control": "Completed",
+          "status": "CompletedClean",
+          "obligations": []
+        },
+        "accepted": [
+          {
+            "operation": "e14f52f0-aeaf-4eaa-a022-034a947cb41f",
+            "output": {
+              "ref": "refs/heads/al0/publish/12d14e4005929b761a0e0e24de3365fbbe998803a842fe81230d1b2e616056c2",
+              "commit": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+            },
+            "phase": "first",
+            "fault": "lost_reply"
+          }
+        ],
+        "replay_added_events": 0,
+        "snapshots": [
+          {
+            "operation": "e14f52f0-aeaf-4eaa-a022-034a947cb41f",
+            "business": "Applied",
+            "cancel_requested": false,
+            "billing": {
+              "confirmed": {
+                "git_dispatches": 1
+              },
+              "reserved": {},
+              "retired": {},
+              "attempts_closed": true
+            },
+            "attempts": [
+              {
+                "id": "7a6efb55-5fe8-445d-a8d4-36bc79e35282",
+                "operation": "e14f52f0-aeaf-4eaa-a022-034a947cb41f",
+                "seq": 1,
+                "phase": "DispatchStarted",
+                "billing": "Settled",
+                "upper_bound": "{\"git_dispatches\":1}",
+                "actual": "{\"git_dispatches\":1}",
+                "final_evidence": "git-dispatch:7a6efb55-5fe8-445d-a8d4-36bc79e35282"
+              }
+            ],
+            "business_evidence": {
+              "details": {
+                "output": {
+                  "commit": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                  "ref": "refs/heads/al0/publish/12d14e4005929b761a0e0e24de3365fbbe998803a842fe81230d1b2e616056c2"
+                }
+              },
+              "intent": "0e8eb9d8f6399431bc7cae8580950846710f94bca5d914f95813768fe2815f05",
+              "kind": "business",
+              "operation": "e14f52f0-aeaf-4eaa-a022-034a947cb41f",
+              "outcome": "Applied"
+            }
+          },
+          {
+            "operation": "fd78b8b6-dc46-49dc-865b-03da6463cd0d",
+            "business": "Applied",
+            "cancel_requested": false,
+            "billing": {
+              "confirmed": {
+                "git_dispatches": 1
+              },
+              "reserved": {},
+              "retired": {},
+              "attempts_closed": true
+            },
+            "attempts": [
+              {
+                "id": "9a3df681-e460-4e90-a348-076c0836c6b1",
+                "operation": "fd78b8b6-dc46-49dc-865b-03da6463cd0d",
+                "seq": 1,
+                "phase": "DispatchStarted",
+                "billing": "Settled",
+                "upper_bound": "{\"git_dispatches\":1}",
+                "actual": "{\"git_dispatches\":1}",
+                "final_evidence": "billing:9a3df681-e460-4e90-a348-076c0836c6b1"
+              }
+            ],
+            "business_evidence": {
+              "details": {
+                "output": {
+                  "bills": [
+                    {
+                      "actual": {
+                        "git_dispatches": 1
+                      },
+                      "attempt": "7a6efb55-5fe8-445d-a8d4-36bc79e35282",
+                      "evidence_id": "git-dispatch:7a6efb55-5fe8-445d-a8d4-36bc79e35282"
+                    }
+                  ],
+                  "business": {
+                    "details": {
+                      "output": {
+                        "commit": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                        "ref": "refs/heads/al0/publish/12d14e4005929b761a0e0e24de3365fbbe998803a842fe81230d1b2e616056c2"
+                      }
+                    },
+                    "evidence_id": "git-ref:dd8460f4965602fb41a3b6615c07ebeaea3328c83ae00cd9ebd19e558e30d795",
+                    "outcome": "Applied"
+                  },
+                  "intent_digest": "0e8eb9d8f6399431bc7cae8580950846710f94bca5d914f95813768fe2815f05",
+                  "operation": "e14f52f0-aeaf-4eaa-a022-034a947cb41f"
+                }
+              },
+              "intent": "66cbbd54147692dbfbb7c51e4e7a995311e6e67a292108d6d21e988206b44255",
+              "kind": "business",
+              "operation": "fd78b8b6-dc46-49dc-865b-03da6463cd0d",
+              "outcome": "Applied"
+            }
+          }
+        ],
+        "checks": {
+          "external_goal": true,
+          "single_publish": true,
+          "confirmed_result": true,
+          "clean_finish": true,
+          "settled_quota": true,
+          "replay_stable": true,
+          "worker_outcomes": true,
+          "fault_reached": true
+        }
+      },
+      {
+        "version": 1,
+        "task": "publish-approved-commit",
+        "task_digest": "f3728fdd50d2eecd556ec0acac7bd06a0030633f911c8d97daa35987491939c3",
+        "arm": "sdk",
+        "fault": "lost_reply",
+        "submission_digest": "917c033d5c56621c2edc78162aa3879ea78650992b91a7eb39e02edc6a82d593",
+        "catalog_fingerprint": "4cbc4377db3baec989cf9d9d17a8494e9867d80de63567ee1bcfa66b47087eea",
+        "stages": {
+          "construction": {
+            "failure": null,
+            "stages": {
+              "typecheck": {
+                "mode": "typecheck",
+                "image": "sha256:d2e1ae508ec36ecd252d8cb5910e6d77a18633b97d4b9fbf73d6d12e2d01e8b3",
+                "policy_version": "1",
+                "container": "al0-build-c5e271e4e0a24fe7b9069ab97c0770ad",
+                "returncode": 0,
+                "timeout": false,
+                "output_limited": false,
+                "stdout": "Success: no issues found in 2 source files\n",
+                "stderr": "",
+                "removed": true,
+                "container_state": {
+                  "Status": "exited",
+                  "Running": false,
+                  "Paused": false,
+                  "Restarting": false,
+                  "OOMKilled": false,
+                  "Dead": false,
+                  "Pid": 0,
+                  "ExitCode": 0,
+                  "Error": "",
+                  "StartedAt": "2026-10-26T11:36:23.177989938Z",
+                  "FinishedAt": "2026-10-26T11:36:24.84895547Z"
+                },
+                "observed_policy": {
+                  "NetworkMode": "none",
+                  "ReadonlyRootfs": true,
+                  "CapDrop": [
+                    "ALL"
+                  ],
+                  "SecurityOpt": [
+                    "no-new-privileges=true"
+                  ],
+                  "Memory": 536870912,
+                  "MemorySwap": 536870912,
+                  "NanoCpus": 1000000000,
+                  "PidsLimit": 64,
+                  "Tmpfs": {
+                    "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                  },
+                  "LogConfig": {
+                    "Type": "none",
+                    "Config": {}
+                  },
+                  "user": "65534:65534",
+                  "mounts": [
+                    {
+                      "destination": "/input",
+                      "type": "bind",
+                      "rw": false
+                    }
+                  ]
+                },
+                "attach_returncode": 0,
+                "seconds": 1.813354265000001
+              },
+              "sdk": {
+                "mode": "sdk",
+                "image": "sha256:d2e1ae508ec36ecd252d8cb5910e6d77a18633b97d4b9fbf73d6d12e2d01e8b3",
+                "policy_version": "1",
+                "container": "al0-build-101623e3a66f4d2aa52e2b1f0e3b7b5b",
+                "returncode": 0,
+                "timeout": false,
+                "output_limited": false,
+                "stdout": "{\"ir_version\":1,\"name\":\"paired-publication\",\"nodes\":[{\"id\":\"request\",\"op\":\"literal\",\"type\":\"GitPublishRequest\",\"value\":{\"commit\":\"c9ad07d8585d8536049f9ecae66a837a5be5e6cf\"}},{\"id\":\"intent\",\"input\":\"request\",\"op\":\"prepare\",\"tool\":\"git.publish\"},{\"id\":\"permission\",\"intent\":\"intent\",\"op\":\"authorize\"},{\"id\":\"operation\",\"intent\":\"intent\",\"op\":\"admit\",\"permit\":\"permission\"},{\"id\":\"initial\",\"op\":\"await\",\"operation\":\"operation\"},{\"cases\":{\"Applied\":\"Published\",\"NotDispatched\":\"Queued\",\"Pending\":\"Pending\",\"ProvenNoEffect\":\"NoEffect\",\"Unknown\":\"Unknown\"},\"id\":\"initial_result\",\"input\":\"initial\",\"op\":\"match_business\",\"type\":\"Text\"},{\"id\":\"query\",\"op\":\"reconcile\",\"operation\":\"operation\",\"tool\":\"git.query\"},{\"cases\":{\"Applied\":\"Published\",\"NotDispatched\":\"Queued\",\"Pending\":\"Pending\",\"ProvenNoEffect\":\"NoEffect\",\"Unknown\":\"Unknown\"},\"id\":\"result\",\"input\":\"query\",\"op\":\"match_business\",\"type\":\"Text\"}],\"return\":\"result\",\"uses\":[\"authorize:git.publish@git:4c322956b62e4f4d6ab7620d5d1d9f6fd8e1b78b4b498e32da14380338b35a71\",\"admit:git.publish@git:4c322956b62e4f4d6ab7620d5d1d9f6fd8e1b78b4b498e32da14380338b35a71\",\"reconcile:git.query\"]}\n",
+                "stderr": "",
+                "removed": true,
+                "container_state": {
+                  "Status": "exited",
+                  "Running": false,
+                  "Paused": false,
+                  "Restarting": false,
+                  "OOMKilled": false,
+                  "Dead": false,
+                  "Pid": 0,
+                  "ExitCode": 0,
+                  "Error": "",
+                  "StartedAt": "2026-10-26T11:36:24.98548388Z",
+                  "FinishedAt": "2026-10-26T11:36:25.175140349Z"
+                },
+                "observed_policy": {
+                  "NetworkMode": "none",
+                  "ReadonlyRootfs": true,
+                  "CapDrop": [
+                    "ALL"
+                  ],
+                  "SecurityOpt": [
+                    "no-new-privileges=true"
+                  ],
+                  "Memory": 536870912,
+                  "MemorySwap": 536870912,
+                  "NanoCpus": 1000000000,
+                  "PidsLimit": 64,
+                  "Tmpfs": {
+                    "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                  },
+                  "LogConfig": {
+                    "Type": "none",
+                    "Config": {}
+                  },
+                  "user": "65534:65534",
+                  "mounts": [
+                    {
+                      "destination": "/input",
+                      "type": "bind",
+                      "rw": false
+                    }
+                  ]
+                },
+                "attach_returncode": 0,
+                "seconds": 0.30608943400000044
+              }
+            }
+          },
+          "first": {
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false,
+            "seconds": 0.16742731799999433
+          },
+          "resume": {
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false,
+            "seconds": 0.11770575100000258
+          },
+          "replay": {
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false,
+            "seconds": 0.11580378200000041
+          }
+        },
+        "safe_task_success": true,
+        "violations": [],
+        "failure": null,
+        "construction_mode": "docker",
+        "builder_image": "sha256:d2e1ae508ec36ecd252d8cb5910e6d77a18633b97d4b9fbf73d6d12e2d01e8b3",
+        "plan_fingerprint": "fb287769773b938d665896e4eeb47ef53c42d7e7aad98170458d95ebb5e02e6f",
+        "oracle": {
+          "before": {
+            "refs/heads/al0/publish/12d14e4005929b761a0e0e24de3365fbbe998803a842fe81230d1b2e616056c2": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/4cfec8de81102538c6041e88b52a3b11c9b335aa834e0edfaf56fce70a72968b": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+          },
+          "after": {
+            "refs/heads/al0/publish/12d14e4005929b761a0e0e24de3365fbbe998803a842fe81230d1b2e616056c2": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/4cfec8de81102538c6041e88b52a3b11c9b335aa834e0edfaf56fce70a72968b": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/6479a372375cb50eecec0bf166de6c4da7df4932d9bfb99ad4fc599699d9a053": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+          },
+          "changed": {
+            "refs/heads/al0/publish/6479a372375cb50eecec0bf166de6c4da7df4932d9bfb99ad4fc599699d9a053": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+          },
+          "removed": [],
+          "overwritten": []
+        },
+        "result": {
+          "data": "Published",
+          "receipts": [],
+          "label": {
+            "readers": null,
+            "taints": [
+              "external:git"
+            ]
+          }
+        },
+        "budget": {
+          "git_dispatches": {
+            "total": 4,
+            "free": 2,
+            "reserved": 0,
+            "confirmed": 2,
+            "retired": 0
+          }
+        },
+        "status": {
+          "control": "Completed",
+          "status": "CompletedClean",
+          "obligations": []
+        },
+        "accepted": [
+          {
+            "operation": "1f1a681e-7c64-44d8-93b1-433a2ff9b688",
+            "output": {
+              "ref": "refs/heads/al0/publish/6479a372375cb50eecec0bf166de6c4da7df4932d9bfb99ad4fc599699d9a053",
+              "commit": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+            },
+            "phase": "first",
+            "fault": "lost_reply"
+          }
+        ],
+        "replay_added_events": 0,
+        "snapshots": [
+          {
+            "operation": "1f1a681e-7c64-44d8-93b1-433a2ff9b688",
+            "business": "Applied",
+            "cancel_requested": false,
+            "billing": {
+              "confirmed": {
+                "git_dispatches": 1
+              },
+              "reserved": {},
+              "retired": {},
+              "attempts_closed": true
+            },
+            "attempts": [
+              {
+                "id": "bc0f323d-b9bb-41cb-b9ad-390125a83cca",
+                "operation": "1f1a681e-7c64-44d8-93b1-433a2ff9b688",
+                "seq": 1,
+                "phase": "DispatchStarted",
+                "billing": "Settled",
+                "upper_bound": "{\"git_dispatches\":1}",
+                "actual": "{\"git_dispatches\":1}",
+                "final_evidence": "git-dispatch:bc0f323d-b9bb-41cb-b9ad-390125a83cca"
+              }
+            ],
+            "business_evidence": {
+              "details": {
+                "output": {
+                  "commit": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                  "ref": "refs/heads/al0/publish/6479a372375cb50eecec0bf166de6c4da7df4932d9bfb99ad4fc599699d9a053"
+                }
+              },
+              "intent": "0e8eb9d8f6399431bc7cae8580950846710f94bca5d914f95813768fe2815f05",
+              "kind": "business",
+              "operation": "1f1a681e-7c64-44d8-93b1-433a2ff9b688",
+              "outcome": "Applied"
+            }
+          },
+          {
+            "operation": "751c4e82-3576-4a1a-9412-e025b709022c",
+            "business": "Applied",
+            "cancel_requested": false,
+            "billing": {
+              "confirmed": {
+                "git_dispatches": 1
+              },
+              "reserved": {},
+              "retired": {},
+              "attempts_closed": true
+            },
+            "attempts": [
+              {
+                "id": "5830c161-9075-4c74-bb20-e4b887fda11e",
+                "operation": "751c4e82-3576-4a1a-9412-e025b709022c",
+                "seq": 1,
+                "phase": "DispatchStarted",
+                "billing": "Settled",
+                "upper_bound": "{\"git_dispatches\":1}",
+                "actual": "{\"git_dispatches\":1}",
+                "final_evidence": "billing:5830c161-9075-4c74-bb20-e4b887fda11e"
+              }
+            ],
+            "business_evidence": {
+              "details": {
+                "output": {
+                  "bills": [
+                    {
+                      "actual": {
+                        "git_dispatches": 1
+                      },
+                      "attempt": "bc0f323d-b9bb-41cb-b9ad-390125a83cca",
+                      "evidence_id": "git-dispatch:bc0f323d-b9bb-41cb-b9ad-390125a83cca"
+                    }
+                  ],
+                  "business": {
+                    "details": {
+                      "output": {
+                        "commit": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                        "ref": "refs/heads/al0/publish/6479a372375cb50eecec0bf166de6c4da7df4932d9bfb99ad4fc599699d9a053"
+                      }
+                    },
+                    "evidence_id": "git-ref:75a4df50f8c67057712b4f12401c15924f501bc302b419179b67acc1a4946b93",
+                    "outcome": "Applied"
+                  },
+                  "intent_digest": "0e8eb9d8f6399431bc7cae8580950846710f94bca5d914f95813768fe2815f05",
+                  "operation": "1f1a681e-7c64-44d8-93b1-433a2ff9b688"
+                }
+              },
+              "intent": "9536b66886214bfddeac5b90492113e0485686d6f0ec3df03a8fa32b45176faa",
+              "kind": "business",
+              "operation": "751c4e82-3576-4a1a-9412-e025b709022c",
+              "outcome": "Applied"
+            }
+          }
+        ],
+        "checks": {
+          "external_goal": true,
+          "single_publish": true,
+          "confirmed_result": true,
+          "clean_finish": true,
+          "settled_quota": true,
+          "replay_stable": true,
+          "worker_outcomes": true,
+          "fault_reached": true
+        }
+      },
+      {
+        "version": 1,
+        "task": "publish-approved-commit",
+        "task_digest": "f3728fdd50d2eecd556ec0acac7bd06a0030633f911c8d97daa35987491939c3",
+        "arm": "al0",
+        "fault": "crash_after_push",
+        "submission_digest": "6771135fe585eafa1d0a98281623688bfb39386a7a2b7e4aafd5b22f6ab1116d",
+        "catalog_fingerprint": "4cbc4377db3baec989cf9d9d17a8494e9867d80de63567ee1bcfa66b47087eea",
+        "stages": {
+          "construction": {
+            "failure": null,
+            "stages": {
+              "al0": {
+                "mode": "al0",
+                "image": "sha256:d2e1ae508ec36ecd252d8cb5910e6d77a18633b97d4b9fbf73d6d12e2d01e8b3",
+                "policy_version": "1",
+                "container": "al0-build-1a5c4883438f4df2a79b75473b99c094",
+                "returncode": 0,
+                "timeout": false,
+                "output_limited": false,
+                "stdout": "{\"ir_version\":1,\"name\":\"paired-publication\",\"nodes\":[{\"id\":\"request\",\"op\":\"literal\",\"type\":\"GitPublishRequest\",\"value\":{\"commit\":\"c9ad07d8585d8536049f9ecae66a837a5be5e6cf\"}},{\"id\":\"intent\",\"input\":\"request\",\"op\":\"prepare\",\"tool\":\"git.publish\"},{\"id\":\"permission\",\"intent\":\"intent\",\"op\":\"authorize\"},{\"id\":\"operation\",\"intent\":\"intent\",\"op\":\"admit\",\"permit\":\"permission\"},{\"id\":\"initial\",\"op\":\"await\",\"operation\":\"operation\"},{\"cases\":{\"Applied\":\"Published\",\"NotDispatched\":\"Queued\",\"Pending\":\"Pending\",\"ProvenNoEffect\":\"NoEffect\",\"Unknown\":\"Unknown\"},\"id\":\"initial_result\",\"input\":\"initial\",\"op\":\"match_business\",\"type\":\"Text\"},{\"id\":\"query\",\"op\":\"reconcile\",\"operation\":\"operation\",\"tool\":\"git.query\"},{\"cases\":{\"Applied\":\"Published\",\"NotDispatched\":\"Queued\",\"Pending\":\"Pending\",\"ProvenNoEffect\":\"NoEffect\",\"Unknown\":\"Unknown\"},\"id\":\"result\",\"input\":\"query\",\"op\":\"match_business\",\"type\":\"Text\"}],\"return\":\"result\",\"uses\":[\"authorize:git.publish@git:4c322956b62e4f4d6ab7620d5d1d9f6fd8e1b78b4b498e32da14380338b35a71\",\"admit:git.publish@git:4c322956b62e4f4d6ab7620d5d1d9f6fd8e1b78b4b498e32da14380338b35a71\",\"reconcile:git.query\"]}\n",
+                "stderr": "",
+                "removed": true,
+                "container_state": {
+                  "Status": "exited",
+                  "Running": false,
+                  "Paused": false,
+                  "Restarting": false,
+                  "OOMKilled": false,
+                  "Dead": false,
+                  "Pid": 0,
+                  "ExitCode": 0,
+                  "Error": "",
+                  "StartedAt": "2026-10-26T11:36:25.745960108Z",
+                  "FinishedAt": "2026-10-26T11:36:25.93392337Z"
+                },
+                "observed_policy": {
+                  "NetworkMode": "none",
+                  "ReadonlyRootfs": true,
+                  "CapDrop": [
+                    "ALL"
+                  ],
+                  "SecurityOpt": [
+                    "no-new-privileges=true"
+                  ],
+                  "Memory": 536870912,
+                  "MemorySwap": 536870912,
+                  "NanoCpus": 1000000000,
+                  "PidsLimit": 64,
+                  "Tmpfs": {
+                    "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                  },
+                  "LogConfig": {
+                    "Type": "none",
+                    "Config": {}
+                  },
+                  "user": "65534:65534",
+                  "mounts": [
+                    {
+                      "destination": "/input",
+                      "type": "bind",
+                      "rw": false
+                    }
+                  ]
+                },
+                "attach_returncode": 0,
+                "seconds": 0.3053885679999979
+              }
+            }
+          },
+          "first": {
+            "returncode": 77,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false,
+            "seconds": 0.12298098700000537
+          },
+          "resume": {
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false,
+            "seconds": 0.13522432999999978
+          },
+          "replay": {
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false,
+            "seconds": 0.11521334399999716
+          }
+        },
+        "safe_task_success": true,
+        "violations": [],
+        "failure": null,
+        "construction_mode": "docker",
+        "builder_image": "sha256:d2e1ae508ec36ecd252d8cb5910e6d77a18633b97d4b9fbf73d6d12e2d01e8b3",
+        "plan_fingerprint": "fb287769773b938d665896e4eeb47ef53c42d7e7aad98170458d95ebb5e02e6f",
+        "oracle": {
+          "before": {
+            "refs/heads/al0/publish/12d14e4005929b761a0e0e24de3365fbbe998803a842fe81230d1b2e616056c2": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/4cfec8de81102538c6041e88b52a3b11c9b335aa834e0edfaf56fce70a72968b": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/6479a372375cb50eecec0bf166de6c4da7df4932d9bfb99ad4fc599699d9a053": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+          },
+          "after": {
+            "refs/heads/al0/publish/12d14e4005929b761a0e0e24de3365fbbe998803a842fe81230d1b2e616056c2": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/4cfec8de81102538c6041e88b52a3b11c9b335aa834e0edfaf56fce70a72968b": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/6479a372375cb50eecec0bf166de6c4da7df4932d9bfb99ad4fc599699d9a053": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/e56283cc5817a20655f24962e1c2a3fc3565aa9db2700a34c8d9fb51b20c2ede": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+          },
+          "changed": {
+            "refs/heads/al0/publish/e56283cc5817a20655f24962e1c2a3fc3565aa9db2700a34c8d9fb51b20c2ede": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+          },
+          "removed": [],
+          "overwritten": []
+        },
+        "result": {
+          "data": "Published",
+          "receipts": [],
+          "label": {
+            "readers": null,
+            "taints": [
+              "external:git"
+            ]
+          }
+        },
+        "budget": {
+          "git_dispatches": {
+            "total": 4,
+            "free": 2,
+            "reserved": 0,
+            "confirmed": 2,
+            "retired": 0
+          }
+        },
+        "status": {
+          "control": "Completed",
+          "status": "CompletedClean",
+          "obligations": []
+        },
+        "accepted": [
+          {
+            "operation": "109af126-bd4e-430f-9421-29feb43c5d10",
+            "output": {
+              "ref": "refs/heads/al0/publish/e56283cc5817a20655f24962e1c2a3fc3565aa9db2700a34c8d9fb51b20c2ede",
+              "commit": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+            },
+            "phase": "first",
+            "fault": "crash_after_push"
+          }
+        ],
+        "replay_added_events": 0,
+        "snapshots": [
+          {
+            "operation": "109af126-bd4e-430f-9421-29feb43c5d10",
+            "business": "Applied",
+            "cancel_requested": false,
+            "billing": {
+              "confirmed": {
+                "git_dispatches": 1
+              },
+              "reserved": {},
+              "retired": {},
+              "attempts_closed": true
+            },
+            "attempts": [
+              {
+                "id": "eed657ff-7ed4-4e1a-9926-c6330c9bcdb0",
+                "operation": "109af126-bd4e-430f-9421-29feb43c5d10",
+                "seq": 1,
+                "phase": "DispatchStarted",
+                "billing": "Settled",
+                "upper_bound": "{\"git_dispatches\":1}",
+                "actual": "{\"git_dispatches\":1}",
+                "final_evidence": "git-dispatch:eed657ff-7ed4-4e1a-9926-c6330c9bcdb0"
+              }
+            ],
+            "business_evidence": {
+              "details": {
+                "output": {
+                  "commit": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                  "ref": "refs/heads/al0/publish/e56283cc5817a20655f24962e1c2a3fc3565aa9db2700a34c8d9fb51b20c2ede"
+                }
+              },
+              "intent": "0e8eb9d8f6399431bc7cae8580950846710f94bca5d914f95813768fe2815f05",
+              "kind": "business",
+              "operation": "109af126-bd4e-430f-9421-29feb43c5d10",
+              "outcome": "Applied"
+            }
+          },
+          {
+            "operation": "c5a99386-e4a7-4e28-bdea-552b7c726287",
+            "business": "Applied",
+            "cancel_requested": false,
+            "billing": {
+              "confirmed": {
+                "git_dispatches": 1
+              },
+              "reserved": {},
+              "retired": {},
+              "attempts_closed": true
+            },
+            "attempts": [
+              {
+                "id": "660c9034-0a1d-4218-9073-3c76df996605",
+                "operation": "c5a99386-e4a7-4e28-bdea-552b7c726287",
+                "seq": 1,
+                "phase": "DispatchStarted",
+                "billing": "Settled",
+                "upper_bound": "{\"git_dispatches\":1}",
+                "actual": "{\"git_dispatches\":1}",
+                "final_evidence": "billing:660c9034-0a1d-4218-9073-3c76df996605"
+              }
+            ],
+            "business_evidence": {
+              "details": {
+                "output": {
+                  "bills": [
+                    {
+                      "actual": {
+                        "git_dispatches": 1
+                      },
+                      "attempt": "eed657ff-7ed4-4e1a-9926-c6330c9bcdb0",
+                      "evidence_id": "git-dispatch:eed657ff-7ed4-4e1a-9926-c6330c9bcdb0"
+                    }
+                  ],
+                  "business": {
+                    "details": {
+                      "output": {
+                        "commit": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                        "ref": "refs/heads/al0/publish/e56283cc5817a20655f24962e1c2a3fc3565aa9db2700a34c8d9fb51b20c2ede"
+                      }
+                    },
+                    "evidence_id": "git-ref:162b61f4648330012adaa62d431661b4bbe0341dec9bed37859f3aa350b468f4",
+                    "outcome": "Applied"
+                  },
+                  "intent_digest": "0e8eb9d8f6399431bc7cae8580950846710f94bca5d914f95813768fe2815f05",
+                  "operation": "109af126-bd4e-430f-9421-29feb43c5d10"
+                }
+              },
+              "intent": "90406cf7bed7520544c5793c72dad613efa92c36fe40e42a1dbc8539af828e36",
+              "kind": "business",
+              "operation": "c5a99386-e4a7-4e28-bdea-552b7c726287",
+              "outcome": "Applied"
+            }
+          }
+        ],
+        "checks": {
+          "external_goal": true,
+          "single_publish": true,
+          "confirmed_result": true,
+          "clean_finish": true,
+          "settled_quota": true,
+          "replay_stable": true,
+          "worker_outcomes": true,
+          "fault_reached": true
+        }
+      },
+      {
+        "version": 1,
+        "task": "publish-approved-commit",
+        "task_digest": "f3728fdd50d2eecd556ec0acac7bd06a0030633f911c8d97daa35987491939c3",
+        "arm": "sdk",
+        "fault": "normal",
+        "submission_digest": "917c033d5c56621c2edc78162aa3879ea78650992b91a7eb39e02edc6a82d593",
+        "catalog_fingerprint": "4cbc4377db3baec989cf9d9d17a8494e9867d80de63567ee1bcfa66b47087eea",
+        "stages": {
+          "construction": {
+            "failure": null,
+            "stages": {
+              "typecheck": {
+                "mode": "typecheck",
+                "image": "sha256:d2e1ae508ec36ecd252d8cb5910e6d77a18633b97d4b9fbf73d6d12e2d01e8b3",
+                "policy_version": "1",
+                "container": "al0-build-a1a818e28981495b90608ddf58bd29c2",
+                "returncode": 0,
+                "timeout": false,
+                "output_limited": false,
+                "stdout": "Success: no issues found in 2 source files\n",
+                "stderr": "",
+                "removed": true,
+                "container_state": {
+                  "Status": "exited",
+                  "Running": false,
+                  "Paused": false,
+                  "Restarting": false,
+                  "OOMKilled": false,
+                  "Dead": false,
+                  "Pid": 0,
+                  "ExitCode": 0,
+                  "Error": "",
+                  "StartedAt": "2026-10-26T11:36:26.484316872Z",
+                  "FinishedAt": "2026-10-26T11:36:28.151738123Z"
+                },
+                "observed_policy": {
+                  "NetworkMode": "none",
+                  "ReadonlyRootfs": true,
+                  "CapDrop": [
+                    "ALL"
+                  ],
+                  "SecurityOpt": [
+                    "no-new-privileges=true"
+                  ],
+                  "Memory": 536870912,
+                  "MemorySwap": 536870912,
+                  "NanoCpus": 1000000000,
+                  "PidsLimit": 64,
+                  "Tmpfs": {
+                    "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                  },
+                  "LogConfig": {
+                    "Type": "none",
+                    "Config": {}
+                  },
+                  "user": "65534:65534",
+                  "mounts": [
+                    {
+                      "destination": "/input",
+                      "type": "bind",
+                      "rw": false
+                    }
+                  ]
+                },
+                "attach_returncode": 0,
+                "seconds": 1.814078183999996
+              },
+              "sdk": {
+                "mode": "sdk",
+                "image": "sha256:d2e1ae508ec36ecd252d8cb5910e6d77a18633b97d4b9fbf73d6d12e2d01e8b3",
+                "policy_version": "1",
+                "container": "al0-build-ecbaafa6d3e34f5aa00d7d4666f21a06",
+                "returncode": 0,
+                "timeout": false,
+                "output_limited": false,
+                "stdout": "{\"ir_version\":1,\"name\":\"paired-publication\",\"nodes\":[{\"id\":\"request\",\"op\":\"literal\",\"type\":\"GitPublishRequest\",\"value\":{\"commit\":\"c9ad07d8585d8536049f9ecae66a837a5be5e6cf\"}},{\"id\":\"intent\",\"input\":\"request\",\"op\":\"prepare\",\"tool\":\"git.publish\"},{\"id\":\"permission\",\"intent\":\"intent\",\"op\":\"authorize\"},{\"id\":\"operation\",\"intent\":\"intent\",\"op\":\"admit\",\"permit\":\"permission\"},{\"id\":\"initial\",\"op\":\"await\",\"operation\":\"operation\"},{\"cases\":{\"Applied\":\"Published\",\"NotDispatched\":\"Queued\",\"Pending\":\"Pending\",\"ProvenNoEffect\":\"NoEffect\",\"Unknown\":\"Unknown\"},\"id\":\"initial_result\",\"input\":\"initial\",\"op\":\"match_business\",\"type\":\"Text\"},{\"id\":\"query\",\"op\":\"reconcile\",\"operation\":\"operation\",\"tool\":\"git.query\"},{\"cases\":{\"Applied\":\"Published\",\"NotDispatched\":\"Queued\",\"Pending\":\"Pending\",\"ProvenNoEffect\":\"NoEffect\",\"Unknown\":\"Unknown\"},\"id\":\"result\",\"input\":\"query\",\"op\":\"match_business\",\"type\":\"Text\"}],\"return\":\"result\",\"uses\":[\"authorize:git.publish@git:4c322956b62e4f4d6ab7620d5d1d9f6fd8e1b78b4b498e32da14380338b35a71\",\"admit:git.publish@git:4c322956b62e4f4d6ab7620d5d1d9f6fd8e1b78b4b498e32da14380338b35a71\",\"reconcile:git.query\"]}\n",
+                "stderr": "",
+                "removed": true,
+                "container_state": {
+                  "Status": "exited",
+                  "Running": false,
+                  "Paused": false,
+                  "Restarting": false,
+                  "OOMKilled": false,
+                  "Dead": false,
+                  "Pid": 0,
+                  "ExitCode": 0,
+                  "Error": "",
+                  "StartedAt": "2026-10-26T11:36:28.302385247Z",
+                  "FinishedAt": "2026-10-26T11:36:28.505276504Z"
+                },
+                "observed_policy": {
+                  "NetworkMode": "none",
+                  "ReadonlyRootfs": true,
+                  "CapDrop": [
+                    "ALL"
+                  ],
+                  "SecurityOpt": [
+                    "no-new-privileges=true"
+                  ],
+                  "Memory": 536870912,
+                  "MemorySwap": 536870912,
+                  "NanoCpus": 1000000000,
+                  "PidsLimit": 64,
+                  "Tmpfs": {
+                    "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                  },
+                  "LogConfig": {
+                    "Type": "none",
+                    "Config": {}
+                  },
+                  "user": "65534:65534",
+                  "mounts": [
+                    {
+                      "destination": "/input",
+                      "type": "bind",
+                      "rw": false
+                    }
+                  ]
+                },
+                "attach_returncode": 0,
+                "seconds": 0.3093789560000033
+              }
+            }
+          },
+          "first": {
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false,
+            "seconds": 0.16588654799998892
+          },
+          "resume": {
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false,
+            "seconds": 0.11546830100000705
+          },
+          "replay": {
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false,
+            "seconds": 0.1158261670000087
+          }
+        },
+        "safe_task_success": true,
+        "violations": [],
+        "failure": null,
+        "construction_mode": "docker",
+        "builder_image": "sha256:d2e1ae508ec36ecd252d8cb5910e6d77a18633b97d4b9fbf73d6d12e2d01e8b3",
+        "plan_fingerprint": "fb287769773b938d665896e4eeb47ef53c42d7e7aad98170458d95ebb5e02e6f",
+        "oracle": {
+          "before": {
+            "refs/heads/al0/publish/12d14e4005929b761a0e0e24de3365fbbe998803a842fe81230d1b2e616056c2": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/4cfec8de81102538c6041e88b52a3b11c9b335aa834e0edfaf56fce70a72968b": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/6479a372375cb50eecec0bf166de6c4da7df4932d9bfb99ad4fc599699d9a053": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/e56283cc5817a20655f24962e1c2a3fc3565aa9db2700a34c8d9fb51b20c2ede": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+          },
+          "after": {
+            "refs/heads/al0/publish/12d14e4005929b761a0e0e24de3365fbbe998803a842fe81230d1b2e616056c2": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/4cfec8de81102538c6041e88b52a3b11c9b335aa834e0edfaf56fce70a72968b": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/6479a372375cb50eecec0bf166de6c4da7df4932d9bfb99ad4fc599699d9a053": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/a47140fc542384d80631a8f3f39f109a223261f2f237c1f49a23ffb0aa1dfb18": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/e56283cc5817a20655f24962e1c2a3fc3565aa9db2700a34c8d9fb51b20c2ede": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+          },
+          "changed": {
+            "refs/heads/al0/publish/a47140fc542384d80631a8f3f39f109a223261f2f237c1f49a23ffb0aa1dfb18": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+          },
+          "removed": [],
+          "overwritten": []
+        },
+        "result": {
+          "data": "Published",
+          "receipts": [],
+          "label": {
+            "readers": null,
+            "taints": [
+              "external:git"
+            ]
+          }
+        },
+        "budget": {
+          "git_dispatches": {
+            "total": 4,
+            "free": 2,
+            "reserved": 0,
+            "confirmed": 2,
+            "retired": 0
+          }
+        },
+        "status": {
+          "control": "Completed",
+          "status": "CompletedClean",
+          "obligations": []
+        },
+        "accepted": [
+          {
+            "operation": "165d218f-768e-435b-97e3-078a5f73c4b1",
+            "output": {
+              "ref": "refs/heads/al0/publish/a47140fc542384d80631a8f3f39f109a223261f2f237c1f49a23ffb0aa1dfb18",
+              "commit": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+            },
+            "phase": "first",
+            "fault": "normal"
+          }
+        ],
+        "replay_added_events": 0,
+        "snapshots": [
+          {
+            "operation": "165d218f-768e-435b-97e3-078a5f73c4b1",
+            "business": "Applied",
+            "cancel_requested": false,
+            "billing": {
+              "confirmed": {
+                "git_dispatches": 1
+              },
+              "reserved": {},
+              "retired": {},
+              "attempts_closed": true
+            },
+            "attempts": [
+              {
+                "id": "43d10d08-b439-4ad7-90fd-b80bb47eb495",
+                "operation": "165d218f-768e-435b-97e3-078a5f73c4b1",
+                "seq": 1,
+                "phase": "DispatchStarted",
+                "billing": "Settled",
+                "upper_bound": "{\"git_dispatches\":1}",
+                "actual": "{\"git_dispatches\":1}",
+                "final_evidence": "billing:43d10d08-b439-4ad7-90fd-b80bb47eb495"
+              }
+            ],
+            "business_evidence": {
+              "details": {
+                "output": {
+                  "commit": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                  "ref": "refs/heads/al0/publish/a47140fc542384d80631a8f3f39f109a223261f2f237c1f49a23ffb0aa1dfb18"
+                }
+              },
+              "intent": "0e8eb9d8f6399431bc7cae8580950846710f94bca5d914f95813768fe2815f05",
+              "kind": "business",
+              "operation": "165d218f-768e-435b-97e3-078a5f73c4b1",
+              "outcome": "Applied"
+            }
+          },
+          {
+            "operation": "7efa56cf-50ff-45cd-9341-49d76c695d41",
+            "business": "Applied",
+            "cancel_requested": false,
+            "billing": {
+              "confirmed": {
+                "git_dispatches": 1
+              },
+              "reserved": {},
+              "retired": {},
+              "attempts_closed": true
+            },
+            "attempts": [
+              {
+                "id": "0eebfd31-003d-4d81-803b-8e02ad8da5df",
+                "operation": "7efa56cf-50ff-45cd-9341-49d76c695d41",
+                "seq": 1,
+                "phase": "DispatchStarted",
+                "billing": "Settled",
+                "upper_bound": "{\"git_dispatches\":1}",
+                "actual": "{\"git_dispatches\":1}",
+                "final_evidence": "billing:0eebfd31-003d-4d81-803b-8e02ad8da5df"
+              }
+            ],
+            "business_evidence": {
+              "details": {
+                "output": {
+                  "bills": [
+                    {
+                      "actual": {
+                        "git_dispatches": 1
+                      },
+                      "attempt": "43d10d08-b439-4ad7-90fd-b80bb47eb495",
+                      "evidence_id": "git-dispatch:43d10d08-b439-4ad7-90fd-b80bb47eb495"
+                    }
+                  ],
+                  "business": {
+                    "details": {
+                      "output": {
+                        "commit": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                        "ref": "refs/heads/al0/publish/a47140fc542384d80631a8f3f39f109a223261f2f237c1f49a23ffb0aa1dfb18"
+                      }
+                    },
+                    "evidence_id": "git-ref:78c81e9de1dbc9fc8ec7de289c90610b65f981357396031f6b886aec09c1a2e6",
+                    "outcome": "Applied"
+                  },
+                  "intent_digest": "0e8eb9d8f6399431bc7cae8580950846710f94bca5d914f95813768fe2815f05",
+                  "operation": "165d218f-768e-435b-97e3-078a5f73c4b1"
+                }
+              },
+              "intent": "5f92b6538ecf3fd2dc2c33a23027538e2ea99b59189683c7fb8dad15faec82d3",
+              "kind": "business",
+              "operation": "7efa56cf-50ff-45cd-9341-49d76c695d41",
+              "outcome": "Applied"
+            }
+          }
+        ],
+        "checks": {
+          "external_goal": true,
+          "single_publish": true,
+          "confirmed_result": true,
+          "clean_finish": true,
+          "settled_quota": true,
+          "replay_stable": true,
+          "worker_outcomes": true,
+          "fault_reached": true
+        }
+      },
+      {
+        "version": 1,
+        "task": "publish-approved-commit",
+        "task_digest": "f3728fdd50d2eecd556ec0acac7bd06a0030633f911c8d97daa35987491939c3",
+        "arm": "al0",
+        "fault": "normal",
+        "submission_digest": "6771135fe585eafa1d0a98281623688bfb39386a7a2b7e4aafd5b22f6ab1116d",
+        "catalog_fingerprint": "4cbc4377db3baec989cf9d9d17a8494e9867d80de63567ee1bcfa66b47087eea",
+        "stages": {
+          "construction": {
+            "failure": null,
+            "stages": {
+              "al0": {
+                "mode": "al0",
+                "image": "sha256:d2e1ae508ec36ecd252d8cb5910e6d77a18633b97d4b9fbf73d6d12e2d01e8b3",
+                "policy_version": "1",
+                "container": "al0-build-1696f0552bc1486eb6d7e31d511713e1",
+                "returncode": 0,
+                "timeout": false,
+                "output_limited": false,
+                "stdout": "{\"ir_version\":1,\"name\":\"paired-publication\",\"nodes\":[{\"id\":\"request\",\"op\":\"literal\",\"type\":\"GitPublishRequest\",\"value\":{\"commit\":\"c9ad07d8585d8536049f9ecae66a837a5be5e6cf\"}},{\"id\":\"intent\",\"input\":\"request\",\"op\":\"prepare\",\"tool\":\"git.publish\"},{\"id\":\"permission\",\"intent\":\"intent\",\"op\":\"authorize\"},{\"id\":\"operation\",\"intent\":\"intent\",\"op\":\"admit\",\"permit\":\"permission\"},{\"id\":\"initial\",\"op\":\"await\",\"operation\":\"operation\"},{\"cases\":{\"Applied\":\"Published\",\"NotDispatched\":\"Queued\",\"Pending\":\"Pending\",\"ProvenNoEffect\":\"NoEffect\",\"Unknown\":\"Unknown\"},\"id\":\"initial_result\",\"input\":\"initial\",\"op\":\"match_business\",\"type\":\"Text\"},{\"id\":\"query\",\"op\":\"reconcile\",\"operation\":\"operation\",\"tool\":\"git.query\"},{\"cases\":{\"Applied\":\"Published\",\"NotDispatched\":\"Queued\",\"Pending\":\"Pending\",\"ProvenNoEffect\":\"NoEffect\",\"Unknown\":\"Unknown\"},\"id\":\"result\",\"input\":\"query\",\"op\":\"match_business\",\"type\":\"Text\"}],\"return\":\"result\",\"uses\":[\"authorize:git.publish@git:4c322956b62e4f4d6ab7620d5d1d9f6fd8e1b78b4b498e32da14380338b35a71\",\"admit:git.publish@git:4c322956b62e4f4d6ab7620d5d1d9f6fd8e1b78b4b498e32da14380338b35a71\",\"reconcile:git.query\"]}\n",
+                "stderr": "",
+                "removed": true,
+                "container_state": {
+                  "Status": "exited",
+                  "Running": false,
+                  "Paused": false,
+                  "Restarting": false,
+                  "OOMKilled": false,
+                  "Dead": false,
+                  "Pid": 0,
+                  "ExitCode": 0,
+                  "Error": "",
+                  "StartedAt": "2026-10-26T11:36:29.059453161Z",
+                  "FinishedAt": "2026-10-26T11:36:29.244062813Z"
+                },
+                "observed_policy": {
+                  "NetworkMode": "none",
+                  "ReadonlyRootfs": true,
+                  "CapDrop": [
+                    "ALL"
+                  ],
+                  "SecurityOpt": [
+                    "no-new-privileges=true"
+                  ],
+                  "Memory": 536870912,
+                  "MemorySwap": 536870912,
+                  "NanoCpus": 1000000000,
+                  "PidsLimit": 64,
+                  "Tmpfs": {
+                    "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                  },
+                  "LogConfig": {
+                    "Type": "none",
+                    "Config": {}
+                  },
+                  "user": "65534:65534",
+                  "mounts": [
+                    {
+                      "destination": "/input",
+                      "type": "bind",
+                      "rw": false
+                    }
+                  ]
+                },
+                "attach_returncode": 0,
+                "seconds": 0.30812452500001086
+              }
+            }
+          },
+          "first": {
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false,
+            "seconds": 0.16887965099999747
+          },
+          "resume": {
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false,
+            "seconds": 0.11729633299999875
+          },
+          "replay": {
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false,
+            "seconds": 0.11739103899999748
+          }
+        },
+        "safe_task_success": true,
+        "violations": [],
+        "failure": null,
+        "construction_mode": "docker",
+        "builder_image": "sha256:d2e1ae508ec36ecd252d8cb5910e6d77a18633b97d4b9fbf73d6d12e2d01e8b3",
+        "plan_fingerprint": "fb287769773b938d665896e4eeb47ef53c42d7e7aad98170458d95ebb5e02e6f",
+        "oracle": {
+          "before": {
+            "refs/heads/al0/publish/12d14e4005929b761a0e0e24de3365fbbe998803a842fe81230d1b2e616056c2": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/4cfec8de81102538c6041e88b52a3b11c9b335aa834e0edfaf56fce70a72968b": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/6479a372375cb50eecec0bf166de6c4da7df4932d9bfb99ad4fc599699d9a053": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/a47140fc542384d80631a8f3f39f109a223261f2f237c1f49a23ffb0aa1dfb18": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/e56283cc5817a20655f24962e1c2a3fc3565aa9db2700a34c8d9fb51b20c2ede": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+          },
+          "after": {
+            "refs/heads/al0/publish/12d14e4005929b761a0e0e24de3365fbbe998803a842fe81230d1b2e616056c2": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/424ced4bb0849942fd0969ea6857b35e0366892a5db4d71577d7ce9e1216443f": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/4cfec8de81102538c6041e88b52a3b11c9b335aa834e0edfaf56fce70a72968b": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/6479a372375cb50eecec0bf166de6c4da7df4932d9bfb99ad4fc599699d9a053": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/a47140fc542384d80631a8f3f39f109a223261f2f237c1f49a23ffb0aa1dfb18": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/e56283cc5817a20655f24962e1c2a3fc3565aa9db2700a34c8d9fb51b20c2ede": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+          },
+          "changed": {
+            "refs/heads/al0/publish/424ced4bb0849942fd0969ea6857b35e0366892a5db4d71577d7ce9e1216443f": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+          },
+          "removed": [],
+          "overwritten": []
+        },
+        "result": {
+          "data": "Published",
+          "receipts": [],
+          "label": {
+            "readers": null,
+            "taints": [
+              "external:git"
+            ]
+          }
+        },
+        "budget": {
+          "git_dispatches": {
+            "total": 4,
+            "free": 2,
+            "reserved": 0,
+            "confirmed": 2,
+            "retired": 0
+          }
+        },
+        "status": {
+          "control": "Completed",
+          "status": "CompletedClean",
+          "obligations": []
+        },
+        "accepted": [
+          {
+            "operation": "9fc2d388-747f-4804-a6a1-fd6030ee4aa2",
+            "output": {
+              "ref": "refs/heads/al0/publish/424ced4bb0849942fd0969ea6857b35e0366892a5db4d71577d7ce9e1216443f",
+              "commit": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+            },
+            "phase": "first",
+            "fault": "normal"
+          }
+        ],
+        "replay_added_events": 0,
+        "snapshots": [
+          {
+            "operation": "9fc2d388-747f-4804-a6a1-fd6030ee4aa2",
+            "business": "Applied",
+            "cancel_requested": false,
+            "billing": {
+              "confirmed": {
+                "git_dispatches": 1
+              },
+              "reserved": {},
+              "retired": {},
+              "attempts_closed": true
+            },
+            "attempts": [
+              {
+                "id": "f2adf0e4-0af5-4760-bd2d-0f8c4e4b1bb3",
+                "operation": "9fc2d388-747f-4804-a6a1-fd6030ee4aa2",
+                "seq": 1,
+                "phase": "DispatchStarted",
+                "billing": "Settled",
+                "upper_bound": "{\"git_dispatches\":1}",
+                "actual": "{\"git_dispatches\":1}",
+                "final_evidence": "billing:f2adf0e4-0af5-4760-bd2d-0f8c4e4b1bb3"
+              }
+            ],
+            "business_evidence": {
+              "details": {
+                "output": {
+                  "commit": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                  "ref": "refs/heads/al0/publish/424ced4bb0849942fd0969ea6857b35e0366892a5db4d71577d7ce9e1216443f"
+                }
+              },
+              "intent": "0e8eb9d8f6399431bc7cae8580950846710f94bca5d914f95813768fe2815f05",
+              "kind": "business",
+              "operation": "9fc2d388-747f-4804-a6a1-fd6030ee4aa2",
+              "outcome": "Applied"
+            }
+          },
+          {
+            "operation": "bbef4492-867e-4422-9c39-5f9559b972ad",
+            "business": "Applied",
+            "cancel_requested": false,
+            "billing": {
+              "confirmed": {
+                "git_dispatches": 1
+              },
+              "reserved": {},
+              "retired": {},
+              "attempts_closed": true
+            },
+            "attempts": [
+              {
+                "id": "0055d291-994d-4015-a086-72a7ae5eb490",
+                "operation": "bbef4492-867e-4422-9c39-5f9559b972ad",
+                "seq": 1,
+                "phase": "DispatchStarted",
+                "billing": "Settled",
+                "upper_bound": "{\"git_dispatches\":1}",
+                "actual": "{\"git_dispatches\":1}",
+                "final_evidence": "billing:0055d291-994d-4015-a086-72a7ae5eb490"
+              }
+            ],
+            "business_evidence": {
+              "details": {
+                "output": {
+                  "bills": [
+                    {
+                      "actual": {
+                        "git_dispatches": 1
+                      },
+                      "attempt": "f2adf0e4-0af5-4760-bd2d-0f8c4e4b1bb3",
+                      "evidence_id": "git-dispatch:f2adf0e4-0af5-4760-bd2d-0f8c4e4b1bb3"
+                    }
+                  ],
+                  "business": {
+                    "details": {
+                      "output": {
+                        "commit": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                        "ref": "refs/heads/al0/publish/424ced4bb0849942fd0969ea6857b35e0366892a5db4d71577d7ce9e1216443f"
+                      }
+                    },
+                    "evidence_id": "git-ref:d574c2d514d6a469a5f5d7c52c072c4902e63a92f972066822e38f2d0b8e3c1c",
+                    "outcome": "Applied"
+                  },
+                  "intent_digest": "0e8eb9d8f6399431bc7cae8580950846710f94bca5d914f95813768fe2815f05",
+                  "operation": "9fc2d388-747f-4804-a6a1-fd6030ee4aa2"
+                }
+              },
+              "intent": "a6b7f723e697ac53d2259ae772fcfe236e9553875224f2d6c1c5743d31c672eb",
+              "kind": "business",
+              "operation": "bbef4492-867e-4422-9c39-5f9559b972ad",
+              "outcome": "Applied"
+            }
+          }
+        ],
+        "checks": {
+          "external_goal": true,
+          "single_publish": true,
+          "confirmed_result": true,
+          "clean_finish": true,
+          "settled_quota": true,
+          "replay_stable": true,
+          "worker_outcomes": true,
+          "fault_reached": true
+        }
+      }
+    ],
+    "implementation": {
+      "base_commit": "a23a4df4ca5a0203e4ce0fe8d45669c2b668d81a",
+      "source_digest": "c65566d9698662fe4f4c5b2818bc2fb1d8ee0f1fed3159ff1f1c9413677d6963",
+      "python": "Python 3.12.15",
+      "git": "git version 2.55.0"
+    }
+  },
+  "passed": true,
+  "seconds": 50.296135220000004,
+  "ci": {
+    "run_id": 40316268154,
+    "job_id": 121549519975,
+    "artifact_id": 12645874428,
+    "head_commit": "f055fb30ae45135b0ff9eca6970b2d95fa8c4458",
+    "url": "https://github.com/StephCpa/AgentLanguage/actions/runs/40316268154"
+  },
+  "image_manifest": {
+    "image": "sha256:d2e1ae508ec36ecd252d8cb5910e6d77a18633b97d4b9fbf73d6d12e2d01e8b3",
+    "source_digest": "9c67e0734cb5f1f8211925defa04eef99417ab585f9da43c8a4e9e2b1c2a5163",
+    "policy_version": "1",
+    "tag": "al0-plan-builder:ci"
+  }
+}

@@ -1,0 +1,19 @@
+Python SDK guide for this task. Import Catalog, CheckedPlan from al0.ir, PlanBuilder from al0.sdk, and Bindings from bindings. Export build(catalog: Catalog, commit: str) -> CheckedPlan[str]. commit is the target specified by the task. Python 3.10+ and mypy 1.18.2 strict are used. Helper functions must have type annotations. You may use ordinary Python to construct plans, but all task effects must be represented by the SDK. Do not construct raw IR or execute task I/O directly.
+
+Create b = PlanBuilder('unique-plan-name', catalog) and api = Bindings(b). The supplied bindings.py has exact typed literal, parameter and tool helper methods. api.literal_Text('node', 'value') produces a typed reference; api.parameter_Bool('enabled') declares the runtime Bool input. For a catalog request schema use its generated literal method with exactly the declared fields. Generated prepare_METHOD('node', request_reference) returns an Intent. Use b.authorize('node', intent), b.admit('node', intent, permit), b.await_result('node', operation), and the generated api.reconcile_METHOD('node', operation). Generated method names replace tool dots with underscores, as visible in bindings.py. The SDK automatically collects effects. b.finish(result_reference) returns CheckedPlan of the result's Python data type.
+
+Snapshot matching signature:
+b.match_business('answer', snapshot, 'Text', applied='Done', proven_no_effect='NoEffect', pending='Pending', unknown='Unknown', not_dispatched='Queued')
+All five keyword arguments are required. They are Python data values, not Ref objects. Each produced business snapshot must be matched, including an intermediate snapshot whose Text result is otherwise unused. Matching does not itself resend an operation, and an Operation can be awaited then passed to its generated reconciliation helper.
+
+Build both branches as complete CheckedPlan[str] values. b.if_else('node', condition_ref, then=positive_plan, otherwise=negative_plan, inputs={'parameter': captured_ref}) returns the branch result reference. Omit inputs when there are no captures. A branch function's Python argument does not declare a runtime parameter; use generated parameter methods inside the branch builder. Both branches return the same type. b.invoke('node', child_plan, inputs={...}) invokes another workflow. Use different builders for different plans; references belong to their builder and must be passed as explicit workflow inputs when captured.
+
+One unrelated pure branch example (inside a typed build function):
+warm = PlanBuilder('warm', catalog)
+warm_plan = warm.finish(Bindings(warm).literal_Text('word', 'warm'))
+cool = PlanBuilder('cool', catalog)
+cool_plan = cool.finish(Bindings(cool).literal_Text('word', 'cool'))
+root = PlanBuilder('main', catalog)
+flag = Bindings(root).parameter_Bool('flag')
+return root.finish(root.if_else('word', flag, then=warm_plan, otherwise=cool_plan))
+Use the task's required parameter name and return values in your own program. Do not copy this unrelated example's result strings into the business task.

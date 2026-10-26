@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "provider": "deepseek",
+  "model": "deepseek-flash",
+  "documented_version_on_2026_10_26": "DeepSeek-V4.1-Flash-1017",
+  "immutable_model_pin_available": false,
+  "total_budget_usd": "1.00",
+  "budget_usd_per_arm": "0.50",
+  "max_attempts_per_arm": 3,
+  "context_tokens": 1048576,
+  "parameters": {"thinking": {"type": "disabled"}, "temperature": 0, "max_tokens": 4096, "stream": false},
+  "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing/",
+  "pricing_checked_date": "2026-10-26",
+  "peak_usd_per_million": {"input_cache_miss": "0.3", "input_cache_hit": "0.006", "output": "1.2"},
+  "split": "development",
+  "task": "conditional-release",
+  "statistical_unit": "one public Git workflow task; two frontends and fault cases are not independent samples",
+  "generation_order": ["sdk", "al0"],
+  "generation_order_basis": "fixed before observing any output; not a randomized study"
+}

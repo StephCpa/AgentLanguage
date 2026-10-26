@@ -114,7 +114,7 @@ def initialize(folder, package, config, materials):
         raise ValueError('participant interfaces differ from execution interfaces')
     sources = [*sorted((ROOT/'al0').rglob('*.py')), *[ROOT/'scripts'/name for name in (
         'generation_journal.py', 'development_tasks.py', 'git_pair_evaluation.py', 'git_pair_worker.py',
-        'isolated_plan_build.py', 'isolated_plan_worker.py')]]
+        'isolated_plan_build.py', 'isolated_plan_worker.py', 'deepseek_pilot.py', 'score_deepseek_pilot.py')]]
     implementation = {'base_commit': git('-C', ROOT, 'rev-parse', 'HEAD'),
         'source_digest': digest({p.relative_to(ROOT).as_posix(): p.read_text(encoding='utf-8') for p in sources})}
     value = {'version': 1, 'config': config, 'task': task, 'public': public, 'frozen': frozen,
@@ -242,6 +242,23 @@ def settle(folder, request_id, cost_usd, evidence):
     return summary(folder)
 
 
+def refine_cost_bound(folder, request_id, upper_usd, evidence):
+    """Trusted importer narrows a reservation; this does not invent a paid bill."""
+    upper = money(upper_usd)
+    if not isinstance(evidence, dict) or not evidence:
+        raise ValueError('retain evidence for the revised cost upper bound')
+    with database(folder) as db:
+        row = db.execute('SELECT * FROM rounds WHERE id=?', (request_id,)).fetchone()
+        if row is None or row['receipt'] is None or row['cost_usd'] is not None:
+            raise ValueError('a received, unsettled request is required')
+        if upper > money(row['upper_usd']):
+            raise ValueError('cost upper bound may only be narrowed')
+        db.execute('CREATE TABLE IF NOT EXISTS cost_bounds(request_id TEXT, upper_usd TEXT, evidence TEXT, recorded_at REAL)')
+        db.execute('INSERT INTO cost_bounds VALUES (?,?,?,?)', (request_id, upper_usd, encoded(evidence), time.time()))
+        db.execute('UPDATE rounds SET upper_usd=? WHERE id=?', (upper_usd, request_id))
+    return summary(folder)
+
+
 def feedback(report, arm):
     failures = []
     for row in report['rows']:
@@ -262,6 +279,40 @@ def feedback(report, arm):
             'category': 'infrastructure_failure' if infrastructure else
                         'success' if report['arms'][arm]['task_success'] else 'submission_failure',
             'feedback': {'task_success': report['arms'][arm]['task_success'], 'failures': failures}}
+
+
+def verify_evaluation(state, row, report):
+    receipt = json.loads(row['receipt'])
+    source = pointer(receipt['raw_response'], receipt['output_pointer']).replace('\r\n', '\n').replace('\r', '\n')
+    expected = {c['id'] for c in state['task']['cases']}
+    if (set(report['arms']) != {row['arm']} or report['contract_digest'] != state['task']['contract_digest'] or
+            len(report['rows']) != len(expected) or {r['case'] for r in report['rows']} != expected or
+            any(r['arm'] != row['arm'] or r['submission_digest'] != digest(source) or
+                r['catalog_fingerprint'] != state['task']['catalog_fingerprint'] for r in report['rows'])):
+        raise ValueError('evaluation artifact differs from frozen submission/contract/catalog')
+
+
+def import_evaluation(folder, request_id, report, provenance):
+    """Import a host-retrieved CI report, never a report emitted by candidate code."""
+    if not isinstance(provenance, dict) or not {'run', 'commit', 'artifact'} <= provenance.keys():
+        raise ValueError('record remote execution provenance')
+    with database(folder) as db:
+        state = configuration(db)
+        row = db.execute('SELECT * FROM rounds WHERE id=?', (request_id,)).fetchone()
+        if row is None or row['receipt'] is None or row['phase'] not in ('received', 'evaluated'):
+            raise ValueError('only a received remote submission can be imported')
+        verify_evaluation(state, row, report)
+        if any(r['construction_mode'] != 'docker' for r in report['rows']):
+            raise ValueError('remote provider submissions require Docker construction')
+        result = {**feedback(report, row['arm']), 'provenance': provenance, 'report': report,
+                  'source_normalization': 'universal-newlines-to-lf'}
+        if row['phase'] == 'evaluated':
+            if json.loads(row['evaluation']) != result:
+                raise ValueError('evaluation already recorded')
+            return result
+        db.execute('UPDATE rounds SET phase=?,evaluation=?,evaluated_at=? WHERE id=?',
+                   ('evaluated', encoded(result), time.time(), request_id))
+    return result
 
 
 def evaluate_round(folder, request_id, *, builder_image=None, trusted_fixture=False, python=sys.executable):
@@ -298,10 +349,7 @@ def evaluate_round(folder, request_id, *, builder_image=None, trusted_fixture=Fa
         candidate.write_bytes(source.encode('utf-8'))
         # A worker exception leaves evaluating state; never silently issue new work.
         report = evaluate_submissions(package, {arm: candidate}, output, python=python, builder_image=builder_image)
-    if (set(report['arms']) != {arm} or report['contract_digest'] != state['task']['contract_digest'] or
-            sorted(r['case'] for r in report['rows']) != sorted(c['id'] for c in state['task']['cases']) or
-            any(r['arm'] != arm or r['submission_digest'] != digest(source) for r in report['rows'])):
-        raise ValueError('evaluation artifact differs from frozen submission')
+    verify_evaluation(state, row, report)
     result = feedback(report, arm)
     result['source_normalization'] = 'universal-newlines-to-lf'
     result['report'] = str(output/'summary.json')

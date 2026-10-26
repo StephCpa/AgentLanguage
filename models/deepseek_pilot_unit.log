@@ -1,0 +1,22 @@
+test_cost_bounds_use_full_uncached_input_and_round_up (tests.test_deepseek_pilot.DeepSeekPilotTests) ... ok
+test_invalid_usage_cannot_release_money_or_allow_more_calls (tests.test_deepseek_pilot.DeepSeekPilotTests) ... ok
+test_price_or_model_profile_drift_is_rejected_before_reservation (tests.test_deepseek_pilot.DeepSeekPilotTests) ... ok
+test_real_usage_narrows_reservation_without_inventing_a_bill (tests.test_deepseek_pilot.DeepSeekPilotTests) ... ok
+test_remote_import_requires_exact_arm_source_catalog_and_cases (tests.test_deepseek_pilot.DeepSeekPilotTests) ... ok
+test_timeout_keeps_full_bound_and_does_not_retry (tests.test_deepseek_pilot.DeepSeekPilotTests) ... ok
+test_attempt_limit_includes_refusals_and_transport_failures (tests.test_generation_journal.GenerationJournalTests) ... ok
+test_excess_charge_is_recorded_and_blocks_further_requests (tests.test_generation_journal.GenerationJournalTests) ... ok
+test_feedback_separates_infrastructure_and_excludes_oracle_and_grants (tests.test_generation_journal.GenerationJournalTests) ... ok
+test_frozen_prompt_excludes_host_state_and_reference_answers (tests.test_generation_journal.GenerationJournalTests) ... ok
+test_interrupted_evaluation_never_automatically_replays_effects (tests.test_generation_journal.GenerationJournalTests) ... ok
+test_mypy_syntax_error_is_submission_failure_but_tool_crashes_are_not (tests.test_generation_journal.GenerationJournalTests) ... ok
+test_pending_request_and_concurrent_reservations_do_not_duplicate_calls (tests.test_generation_journal.GenerationJournalTests) ... ok
+test_provider_output_cannot_run_in_trusted_fixture_mode (tests.test_generation_journal.GenerationJournalTests) ... ok
+test_real_repair_preserves_first_failure_and_uses_only_assigned_arm (tests.test_generation_journal.GenerationJournalTests) ... ok
+test_receipt_identity_idempotency_and_exact_source (tests.test_generation_journal.GenerationJournalTests) ... ok
+test_unknown_cost_reserves_budget_until_late_settlement_and_arms_are_independent (tests.test_generation_journal.GenerationJournalTests) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 18.601s
+
+OK

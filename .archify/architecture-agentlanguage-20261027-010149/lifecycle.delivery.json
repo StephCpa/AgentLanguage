@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "09a3d62e-e971-4819-b5ce-9bb51a929382",
+  "status": "current",
+  "command": "deliver",
+  "type": "lifecycle",
+  "input": "E:\\AgentLanguage\\.archify\\architecture-agentlanguage-20261027-010149\\lifecycle.json",
+  "output": "E:\\AgentLanguage\\.archify\\architecture-agentlanguage-20261027-010149\\lifecycle.html",
+  "specification": {
+    "sha256": "27e45e98342160d09632a8d3c1b1988a30c24008666b160fa1e8c6c65060c4d1",
+    "bytes": 4662
+  },
+  "artifact": {
+    "sha256": "6a1f2a616924857597a84b4ca63bee6e5b7b614006affe6b44cf9aa0928bea38",
+    "bytes": 841998
+  }
+}

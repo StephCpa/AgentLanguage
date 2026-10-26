@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "81e2fa00-240a-4816-bca9-607c8603f660",
+  "status": "current",
+  "command": "deliver",
+  "type": "tree",
+  "input": "E:\\AgentLanguage\\.archify\\architecture-agentlanguage-20261027-010149\\tree.json",
+  "output": "E:\\AgentLanguage\\.archify\\architecture-agentlanguage-20261027-010149\\tree.html",
+  "specification": {
+    "sha256": "c0cafe6e7f28cad21975ebca424a39c893323dd65b8a899974fb18c6499358d0",
+    "bytes": 4962
+  },
+  "artifact": {
+    "sha256": "b9f00850205b4f59d484d8c147ebe39119d5c74760a1eb041f35d09b1fdc87f7",
+    "bytes": 849896
+  }
+}

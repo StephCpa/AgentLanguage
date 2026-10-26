@@ -1,0 +1,187 @@
+{
+  "schema_version": 3,
+  "diagram_type": "lifecycle",
+  "meta": {
+    "title": "AgentLanguage · 控制结束后仍保留外部责任",
+    "locale": "zh-CN",
+    "output": ".archify/architecture-agentlanguage-20261027-010149/lifecycle.html",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/StephCpa/AgentLanguage.git",
+      "revision": "e29b3f694d81eb06607eb3da26ea14a38034fc11"
+    }
+  },
+  "mainPath": [
+    "running",
+    "completed_pending",
+    "completed_clean"
+  ],
+  "states": [
+    {
+      "id": "running",
+      "type": "start",
+      "label": "运行中",
+      "sublabel": "Running",
+      "sources": [
+        {
+          "path": "al0/store.py",
+          "line": 681,
+          "end_line": 722
+        }
+      ]
+    },
+    {
+      "id": "completed_pending",
+      "type": "waiting",
+      "label": "完成但有责任",
+      "sublabel": "Completed + obligations",
+      "sources": [
+        {
+          "path": "al0/store.py",
+          "line": 681,
+          "end_line": 722
+        }
+      ]
+    },
+    {
+      "id": "completed_clean",
+      "type": "success",
+      "label": "完成且已清理",
+      "sublabel": "CompletedClean",
+      "sources": [
+        {
+          "path": "al0/store.py",
+          "line": 681,
+          "end_line": 722
+        }
+      ]
+    },
+    {
+      "id": "halted_pending",
+      "type": "waiting",
+      "label": "停止但有责任",
+      "sublabel": "Halted + obligations",
+      "sources": [
+        {
+          "path": "al0/store.py",
+          "line": 681,
+          "end_line": 722
+        }
+      ]
+    },
+    {
+      "id": "halted",
+      "type": "neutral",
+      "label": "停止且已清理",
+      "sublabel": "Halted",
+      "sources": [
+        {
+          "path": "al0/store.py",
+          "line": 681,
+          "end_line": 722
+        }
+      ]
+    },
+    {
+      "id": "failed_pending",
+      "type": "waiting",
+      "label": "失败但有责任",
+      "sublabel": "Failed + obligations",
+      "sources": [
+        {
+          "path": "al0/store.py",
+          "line": 681,
+          "end_line": 722
+        }
+      ]
+    },
+    {
+      "id": "failed",
+      "type": "failure",
+      "label": "失败且已清理",
+      "sublabel": "Failed",
+      "sources": [
+        {
+          "path": "al0/store.py",
+          "line": 681,
+          "end_line": 722
+        }
+      ]
+    }
+  ],
+  "transitions": [
+    {
+      "id": "running-to-completed_pending",
+      "from": "running",
+      "to": "completed_pending",
+      "label": "完成且有未决"
+    },
+    {
+      "id": "completed_pending-to-completed_clean",
+      "from": "completed_pending",
+      "to": "completed_clean",
+      "label": "责任全部解决"
+    },
+    {
+      "id": "running-to-completed_clean",
+      "from": "running",
+      "to": "completed_clean",
+      "label": "完成且无未决"
+    },
+    {
+      "id": "running-to-halted_pending",
+      "from": "running",
+      "to": "halted_pending",
+      "label": "停止且有未决"
+    },
+    {
+      "id": "halted_pending-to-halted",
+      "from": "halted_pending",
+      "to": "halted",
+      "label": "责任全部解决"
+    },
+    {
+      "id": "running-to-halted",
+      "from": "running",
+      "to": "halted",
+      "label": "停止且无未决"
+    },
+    {
+      "id": "running-to-failed_pending",
+      "from": "running",
+      "to": "failed_pending",
+      "label": "失败且有未决"
+    },
+    {
+      "id": "failed_pending-to-failed",
+      "from": "failed_pending",
+      "to": "failed",
+      "label": "责任全部解决"
+    },
+    {
+      "id": "running-to-failed",
+      "from": "running",
+      "to": "failed",
+      "label": "失败且无未决"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "状态的含义",
+      "items": [
+        "图展示 Store.status 返回的综合视图；它由 control、halted 和 obligations 计算，并非单张状态表。",
+        "“完成但有责任”对应 CompletedWithObligations；停止和失败分别对应 HaltedWithObligations、FailedWithObligations。"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "责任不会随控制流消失",
+      "items": [
+        "取消或结束不擦除已派发的业务风险与未结账单。",
+        "责任清理依赖可信业务证据与结算证据；不是自动超时重置。",
+        "已结束的工作流仍可在单独授权、预算约束下继续对账。"
+      ]
+    }
+  ]
+}

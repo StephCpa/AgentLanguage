@@ -1,0 +1,205 @@
+{
+  "schema_version": 1,
+  "diagram_type": "tree",
+  "meta": {
+    "title": "AgentLanguage · 模块职责层次",
+    "locale": "zh-CN",
+    "output": ".archify/architecture-agentlanguage-20261027-010149/tree.html",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/StephCpa/AgentLanguage.git",
+      "revision": "e29b3f694d81eb06607eb3da26ea14a38034fc11"
+    }
+  },
+  "layout": {
+    "direction": "right"
+  },
+  "nodes": [
+    {
+      "id": "root",
+      "label": "AgentLanguage",
+      "sublabel": "语言原型与研究工具",
+      "sources": [
+        {
+          "path": "README.md",
+          "line": 1,
+          "end_line": 5
+        }
+      ]
+    },
+    {
+      "id": "lang",
+      "label": "语言与检查",
+      "sublabel": "两种入口 / 一份 IR",
+      "sources": [
+        {
+          "path": "al0/sdk.py",
+          "line": 1,
+          "end_line": 16
+        }
+      ],
+      "parent": "root"
+    },
+    {
+      "id": "front",
+      "label": "source / frontend",
+      "sublabel": "词法、AST、源码诊断",
+      "sources": [
+        {
+          "path": "al0/frontend.py",
+          "line": 276,
+          "end_line": 295
+        }
+      ],
+      "parent": "lang"
+    },
+    {
+      "id": "typed",
+      "label": "sdk / codegen",
+      "sublabel": "类型化构造与目录绑定",
+      "sources": [
+        {
+          "path": "al0/sdk.py",
+          "line": 1,
+          "end_line": 16
+        }
+      ],
+      "parent": "lang"
+    },
+    {
+      "id": "ir",
+      "label": "ir / pure / semantics",
+      "sublabel": "类型、效应、纯计算与版本",
+      "sources": [
+        {
+          "path": "al0/ir.py",
+          "line": 268,
+          "end_line": 295
+        }
+      ],
+      "parent": "lang"
+    },
+    {
+      "id": "run",
+      "label": "持久执行核心",
+      "sublabel": "受控副作用与恢复",
+      "sources": [
+        {
+          "path": "al0/execute.py",
+          "line": 114,
+          "end_line": 136
+        }
+      ],
+      "parent": "root"
+    },
+    {
+      "id": "exec",
+      "label": "execute / git_adapter",
+      "sublabel": "解释器、Broker、真实 Git",
+      "sources": [
+        {
+          "path": "al0/execute.py",
+          "line": 250,
+          "end_line": 295
+        }
+      ],
+      "parent": "run"
+    },
+    {
+      "id": "state",
+      "label": "store 与资源协议",
+      "sublabel": "预算、权限、任务、控制权",
+      "sources": [
+        {
+          "path": "al0/store.py",
+          "line": 107,
+          "end_line": 130
+        }
+      ],
+      "parent": "run"
+    },
+    {
+      "id": "inference",
+      "label": "推理与信息流",
+      "sublabel": "接纳、观察、拒绝、标签",
+      "sources": [
+        {
+          "path": "al0/execute.py",
+          "line": 310,
+          "end_line": 343
+        }
+      ],
+      "parent": "run"
+    },
+    {
+      "id": "research",
+      "label": "研究与评估工具",
+      "sublabel": "任务冻结、真实输出、证据",
+      "sources": [
+        {
+          "path": "scripts/git_pair_evaluation.py",
+          "line": 1,
+          "end_line": 27
+        }
+      ],
+      "parent": "root"
+    },
+    {
+      "id": "eval",
+      "label": "隔离构造 / 配对评分",
+      "sublabel": "Docker、Git 故障、外部核对",
+      "sources": [
+        {
+          "path": "scripts/isolated_plan_build.py",
+          "line": 209,
+          "end_line": 241
+        }
+      ],
+      "parent": "research"
+    },
+    {
+      "id": "journal",
+      "label": "journal / next_pilot",
+      "sublabel": "请求记录与追加评估",
+      "sources": [
+        {
+          "path": "scripts/evaluation_attempts.py",
+          "line": 100,
+          "end_line": 154
+        }
+      ],
+      "parent": "research"
+    },
+    {
+      "id": "budget",
+      "label": "shared_budget",
+      "sublabel": "跨 journal 的 USD 责任",
+      "sources": [
+        {
+          "path": "scripts/shared_budget.py",
+          "line": 1,
+          "end_line": 28
+        }
+      ],
+      "parent": "research"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "这是职责分解",
+      "items": [
+        "每条线表示归属，不表示运行时调用；每个叶子可点开查看对应源码。",
+        "Store 通过 allocation、tasks、flow_store、control、admission、capabilities、custody 等 mixin 组合持久协议。"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "尚未完成的目标",
+      "items": [
+        "ContextView 仍为设计目标；完整语言和研究实验仍有后续验收。",
+        "next_pilot 已接通预注册入口，但独立任务集与研究参数尚未完成冻结。"
+      ]
+    }
+  ]
+}

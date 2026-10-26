@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "finalize",
+  "status": "pass",
+  "type": "sequence",
+  "quality": "showcase",
+  "specification": {
+    "path": "E:\\AgentLanguage\\.archify\\architecture-agentlanguage-20261027-010149\\sequence.json",
+    "sha256": "a3be8cb817a6cc401cfd6908105aa90cd38b3de6b8a5ba93df82ae286c0d487e",
+    "bytes": 6098
+  },
+  "artifact": {
+    "path": "E:\\AgentLanguage\\.archify\\architecture-agentlanguage-20261027-010149\\sequence.html",
+    "sha256": "d52e2946ca65f70387ac76dec99b1d5e8705640e634c04dbffa01276d350d4fd",
+    "bytes": 841566
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "pass"
+  },
+  "diagnostics": [],
+  "diagnosticSummary": {
+    "total": 0,
+    "shown": 0,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "E:\\AgentLanguage\\.archify\\architecture-agentlanguage-20261027-010149\\sequence.finalize.json",
+    "summaryReceipt": "E:\\AgentLanguage\\.archify\\architecture-agentlanguage-20261027-010149\\sequence.finalize-summary.json",
+    "browserCheckReceipt": "E:\\AgentLanguage\\.archify\\architecture-agentlanguage-20261027-010149\\sequence.browser-check.json"
+  },
+  "update": {
+    "status": "current",
+    "installedVersion": "3.2.0",
+    "availableVersion": "3.2.0",
+    "releaseNotes": null,
+    "checkedAt": "2026-10-26T17:03:43.571Z",
+    "source": "cache",
+    "noticeRequired": false,
+    "noticeText": null
+  },
+  "visualReview": "not-requested",
+  "durationMs": 6536,
+  "browserCheck": {
+    "requested": true,
+    "ran": true
+  }
+}

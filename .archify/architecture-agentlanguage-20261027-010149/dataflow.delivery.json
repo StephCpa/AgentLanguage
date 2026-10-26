@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "7913468f-6b5d-4b1f-9685-ea421b36097f",
+  "status": "current",
+  "command": "deliver",
+  "type": "dataflow",
+  "input": "E:\\AgentLanguage\\.archify\\architecture-agentlanguage-20261027-010149\\dataflow.json",
+  "output": "E:\\AgentLanguage\\.archify\\architecture-agentlanguage-20261027-010149\\dataflow.html",
+  "specification": {
+    "sha256": "a7c189587f9e02c33e3347d38f1ebaf8459b2d89657f0ef6efebca85e46f1f10",
+    "bytes": 6553
+  },
+  "artifact": {
+    "sha256": "cd327bb5071569f4a5d7f3c90f9cdee32983a1c316159d3a831d17acef4d5a51",
+    "bytes": 842819
+  }
+}

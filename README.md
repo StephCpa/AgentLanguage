@@ -58,6 +58,7 @@ AL-0 是面向 Agent 的小型受检语言提案。它将模型候选、检查�
 47. [真实 Git 发布适配器](docs/47-real-git-adapter.md)：宿主批准的提交、原子操作引用、未知结果对账、真实 Git 故障测试及 GitHub 在线验收。
 48. [Git 任务配对评测器](docs/48-paired-git-evaluation.md)：强 SDK 检查、同任务故障调度、独立外部状态评分及参考答案校准。
 49. [隔离计划构造](docs/49-isolated-plan-construction.md)：Docker 构造边界、独立类型检查、宿主 IR 复核及限制清理验收。
+50. [开发任务契约](docs/50-development-task-contracts.md)：条件发布、顺序发布、接纳回退、任务级评分及参与者材料边界。
 
 ## 运行参考实现
 

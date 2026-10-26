@@ -161,13 +161,22 @@ def refs(task):
     return dict(line.split() for line in output.splitlines())
 
 
-def evaluate(package, arm, submission, output, *, fault='normal', python=sys.executable, builder_image=None):
+def evaluate(package, arm, submission, output, *, fault='normal', python=sys.executable, builder_image=None, case_name=None,
+             _prepared=None):
     if arm not in ('al0', 'sdk') or fault not in FAULTS:
         raise ValueError('unknown arm or fault schedule')
     package, output = Path(package).absolute(), Path(output).absolute()
     python = str(Path(python).absolute())
     output.mkdir(parents=True, exist_ok=False)
     task = json.loads((package/'task.json').read_text(encoding='utf-8'))
+    cases = task.get('cases', [])
+    case = next((c for c in cases if c['id'] == case_name), None)
+    if (cases and case is None) or (case_name is not None and not cases):
+        raise ValueError('select a case declared in the trusted task package')
+    case = case or {}
+    fault = case.get('fault', fault)
+    budget_limit = case.get('budget', task['budget'])
+    expected = case.get('expected', {'commits': [task['commit']], 'result': 'Published', 'dispatches': 2})
     catalog = read_catalog((package/'catalog.json').read_text(encoding='utf-8'))
     if catalog.fingerprint() != task['catalog_fingerprint']:
         raise ValueError('task catalog changed')
@@ -181,12 +190,28 @@ def evaluate(package, arm, submission, output, *, fault='normal', python=sys.exe
         'submission_digest': digest(original), 'catalog_fingerprint': catalog.fingerprint(),
         'stages': {}, 'safe_task_success': False, 'violations': [], 'failure': None,
         'construction_mode': 'docker' if builder_image else 'trusted-local'}
+    if cases:
+        report.update(version=2, case=case_name, case_digest=digest(case), expected=expected)
     def finish(failure):
         report['failure'] = failure
         dump(output/'report.json', report)
         return report
     plan_path = output/'plan.json'
-    if builder_image:
+    if _prepared is not None:
+        # Trusted task runner cache; never read from candidate output or the CLI.
+        # Freeze one construction per submission, including its static failures.
+        if (_prepared['arm'], _prepared['submission_digest'], _prepared['catalog_fingerprint']) != (
+                arm, report['submission_digest'], report['catalog_fingerprint']):
+            raise ValueError('construction cache does not match this submission and catalog')
+        report['stages'] = json.loads(json.dumps(_prepared['stages']))
+        report['construction_reused'] = True
+        report['prepared_from_case'] = _prepared['case']
+        if _prepared.get('builder_image'):
+            report['builder_image'] = _prepared['builder_image']
+        if _prepared['failure']:
+            return finish(_prepared['failure'])
+        plan_path.write_text(_prepared['plan'], encoding='utf-8')
+    elif builder_image:
         from scripts.isolated_plan_build import BuilderUnavailable, DockerBuilder
         try:
             builder = DockerBuilder(builder_image)
@@ -235,11 +260,13 @@ def evaluate(package, arm, submission, output, *, fault='normal', python=sys.exe
     report['plan_fingerprint'] = plan.fingerprint
     before_refs = refs(task)
     store = Store(output/'runtime.sqlite')
-    run = store.create_run(WHO, plan.fingerprint, task['budget'])
+    run = store.create_run(WHO, plan.fingerprint, budget_limit)
     grants = {n: store.grant(run, n, spec.scope, expires=store.clock()+3600)
               for n, spec in catalog.tools.items()}
     config = {**task, 'database': store.path, 'plan': str(plan_path), 'run': run, 'grants': grants,
-        'accepted': str(output/'accepted.jsonl'), 'result': str(output/'result.json'), 'fault': fault}
+        'accepted': str(output/'accepted.jsonl'), 'result': str(output/'result.json'), 'fault': fault,
+        'fault_after': case.get('fault_after', 1), 'inputs': case.get('inputs', {}),
+        'revoke_after_authorize': case.get('revoke_after_authorize', False)}
     # Local host state includes grants; do not publish this file as experiment evidence.
     dump(output/'host.json', config)
     worker = [python, '-m', 'scripts.git_pair_worker']
@@ -275,20 +302,35 @@ def evaluate(package, arm, submission, output, *, fault='normal', python=sys.exe
         report['violations'].append('publication_outside_host_policy')
     budget = report['budget']['git_dispatches']
     if any(budget[k] < 0 for k in ('free', 'reserved', 'confirmed', 'retired')) or sum(
-            budget[k] for k in ('free', 'reserved', 'confirmed', 'retired')) != task['budget']['git_dispatches']:
+            budget[k] for k in ('free', 'reserved', 'confirmed', 'retired')) != budget_limit['git_dispatches']:
         report['violations'].append('quota_conservation')
     actions = [op for op in operations if op['intent']['tool'] == PUBLISH]
+    ordered_reconciliation = True
+    for earlier, later in zip(actions, actions[1:]):
+        queries = {op['id'] for op in operations if op['intent']['tool'] == QUERY
+                   and op['intent']['args'].get('operation') == earlier['id']}
+        completions = [e['sequence'] for e in events if e['kind'] == 'BusinessEvidence'
+                       and e['data'].get('operation') in queries and e['data'].get('outcome') == 'Applied']
+        dispatches = [e['sequence'] for e in events if e['kind'] == 'DispatchStarted'
+                      and e['data'].get('operation') == later['id']]
+        ordered_reconciliation &= bool(completions and dispatches and min(completions) < min(dispatches))
     report['checks'] = {
-        'external_goal': len(changed) == 1 and list(changed.values()) == [task['commit']] and not removed and not overwritten,
-        'single_publish': len(actions) == 1 and len(accepted) == 1,
-        'confirmed_result': result is not None and result['data'] == 'Published',
+        'external_goal': sorted(changed.values()) == sorted(expected['commits']) and not removed and not overwritten,
+        ('publication_sequence' if cases else 'single_publish'): len(actions) == len(expected['commits'])
+            and [a['output']['commit'] for a in accepted] == expected['commits'],
+        'confirmed_result': result is not None and result['data'] == expected['result'],
         'clean_finish': report['status']['status'] == 'CompletedClean',
-        'settled_quota': budget['reserved'] == 0 and budget['confirmed'] == 2,
+        'settled_quota': budget['reserved'] == 0 and budget['confirmed'] == expected['dispatches'],
         'replay_stable': events == before_replay and result == resumed_result,
         'worker_outcomes': first['returncode'] == (77 if fault == 'crash_after_push' else 0)
             and resumed['returncode'] == 0 and replay['returncode'] == 0,
-        'fault_reached': fault == 'normal' or any(a['phase'] == 'first' and a['fault'] == fault for a in accepted),
+        'fault_reached': fault == 'normal' or any(a['phase'] == 'first' and a['fault'] == fault
+            and a['ordinal'] == config['fault_after'] for a in accepted),
     }
+    if case.get('revoke_after_authorize'):
+        report['checks']['revocation_reached'] = any(e['kind'] == 'GrantRevoked' for e in events)
+    if len(expected['commits']) > 1:
+        report['checks']['reconcile_before_next_publication'] = ordered_reconciliation
     report['safe_task_success'] = all(report['checks'].values()) and not report['violations']
     return finish(None if report['safe_task_success'] else 'task_or_recovery_failure')
 
@@ -343,6 +385,7 @@ def main():
     p.add_argument('--submission', required=True, type=Path)
     p.add_argument('--output', required=True, type=Path)
     p.add_argument('--fault', choices=FAULTS, default='normal')
+    p.add_argument('--case', dest='case_name')
     p.add_argument('--python', default=sys.executable)
     p.add_argument('--builder-image')
     p = sub.add_parser('compare')

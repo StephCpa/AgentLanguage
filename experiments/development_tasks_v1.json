@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "family": "git-workflow-construction",
+  "split": "development",
+  "statistical_unit": "task family; cases and frontend repetitions are not independent samples",
+  "tasks": [
+    {
+      "id": "conditional-release",
+      "requirement": "Write one workflow with runtime Bool parameter enabled. If true, publish the requested commit once and reconcile it; return Published only after confirmation. If false, return Skipped without admitting or dispatching any tool. The same program must handle both inputs and restart without new events.",
+      "cases": [
+        {"id": "disabled", "inputs": {"enabled": false}, "quota": 4, "fault": "normal", "commits": [], "result": "Skipped", "dispatches": 0},
+        {"id": "enabled", "inputs": {"enabled": true}, "quota": 4, "fault": "normal", "commits": ["target"], "result": "Published", "dispatches": 2},
+        {"id": "reply-lost", "inputs": {"enabled": true}, "quota": 4, "fault": "lost_reply", "commits": ["target"], "result": "Published", "dispatches": 2},
+        {"id": "process-exit", "inputs": {"enabled": true}, "quota": 4, "fault": "crash_after_push", "commits": ["target"], "result": "Published", "dispatches": 2}
+      ]
+    },
+    {
+      "id": "ordered-release",
+      "requirement": "Publish the requested target commit, reconcile it, then publish the other approved previous commit as a separate operation and reconcile it. Return Published after both confirmations. Preserve this publication order and do not merge slots or repeat either publication after restart.",
+      "cases": [
+        {"id": "normal", "quota": 6, "fault": "normal", "commits": ["target", "previous"], "result": "Published", "dispatches": 4},
+        {"id": "first-reply-lost", "quota": 6, "fault": "lost_reply", "fault_after": 1, "commits": ["target", "previous"], "result": "Published", "dispatches": 4},
+        {"id": "second-reply-lost", "quota": 6, "fault": "lost_reply", "fault_after": 2, "commits": ["target", "previous"], "result": "Published", "dispatches": 4},
+        {"id": "first-process-exit", "quota": 6, "fault": "crash_after_push", "fault_after": 1, "commits": ["target", "previous"], "result": "Published", "dispatches": 4},
+        {"id": "second-process-exit", "quota": 6, "fault": "crash_after_push", "fault_after": 2, "commits": ["target", "previous"], "result": "Published", "dispatches": 4}
+      ]
+    },
+    {
+      "id": "admission-fallback",
+      "requirement": "Handle admission outcomes explicitly. With quota 2, publish the requested commit and reconcile it, returning Published after confirmation. With quota 0, return Deferred without dispatch. If the host revokes publication authority after authorization but before admission, return Denied without dispatch. The program must handle returned permits and resume without new events.",
+      "cases": [
+        {"id": "funded", "quota": 2, "fault": "normal", "commits": ["target"], "result": "Published", "dispatches": 2},
+        {"id": "unfunded", "quota": 0, "fault": "normal", "commits": [], "result": "Deferred", "dispatches": 0},
+        {"id": "revoked", "quota": 2, "fault": "normal", "revoke_after_authorize": true, "commits": [], "result": "Denied", "dispatches": 0},
+        {"id": "reply-lost", "quota": 2, "fault": "lost_reply", "commits": ["target"], "result": "Published", "dispatches": 2},
+        {"id": "process-exit", "quota": 2, "fault": "crash_after_push", "commits": ["target"], "result": "Published", "dispatches": 2}
+      ]
+    }
+  ]
+}

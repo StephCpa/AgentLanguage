@@ -11,7 +11,7 @@ from scripts.development_tasks import prepare_suite
 from scripts.deepseek_pilot import initialize_pilot, send, ingest, token_cost_upper, export, PROFILE
 from scripts.generation_journal import (summary, database, configuration, rounds, import_evaluation,
                                         refine_cost_bound, reserve)
-from scripts.score_deepseek_pilot import score
+from scripts.score_deepseek_pilot import score, extract_single_fence
 
 
 class DeepSeekPilotTests(unittest.TestCase):
@@ -106,6 +106,13 @@ class DeepSeekPilotTests(unittest.TestCase):
         self.assertEqual(len(result['trials']), 1)
         self.assertTrue((folder/'scored'/'summary.json').is_file())
         self.assertEqual(result['model_calls_from_ci'], 0)
+
+    def test_common_fence_extraction_does_not_edit_code_or_extract_mixed_prose(self):
+        for language in ('', 'python', 'py', 'al0'):
+            self.assertEqual(extract_single_fence('```'+language+'\nexact_source()\n```'), ('exact_source()\n', True))
+        for source in ('plain source\n', 'Explanation\n```python\ncode\n```',
+                       '```python\none\n```\n```python\ntwo\n```', '```python\nunfinished'):
+            self.assertEqual(extract_single_fence(source), (source, False))
 
     def test_remote_import_requires_exact_arm_source_catalog_and_cases(self):
         folder = self.pilot()

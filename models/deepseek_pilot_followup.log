@@ -1,3 +1,4 @@
+test_common_fence_extraction_does_not_edit_code_or_extract_mixed_prose (tests.test_deepseek_pilot.DeepSeekPilotTests) ... ok
 test_cost_bounds_use_full_uncached_input_and_round_up (tests.test_deepseek_pilot.DeepSeekPilotTests) ... ok
 test_invalid_usage_cannot_release_money_or_allow_more_calls (tests.test_deepseek_pilot.DeepSeekPilotTests) ... ok
 test_price_or_model_profile_drift_is_rejected_before_reservation (tests.test_deepseek_pilot.DeepSeekPilotTests) ... ok
@@ -7,6 +8,6 @@ test_remote_report_handles_fractional_experiment_timestamps (tests.test_deepseek
 test_timeout_keeps_full_bound_and_does_not_retry (tests.test_deepseek_pilot.DeepSeekPilotTests) ... ok
 
 ----------------------------------------------------------------------
-Ran 7 tests in 4.215s
+Ran 8 tests in 4.044s
 
 OK

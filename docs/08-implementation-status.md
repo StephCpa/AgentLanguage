@@ -16,6 +16,8 @@
 
 ## 当前测试证据
 
+Git 发布轨道现有[配对评测入口](48-paired-git-evaluation.md)，接受 AL-0/强 SDK 提交，保留同一任务下三种真实 Git 故障调度、源码/IR/事件与独立引用回读。当前工作属于评测器校准，独立开发任务上的语言收益实验尚未完成。
+
 真实 Git 发布适配器接入后的 CI 已在 Linux Python 3.10/3.12 各通过 961 项测试，无跳过，包含固定 mypy；两种 venv 的源码外 wheel Git 消费者也通过。实际 GitHub 发布及独立回读、恢复与配额结果见 [真实 Git 适配器](47-real-git-adapter.md)。下文保留各前序里程碑的原始证据。
 
 固定提交审计的 F1–F7 已修复并通过组合验收：Linux Python 3.10.22 和 3.12.15 分别运行 950 项测试，均无跳过并包含固定 mypy 1.18.2；symlinks/copies venv 的独立 wheel 消费者也均通过。CI 记录、语义升级和旧记录兼容规则见 [审计修复](46-audit-remediation.md) 与 `models/audit_ci_acceptance.json`。下述 932 项为修复前基线证据。

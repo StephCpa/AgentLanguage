@@ -1,0 +1,1381 @@
+{
+  "version": 1,
+  "kind": "reference_calibration",
+  "seed": 20261026,
+  "order": [
+    [
+      "crash_after_push",
+      "sdk"
+    ],
+    [
+      "lost_reply",
+      "al0"
+    ],
+    [
+      "lost_reply",
+      "sdk"
+    ],
+    [
+      "crash_after_push",
+      "al0"
+    ],
+    [
+      "normal",
+      "sdk"
+    ],
+    [
+      "normal",
+      "al0"
+    ]
+  ],
+  "development_tasks": 1,
+  "fault_schedules": 3,
+  "assigned_cells": 6,
+  "successes": 6,
+  "pairs": [
+    {
+      "fault": "normal",
+      "al0_success": true,
+      "sdk_success": true,
+      "equal_ir": true
+    },
+    {
+      "fault": "lost_reply",
+      "al0_success": true,
+      "sdk_success": true,
+      "equal_ir": true
+    },
+    {
+      "fault": "crash_after_push",
+      "al0_success": true,
+      "sdk_success": true,
+      "equal_ir": true
+    }
+  ],
+  "causal_language_benefit": "not_measured",
+  "rows": [
+    {
+      "version": 1,
+      "task": "publish-approved-commit",
+      "task_digest": "e4317de2e8a422daa90917b791fdf985579bdbac15daa1b6777155e40b470917",
+      "arm": "sdk",
+      "fault": "crash_after_push",
+      "submission_digest": "917c033d5c56621c2edc78162aa3879ea78650992b91a7eb39e02edc6a82d593",
+      "catalog_fingerprint": "cfc70e0c347a0586daad4ffd3048e1f8578f4f790e28298890b8707afd4d6c32",
+      "stages": {
+        "mypy_version": {
+          "returncode": 0,
+          "stdout": "mypy 1.18.2 (compiled: no)\n",
+          "stderr": "",
+          "timeout": false,
+          "seconds": 0.8130000000237487
+        },
+        "static": {
+          "returncode": 0,
+          "stdout": "Success: no issues found in 2 source files\n",
+          "stderr": "",
+          "timeout": false,
+          "seconds": 7.452999999979511
+        },
+        "build": {
+          "returncode": 0,
+          "stdout": "",
+          "stderr": "",
+          "timeout": false,
+          "seconds": 0.48399999999674037
+        },
+        "first": {
+          "returncode": 77,
+          "stdout": "",
+          "stderr": "",
+          "timeout": false,
+          "seconds": 1.1099999999860302
+        },
+        "resume": {
+          "returncode": 0,
+          "stdout": "",
+          "stderr": "",
+          "timeout": false,
+          "seconds": 0.875
+        },
+        "replay": {
+          "returncode": 0,
+          "stdout": "",
+          "stderr": "",
+          "timeout": false,
+          "seconds": 0.6570000000065193
+        }
+      },
+      "safe_task_success": true,
+      "violations": [],
+      "failure": null,
+      "plan_fingerprint": "0307a50d796a5243ad2b01a6dc1c8dc3386871b08c84ce6928b0cbf0a6913f98",
+      "oracle": {
+        "before": {},
+        "after": {
+          "refs/heads/al0/publish/c1fa5f8a5ef6e7f0c8a98b2875b988df79191f78f190f6e2bbfde58fbdfd903a": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376"
+        },
+        "changed": {
+          "refs/heads/al0/publish/c1fa5f8a5ef6e7f0c8a98b2875b988df79191f78f190f6e2bbfde58fbdfd903a": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376"
+        },
+        "removed": [],
+        "overwritten": []
+      },
+      "result": {
+        "data": "Published",
+        "receipts": [],
+        "label": {
+          "readers": null,
+          "taints": [
+            "external:git"
+          ]
+        }
+      },
+      "budget": {
+        "git_dispatches": {
+          "total": 4,
+          "free": 2,
+          "reserved": 0,
+          "confirmed": 2,
+          "retired": 0
+        }
+      },
+      "status": {
+        "control": "Completed",
+        "status": "CompletedClean",
+        "obligations": []
+      },
+      "accepted": [
+        {
+          "operation": "aebbc533-c9e8-4654-8a51-e8331f8f2e2a",
+          "output": {
+            "ref": "refs/heads/al0/publish/c1fa5f8a5ef6e7f0c8a98b2875b988df79191f78f190f6e2bbfde58fbdfd903a",
+            "commit": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376"
+          },
+          "phase": "first",
+          "fault": "crash_after_push"
+        }
+      ],
+      "replay_added_events": 0,
+      "snapshots": [
+        {
+          "operation": "aebbc533-c9e8-4654-8a51-e8331f8f2e2a",
+          "business": "Applied",
+          "cancel_requested": false,
+          "billing": {
+            "confirmed": {
+              "git_dispatches": 1
+            },
+            "reserved": {},
+            "retired": {},
+            "attempts_closed": true
+          },
+          "attempts": [
+            {
+              "id": "0d7ea0f8-11f8-4491-b687-7e9834cc451f",
+              "operation": "aebbc533-c9e8-4654-8a51-e8331f8f2e2a",
+              "seq": 1,
+              "phase": "DispatchStarted",
+              "billing": "Settled",
+              "upper_bound": "{\"git_dispatches\":1}",
+              "actual": "{\"git_dispatches\":1}",
+              "final_evidence": "git-dispatch:0d7ea0f8-11f8-4491-b687-7e9834cc451f"
+            }
+          ],
+          "business_evidence": {
+            "details": {
+              "output": {
+                "commit": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376",
+                "ref": "refs/heads/al0/publish/c1fa5f8a5ef6e7f0c8a98b2875b988df79191f78f190f6e2bbfde58fbdfd903a"
+              }
+            },
+            "intent": "7a1f8f241291a86aa5287a0cf30e6b15b1c52898de0549bf5d92d875eeb1d5ec",
+            "kind": "business",
+            "operation": "aebbc533-c9e8-4654-8a51-e8331f8f2e2a",
+            "outcome": "Applied"
+          }
+        },
+        {
+          "operation": "706aa0b2-c5c1-46f9-ba91-9283f6c3062e",
+          "business": "Applied",
+          "cancel_requested": false,
+          "billing": {
+            "confirmed": {
+              "git_dispatches": 1
+            },
+            "reserved": {},
+            "retired": {},
+            "attempts_closed": true
+          },
+          "attempts": [
+            {
+              "id": "7b3e9bda-2cba-4d9a-bc47-8facb3f45d6e",
+              "operation": "706aa0b2-c5c1-46f9-ba91-9283f6c3062e",
+              "seq": 1,
+              "phase": "DispatchStarted",
+              "billing": "Settled",
+              "upper_bound": "{\"git_dispatches\":1}",
+              "actual": "{\"git_dispatches\":1}",
+              "final_evidence": "billing:7b3e9bda-2cba-4d9a-bc47-8facb3f45d6e"
+            }
+          ],
+          "business_evidence": {
+            "details": {
+              "output": {
+                "bills": [
+                  {
+                    "actual": {
+                      "git_dispatches": 1
+                    },
+                    "attempt": "0d7ea0f8-11f8-4491-b687-7e9834cc451f",
+                    "evidence_id": "git-dispatch:0d7ea0f8-11f8-4491-b687-7e9834cc451f"
+                  }
+                ],
+                "business": {
+                  "details": {
+                    "output": {
+                      "commit": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376",
+                      "ref": "refs/heads/al0/publish/c1fa5f8a5ef6e7f0c8a98b2875b988df79191f78f190f6e2bbfde58fbdfd903a"
+                    }
+                  },
+                  "evidence_id": "git-ref:fbc07548bddca4411a3b825e89ee3bd4769466642690c18f657499d8e6d6fd05",
+                  "outcome": "Applied"
+                },
+                "intent_digest": "7a1f8f241291a86aa5287a0cf30e6b15b1c52898de0549bf5d92d875eeb1d5ec",
+                "operation": "aebbc533-c9e8-4654-8a51-e8331f8f2e2a"
+              }
+            },
+            "intent": "5416ecb9cf671c0ac937d7b9fd46c92b28f3a6ed3820d5bba97e3c2f6b663f4a",
+            "kind": "business",
+            "operation": "706aa0b2-c5c1-46f9-ba91-9283f6c3062e",
+            "outcome": "Applied"
+          }
+        }
+      ],
+      "checks": {
+        "external_goal": true,
+        "single_publish": true,
+        "confirmed_result": true,
+        "clean_finish": true,
+        "settled_quota": true,
+        "replay_stable": true,
+        "worker_outcomes": true,
+        "fault_reached": true
+      }
+    },
+    {
+      "version": 1,
+      "task": "publish-approved-commit",
+      "task_digest": "e4317de2e8a422daa90917b791fdf985579bdbac15daa1b6777155e40b470917",
+      "arm": "al0",
+      "fault": "lost_reply",
+      "submission_digest": "bfc44fafced45e34f9d8b169506824bea41a149a437dbf1b1a8eb55ac1e4c061",
+      "catalog_fingerprint": "cfc70e0c347a0586daad4ffd3048e1f8578f4f790e28298890b8707afd4d6c32",
+      "stages": {
+        "static": {
+          "seconds": 0.01600000000325963,
+          "accepted": true
+        },
+        "first": {
+          "returncode": 0,
+          "stdout": "",
+          "stderr": "",
+          "timeout": false,
+          "seconds": 1.3910000000032596
+        },
+        "resume": {
+          "returncode": 0,
+          "stdout": "",
+          "stderr": "",
+          "timeout": false,
+          "seconds": 0.625
+        },
+        "replay": {
+          "returncode": 0,
+          "stdout": "",
+          "stderr": "",
+          "timeout": false,
+          "seconds": 0.625
+        }
+      },
+      "safe_task_success": true,
+      "violations": [],
+      "failure": null,
+      "plan_fingerprint": "0307a50d796a5243ad2b01a6dc1c8dc3386871b08c84ce6928b0cbf0a6913f98",
+      "oracle": {
+        "before": {
+          "refs/heads/al0/publish/c1fa5f8a5ef6e7f0c8a98b2875b988df79191f78f190f6e2bbfde58fbdfd903a": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376"
+        },
+        "after": {
+          "refs/heads/al0/publish/c1fa5f8a5ef6e7f0c8a98b2875b988df79191f78f190f6e2bbfde58fbdfd903a": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376",
+          "refs/heads/al0/publish/db656ed53aa4ee6c5006034f04788bd0f769a95231d181518a48cdf177953c21": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376"
+        },
+        "changed": {
+          "refs/heads/al0/publish/db656ed53aa4ee6c5006034f04788bd0f769a95231d181518a48cdf177953c21": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376"
+        },
+        "removed": [],
+        "overwritten": []
+      },
+      "result": {
+        "data": "Published",
+        "receipts": [],
+        "label": {
+          "readers": null,
+          "taints": [
+            "external:git"
+          ]
+        }
+      },
+      "budget": {
+        "git_dispatches": {
+          "total": 4,
+          "free": 2,
+          "reserved": 0,
+          "confirmed": 2,
+          "retired": 0
+        }
+      },
+      "status": {
+        "control": "Completed",
+        "status": "CompletedClean",
+        "obligations": []
+      },
+      "accepted": [
+        {
+          "operation": "81ba964d-a618-4186-87fd-290a6a4e9c7b",
+          "output": {
+            "ref": "refs/heads/al0/publish/db656ed53aa4ee6c5006034f04788bd0f769a95231d181518a48cdf177953c21",
+            "commit": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376"
+          },
+          "phase": "first",
+          "fault": "lost_reply"
+        }
+      ],
+      "replay_added_events": 0,
+      "snapshots": [
+        {
+          "operation": "81ba964d-a618-4186-87fd-290a6a4e9c7b",
+          "business": "Applied",
+          "cancel_requested": false,
+          "billing": {
+            "confirmed": {
+              "git_dispatches": 1
+            },
+            "reserved": {},
+            "retired": {},
+            "attempts_closed": true
+          },
+          "attempts": [
+            {
+              "id": "cb2c473b-7895-4be8-9009-112513f109e1",
+              "operation": "81ba964d-a618-4186-87fd-290a6a4e9c7b",
+              "seq": 1,
+              "phase": "DispatchStarted",
+              "billing": "Settled",
+              "upper_bound": "{\"git_dispatches\":1}",
+              "actual": "{\"git_dispatches\":1}",
+              "final_evidence": "git-dispatch:cb2c473b-7895-4be8-9009-112513f109e1"
+            }
+          ],
+          "business_evidence": {
+            "details": {
+              "output": {
+                "commit": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376",
+                "ref": "refs/heads/al0/publish/db656ed53aa4ee6c5006034f04788bd0f769a95231d181518a48cdf177953c21"
+              }
+            },
+            "intent": "7a1f8f241291a86aa5287a0cf30e6b15b1c52898de0549bf5d92d875eeb1d5ec",
+            "kind": "business",
+            "operation": "81ba964d-a618-4186-87fd-290a6a4e9c7b",
+            "outcome": "Applied"
+          }
+        },
+        {
+          "operation": "cf73010e-68f4-48e7-bb2f-4bc9c3e21b07",
+          "business": "Applied",
+          "cancel_requested": false,
+          "billing": {
+            "confirmed": {
+              "git_dispatches": 1
+            },
+            "reserved": {},
+            "retired": {},
+            "attempts_closed": true
+          },
+          "attempts": [
+            {
+              "id": "05bfc7e3-dd7e-4e22-acd8-629d20cf3a5c",
+              "operation": "cf73010e-68f4-48e7-bb2f-4bc9c3e21b07",
+              "seq": 1,
+              "phase": "DispatchStarted",
+              "billing": "Settled",
+              "upper_bound": "{\"git_dispatches\":1}",
+              "actual": "{\"git_dispatches\":1}",
+              "final_evidence": "billing:05bfc7e3-dd7e-4e22-acd8-629d20cf3a5c"
+            }
+          ],
+          "business_evidence": {
+            "details": {
+              "output": {
+                "bills": [
+                  {
+                    "actual": {
+                      "git_dispatches": 1
+                    },
+                    "attempt": "cb2c473b-7895-4be8-9009-112513f109e1",
+                    "evidence_id": "git-dispatch:cb2c473b-7895-4be8-9009-112513f109e1"
+                  }
+                ],
+                "business": {
+                  "details": {
+                    "output": {
+                      "commit": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376",
+                      "ref": "refs/heads/al0/publish/db656ed53aa4ee6c5006034f04788bd0f769a95231d181518a48cdf177953c21"
+                    }
+                  },
+                  "evidence_id": "git-ref:3949a598f46ded051ee4389cf5c3df72522a931dd508ad6e28c48f532e5a6a81",
+                  "outcome": "Applied"
+                },
+                "intent_digest": "7a1f8f241291a86aa5287a0cf30e6b15b1c52898de0549bf5d92d875eeb1d5ec",
+                "operation": "81ba964d-a618-4186-87fd-290a6a4e9c7b"
+              }
+            },
+            "intent": "a27d6491c64331ff686adfb1a1c4e2a5cfab1351b9dfeeb8347de6902b2c9258",
+            "kind": "business",
+            "operation": "cf73010e-68f4-48e7-bb2f-4bc9c3e21b07",
+            "outcome": "Applied"
+          }
+        }
+      ],
+      "checks": {
+        "external_goal": true,
+        "single_publish": true,
+        "confirmed_result": true,
+        "clean_finish": true,
+        "settled_quota": true,
+        "replay_stable": true,
+        "worker_outcomes": true,
+        "fault_reached": true
+      }
+    },
+    {
+      "version": 1,
+      "task": "publish-approved-commit",
+      "task_digest": "e4317de2e8a422daa90917b791fdf985579bdbac15daa1b6777155e40b470917",
+      "arm": "sdk",
+      "fault": "lost_reply",
+      "submission_digest": "917c033d5c56621c2edc78162aa3879ea78650992b91a7eb39e02edc6a82d593",
+      "catalog_fingerprint": "cfc70e0c347a0586daad4ffd3048e1f8578f4f790e28298890b8707afd4d6c32",
+      "stages": {
+        "mypy_version": {
+          "returncode": 0,
+          "stdout": "mypy 1.18.2 (compiled: no)\n",
+          "stderr": "",
+          "timeout": false,
+          "seconds": 0.7810000000172295
+        },
+        "static": {
+          "returncode": 0,
+          "stdout": "Success: no issues found in 2 source files\n",
+          "stderr": "",
+          "timeout": false,
+          "seconds": 7.452999999979511
+        },
+        "build": {
+          "returncode": 0,
+          "stdout": "",
+          "stderr": "",
+          "timeout": false,
+          "seconds": 0.48399999999674037
+        },
+        "first": {
+          "returncode": 0,
+          "stdout": "",
+          "stderr": "",
+          "timeout": false,
+          "seconds": 1.4689999999827705
+        },
+        "resume": {
+          "returncode": 0,
+          "stdout": "",
+          "stderr": "",
+          "timeout": false,
+          "seconds": 0.625
+        },
+        "replay": {
+          "returncode": 0,
+          "stdout": "",
+          "stderr": "",
+          "timeout": false,
+          "seconds": 0.6410000000032596
+        }
+      },
+      "safe_task_success": true,
+      "violations": [],
+      "failure": null,
+      "plan_fingerprint": "0307a50d796a5243ad2b01a6dc1c8dc3386871b08c84ce6928b0cbf0a6913f98",
+      "oracle": {
+        "before": {
+          "refs/heads/al0/publish/c1fa5f8a5ef6e7f0c8a98b2875b988df79191f78f190f6e2bbfde58fbdfd903a": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376",
+          "refs/heads/al0/publish/db656ed53aa4ee6c5006034f04788bd0f769a95231d181518a48cdf177953c21": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376"
+        },
+        "after": {
+          "refs/heads/al0/publish/7a1d802495cda447d86f773843db923585833f42d36249b82d2b4b4d528aa3cb": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376",
+          "refs/heads/al0/publish/c1fa5f8a5ef6e7f0c8a98b2875b988df79191f78f190f6e2bbfde58fbdfd903a": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376",
+          "refs/heads/al0/publish/db656ed53aa4ee6c5006034f04788bd0f769a95231d181518a48cdf177953c21": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376"
+        },
+        "changed": {
+          "refs/heads/al0/publish/7a1d802495cda447d86f773843db923585833f42d36249b82d2b4b4d528aa3cb": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376"
+        },
+        "removed": [],
+        "overwritten": []
+      },
+      "result": {
+        "data": "Published",
+        "receipts": [],
+        "label": {
+          "readers": null,
+          "taints": [
+            "external:git"
+          ]
+        }
+      },
+      "budget": {
+        "git_dispatches": {
+          "total": 4,
+          "free": 2,
+          "reserved": 0,
+          "confirmed": 2,
+          "retired": 0
+        }
+      },
+      "status": {
+        "control": "Completed",
+        "status": "CompletedClean",
+        "obligations": []
+      },
+      "accepted": [
+        {
+          "operation": "7e23832c-6b88-4f0e-b363-0e6a5d1cbe12",
+          "output": {
+            "ref": "refs/heads/al0/publish/7a1d802495cda447d86f773843db923585833f42d36249b82d2b4b4d528aa3cb",
+            "commit": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376"
+          },
+          "phase": "first",
+          "fault": "lost_reply"
+        }
+      ],
+      "replay_added_events": 0,
+      "snapshots": [
+        {
+          "operation": "7e23832c-6b88-4f0e-b363-0e6a5d1cbe12",
+          "business": "Applied",
+          "cancel_requested": false,
+          "billing": {
+            "confirmed": {
+              "git_dispatches": 1
+            },
+            "reserved": {},
+            "retired": {},
+            "attempts_closed": true
+          },
+          "attempts": [
+            {
+              "id": "0c72b37a-fcbc-4be8-8076-f634e1d49044",
+              "operation": "7e23832c-6b88-4f0e-b363-0e6a5d1cbe12",
+              "seq": 1,
+              "phase": "DispatchStarted",
+              "billing": "Settled",
+              "upper_bound": "{\"git_dispatches\":1}",
+              "actual": "{\"git_dispatches\":1}",
+              "final_evidence": "git-dispatch:0c72b37a-fcbc-4be8-8076-f634e1d49044"
+            }
+          ],
+          "business_evidence": {
+            "details": {
+              "output": {
+                "commit": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376",
+                "ref": "refs/heads/al0/publish/7a1d802495cda447d86f773843db923585833f42d36249b82d2b4b4d528aa3cb"
+              }
+            },
+            "intent": "7a1f8f241291a86aa5287a0cf30e6b15b1c52898de0549bf5d92d875eeb1d5ec",
+            "kind": "business",
+            "operation": "7e23832c-6b88-4f0e-b363-0e6a5d1cbe12",
+            "outcome": "Applied"
+          }
+        },
+        {
+          "operation": "18f48455-8e84-4d91-ab92-982d744996b6",
+          "business": "Applied",
+          "cancel_requested": false,
+          "billing": {
+            "confirmed": {
+              "git_dispatches": 1
+            },
+            "reserved": {},
+            "retired": {},
+            "attempts_closed": true
+          },
+          "attempts": [
+            {
+              "id": "f69fa3f9-2541-4f3b-b64a-3edb70455068",
+              "operation": "18f48455-8e84-4d91-ab92-982d744996b6",
+              "seq": 1,
+              "phase": "DispatchStarted",
+              "billing": "Settled",
+              "upper_bound": "{\"git_dispatches\":1}",
+              "actual": "{\"git_dispatches\":1}",
+              "final_evidence": "billing:f69fa3f9-2541-4f3b-b64a-3edb70455068"
+            }
+          ],
+          "business_evidence": {
+            "details": {
+              "output": {
+                "bills": [
+                  {
+                    "actual": {
+                      "git_dispatches": 1
+                    },
+                    "attempt": "0c72b37a-fcbc-4be8-8076-f634e1d49044",
+                    "evidence_id": "git-dispatch:0c72b37a-fcbc-4be8-8076-f634e1d49044"
+                  }
+                ],
+                "business": {
+                  "details": {
+                    "output": {
+                      "commit": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376",
+                      "ref": "refs/heads/al0/publish/7a1d802495cda447d86f773843db923585833f42d36249b82d2b4b4d528aa3cb"
+                    }
+                  },
+                  "evidence_id": "git-ref:3b0fd77bdff9756a5f0feef99d9003b1847ca4991ea0499366d2db46715fa82e",
+                  "outcome": "Applied"
+                },
+                "intent_digest": "7a1f8f241291a86aa5287a0cf30e6b15b1c52898de0549bf5d92d875eeb1d5ec",
+                "operation": "7e23832c-6b88-4f0e-b363-0e6a5d1cbe12"
+              }
+            },
+            "intent": "33124ce73b28b2f1d05a26fa9519c0e38b6a3cdc3ea5e2c256bccf9855d6474a",
+            "kind": "business",
+            "operation": "18f48455-8e84-4d91-ab92-982d744996b6",
+            "outcome": "Applied"
+          }
+        }
+      ],
+      "checks": {
+        "external_goal": true,
+        "single_publish": true,
+        "confirmed_result": true,
+        "clean_finish": true,
+        "settled_quota": true,
+        "replay_stable": true,
+        "worker_outcomes": true,
+        "fault_reached": true
+      }
+    },
+    {
+      "version": 1,
+      "task": "publish-approved-commit",
+      "task_digest": "e4317de2e8a422daa90917b791fdf985579bdbac15daa1b6777155e40b470917",
+      "arm": "al0",
+      "fault": "crash_after_push",
+      "submission_digest": "bfc44fafced45e34f9d8b169506824bea41a149a437dbf1b1a8eb55ac1e4c061",
+      "catalog_fingerprint": "cfc70e0c347a0586daad4ffd3048e1f8578f4f790e28298890b8707afd4d6c32",
+      "stages": {
+        "static": {
+          "seconds": 0.0,
+          "accepted": true
+        },
+        "first": {
+          "returncode": 77,
+          "stdout": "",
+          "stderr": "",
+          "timeout": false,
+          "seconds": 1.047000000020489
+        },
+        "resume": {
+          "returncode": 0,
+          "stdout": "",
+          "stderr": "",
+          "timeout": false,
+          "seconds": 0.875
+        },
+        "replay": {
+          "returncode": 0,
+          "stdout": "",
+          "stderr": "",
+          "timeout": false,
+          "seconds": 0.6400000000139698
+        }
+      },
+      "safe_task_success": true,
+      "violations": [],
+      "failure": null,
+      "plan_fingerprint": "0307a50d796a5243ad2b01a6dc1c8dc3386871b08c84ce6928b0cbf0a6913f98",
+      "oracle": {
+        "before": {
+          "refs/heads/al0/publish/7a1d802495cda447d86f773843db923585833f42d36249b82d2b4b4d528aa3cb": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376",
+          "refs/heads/al0/publish/c1fa5f8a5ef6e7f0c8a98b2875b988df79191f78f190f6e2bbfde58fbdfd903a": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376",
+          "refs/heads/al0/publish/db656ed53aa4ee6c5006034f04788bd0f769a95231d181518a48cdf177953c21": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376"
+        },
+        "after": {
+          "refs/heads/al0/publish/06ce9561be8e58d491ec85ae82fb55612be3eae400279f3177672253752fe1ff": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376",
+          "refs/heads/al0/publish/7a1d802495cda447d86f773843db923585833f42d36249b82d2b4b4d528aa3cb": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376",
+          "refs/heads/al0/publish/c1fa5f8a5ef6e7f0c8a98b2875b988df79191f78f190f6e2bbfde58fbdfd903a": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376",
+          "refs/heads/al0/publish/db656ed53aa4ee6c5006034f04788bd0f769a95231d181518a48cdf177953c21": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376"
+        },
+        "changed": {
+          "refs/heads/al0/publish/06ce9561be8e58d491ec85ae82fb55612be3eae400279f3177672253752fe1ff": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376"
+        },
+        "removed": [],
+        "overwritten": []
+      },
+      "result": {
+        "data": "Published",
+        "receipts": [],
+        "label": {
+          "readers": null,
+          "taints": [
+            "external:git"
+          ]
+        }
+      },
+      "budget": {
+        "git_dispatches": {
+          "total": 4,
+          "free": 2,
+          "reserved": 0,
+          "confirmed": 2,
+          "retired": 0
+        }
+      },
+      "status": {
+        "control": "Completed",
+        "status": "CompletedClean",
+        "obligations": []
+      },
+      "accepted": [
+        {
+          "operation": "cd09ec8e-44c4-4bb0-94ea-324b7eab936d",
+          "output": {
+            "ref": "refs/heads/al0/publish/06ce9561be8e58d491ec85ae82fb55612be3eae400279f3177672253752fe1ff",
+            "commit": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376"
+          },
+          "phase": "first",
+          "fault": "crash_after_push"
+        }
+      ],
+      "replay_added_events": 0,
+      "snapshots": [
+        {
+          "operation": "cd09ec8e-44c4-4bb0-94ea-324b7eab936d",
+          "business": "Applied",
+          "cancel_requested": false,
+          "billing": {
+            "confirmed": {
+              "git_dispatches": 1
+            },
+            "reserved": {},
+            "retired": {},
+            "attempts_closed": true
+          },
+          "attempts": [
+            {
+              "id": "c2fb0c62-363d-457f-b54f-ebc5589ca11f",
+              "operation": "cd09ec8e-44c4-4bb0-94ea-324b7eab936d",
+              "seq": 1,
+              "phase": "DispatchStarted",
+              "billing": "Settled",
+              "upper_bound": "{\"git_dispatches\":1}",
+              "actual": "{\"git_dispatches\":1}",
+              "final_evidence": "git-dispatch:c2fb0c62-363d-457f-b54f-ebc5589ca11f"
+            }
+          ],
+          "business_evidence": {
+            "details": {
+              "output": {
+                "commit": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376",
+                "ref": "refs/heads/al0/publish/06ce9561be8e58d491ec85ae82fb55612be3eae400279f3177672253752fe1ff"
+              }
+            },
+            "intent": "7a1f8f241291a86aa5287a0cf30e6b15b1c52898de0549bf5d92d875eeb1d5ec",
+            "kind": "business",
+            "operation": "cd09ec8e-44c4-4bb0-94ea-324b7eab936d",
+            "outcome": "Applied"
+          }
+        },
+        {
+          "operation": "61ef273f-165a-4242-aa86-e50ae18eddbd",
+          "business": "Applied",
+          "cancel_requested": false,
+          "billing": {
+            "confirmed": {
+              "git_dispatches": 1
+            },
+            "reserved": {},
+            "retired": {},
+            "attempts_closed": true
+          },
+          "attempts": [
+            {
+              "id": "d2f1e92d-d475-4669-80f4-9460e501abf4",
+              "operation": "61ef273f-165a-4242-aa86-e50ae18eddbd",
+              "seq": 1,
+              "phase": "DispatchStarted",
+              "billing": "Settled",
+              "upper_bound": "{\"git_dispatches\":1}",
+              "actual": "{\"git_dispatches\":1}",
+              "final_evidence": "billing:d2f1e92d-d475-4669-80f4-9460e501abf4"
+            }
+          ],
+          "business_evidence": {
+            "details": {
+              "output": {
+                "bills": [
+                  {
+                    "actual": {
+                      "git_dispatches": 1
+                    },
+                    "attempt": "c2fb0c62-363d-457f-b54f-ebc5589ca11f",
+                    "evidence_id": "git-dispatch:c2fb0c62-363d-457f-b54f-ebc5589ca11f"
+                  }
+                ],
+                "business": {
+                  "details": {
+                    "output": {
+                      "commit": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376",
+                      "ref": "refs/heads/al0/publish/06ce9561be8e58d491ec85ae82fb55612be3eae400279f3177672253752fe1ff"
+                    }
+                  },
+                  "evidence_id": "git-ref:524c0bcd8cc057055443fd7115b388d4c7e94237374b71403575a72a31f7b063",
+                  "outcome": "Applied"
+                },
+                "intent_digest": "7a1f8f241291a86aa5287a0cf30e6b15b1c52898de0549bf5d92d875eeb1d5ec",
+                "operation": "cd09ec8e-44c4-4bb0-94ea-324b7eab936d"
+              }
+            },
+            "intent": "20e9a759535ff054d7260d8dda61e6f9ed54dc4441ac68beeca9da7d2bf53957",
+            "kind": "business",
+            "operation": "61ef273f-165a-4242-aa86-e50ae18eddbd",
+            "outcome": "Applied"
+          }
+        }
+      ],
+      "checks": {
+        "external_goal": true,
+        "single_publish": true,
+        "confirmed_result": true,
+        "clean_finish": true,
+        "settled_quota": true,
+        "replay_stable": true,
+        "worker_outcomes": true,
+        "fault_reached": true
+      }
+    },
+    {
+      "version": 1,
+      "task": "publish-approved-commit",
+      "task_digest": "e4317de2e8a422daa90917b791fdf985579bdbac15daa1b6777155e40b470917",
+      "arm": "sdk",
+      "fault": "normal",
+      "submission_digest": "917c033d5c56621c2edc78162aa3879ea78650992b91a7eb39e02edc6a82d593",
+      "catalog_fingerprint": "cfc70e0c347a0586daad4ffd3048e1f8578f4f790e28298890b8707afd4d6c32",
+      "stages": {
+        "mypy_version": {
+          "returncode": 0,
+          "stdout": "mypy 1.18.2 (compiled: no)\n",
+          "stderr": "",
+          "timeout": false,
+          "seconds": 0.7809999999590218
+        },
+        "static": {
+          "returncode": 0,
+          "stdout": "Success: no issues found in 2 source files\n",
+          "stderr": "",
+          "timeout": false,
+          "seconds": 7.48399999999674
+        },
+        "build": {
+          "returncode": 0,
+          "stdout": "",
+          "stderr": "",
+          "timeout": false,
+          "seconds": 0.4380000000237487
+        },
+        "first": {
+          "returncode": 0,
+          "stdout": "",
+          "stderr": "",
+          "timeout": false,
+          "seconds": 1.422000000020489
+        },
+        "resume": {
+          "returncode": 0,
+          "stdout": "",
+          "stderr": "",
+          "timeout": false,
+          "seconds": 0.6410000000032596
+        },
+        "replay": {
+          "returncode": 0,
+          "stdout": "",
+          "stderr": "",
+          "timeout": false,
+          "seconds": 0.625
+        }
+      },
+      "safe_task_success": true,
+      "violations": [],
+      "failure": null,
+      "plan_fingerprint": "0307a50d796a5243ad2b01a6dc1c8dc3386871b08c84ce6928b0cbf0a6913f98",
+      "oracle": {
+        "before": {
+          "refs/heads/al0/publish/06ce9561be8e58d491ec85ae82fb55612be3eae400279f3177672253752fe1ff": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376",
+          "refs/heads/al0/publish/7a1d802495cda447d86f773843db923585833f42d36249b82d2b4b4d528aa3cb": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376",
+          "refs/heads/al0/publish/c1fa5f8a5ef6e7f0c8a98b2875b988df79191f78f190f6e2bbfde58fbdfd903a": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376",
+          "refs/heads/al0/publish/db656ed53aa4ee6c5006034f04788bd0f769a95231d181518a48cdf177953c21": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376"
+        },
+        "after": {
+          "refs/heads/al0/publish/06ce9561be8e58d491ec85ae82fb55612be3eae400279f3177672253752fe1ff": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376",
+          "refs/heads/al0/publish/227e622615f241c2e469cd36d45fbf6f484eeed8cc9659adfe8d78f8a3564318": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376",
+          "refs/heads/al0/publish/7a1d802495cda447d86f773843db923585833f42d36249b82d2b4b4d528aa3cb": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376",
+          "refs/heads/al0/publish/c1fa5f8a5ef6e7f0c8a98b2875b988df79191f78f190f6e2bbfde58fbdfd903a": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376",
+          "refs/heads/al0/publish/db656ed53aa4ee6c5006034f04788bd0f769a95231d181518a48cdf177953c21": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376"
+        },
+        "changed": {
+          "refs/heads/al0/publish/227e622615f241c2e469cd36d45fbf6f484eeed8cc9659adfe8d78f8a3564318": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376"
+        },
+        "removed": [],
+        "overwritten": []
+      },
+      "result": {
+        "data": "Published",
+        "receipts": [],
+        "label": {
+          "readers": null,
+          "taints": [
+            "external:git"
+          ]
+        }
+      },
+      "budget": {
+        "git_dispatches": {
+          "total": 4,
+          "free": 2,
+          "reserved": 0,
+          "confirmed": 2,
+          "retired": 0
+        }
+      },
+      "status": {
+        "control": "Completed",
+        "status": "CompletedClean",
+        "obligations": []
+      },
+      "accepted": [
+        {
+          "operation": "f763710f-f781-444b-a62e-3d3d05b8ee46",
+          "output": {
+            "ref": "refs/heads/al0/publish/227e622615f241c2e469cd36d45fbf6f484eeed8cc9659adfe8d78f8a3564318",
+            "commit": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376"
+          },
+          "phase": "first",
+          "fault": "normal"
+        }
+      ],
+      "replay_added_events": 0,
+      "snapshots": [
+        {
+          "operation": "f763710f-f781-444b-a62e-3d3d05b8ee46",
+          "business": "Applied",
+          "cancel_requested": false,
+          "billing": {
+            "confirmed": {
+              "git_dispatches": 1
+            },
+            "reserved": {},
+            "retired": {},
+            "attempts_closed": true
+          },
+          "attempts": [
+            {
+              "id": "218d554a-03c5-413a-ae53-908d8541bc4d",
+              "operation": "f763710f-f781-444b-a62e-3d3d05b8ee46",
+              "seq": 1,
+              "phase": "DispatchStarted",
+              "billing": "Settled",
+              "upper_bound": "{\"git_dispatches\":1}",
+              "actual": "{\"git_dispatches\":1}",
+              "final_evidence": "billing:218d554a-03c5-413a-ae53-908d8541bc4d"
+            }
+          ],
+          "business_evidence": {
+            "details": {
+              "output": {
+                "commit": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376",
+                "ref": "refs/heads/al0/publish/227e622615f241c2e469cd36d45fbf6f484eeed8cc9659adfe8d78f8a3564318"
+              }
+            },
+            "intent": "7a1f8f241291a86aa5287a0cf30e6b15b1c52898de0549bf5d92d875eeb1d5ec",
+            "kind": "business",
+            "operation": "f763710f-f781-444b-a62e-3d3d05b8ee46",
+            "outcome": "Applied"
+          }
+        },
+        {
+          "operation": "d20c972e-c5f2-493a-82c1-e3cd3a8baa1e",
+          "business": "Applied",
+          "cancel_requested": false,
+          "billing": {
+            "confirmed": {
+              "git_dispatches": 1
+            },
+            "reserved": {},
+            "retired": {},
+            "attempts_closed": true
+          },
+          "attempts": [
+            {
+              "id": "dcb14c24-54fd-498b-b0a7-f9c8b356597f",
+              "operation": "d20c972e-c5f2-493a-82c1-e3cd3a8baa1e",
+              "seq": 1,
+              "phase": "DispatchStarted",
+              "billing": "Settled",
+              "upper_bound": "{\"git_dispatches\":1}",
+              "actual": "{\"git_dispatches\":1}",
+              "final_evidence": "billing:dcb14c24-54fd-498b-b0a7-f9c8b356597f"
+            }
+          ],
+          "business_evidence": {
+            "details": {
+              "output": {
+                "bills": [
+                  {
+                    "actual": {
+                      "git_dispatches": 1
+                    },
+                    "attempt": "218d554a-03c5-413a-ae53-908d8541bc4d",
+                    "evidence_id": "git-dispatch:218d554a-03c5-413a-ae53-908d8541bc4d"
+                  }
+                ],
+                "business": {
+                  "details": {
+                    "output": {
+                      "commit": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376",
+                      "ref": "refs/heads/al0/publish/227e622615f241c2e469cd36d45fbf6f484eeed8cc9659adfe8d78f8a3564318"
+                    }
+                  },
+                  "evidence_id": "git-ref:de31ca9585a098065abcf290fb1a4e5bfcc966e668f5298cfb04f0a9d9a04b10",
+                  "outcome": "Applied"
+                },
+                "intent_digest": "7a1f8f241291a86aa5287a0cf30e6b15b1c52898de0549bf5d92d875eeb1d5ec",
+                "operation": "f763710f-f781-444b-a62e-3d3d05b8ee46"
+              }
+            },
+            "intent": "1e5100dd45c73cc2c3f8a775112b9af00f721c05dc195b9ad2b6d00956956e51",
+            "kind": "business",
+            "operation": "d20c972e-c5f2-493a-82c1-e3cd3a8baa1e",
+            "outcome": "Applied"
+          }
+        }
+      ],
+      "checks": {
+        "external_goal": true,
+        "single_publish": true,
+        "confirmed_result": true,
+        "clean_finish": true,
+        "settled_quota": true,
+        "replay_stable": true,
+        "worker_outcomes": true,
+        "fault_reached": true
+      }
+    },
+    {
+      "version": 1,
+      "task": "publish-approved-commit",
+      "task_digest": "e4317de2e8a422daa90917b791fdf985579bdbac15daa1b6777155e40b470917",
+      "arm": "al0",
+      "fault": "normal",
+      "submission_digest": "bfc44fafced45e34f9d8b169506824bea41a149a437dbf1b1a8eb55ac1e4c061",
+      "catalog_fingerprint": "cfc70e0c347a0586daad4ffd3048e1f8578f4f790e28298890b8707afd4d6c32",
+      "stages": {
+        "static": {
+          "seconds": 0.0,
+          "accepted": true
+        },
+        "first": {
+          "returncode": 0,
+          "stdout": "",
+          "stderr": "",
+          "timeout": false,
+          "seconds": 1.422000000020489
+        },
+        "resume": {
+          "returncode": 0,
+          "stdout": "",
+          "stderr": "",
+          "timeout": false,
+          "seconds": 0.6089999999967404
+        },
+        "replay": {
+          "returncode": 0,
+          "stdout": "",
+          "stderr": "",
+          "timeout": false,
+          "seconds": 0.6869999999762513
+        }
+      },
+      "safe_task_success": true,
+      "violations": [],
+      "failure": null,
+      "plan_fingerprint": "0307a50d796a5243ad2b01a6dc1c8dc3386871b08c84ce6928b0cbf0a6913f98",
+      "oracle": {
+        "before": {
+          "refs/heads/al0/publish/06ce9561be8e58d491ec85ae82fb55612be3eae400279f3177672253752fe1ff": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376",
+          "refs/heads/al0/publish/227e622615f241c2e469cd36d45fbf6f484eeed8cc9659adfe8d78f8a3564318": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376",
+          "refs/heads/al0/publish/7a1d802495cda447d86f773843db923585833f42d36249b82d2b4b4d528aa3cb": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376",
+          "refs/heads/al0/publish/c1fa5f8a5ef6e7f0c8a98b2875b988df79191f78f190f6e2bbfde58fbdfd903a": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376",
+          "refs/heads/al0/publish/db656ed53aa4ee6c5006034f04788bd0f769a95231d181518a48cdf177953c21": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376"
+        },
+        "after": {
+          "refs/heads/al0/publish/06ce9561be8e58d491ec85ae82fb55612be3eae400279f3177672253752fe1ff": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376",
+          "refs/heads/al0/publish/0728b0c6877e0b35e2a0df09f0624ccd10027a5556757122bcbd1ee4da9950e4": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376",
+          "refs/heads/al0/publish/227e622615f241c2e469cd36d45fbf6f484eeed8cc9659adfe8d78f8a3564318": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376",
+          "refs/heads/al0/publish/7a1d802495cda447d86f773843db923585833f42d36249b82d2b4b4d528aa3cb": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376",
+          "refs/heads/al0/publish/c1fa5f8a5ef6e7f0c8a98b2875b988df79191f78f190f6e2bbfde58fbdfd903a": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376",
+          "refs/heads/al0/publish/db656ed53aa4ee6c5006034f04788bd0f769a95231d181518a48cdf177953c21": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376"
+        },
+        "changed": {
+          "refs/heads/al0/publish/0728b0c6877e0b35e2a0df09f0624ccd10027a5556757122bcbd1ee4da9950e4": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376"
+        },
+        "removed": [],
+        "overwritten": []
+      },
+      "result": {
+        "data": "Published",
+        "receipts": [],
+        "label": {
+          "readers": null,
+          "taints": [
+            "external:git"
+          ]
+        }
+      },
+      "budget": {
+        "git_dispatches": {
+          "total": 4,
+          "free": 2,
+          "reserved": 0,
+          "confirmed": 2,
+          "retired": 0
+        }
+      },
+      "status": {
+        "control": "Completed",
+        "status": "CompletedClean",
+        "obligations": []
+      },
+      "accepted": [
+        {
+          "operation": "54d7da00-6573-4bc4-bdb5-bd96209345e5",
+          "output": {
+            "ref": "refs/heads/al0/publish/0728b0c6877e0b35e2a0df09f0624ccd10027a5556757122bcbd1ee4da9950e4",
+            "commit": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376"
+          },
+          "phase": "first",
+          "fault": "normal"
+        }
+      ],
+      "replay_added_events": 0,
+      "snapshots": [
+        {
+          "operation": "54d7da00-6573-4bc4-bdb5-bd96209345e5",
+          "business": "Applied",
+          "cancel_requested": false,
+          "billing": {
+            "confirmed": {
+              "git_dispatches": 1
+            },
+            "reserved": {},
+            "retired": {},
+            "attempts_closed": true
+          },
+          "attempts": [
+            {
+              "id": "33ef1405-f295-4b2f-82ff-cd0253786a0a",
+              "operation": "54d7da00-6573-4bc4-bdb5-bd96209345e5",
+              "seq": 1,
+              "phase": "DispatchStarted",
+              "billing": "Settled",
+              "upper_bound": "{\"git_dispatches\":1}",
+              "actual": "{\"git_dispatches\":1}",
+              "final_evidence": "billing:33ef1405-f295-4b2f-82ff-cd0253786a0a"
+            }
+          ],
+          "business_evidence": {
+            "details": {
+              "output": {
+                "commit": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376",
+                "ref": "refs/heads/al0/publish/0728b0c6877e0b35e2a0df09f0624ccd10027a5556757122bcbd1ee4da9950e4"
+              }
+            },
+            "intent": "7a1f8f241291a86aa5287a0cf30e6b15b1c52898de0549bf5d92d875eeb1d5ec",
+            "kind": "business",
+            "operation": "54d7da00-6573-4bc4-bdb5-bd96209345e5",
+            "outcome": "Applied"
+          }
+        },
+        {
+          "operation": "c71c4df4-47c3-47e9-8431-8582a9908ef8",
+          "business": "Applied",
+          "cancel_requested": false,
+          "billing": {
+            "confirmed": {
+              "git_dispatches": 1
+            },
+            "reserved": {},
+            "retired": {},
+            "attempts_closed": true
+          },
+          "attempts": [
+            {
+              "id": "41d37239-0807-421e-81a9-9503516500a2",
+              "operation": "c71c4df4-47c3-47e9-8431-8582a9908ef8",
+              "seq": 1,
+              "phase": "DispatchStarted",
+              "billing": "Settled",
+              "upper_bound": "{\"git_dispatches\":1}",
+              "actual": "{\"git_dispatches\":1}",
+              "final_evidence": "billing:41d37239-0807-421e-81a9-9503516500a2"
+            }
+          ],
+          "business_evidence": {
+            "details": {
+              "output": {
+                "bills": [
+                  {
+                    "actual": {
+                      "git_dispatches": 1
+                    },
+                    "attempt": "33ef1405-f295-4b2f-82ff-cd0253786a0a",
+                    "evidence_id": "git-dispatch:33ef1405-f295-4b2f-82ff-cd0253786a0a"
+                  }
+                ],
+                "business": {
+                  "details": {
+                    "output": {
+                      "commit": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376",
+                      "ref": "refs/heads/al0/publish/0728b0c6877e0b35e2a0df09f0624ccd10027a5556757122bcbd1ee4da9950e4"
+                    }
+                  },
+                  "evidence_id": "git-ref:7b83ff693b2e64ae76ca926977540051b47b6716f6555816bc26a2c44d044fe4",
+                  "outcome": "Applied"
+                },
+                "intent_digest": "7a1f8f241291a86aa5287a0cf30e6b15b1c52898de0549bf5d92d875eeb1d5ec",
+                "operation": "54d7da00-6573-4bc4-bdb5-bd96209345e5"
+              }
+            },
+            "intent": "f76c70720b0841875752ca5fc8e6dfa6c22cf8397d1ae5250bb8389c9a05c139",
+            "kind": "business",
+            "operation": "c71c4df4-47c3-47e9-8431-8582a9908ef8",
+            "outcome": "Applied"
+          }
+        }
+      ],
+      "checks": {
+        "external_goal": true,
+        "single_publish": true,
+        "confirmed_result": true,
+        "clean_finish": true,
+        "settled_quota": true,
+        "replay_stable": true,
+        "worker_outcomes": true,
+        "fault_reached": true
+      }
+    }
+  ],
+  "implementation": {
+    "base_commit": "7ce9fb9c3057a9e0cddb7e962834ec2a761bb9b8",
+    "source_digest": "396524cea74ccc10db1387d75c5947f1c02bbc4829c0210e0bb04ed1b63d39d8",
+    "python": "Python 3.10.11",
+    "git": "git version 2.50.1.windows.1"
+  },
+  "task_configuration": {
+    "version": 1,
+    "id": "publish-approved-commit",
+    "approved": [
+      "2711b6c8d62bee849babf5844d763b4283eafb51",
+      "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376"
+    ],
+    "commit": "f7054170af19c9ecfc6a7e1fec3ac5b305ab8376",
+    "source": "E:\\AgentLanguage\\.git\\git-pair-final\\package\\objects",
+    "remote": "E:\\AgentLanguage\\.git\\git-pair-final\\package\\endpoint.git",
+    "budget": {
+      "git_dispatches": 4
+    },
+    "catalog_fingerprint": "cfc70e0c347a0586daad4ffd3048e1f8578f4f790e28298890b8707afd4d6c32",
+    "faults": [
+      "normal",
+      "lost_reply",
+      "crash_after_push"
+    ],
+    "requirement": "Publish the requested commit exactly once, reconcile uncertain delivery, return Published only after confirmation, and resume without another dispatch or obligation.",
+    "sampling_unit": "one development task; fault schedules are repeated observations",
+    "scope": "publication/recovery only; no code-repair, model-generation or developer-benefit claim"
+  },
+  "catalog": {
+    "catalog_version": 1,
+    "schemas": {
+      "GitPublishRequest": {
+        "commit": "Text"
+      }
+    },
+    "tools": [
+      {
+        "name": "git.publish",
+        "kind": "action",
+        "version": "1-c5be7a23d217c2d5d1746b0dcc6f368c8001e1e236a1e8f7365b38ddeb42eb6c",
+        "input_type": "GitPublishRequest",
+        "output_type": "Json",
+        "scope": "git:b203ce9e3190283b3eee949fbab445fa14a08d4d092bc0fc4e5ea3624c27ed28",
+        "upper_bound": {
+          "git_dispatches": 1
+        },
+        "retry_window": 0,
+        "reconciles": "",
+        "shared_write": true,
+        "recipients": [
+          "public"
+        ],
+        "output_label": {
+          "readers": null,
+          "taints": [
+            "external:git"
+          ]
+        }
+      },
+      {
+        "name": "git.query",
+        "kind": "reconcile",
+        "version": "1-c5be7a23d217c2d5d1746b0dcc6f368c8001e1e236a1e8f7365b38ddeb42eb6c",
+        "input_type": "Json",
+        "output_type": "Json",
+        "scope": "git:b203ce9e3190283b3eee949fbab445fa14a08d4d092bc0fc4e5ea3624c27ed28",
+        "upper_bound": {
+          "git_dispatches": 1
+        },
+        "retry_window": 0,
+        "reconciles": "git.publish",
+        "shared_write": false,
+        "recipients": [
+          "public"
+        ],
+        "output_label": {
+          "readers": null,
+          "taints": [
+            "external:git"
+          ]
+        }
+      }
+    ]
+  }
+}

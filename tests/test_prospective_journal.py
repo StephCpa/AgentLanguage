@@ -59,6 +59,7 @@ class ProspectiveJournalTests(unittest.TestCase):
             j.reserve(folder, 'al0', '0.1')
         good = j.evaluate_round(folder, request_id, trusted_fixture=True, python=self.python, retry_infrastructure=True)
         self.assertTrue(good['task_success'])
+        self.assertEqual(j.evaluate_round(folder, request_id), good)
         self.assertNotEqual(original['evaluation_id'], good['evaluation_id'])
         state = j.summary(folder)
         self.assertEqual(len(state['requests']), 1)
@@ -150,6 +151,17 @@ class ProspectiveJournalTests(unittest.TestCase):
         self.assertIsNone(inspect(ledger)['actual_total_usd'])
         j.settle(folder, request_id, '0.05', 'fixture invoice')
         self.assertEqual(inspect(ledger)['actual_total_usd'], '0.05')
+
+    def test_refusal_remains_a_counted_generation_outcome_without_evaluation(self):
+        folder, ledger = self.session('refusal')
+        request = j.reserve(folder, 'al0', '0.2')
+        j.receive(folder, request['id'], {'request_id': request['id'], 'model': 'fixture-v1',
+            'status': 'refused', 'raw_response': {'refusal': 'fixture'}, 'cost_usd': None, 'usage': None})
+        self.assertEqual(j.evaluate_round(folder, request['id'])['category'], 'generation_refused')
+        self.assertEqual(j.summary(folder)['evaluation_attempts'], [])
+        self.assertEqual(inspect(ledger)['committed_usd'], '0.2')
+        with self.assertRaisesRegex(ValueError, 'without source'):
+            j.evaluate_round(folder, request['id'], retry_infrastructure=True)
 
     def test_new_entry_uses_same_parser_materials_order_and_budget_on_transport_path(self):
         from scripts.next_pilot import initialize_task

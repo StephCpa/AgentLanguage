@@ -104,11 +104,15 @@ def evaluate(folder, request_id, *, builder_image=None, trusted_fixture=False, p
     folder = Path(folder).absolute()
     with j.database(folder) as db:
         state = j.configuration(db)
-        if not builder_image and not (trusted_fixture and state['config']['evidence_mode'] == 'fixture'):
-            raise ValueError('provider submissions require Docker')
         row = db.execute('SELECT * FROM rounds WHERE id=?', (request_id,)).fetchone()
         if row is None or row['receipt'] is None:
             raise ValueError('record the output first')
+        if row['phase'] == 'evaluated' and not retry_infrastructure:
+            return json.loads(row['evaluation'])
+        if json.loads(row['receipt'])['status'] != 'output':
+            raise ValueError('generation outcomes without source cannot be reevaluated')
+        if not builder_image and not (trusted_fixture and state['config']['evidence_mode'] == 'fixture'):
+            raise ValueError('provider submissions require Docker')
     attempt = begin(folder, request_id, retry_infrastructure=retry_infrastructure)
     if attempt['phase'] == 'evaluated':
         return attempt['result']

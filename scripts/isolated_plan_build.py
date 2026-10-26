@@ -34,6 +34,16 @@ class BuilderUnavailable(RuntimeError):
     pass
 
 
+def mypy_failure(result):
+    """Pinned mypy uses exit 2 for source syntax errors as well as tool errors."""
+    diagnostics = result.get('stdout', '') + '\n' + result.get('stderr', '')
+    code = result.get('returncode')
+    if (code == 1 and re.search(r': error: .+\s\[[a-z0-9-]+\]', diagnostics) or
+            code == 2 and re.search(r': error: .+\s\[syntax\]', diagnostics)):
+        return 'static_rejection'
+    return 'static_tool_failure'
+
+
 def control(args, *, timeout=20):
     try:
         result = subprocess.run(args, capture_output=True, text=True, encoding='utf-8',
@@ -192,7 +202,8 @@ class DockerBuilder:
                 if result['timeout'] or result['output_limited']:
                     return {'failure': 'construction_limit', 'stages': stages, 'plan': None}
                 if result['returncode'] != 0:
-                    return {'failure': 'static_rejection' if mode in ('typecheck', 'al0') else 'build_failure',
+                    failure = mypy_failure(result) if mode == 'typecheck' else 'static_rejection' if mode == 'al0' else 'build_failure'
+                    return {'failure': failure,
                             'stages': stages, 'plan': None}
         try:
             # The container is untrusted. In particular, never trust its claimed

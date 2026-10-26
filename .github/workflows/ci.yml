@@ -108,6 +108,11 @@ jobs:
           python -m scripts.development_tasks calibrate --output .git/development-suite-ci \
             --builder-image al0-plan-builder:ci > models/development_suite_ci.log 2>&1
           cp .git/development-suite-ci/summary.json models/development_suite_ci.json
+      - name: Validate generation and repair journal with isolated fixtures
+        run: |
+          python -m scripts.check_generation_journal --output .git/generation-journal-ci \
+            --builder-image al0-plan-builder:ci > models/generation_journal_ci.log 2>&1
+          cp .git/generation-journal-ci/summary.json models/generation_journal_ci.json
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -118,3 +123,5 @@ jobs:
             models/isolated_builder_ci.log
             models/development_suite_ci.json
             models/development_suite_ci.log
+            models/generation_journal_ci.json
+            models/generation_journal_ci.log

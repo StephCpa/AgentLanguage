@@ -1,0 +1,28 @@
+test_attempt_limit_includes_refusals_and_transport_failures (tests.test_generation_journal.GenerationJournalTests) ... ok
+test_excess_charge_is_recorded_and_blocks_further_requests (tests.test_generation_journal.GenerationJournalTests) ... ok
+test_feedback_separates_infrastructure_and_excludes_oracle_and_grants (tests.test_generation_journal.GenerationJournalTests) ... ok
+test_frozen_prompt_excludes_host_state_and_reference_answers (tests.test_generation_journal.GenerationJournalTests) ... ok
+test_interrupted_evaluation_never_automatically_replays_effects (tests.test_generation_journal.GenerationJournalTests) ... ok
+test_pending_request_and_concurrent_reservations_do_not_duplicate_calls (tests.test_generation_journal.GenerationJournalTests) ... ok
+test_provider_output_cannot_run_in_trusted_fixture_mode (tests.test_generation_journal.GenerationJournalTests) ... ok
+test_real_repair_preserves_first_failure_and_uses_only_assigned_arm (tests.test_generation_journal.GenerationJournalTests) ... ok
+test_receipt_identity_idempotency_and_exact_source (tests.test_generation_journal.GenerationJournalTests) ... ok
+test_unknown_cost_reserves_budget_until_late_settlement_and_arms_are_independent (tests.test_generation_journal.GenerationJournalTests) ... ok
+test_correct_order_and_total_quota_do_not_replace_required_reconciliation_dependency (tests.test_development_tasks.DevelopmentTaskTests) ... ok
+test_false_branch_publication_cannot_pass_with_a_success_string (tests.test_development_tasks.DevelopmentTaskTests) ... ok
+test_participant_packages_exclude_reference_answers_and_host_state (tests.test_development_tasks.DevelopmentTaskTests) ... ok
+test_reference_contracts_across_inputs_quotas_revocation_and_fault_positions (tests.test_development_tasks.DevelopmentTaskTests) ... ok
+test_revocation_and_zero_budget_are_distinct_business_outcomes (tests.test_development_tasks.DevelopmentTaskTests) ... ok
+test_valid_dynamic_sdk_construction_is_frozen_once_not_penalized (tests.test_development_tasks.DevelopmentTaskTests) ... ok
+test_wrong_order_fails_even_when_final_git_object_set_is_correct (tests.test_development_tasks.DevelopmentTaskTests) ... ok
+test_all_reject_and_false_completion_do_not_pass (tests.test_git_pair_evaluation.GitPairEvaluationTests) ... ok
+test_approved_but_wrong_commit_is_goal_failure_not_policy_violation (tests.test_git_pair_evaluation.GitPairEvaluationTests) ... ok
+test_missing_query_is_not_repaired_by_evaluation_host (tests.test_git_pair_evaluation.GitPairEvaluationTests) ... ok
+test_reference_pair_reaches_real_faults_and_equal_ir (tests.test_git_pair_evaluation.GitPairEvaluationTests) ... ok
+test_sdk_generated_field_type_rejection_precedes_any_publication (tests.test_git_pair_evaluation.GitPairEvaluationTests) ... ok
+test_shared_ir_rule_remains_enabled_in_both_arms (tests.test_git_pair_evaluation.GitPairEvaluationTests) ... ok
+
+----------------------------------------------------------------------
+Ran 23 tests in 241.325s
+
+OK

@@ -168,7 +168,10 @@ def prepare_suite(folder):
     return manifest
 
 
-def evaluate_task(package, al0, sdk, folder, *, python=sys.executable, builder_image=None, seed=20261026):
+def evaluate_submissions(package, submissions, folder, *, python=sys.executable, builder_image=None, seed=20261026):
+    """Evaluate one or both frontends; never fill an absent arm with a reference."""
+    if not submissions or set(submissions) - {'al0', 'sdk'}:
+        raise ValueError('provide al0 and/or sdk submissions')
     package, folder = Path(package).absolute(), Path(folder).absolute()
     folder.mkdir(parents=True, exist_ok=False)
     task = json.loads((package/'task.json').read_text(encoding='utf-8'))
@@ -178,10 +181,10 @@ def evaluate_task(package, al0, sdk, folder, *, python=sys.executable, builder_i
     for name in ('catalog.json', 'bindings.py'):
         shutil.copyfile(package/name, frozen/name)
     package = frozen
-    order = [(case['id'], arm) for case in task['cases'] for arm in ('al0', 'sdk')]
+    order = [(case['id'], arm) for case in task['cases'] for arm in sorted(submissions)]
     random.Random(seed).shuffle(order)
     snapshots = {}
-    for arm, source in (('al0', al0), ('sdk', sdk)):
+    for arm, source in submissions.items():
         path = folder/('submitted.al0' if arm == 'al0' else 'submitted.py')
         path.write_text(Path(source).read_text(encoding='utf-8'), encoding='utf-8')
         snapshots[arm] = path
@@ -198,7 +201,7 @@ def evaluate_task(package, al0, sdk, folder, *, python=sys.executable, builder_i
                 failure=None if 'plan_fingerprint' in row else row['failure'],
                 plan=(cell/'plan.json').read_text(encoding='utf-8') if 'plan_fingerprint' in row else None)
     arms = {}
-    for arm in ('al0', 'sdk'):
+    for arm in sorted(submissions):
         selected = [r for r in rows if r['arm'] == arm]
         fingerprints = {r.get('plan_fingerprint') for r in selected}
         stable = None not in fingerprints and len(fingerprints) == 1
@@ -208,9 +211,13 @@ def evaluate_task(package, al0, sdk, folder, *, python=sys.executable, builder_i
     equal = all(p.exists() for p in plans) and len({p.read_text(encoding='utf-8') for p in plans}) == 1
     report = {'version': 1, 'task': task['id'], 'contract_digest': task['contract_digest'],
         'family': task['family'], 'split': task['split'], 'seed': seed, 'order': order,
-        'arms': arms, 'equal_reference_ir': equal, 'rows': rows}
+        'arms': arms, 'equal_reference_ir': equal if len(submissions) == 2 else None, 'rows': rows}
     dump(folder/'summary.json', report)
     return report
+
+
+def evaluate_task(package, al0, sdk, folder, **kwargs):
+    return evaluate_submissions(package, {'al0': al0, 'sdk': sdk}, folder, **kwargs)
 
 
 def calibrate(folder, *, python=sys.executable, builder_image=None):

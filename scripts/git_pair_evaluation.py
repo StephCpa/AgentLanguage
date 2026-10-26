@@ -237,7 +237,8 @@ def evaluate(package, arm, submission, output, *, fault='normal', python=sys.exe
             '--follow-imports=silent', '--no-incremental', candidate, output/'bindings.py'], cwd=output, env=env)
         report['stages']['static'] = typed
         if typed['returncode'] != 0:
-            return finish('static_rejection' if typed['returncode'] == 1 else 'static_tool_failure')
+            from scripts.isolated_plan_build import mypy_failure
+            return finish(mypy_failure(typed))
         dump(output/'build.json', {'submission': str(candidate), 'catalog': str(package/'catalog.json'),
                                   'commit': task['commit'], 'plan': str(plan_path)})
         built = command([python, '-m', 'scripts.git_pair_worker', 'build', output/'build.json'])

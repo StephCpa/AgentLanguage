@@ -11,6 +11,7 @@ from scripts.development_tasks import prepare_suite
 from scripts.deepseek_pilot import initialize_pilot, send, ingest, token_cost_upper, export, PROFILE
 from scripts.generation_journal import (summary, database, configuration, rounds, import_evaluation,
                                         refine_cost_bound, reserve)
+from scripts.score_deepseek_pilot import score
 
 
 class DeepSeekPilotTests(unittest.TestCase):
@@ -93,6 +94,18 @@ class DeepSeekPilotTests(unittest.TestCase):
         for args in ((True, 1), (-1, 1), (1048577, 1), (1, 4097)):
             with self.assertRaises(ValueError):
                 token_cost_upper(*args, profile)
+
+    def test_remote_report_handles_fractional_experiment_timestamps(self):
+        folder = self.pilot()
+        self.call(folder, self.response())
+        bundle = folder/'bundle.json'
+        export(folder, bundle)
+        with patch('scripts.score_deepseek_pilot.prepare_suite'), \
+             patch('scripts.score_deepseek_pilot.evaluate_submissions', return_value={'test_fixture': True}):
+            result = score(bundle, folder/'scored', self.root, 'fixture-image')
+        self.assertEqual(len(result['trials']), 1)
+        self.assertTrue((folder/'scored'/'summary.json').is_file())
+        self.assertEqual(result['model_calls_from_ci'], 0)
 
     def test_remote_import_requires_exact_arm_source_catalog_and_cases(self):
         folder = self.pilot()

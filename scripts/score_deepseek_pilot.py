@@ -5,7 +5,7 @@ from pathlib import Path
 
 from al0.data import digest
 from scripts.development_tasks import prepare_suite, evaluate_submissions
-from scripts.generation_journal import pointer
+from scripts.generation_journal import pointer, encoded
 from scripts.git_pair_evaluation import dump, git, ROOT
 
 
@@ -31,7 +31,9 @@ def score(bundle_path, output, fixture_root, builder_image):
         evaluation = evaluate_submissions(package, {request['arm']: candidate}, output/str(index), builder_image=builder_image)
         trials.append({'request_id': request['id'], 'arm': request['arm'], 'ordinal': request['ordinal'], 'evaluation': evaluation})
     report = {'version': 1, 'kind': 'deepseek_provider_submission_evaluation', 'model_calls_from_ci': 0,
-              'bundle_digest': digest(bundle), 'code_commit': git('-C', ROOT, 'rev-parse', 'HEAD'), 'trials': trials}
+              # Experiment metadata contains timestamps with fractions; hash
+              # its canonical text, not the language's integer-only data domain.
+              'bundle_digest': digest(encoded(bundle)), 'code_commit': git('-C', ROOT, 'rev-parse', 'HEAD'), 'trials': trials}
     dump(output/'summary.json', report)
     # A model's failed task is a valid measured outcome, not broken CI. Invalid
     # fixture/host execution raises above and fails the CI step separately.

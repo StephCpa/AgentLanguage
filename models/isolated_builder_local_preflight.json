@@ -1,0 +1,23 @@
+{
+  "context_file_count": 38,
+  "allowlist_only": true,
+  "unavailable_without_fallback": true,
+  "report": {
+    "version": 1,
+    "task": "publish-approved-commit",
+    "task_digest": "e4317de2e8a422daa90917b791fdf985579bdbac15daa1b6777155e40b470917",
+    "arm": "sdk",
+    "fault": "normal",
+    "submission_digest": "89b3d69402505e3917259667ed80c3b0c73fdfe3819b3acd389c3476cce8098e",
+    "catalog_fingerprint": "cfc70e0c347a0586daad4ffd3048e1f8578f4f790e28298890b8707afd4d6c32",
+    "stages": {
+      "construction": {
+        "error": "FileNotFoundError: Docker control command failed"
+      }
+    },
+    "safe_task_success": false,
+    "violations": [],
+    "failure": "infrastructure:isolated_builder_unavailable",
+    "construction_mode": "docker"
+  }
+}

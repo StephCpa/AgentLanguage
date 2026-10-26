@@ -20,6 +20,26 @@ PUBLISH = 'git.publish'
 QUERY = 'git.query'
 UNITS = {'git_dispatches': 1}
 OID = re.compile(r'(?:[0-9a-f]{40}|[0-9a-f]{64})\Z')
+OID_BYTES = re.compile(rb'(?:[0-9a-f]{40}|[0-9a-f]{64})\Z')
+
+
+def valid_ref_bytes(ref):
+    """Git refname restrictions are byte rules, not Unicode whitespace rules."""
+    return (ref.startswith(b'refs/') and not ref.endswith((b'/', b'.'))
+            and not any(c <= 32 or c == 127 or c in b'~^:?*[\\' for c in ref)
+            and b'..' not in ref and b'@{' not in ref
+            and all(part and not part.startswith(b'.') and not part.endswith(b'.lock') for part in ref.split(b'/')))
+
+
+def parse_remote_refs(stdout):
+    if not isinstance(stdout, bytes) or stdout and not stdout.endswith(b'\n'):
+        raise EvidenceMismatch('Git reference query returned invalid framing')
+    rows = [line.split(b'\t') for line in stdout.split(b'\n')[:-1]]
+    if (any(len(row) != 2 or not OID_BYTES.fullmatch(row[0]) or set(row[0]) == {48}
+            or not valid_ref_bytes(row[1]) for row in rows)
+            or len({row[1] for row in rows}) != len(rows)):
+        raise EvidenceMismatch('Git reference query returned malformed or duplicate records')
+    return rows
 
 
 class GitPublisher:
@@ -70,11 +90,12 @@ class GitPublisher:
                 version=self.version, recipients=recipients, output_label=output,
                 reconciles=PUBLISH if name == QUERY else '', retry_window=0))
 
-    def _command(self, arguments):
+    def _command(self, arguments, *, raw=False):
         try:
             return subprocess.run([self.git, '-C', str(self.repository), *arguments],
-                env=self.environment, capture_output=True, text=True, encoding='utf-8',
-                errors='replace', timeout=self.timeout, check=False)
+                env=self.environment, capture_output=True,
+                **({} if raw else {'text': True, 'encoding': 'utf-8', 'errors': 'replace'}),
+                timeout=self.timeout, check=False)
         except (OSError, subprocess.TimeoutExpired):
             # Diagnostics can contain credential-bearing URLs. Do not export
             # stderr or the subprocess arguments into language-level results.
@@ -133,21 +154,18 @@ class GitPublisher:
         if target.digest != request['intent_digest']:
             raise EvidenceMismatch('Git query changed its target intent')
         ref = self.reference(request['operation'], target.digest)
-        result = self._command(['ls-remote', '--refs', '--exit-code', '--', self.remote, ref])
-        rows = [line.split('\t') for line in result.stdout.splitlines()]
+        result = self._command(['ls-remote', '--refs', '--exit-code', '--', self.remote, ref], raw=True)
         if result.returncode not in (0, 2):
             raise ConnectionError('Git reference query has no confirmed response')
-        if (any(len(row) != 2 or not OID.fullmatch(row[0]) or set(row[0]) == {'0'}
-                or not row[1].startswith('refs/') or any(c.isspace() or ord(c) < 32 for c in row[1])
-                for row in rows) or len({row[1] for row in rows}) != len(rows)
-                or result.returncode == 2 and rows):
-            raise EvidenceMismatch('Git reference query returned malformed or duplicate records')
+        rows = parse_remote_refs(result.stdout)
+        if result.returncode == 2 and rows:
+            raise EvidenceMismatch('Git query exit status contradicts its records')
         # ls-remote arguments are tail patterns, even for a full ref name.
         # A refs/original/<ref> backup is not evidence about the exact target.
-        exact = [row for row in rows if row[1] == ref]
+        exact = [row for row in rows if row[1] == ref.encode('utf-8')]
         if not exact:
             business = None
-        elif exact == [[commit, ref]]:
+        elif exact == [[commit.encode('ascii'), ref.encode('utf-8')]]:
             business = {'evidence_id': 'git-ref:' + digest([ref, commit]), 'outcome': 'Applied',
                         'details': {'output': {'ref': ref, 'commit': commit}}}
         else:

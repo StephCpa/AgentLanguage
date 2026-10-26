@@ -21,6 +21,8 @@ def extract_single_fence(source):
 
 def score(bundle_path, output, fixture_root, builder_image):
     bundle = json.loads(Path(bundle_path).read_text(encoding='utf-8'))
+    if bundle.get('version', 1) != 1:
+        raise ValueError('legacy pilot scorer cannot evaluate a prospective v2 output protocol')
     output, fixture_root = Path(output), Path(fixture_root)
     output.mkdir(parents=True, exist_ok=False)
     prepare_suite(fixture_root/'tasks')

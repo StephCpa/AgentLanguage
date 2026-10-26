@@ -1,0 +1,25 @@
+{
+  "kind": "host_retrieved_ci_artifact",
+  "repository": "StephCpa/AgentLanguage",
+  "pr_head_sha": "5fb010f77119fd125066a6f5f04ef2c70639a2eb",
+  "executed_commit_sha": "184da04aa85264118b437df8df01929fb71ff08e",
+  "run_id": 40361166261,
+  "job_id": 121706674285,
+  "artifact_id": 12669065072,
+  "artifact_name": "isolated-plan-construction",
+  "member": "prospective_journal_ci.json",
+  "saved_as": "models/prospective_journal_acceptance.json",
+  "regression_jobs": {
+    "3.10": {"job_id": 121706674101, "tests": 1023, "seconds": 184.306},
+    "3.12": {"job_id": 121706674799, "tests": 1023, "seconds": 178.773}
+  },
+  "model_calls_added": 0,
+  "actual_shared_ledger_snapshot": {
+    "total_usd": "1.00",
+    "historical_requests": 6,
+    "committed_upper_usd": "0.016987800",
+    "remaining_usd": "0.983012200",
+    "actual_bill_total_usd": null
+  },
+  "interpretation": "The Docker acceptance uses two labelled fixture outputs and four evaluation identities, with no provider requests. Its 0.4 USD reservation is synthetic and separate from the actual historical ledger snapshot."
+}

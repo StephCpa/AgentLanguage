@@ -113,6 +113,11 @@ jobs:
           python -m scripts.check_generation_journal --output .git/generation-journal-ci \
             --builder-image al0-plan-builder:ci > models/generation_journal_ci.log 2>&1
           cp .git/generation-journal-ci/summary.json models/generation_journal_ci.json
+      - name: Validate prospective same-source reevaluation and shared budget
+        run: |
+          python -m scripts.check_prospective_journal --output .git/prospective-journal-ci \
+            --builder-image al0-plan-builder:ci > models/prospective_journal_ci.log 2>&1
+          cp .git/prospective-journal-ci/summary.json models/prospective_journal_ci.json
       - name: Score captured DeepSeek submissions without provider access
         if: hashFiles('experiments/deepseek_pilot_v1/captured.json') != ''
         run: |
@@ -142,6 +147,8 @@ jobs:
             models/development_suite_ci.log
             models/generation_journal_ci.json
             models/generation_journal_ci.log
+            models/prospective_journal_ci.json
+            models/prospective_journal_ci.log
             models/deepseek_pilot_ci.json
             models/deepseek_pilot_ci.log
             models/query_outcomes_ci.json

@@ -1,0 +1,2779 @@
+{
+  "passed": true,
+  "kind": "prospective_request_chain_fixture",
+  "model_calls": 0,
+  "construction_mode": "docker",
+  "shared_account": {
+    "ledger_id": "42e39e55-a429-4fc1-b4f0-3282904646d6",
+    "total_usd": "1",
+    "committed_usd": "0.4",
+    "remaining_usd": "0.6",
+    "requests": 2,
+    "actual_total_usd": null
+  },
+  "history": [
+    {
+      "arm": "sdk",
+      "initial": {
+        "category": "infrastructure_failure",
+        "evaluation_id": "3af8d2ac-ac1a-4b38-a6e5-620ba7673871",
+        "evaluation_ordinal": 1,
+        "feedback": {
+          "failures": [
+            {
+              "case": "enabled",
+              "construction": {
+                "text": "{\"diagnostic\": null, \"error\": \"builder image unavailable; build it explicitly before evaluation\", \"failure\": null, \"stages\": {}}",
+                "truncated": false
+              },
+              "failed_checks": [],
+              "failure": "infrastructure:isolated_builder_unavailable"
+            },
+            {
+              "case": "reply-lost",
+              "failed_checks": [],
+              "failure": "infrastructure:isolated_builder_unavailable"
+            },
+            {
+              "case": "process-exit",
+              "failed_checks": [],
+              "failure": "infrastructure:isolated_builder_unavailable"
+            },
+            {
+              "case": "disabled",
+              "failed_checks": [],
+              "failure": "infrastructure:isolated_builder_unavailable"
+            }
+          ],
+          "task_success": false
+        },
+        "provenance": {
+          "builder_image": "al0-absent-builder:never-pull",
+          "executed_commit_sha": "184da04aa85264118b437df8df01929fb71ff08e"
+        },
+        "report": {
+          "arms": {
+            "sdk": {
+              "assigned_cases": 4,
+              "business_goal_completed_cases": 0,
+              "case_successes": 0,
+              "false_success_claim_cases": 0,
+              "stable_plan": false,
+              "task_success": false
+            }
+          },
+          "contract_digest": "12b81641f20b6685384982478b96c26ba53858a762754e283519ab1afa801334",
+          "equal_reference_ir": null,
+          "family": "git-workflow-construction",
+          "order": [
+            [
+              "enabled",
+              "sdk"
+            ],
+            [
+              "reply-lost",
+              "sdk"
+            ],
+            [
+              "process-exit",
+              "sdk"
+            ],
+            [
+              "disabled",
+              "sdk"
+            ]
+          ],
+          "rows": [
+            {
+              "arm": "sdk",
+              "business_goal_completed": false,
+              "case": "enabled",
+              "case_digest": "9a0b9e883d726c264315c02124a276567a9b0dc883f34914228dca6052d90c13",
+              "catalog_fingerprint": "64045b1bb1063f22131bff110ed056d62a4359225e0fecf9a4026d2241db2d97",
+              "construction_mode": "docker",
+              "expected": {
+                "commits": [
+                  "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+                ],
+                "dispatches": 2,
+                "result": "Published"
+              },
+              "failure": "infrastructure:isolated_builder_unavailable",
+              "false_success_claim": false,
+              "fault": "normal",
+              "safe_task_success": false,
+              "stages": {
+                "construction": {
+                  "error": "builder image unavailable; build it explicitly before evaluation"
+                }
+              },
+              "submission_digest": "a0c25abfaf1542eeecfe4233cdbc71a927f3a3fca278ddfd2b716a8bdc7d323e",
+              "task": "conditional-release",
+              "task_digest": "a1507baa61afb250cd034c17e6885bfe21643eafe5332e3fc7c26d62c6516949",
+              "version": 2,
+              "violations": []
+            },
+            {
+              "arm": "sdk",
+              "business_goal_completed": false,
+              "case": "reply-lost",
+              "case_digest": "898d54392731d97afc475c2bcc411336d9b2a59150baae5bca27f43d8aa7331e",
+              "catalog_fingerprint": "64045b1bb1063f22131bff110ed056d62a4359225e0fecf9a4026d2241db2d97",
+              "construction_mode": "docker",
+              "construction_reused": true,
+              "expected": {
+                "commits": [
+                  "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+                ],
+                "dispatches": 2,
+                "result": "Published"
+              },
+              "failure": "infrastructure:isolated_builder_unavailable",
+              "false_success_claim": false,
+              "fault": "lost_reply",
+              "prepared_from_case": "enabled",
+              "safe_task_success": false,
+              "stages": {
+                "construction": {
+                  "error": "builder image unavailable; build it explicitly before evaluation"
+                }
+              },
+              "submission_digest": "a0c25abfaf1542eeecfe4233cdbc71a927f3a3fca278ddfd2b716a8bdc7d323e",
+              "task": "conditional-release",
+              "task_digest": "a1507baa61afb250cd034c17e6885bfe21643eafe5332e3fc7c26d62c6516949",
+              "version": 2,
+              "violations": []
+            },
+            {
+              "arm": "sdk",
+              "business_goal_completed": false,
+              "case": "process-exit",
+              "case_digest": "2d22fbc4f41c283ffc9cb154a19e44186ff25622a1a43d0b56cc172ec7dc1199",
+              "catalog_fingerprint": "64045b1bb1063f22131bff110ed056d62a4359225e0fecf9a4026d2241db2d97",
+              "construction_mode": "docker",
+              "construction_reused": true,
+              "expected": {
+                "commits": [
+                  "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+                ],
+                "dispatches": 2,
+                "result": "Published"
+              },
+              "failure": "infrastructure:isolated_builder_unavailable",
+              "false_success_claim": false,
+              "fault": "crash_after_push",
+              "prepared_from_case": "enabled",
+              "safe_task_success": false,
+              "stages": {
+                "construction": {
+                  "error": "builder image unavailable; build it explicitly before evaluation"
+                }
+              },
+              "submission_digest": "a0c25abfaf1542eeecfe4233cdbc71a927f3a3fca278ddfd2b716a8bdc7d323e",
+              "task": "conditional-release",
+              "task_digest": "a1507baa61afb250cd034c17e6885bfe21643eafe5332e3fc7c26d62c6516949",
+              "version": 2,
+              "violations": []
+            },
+            {
+              "arm": "sdk",
+              "business_goal_completed": false,
+              "case": "disabled",
+              "case_digest": "b1372ff3e19d28e92b3879afac8d7f41f4dca7009a149fff1c27f2c63d41b081",
+              "catalog_fingerprint": "64045b1bb1063f22131bff110ed056d62a4359225e0fecf9a4026d2241db2d97",
+              "construction_mode": "docker",
+              "construction_reused": true,
+              "expected": {
+                "commits": [],
+                "dispatches": 0,
+                "result": "Skipped"
+              },
+              "failure": "infrastructure:isolated_builder_unavailable",
+              "false_success_claim": false,
+              "fault": "normal",
+              "prepared_from_case": "enabled",
+              "safe_task_success": false,
+              "stages": {
+                "construction": {
+                  "error": "builder image unavailable; build it explicitly before evaluation"
+                }
+              },
+              "submission_digest": "a0c25abfaf1542eeecfe4233cdbc71a927f3a3fca278ddfd2b716a8bdc7d323e",
+              "task": "conditional-release",
+              "task_digest": "a1507baa61afb250cd034c17e6885bfe21643eafe5332e3fc7c26d62c6516949",
+              "version": 2,
+              "violations": []
+            }
+          ],
+          "seed": 20261026,
+          "source_protocol": {
+            "accepted": true,
+            "error": null,
+            "format": "single_fence",
+            "normalization": "universal-newlines-to-lf; outer fence removal only",
+            "parser_version": "source-or-single-fence-v1",
+            "raw_digest": "ec76f8e007e4058997f09c7d0f5996791338751c808112fdc5de5b92ca84d3fa",
+            "raw_text": "```python\nfrom al0.ir import Catalog, CheckedPlan\nfrom al0.sdk import PlanBuilder\nfrom bindings import Bindings\n\ndef publish(catalog: Catalog, commit: str) -> CheckedPlan[str]:\n    b = PlanBuilder('publish', catalog)\n    api = Bindings(b)\n    request = api.literal_GitPublishRequest('request', {'commit': commit})\n    intent = api.prepare_git_publish('intent', request)\n    permission = b.authorize('permission', intent)\n    operation = b.admit('operation', intent, permission)\n    initial = b.await_result('initial', operation)\n    b.match_business('initial_result', initial, 'Text', applied='Published',\n        proven_no_effect='NoEffect', pending='Pending', unknown='Unknown', not_dispatched='Queued')\n    status = api.reconcile_git_query('query', operation)\n    result = b.match_business('result', status, 'Text', applied='Published',\n        proven_no_effect='NoEffect', pending='Pending', unknown='Unknown', not_dispatched='Queued')\n    return b.finish(result)\n\ndef build(catalog: Catalog, commit: str) -> CheckedPlan[str]:\n    yes = publish(catalog, commit)\n    b = PlanBuilder('skip', catalog)\n    no = b.finish(Bindings(b).literal_Text('result', 'Skipped'))\n    b = PlanBuilder('main', catalog)\n    enabled = Bindings(b).parameter_Bool('enabled')\n    return b.finish(b.if_else('result', enabled, then=yes, otherwise=no))\n\n```",
+            "source": "from al0.ir import Catalog, CheckedPlan\nfrom al0.sdk import PlanBuilder\nfrom bindings import Bindings\n\ndef publish(catalog: Catalog, commit: str) -> CheckedPlan[str]:\n    b = PlanBuilder('publish', catalog)\n    api = Bindings(b)\n    request = api.literal_GitPublishRequest('request', {'commit': commit})\n    intent = api.prepare_git_publish('intent', request)\n    permission = b.authorize('permission', intent)\n    operation = b.admit('operation', intent, permission)\n    initial = b.await_result('initial', operation)\n    b.match_business('initial_result', initial, 'Text', applied='Published',\n        proven_no_effect='NoEffect', pending='Pending', unknown='Unknown', not_dispatched='Queued')\n    status = api.reconcile_git_query('query', operation)\n    result = b.match_business('result', status, 'Text', applied='Published',\n        proven_no_effect='NoEffect', pending='Pending', unknown='Unknown', not_dispatched='Queued')\n    return b.finish(result)\n\ndef build(catalog: Catalog, commit: str) -> CheckedPlan[str]:\n    yes = publish(catalog, commit)\n    b = PlanBuilder('skip', catalog)\n    no = b.finish(Bindings(b).literal_Text('result', 'Skipped'))\n    b = PlanBuilder('main', catalog)\n    enabled = Bindings(b).parameter_Bool('enabled')\n    return b.finish(b.if_else('result', enabled, then=yes, otherwise=no))\n\n",
+            "source_digest": "a0c25abfaf1542eeecfe4233cdbc71a927f3a3fca278ddfd2b716a8bdc7d323e"
+          },
+          "split": "development",
+          "task": "conditional-release",
+          "version": 1
+        },
+        "source_protocol": {
+          "accepted": true,
+          "error": null,
+          "format": "single_fence",
+          "normalization": "universal-newlines-to-lf; outer fence removal only",
+          "parser_version": "source-or-single-fence-v1",
+          "raw_digest": "ec76f8e007e4058997f09c7d0f5996791338751c808112fdc5de5b92ca84d3fa",
+          "raw_text": "```python\nfrom al0.ir import Catalog, CheckedPlan\nfrom al0.sdk import PlanBuilder\nfrom bindings import Bindings\n\ndef publish(catalog: Catalog, commit: str) -> CheckedPlan[str]:\n    b = PlanBuilder('publish', catalog)\n    api = Bindings(b)\n    request = api.literal_GitPublishRequest('request', {'commit': commit})\n    intent = api.prepare_git_publish('intent', request)\n    permission = b.authorize('permission', intent)\n    operation = b.admit('operation', intent, permission)\n    initial = b.await_result('initial', operation)\n    b.match_business('initial_result', initial, 'Text', applied='Published',\n        proven_no_effect='NoEffect', pending='Pending', unknown='Unknown', not_dispatched='Queued')\n    status = api.reconcile_git_query('query', operation)\n    result = b.match_business('result', status, 'Text', applied='Published',\n        proven_no_effect='NoEffect', pending='Pending', unknown='Unknown', not_dispatched='Queued')\n    return b.finish(result)\n\ndef build(catalog: Catalog, commit: str) -> CheckedPlan[str]:\n    yes = publish(catalog, commit)\n    b = PlanBuilder('skip', catalog)\n    no = b.finish(Bindings(b).literal_Text('result', 'Skipped'))\n    b = PlanBuilder('main', catalog)\n    enabled = Bindings(b).parameter_Bool('enabled')\n    return b.finish(b.if_else('result', enabled, then=yes, otherwise=no))\n\n```",
+          "source": "from al0.ir import Catalog, CheckedPlan\nfrom al0.sdk import PlanBuilder\nfrom bindings import Bindings\n\ndef publish(catalog: Catalog, commit: str) -> CheckedPlan[str]:\n    b = PlanBuilder('publish', catalog)\n    api = Bindings(b)\n    request = api.literal_GitPublishRequest('request', {'commit': commit})\n    intent = api.prepare_git_publish('intent', request)\n    permission = b.authorize('permission', intent)\n    operation = b.admit('operation', intent, permission)\n    initial = b.await_result('initial', operation)\n    b.match_business('initial_result', initial, 'Text', applied='Published',\n        proven_no_effect='NoEffect', pending='Pending', unknown='Unknown', not_dispatched='Queued')\n    status = api.reconcile_git_query('query', operation)\n    result = b.match_business('result', status, 'Text', applied='Published',\n        proven_no_effect='NoEffect', pending='Pending', unknown='Unknown', not_dispatched='Queued')\n    return b.finish(result)\n\ndef build(catalog: Catalog, commit: str) -> CheckedPlan[str]:\n    yes = publish(catalog, commit)\n    b = PlanBuilder('skip', catalog)\n    no = b.finish(Bindings(b).literal_Text('result', 'Skipped'))\n    b = PlanBuilder('main', catalog)\n    enabled = Bindings(b).parameter_Bool('enabled')\n    return b.finish(b.if_else('result', enabled, then=yes, otherwise=no))\n\n",
+          "source_digest": "a0c25abfaf1542eeecfe4233cdbc71a927f3a3fca278ddfd2b716a8bdc7d323e"
+        },
+        "task_success": false
+      },
+      "recovered": {
+        "category": "success",
+        "evaluation_id": "c81c05fb-cccd-459a-ad24-a11c364ca2e2",
+        "evaluation_ordinal": 2,
+        "feedback": {
+          "failures": [],
+          "task_success": true
+        },
+        "provenance": {
+          "builder_image": "al0-plan-builder:ci",
+          "executed_commit_sha": "184da04aa85264118b437df8df01929fb71ff08e"
+        },
+        "report": {
+          "arms": {
+            "sdk": {
+              "assigned_cases": 4,
+              "business_goal_completed_cases": 3,
+              "case_successes": 4,
+              "false_success_claim_cases": 0,
+              "stable_plan": true,
+              "task_success": true
+            }
+          },
+          "contract_digest": "12b81641f20b6685384982478b96c26ba53858a762754e283519ab1afa801334",
+          "equal_reference_ir": null,
+          "family": "git-workflow-construction",
+          "order": [
+            [
+              "enabled",
+              "sdk"
+            ],
+            [
+              "reply-lost",
+              "sdk"
+            ],
+            [
+              "process-exit",
+              "sdk"
+            ],
+            [
+              "disabled",
+              "sdk"
+            ]
+          ],
+          "rows": [
+            {
+              "accepted": [
+                {
+                  "fault": "normal",
+                  "operation": "643ea51a-d74a-47fd-8f69-aff482a4ddb8",
+                  "ordinal": 1,
+                  "output": {
+                    "commit": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                    "ref": "refs/heads/al0/publish/c7d0547ef7c21101281e8f02abba7b08c39ffd2a0a9dba7393208567434749eb"
+                  },
+                  "phase": "first"
+                }
+              ],
+              "arm": "sdk",
+              "budget": {
+                "git_dispatches": {
+                  "confirmed": 2,
+                  "free": 2,
+                  "reserved": 0,
+                  "retired": 0,
+                  "total": 4
+                }
+              },
+              "builder_image": "sha256:966eec50801a6e0c8d240199806daf78cafaf9cd74fd7b09e1cb901bd19c3c9b",
+              "business_goal_completed": true,
+              "case": "enabled",
+              "case_digest": "9a0b9e883d726c264315c02124a276567a9b0dc883f34914228dca6052d90c13",
+              "catalog_fingerprint": "64045b1bb1063f22131bff110ed056d62a4359225e0fecf9a4026d2241db2d97",
+              "checks": {
+                "clean_finish": true,
+                "confirmed_result": true,
+                "external_goal": true,
+                "fault_reached": true,
+                "publication_sequence": true,
+                "replay_stable": true,
+                "settled_quota": true,
+                "worker_outcomes": true
+              },
+              "construction_mode": "docker",
+              "expected": {
+                "commits": [
+                  "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+                ],
+                "dispatches": 2,
+                "result": "Published"
+              },
+              "failure": null,
+              "false_success_claim": false,
+              "fault": "normal",
+              "oracle": {
+                "after": {
+                  "refs/heads/al0/publish/c7d0547ef7c21101281e8f02abba7b08c39ffd2a0a9dba7393208567434749eb": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+                },
+                "before": {},
+                "changed": {
+                  "refs/heads/al0/publish/c7d0547ef7c21101281e8f02abba7b08c39ffd2a0a9dba7393208567434749eb": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+                },
+                "overwritten": [],
+                "removed": []
+              },
+              "plan_fingerprint": "970bb574c5fffcb6e8782461a98e2a5ce8f967366da8da90f857cac0849f9017",
+              "replay_added_events": 0,
+              "result": {
+                "data": "Published",
+                "label": {
+                  "readers": null,
+                  "taints": [
+                    "external:git"
+                  ]
+                },
+                "receipts": []
+              },
+              "safe_task_success": true,
+              "snapshots": [
+                {
+                  "attempts": [
+                    {
+                      "actual": "{\"git_dispatches\":1}",
+                      "billing": "Settled",
+                      "final_evidence": "billing:b9da4ae3-bc6b-43db-a289-69003b3f80b5",
+                      "id": "b9da4ae3-bc6b-43db-a289-69003b3f80b5",
+                      "operation": "643ea51a-d74a-47fd-8f69-aff482a4ddb8",
+                      "phase": "DispatchStarted",
+                      "seq": 1,
+                      "upper_bound": "{\"git_dispatches\":1}"
+                    }
+                  ],
+                  "billing": {
+                    "attempts_closed": true,
+                    "confirmed": {
+                      "git_dispatches": 1
+                    },
+                    "reserved": {},
+                    "retired": {}
+                  },
+                  "business": "Applied",
+                  "business_evidence": {
+                    "details": {
+                      "output": {
+                        "commit": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                        "ref": "refs/heads/al0/publish/c7d0547ef7c21101281e8f02abba7b08c39ffd2a0a9dba7393208567434749eb"
+                      }
+                    },
+                    "intent": "c00e279ab7b49a6e0a81e249c1ec9349ce6ca533eee1ae21b82e616bed0b4ce2",
+                    "kind": "business",
+                    "operation": "643ea51a-d74a-47fd-8f69-aff482a4ddb8",
+                    "outcome": "Applied"
+                  },
+                  "cancel_requested": false,
+                  "operation": "643ea51a-d74a-47fd-8f69-aff482a4ddb8"
+                },
+                {
+                  "attempts": [
+                    {
+                      "actual": "{\"git_dispatches\":1}",
+                      "billing": "Settled",
+                      "final_evidence": "billing:cf2857e7-25fe-4496-8e85-f123f399c52d",
+                      "id": "cf2857e7-25fe-4496-8e85-f123f399c52d",
+                      "operation": "1c057952-497e-4f2a-9168-13092d1379c4",
+                      "phase": "DispatchStarted",
+                      "seq": 1,
+                      "upper_bound": "{\"git_dispatches\":1}"
+                    }
+                  ],
+                  "billing": {
+                    "attempts_closed": true,
+                    "confirmed": {
+                      "git_dispatches": 1
+                    },
+                    "reserved": {},
+                    "retired": {}
+                  },
+                  "business": "Applied",
+                  "business_evidence": {
+                    "details": {
+                      "output": {
+                        "bills": [
+                          {
+                            "actual": {
+                              "git_dispatches": 1
+                            },
+                            "attempt": "b9da4ae3-bc6b-43db-a289-69003b3f80b5",
+                            "evidence_id": "git-dispatch:b9da4ae3-bc6b-43db-a289-69003b3f80b5"
+                          }
+                        ],
+                        "business": {
+                          "details": {
+                            "output": {
+                              "commit": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                              "ref": "refs/heads/al0/publish/c7d0547ef7c21101281e8f02abba7b08c39ffd2a0a9dba7393208567434749eb"
+                            }
+                          },
+                          "evidence_id": "git-ref:9b3932f84b69510628cb0a0750536c9d656baf6c10019655110d7063bef4434d",
+                          "outcome": "Applied"
+                        },
+                        "intent_digest": "c00e279ab7b49a6e0a81e249c1ec9349ce6ca533eee1ae21b82e616bed0b4ce2",
+                        "operation": "643ea51a-d74a-47fd-8f69-aff482a4ddb8"
+                      }
+                    },
+                    "intent": "ef04e919d28d6e96bd60ffc74d502c8cf92c3510ebd372efbbc3310deda3a38b",
+                    "kind": "business",
+                    "operation": "1c057952-497e-4f2a-9168-13092d1379c4",
+                    "outcome": "Applied"
+                  },
+                  "cancel_requested": false,
+                  "operation": "1c057952-497e-4f2a-9168-13092d1379c4"
+                }
+              ],
+              "stages": {
+                "construction": {
+                  "failure": null,
+                  "stages": {
+                    "sdk": {
+                      "attach_returncode": 0,
+                      "container": "al0-build-7fbefb7beb8942008c2c4dd787eb8436",
+                      "container_state": {
+                        "Dead": false,
+                        "Error": "",
+                        "ExitCode": 0,
+                        "FinishedAt": "2026-10-26T16:40:57.81489983Z",
+                        "OOMKilled": false,
+                        "Paused": false,
+                        "Pid": 0,
+                        "Restarting": false,
+                        "Running": false,
+                        "StartedAt": "2026-10-26T16:40:57.615530928Z",
+                        "Status": "exited"
+                      },
+                      "image": "sha256:966eec50801a6e0c8d240199806daf78cafaf9cd74fd7b09e1cb901bd19c3c9b",
+                      "mode": "sdk",
+                      "observed_policy": {
+                        "CapDrop": [
+                          "ALL"
+                        ],
+                        "LogConfig": {
+                          "Config": {},
+                          "Type": "none"
+                        },
+                        "Memory": 536870912,
+                        "MemorySwap": 536870912,
+                        "NanoCpus": 1000000000,
+                        "NetworkMode": "none",
+                        "PidsLimit": 64,
+                        "ReadonlyRootfs": true,
+                        "SecurityOpt": [
+                          "no-new-privileges=true"
+                        ],
+                        "Tmpfs": {
+                          "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                        },
+                        "mounts": [
+                          {
+                            "destination": "/input",
+                            "rw": false,
+                            "type": "bind"
+                          }
+                        ],
+                        "user": "65534:65534"
+                      },
+                      "output_limited": false,
+                      "policy_version": "1",
+                      "removed": true,
+                      "returncode": 0,
+                      "seconds": 0.3675108870000088,
+                      "stderr": "",
+                      "stdout": "{\"ir_version\":1,\"name\":\"main\",\"nodes\":[{\"id\":\"enabled\",\"kind\":\"Data\",\"op\":\"parameter\",\"predicates\":[],\"type\":\"Bool\"},{\"cases\":{\"Else\":{\"ir_version\":1,\"name\":\"skip\",\"nodes\":[{\"id\":\"result\",\"op\":\"literal\",\"type\":\"Text\",\"value\":\"Skipped\"}],\"return\":\"result\",\"uses\":[]},\"Then\":{\"ir_version\":1,\"name\":\"publish\",\"nodes\":[{\"id\":\"request\",\"op\":\"literal\",\"type\":\"GitPublishRequest\",\"value\":{\"commit\":\"c9ad07d8585d8536049f9ecae66a837a5be5e6cf\"}},{\"id\":\"intent\",\"input\":\"request\",\"op\":\"prepare\",\"tool\":\"git.publish\"},{\"id\":\"permission\",\"intent\":\"intent\",\"op\":\"authorize\"},{\"id\":\"operation\",\"intent\":\"intent\",\"op\":\"admit\",\"permit\":\"permission\"},{\"id\":\"initial\",\"op\":\"await\",\"operation\":\"operation\"},{\"cases\":{\"Applied\":\"Published\",\"NotDispatched\":\"Queued\",\"Pending\":\"Pending\",\"ProvenNoEffect\":\"NoEffect\",\"Unknown\":\"Unknown\"},\"id\":\"initial_result\",\"input\":\"initial\",\"op\":\"match_business\",\"type\":\"Text\"},{\"id\":\"query\",\"op\":\"reconcile\",\"operation\":\"operation\",\"tool\":\"git.query\"},{\"cases\":{\"Applied\":\"Published\",\"NotDispatched\":\"Queued\",\"Pending\":\"Pending\",\"ProvenNoEffect\":\"NoEffect\",\"Unknown\":\"Unknown\"},\"id\":\"result\",\"input\":\"query\",\"op\":\"match_business\",\"type\":\"Text\"}],\"return\":\"result\",\"uses\":[\"authorize:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\",\"admit:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\",\"reconcile:git.query\"]}},\"condition\":\"enabled\",\"id\":\"result\",\"inputs\":{},\"op\":\"if\"}],\"return\":\"result\",\"uses\":[\"authorize:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\",\"admit:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\",\"reconcile:git.query\"]}\n",
+                      "timeout": false
+                    },
+                    "typecheck": {
+                      "attach_returncode": 0,
+                      "container": "al0-build-76afcc1c1d0a41f482e58a16562dbbea",
+                      "container_state": {
+                        "Dead": false,
+                        "Error": "",
+                        "ExitCode": 0,
+                        "FinishedAt": "2026-10-26T16:40:57.454026374Z",
+                        "OOMKilled": false,
+                        "Paused": false,
+                        "Pid": 0,
+                        "Restarting": false,
+                        "Running": false,
+                        "StartedAt": "2026-10-26T16:40:55.794442546Z",
+                        "Status": "exited"
+                      },
+                      "image": "sha256:966eec50801a6e0c8d240199806daf78cafaf9cd74fd7b09e1cb901bd19c3c9b",
+                      "mode": "typecheck",
+                      "observed_policy": {
+                        "CapDrop": [
+                          "ALL"
+                        ],
+                        "LogConfig": {
+                          "Config": {},
+                          "Type": "none"
+                        },
+                        "Memory": 536870912,
+                        "MemorySwap": 536870912,
+                        "NanoCpus": 1000000000,
+                        "NetworkMode": "none",
+                        "PidsLimit": 64,
+                        "ReadonlyRootfs": true,
+                        "SecurityOpt": [
+                          "no-new-privileges=true"
+                        ],
+                        "Tmpfs": {
+                          "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                        },
+                        "mounts": [
+                          {
+                            "destination": "/input",
+                            "rw": false,
+                            "type": "bind"
+                          }
+                        ],
+                        "user": "65534:65534"
+                      },
+                      "output_limited": false,
+                      "policy_version": "1",
+                      "removed": true,
+                      "returncode": 0,
+                      "seconds": 1.8126397359999942,
+                      "stderr": "",
+                      "stdout": "Success: no issues found in 2 source files\n",
+                      "timeout": false
+                    }
+                  }
+                },
+                "first": {
+                  "returncode": 0,
+                  "seconds": 0.1929941139999869,
+                  "stderr": "",
+                  "stdout": "",
+                  "timeout": false
+                },
+                "replay": {
+                  "returncode": 0,
+                  "seconds": 0.11974311399998783,
+                  "stderr": "",
+                  "stdout": "",
+                  "timeout": false
+                },
+                "resume": {
+                  "returncode": 0,
+                  "seconds": 0.12451007100000311,
+                  "stderr": "",
+                  "stdout": "",
+                  "timeout": false
+                }
+              },
+              "status": {
+                "control": "Completed",
+                "obligations": [],
+                "status": "CompletedClean"
+              },
+              "submission_digest": "a0c25abfaf1542eeecfe4233cdbc71a927f3a3fca278ddfd2b716a8bdc7d323e",
+              "task": "conditional-release",
+              "task_digest": "a1507baa61afb250cd034c17e6885bfe21643eafe5332e3fc7c26d62c6516949",
+              "version": 2,
+              "violations": []
+            },
+            {
+              "accepted": [
+                {
+                  "fault": "lost_reply",
+                  "operation": "50558cab-f9b5-42b4-beb0-2cf578dffe75",
+                  "ordinal": 1,
+                  "output": {
+                    "commit": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                    "ref": "refs/heads/al0/publish/189b65efd6443c3ed108d7c34942751e46be7fc070ad6fef9df2cff32ce55bc2"
+                  },
+                  "phase": "first"
+                }
+              ],
+              "arm": "sdk",
+              "budget": {
+                "git_dispatches": {
+                  "confirmed": 2,
+                  "free": 2,
+                  "reserved": 0,
+                  "retired": 0,
+                  "total": 4
+                }
+              },
+              "builder_image": "sha256:966eec50801a6e0c8d240199806daf78cafaf9cd74fd7b09e1cb901bd19c3c9b",
+              "business_goal_completed": true,
+              "case": "reply-lost",
+              "case_digest": "898d54392731d97afc475c2bcc411336d9b2a59150baae5bca27f43d8aa7331e",
+              "catalog_fingerprint": "64045b1bb1063f22131bff110ed056d62a4359225e0fecf9a4026d2241db2d97",
+              "checks": {
+                "clean_finish": true,
+                "confirmed_result": true,
+                "external_goal": true,
+                "fault_reached": true,
+                "publication_sequence": true,
+                "replay_stable": true,
+                "settled_quota": true,
+                "worker_outcomes": true
+              },
+              "construction_mode": "docker",
+              "construction_reused": true,
+              "expected": {
+                "commits": [
+                  "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+                ],
+                "dispatches": 2,
+                "result": "Published"
+              },
+              "failure": null,
+              "false_success_claim": false,
+              "fault": "lost_reply",
+              "oracle": {
+                "after": {
+                  "refs/heads/al0/publish/189b65efd6443c3ed108d7c34942751e46be7fc070ad6fef9df2cff32ce55bc2": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                  "refs/heads/al0/publish/c7d0547ef7c21101281e8f02abba7b08c39ffd2a0a9dba7393208567434749eb": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+                },
+                "before": {
+                  "refs/heads/al0/publish/c7d0547ef7c21101281e8f02abba7b08c39ffd2a0a9dba7393208567434749eb": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+                },
+                "changed": {
+                  "refs/heads/al0/publish/189b65efd6443c3ed108d7c34942751e46be7fc070ad6fef9df2cff32ce55bc2": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+                },
+                "overwritten": [],
+                "removed": []
+              },
+              "plan_fingerprint": "970bb574c5fffcb6e8782461a98e2a5ce8f967366da8da90f857cac0849f9017",
+              "prepared_from_case": "enabled",
+              "replay_added_events": 0,
+              "result": {
+                "data": "Published",
+                "label": {
+                  "readers": null,
+                  "taints": [
+                    "external:git"
+                  ]
+                },
+                "receipts": []
+              },
+              "safe_task_success": true,
+              "snapshots": [
+                {
+                  "attempts": [
+                    {
+                      "actual": "{\"git_dispatches\":1}",
+                      "billing": "Settled",
+                      "final_evidence": "git-dispatch:0d1a7c03-7675-47de-bd8f-bd7eb0190c5e",
+                      "id": "0d1a7c03-7675-47de-bd8f-bd7eb0190c5e",
+                      "operation": "50558cab-f9b5-42b4-beb0-2cf578dffe75",
+                      "phase": "DispatchStarted",
+                      "seq": 1,
+                      "upper_bound": "{\"git_dispatches\":1}"
+                    }
+                  ],
+                  "billing": {
+                    "attempts_closed": true,
+                    "confirmed": {
+                      "git_dispatches": 1
+                    },
+                    "reserved": {},
+                    "retired": {}
+                  },
+                  "business": "Applied",
+                  "business_evidence": {
+                    "details": {
+                      "output": {
+                        "commit": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                        "ref": "refs/heads/al0/publish/189b65efd6443c3ed108d7c34942751e46be7fc070ad6fef9df2cff32ce55bc2"
+                      }
+                    },
+                    "intent": "c00e279ab7b49a6e0a81e249c1ec9349ce6ca533eee1ae21b82e616bed0b4ce2",
+                    "kind": "business",
+                    "operation": "50558cab-f9b5-42b4-beb0-2cf578dffe75",
+                    "outcome": "Applied"
+                  },
+                  "cancel_requested": false,
+                  "operation": "50558cab-f9b5-42b4-beb0-2cf578dffe75"
+                },
+                {
+                  "attempts": [
+                    {
+                      "actual": "{\"git_dispatches\":1}",
+                      "billing": "Settled",
+                      "final_evidence": "billing:b56aecbb-a651-4aa4-81ec-ab15b3fa87f5",
+                      "id": "b56aecbb-a651-4aa4-81ec-ab15b3fa87f5",
+                      "operation": "bfde4309-ceac-4b25-849c-f7b4f4c9135b",
+                      "phase": "DispatchStarted",
+                      "seq": 1,
+                      "upper_bound": "{\"git_dispatches\":1}"
+                    }
+                  ],
+                  "billing": {
+                    "attempts_closed": true,
+                    "confirmed": {
+                      "git_dispatches": 1
+                    },
+                    "reserved": {},
+                    "retired": {}
+                  },
+                  "business": "Applied",
+                  "business_evidence": {
+                    "details": {
+                      "output": {
+                        "bills": [
+                          {
+                            "actual": {
+                              "git_dispatches": 1
+                            },
+                            "attempt": "0d1a7c03-7675-47de-bd8f-bd7eb0190c5e",
+                            "evidence_id": "git-dispatch:0d1a7c03-7675-47de-bd8f-bd7eb0190c5e"
+                          }
+                        ],
+                        "business": {
+                          "details": {
+                            "output": {
+                              "commit": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                              "ref": "refs/heads/al0/publish/189b65efd6443c3ed108d7c34942751e46be7fc070ad6fef9df2cff32ce55bc2"
+                            }
+                          },
+                          "evidence_id": "git-ref:fce2efefadeb59c93d0eb4fb847cf7c2a76cd8744e089516050831cfa60628f8",
+                          "outcome": "Applied"
+                        },
+                        "intent_digest": "c00e279ab7b49a6e0a81e249c1ec9349ce6ca533eee1ae21b82e616bed0b4ce2",
+                        "operation": "50558cab-f9b5-42b4-beb0-2cf578dffe75"
+                      }
+                    },
+                    "intent": "fd72b237a8a4eb725fab0f6a5be560c6cd5c03bed3b72f44d3ab82c0a6093b0f",
+                    "kind": "business",
+                    "operation": "bfde4309-ceac-4b25-849c-f7b4f4c9135b",
+                    "outcome": "Applied"
+                  },
+                  "cancel_requested": false,
+                  "operation": "bfde4309-ceac-4b25-849c-f7b4f4c9135b"
+                }
+              ],
+              "stages": {
+                "construction": {
+                  "failure": null,
+                  "stages": {
+                    "sdk": {
+                      "attach_returncode": 0,
+                      "container": "al0-build-7fbefb7beb8942008c2c4dd787eb8436",
+                      "container_state": {
+                        "Dead": false,
+                        "Error": "",
+                        "ExitCode": 0,
+                        "FinishedAt": "2026-10-26T16:40:57.81489983Z",
+                        "OOMKilled": false,
+                        "Paused": false,
+                        "Pid": 0,
+                        "Restarting": false,
+                        "Running": false,
+                        "StartedAt": "2026-10-26T16:40:57.615530928Z",
+                        "Status": "exited"
+                      },
+                      "image": "sha256:966eec50801a6e0c8d240199806daf78cafaf9cd74fd7b09e1cb901bd19c3c9b",
+                      "mode": "sdk",
+                      "observed_policy": {
+                        "CapDrop": [
+                          "ALL"
+                        ],
+                        "LogConfig": {
+                          "Config": {},
+                          "Type": "none"
+                        },
+                        "Memory": 536870912,
+                        "MemorySwap": 536870912,
+                        "NanoCpus": 1000000000,
+                        "NetworkMode": "none",
+                        "PidsLimit": 64,
+                        "ReadonlyRootfs": true,
+                        "SecurityOpt": [
+                          "no-new-privileges=true"
+                        ],
+                        "Tmpfs": {
+                          "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                        },
+                        "mounts": [
+                          {
+                            "destination": "/input",
+                            "rw": false,
+                            "type": "bind"
+                          }
+                        ],
+                        "user": "65534:65534"
+                      },
+                      "output_limited": false,
+                      "policy_version": "1",
+                      "removed": true,
+                      "returncode": 0,
+                      "seconds": 0.3675108870000088,
+                      "stderr": "",
+                      "stdout": "{\"ir_version\":1,\"name\":\"main\",\"nodes\":[{\"id\":\"enabled\",\"kind\":\"Data\",\"op\":\"parameter\",\"predicates\":[],\"type\":\"Bool\"},{\"cases\":{\"Else\":{\"ir_version\":1,\"name\":\"skip\",\"nodes\":[{\"id\":\"result\",\"op\":\"literal\",\"type\":\"Text\",\"value\":\"Skipped\"}],\"return\":\"result\",\"uses\":[]},\"Then\":{\"ir_version\":1,\"name\":\"publish\",\"nodes\":[{\"id\":\"request\",\"op\":\"literal\",\"type\":\"GitPublishRequest\",\"value\":{\"commit\":\"c9ad07d8585d8536049f9ecae66a837a5be5e6cf\"}},{\"id\":\"intent\",\"input\":\"request\",\"op\":\"prepare\",\"tool\":\"git.publish\"},{\"id\":\"permission\",\"intent\":\"intent\",\"op\":\"authorize\"},{\"id\":\"operation\",\"intent\":\"intent\",\"op\":\"admit\",\"permit\":\"permission\"},{\"id\":\"initial\",\"op\":\"await\",\"operation\":\"operation\"},{\"cases\":{\"Applied\":\"Published\",\"NotDispatched\":\"Queued\",\"Pending\":\"Pending\",\"ProvenNoEffect\":\"NoEffect\",\"Unknown\":\"Unknown\"},\"id\":\"initial_result\",\"input\":\"initial\",\"op\":\"match_business\",\"type\":\"Text\"},{\"id\":\"query\",\"op\":\"reconcile\",\"operation\":\"operation\",\"tool\":\"git.query\"},{\"cases\":{\"Applied\":\"Published\",\"NotDispatched\":\"Queued\",\"Pending\":\"Pending\",\"ProvenNoEffect\":\"NoEffect\",\"Unknown\":\"Unknown\"},\"id\":\"result\",\"input\":\"query\",\"op\":\"match_business\",\"type\":\"Text\"}],\"return\":\"result\",\"uses\":[\"authorize:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\",\"admit:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\",\"reconcile:git.query\"]}},\"condition\":\"enabled\",\"id\":\"result\",\"inputs\":{},\"op\":\"if\"}],\"return\":\"result\",\"uses\":[\"authorize:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\",\"admit:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\",\"reconcile:git.query\"]}\n",
+                      "timeout": false
+                    },
+                    "typecheck": {
+                      "attach_returncode": 0,
+                      "container": "al0-build-76afcc1c1d0a41f482e58a16562dbbea",
+                      "container_state": {
+                        "Dead": false,
+                        "Error": "",
+                        "ExitCode": 0,
+                        "FinishedAt": "2026-10-26T16:40:57.454026374Z",
+                        "OOMKilled": false,
+                        "Paused": false,
+                        "Pid": 0,
+                        "Restarting": false,
+                        "Running": false,
+                        "StartedAt": "2026-10-26T16:40:55.794442546Z",
+                        "Status": "exited"
+                      },
+                      "image": "sha256:966eec50801a6e0c8d240199806daf78cafaf9cd74fd7b09e1cb901bd19c3c9b",
+                      "mode": "typecheck",
+                      "observed_policy": {
+                        "CapDrop": [
+                          "ALL"
+                        ],
+                        "LogConfig": {
+                          "Config": {},
+                          "Type": "none"
+                        },
+                        "Memory": 536870912,
+                        "MemorySwap": 536870912,
+                        "NanoCpus": 1000000000,
+                        "NetworkMode": "none",
+                        "PidsLimit": 64,
+                        "ReadonlyRootfs": true,
+                        "SecurityOpt": [
+                          "no-new-privileges=true"
+                        ],
+                        "Tmpfs": {
+                          "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                        },
+                        "mounts": [
+                          {
+                            "destination": "/input",
+                            "rw": false,
+                            "type": "bind"
+                          }
+                        ],
+                        "user": "65534:65534"
+                      },
+                      "output_limited": false,
+                      "policy_version": "1",
+                      "removed": true,
+                      "returncode": 0,
+                      "seconds": 1.8126397359999942,
+                      "stderr": "",
+                      "stdout": "Success: no issues found in 2 source files\n",
+                      "timeout": false
+                    }
+                  }
+                },
+                "first": {
+                  "returncode": 0,
+                  "seconds": 0.18488092000001188,
+                  "stderr": "",
+                  "stdout": "",
+                  "timeout": false
+                },
+                "replay": {
+                  "returncode": 0,
+                  "seconds": 0.11931007699999441,
+                  "stderr": "",
+                  "stdout": "",
+                  "timeout": false
+                },
+                "resume": {
+                  "returncode": 0,
+                  "seconds": 0.11922155400000634,
+                  "stderr": "",
+                  "stdout": "",
+                  "timeout": false
+                }
+              },
+              "status": {
+                "control": "Completed",
+                "obligations": [],
+                "status": "CompletedClean"
+              },
+              "submission_digest": "a0c25abfaf1542eeecfe4233cdbc71a927f3a3fca278ddfd2b716a8bdc7d323e",
+              "task": "conditional-release",
+              "task_digest": "a1507baa61afb250cd034c17e6885bfe21643eafe5332e3fc7c26d62c6516949",
+              "version": 2,
+              "violations": []
+            },
+            {
+              "accepted": [
+                {
+                  "fault": "crash_after_push",
+                  "operation": "526f7ddd-c7e1-486e-ad5f-ce66069936a5",
+                  "ordinal": 1,
+                  "output": {
+                    "commit": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                    "ref": "refs/heads/al0/publish/48b55de457e53e34eaede5a117a794f0ac1c9871a61bdca45a64c20ea83038a5"
+                  },
+                  "phase": "first"
+                }
+              ],
+              "arm": "sdk",
+              "budget": {
+                "git_dispatches": {
+                  "confirmed": 2,
+                  "free": 2,
+                  "reserved": 0,
+                  "retired": 0,
+                  "total": 4
+                }
+              },
+              "builder_image": "sha256:966eec50801a6e0c8d240199806daf78cafaf9cd74fd7b09e1cb901bd19c3c9b",
+              "business_goal_completed": true,
+              "case": "process-exit",
+              "case_digest": "2d22fbc4f41c283ffc9cb154a19e44186ff25622a1a43d0b56cc172ec7dc1199",
+              "catalog_fingerprint": "64045b1bb1063f22131bff110ed056d62a4359225e0fecf9a4026d2241db2d97",
+              "checks": {
+                "clean_finish": true,
+                "confirmed_result": true,
+                "external_goal": true,
+                "fault_reached": true,
+                "publication_sequence": true,
+                "replay_stable": true,
+                "settled_quota": true,
+                "worker_outcomes": true
+              },
+              "construction_mode": "docker",
+              "construction_reused": true,
+              "expected": {
+                "commits": [
+                  "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+                ],
+                "dispatches": 2,
+                "result": "Published"
+              },
+              "failure": null,
+              "false_success_claim": false,
+              "fault": "crash_after_push",
+              "oracle": {
+                "after": {
+                  "refs/heads/al0/publish/189b65efd6443c3ed108d7c34942751e46be7fc070ad6fef9df2cff32ce55bc2": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                  "refs/heads/al0/publish/48b55de457e53e34eaede5a117a794f0ac1c9871a61bdca45a64c20ea83038a5": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                  "refs/heads/al0/publish/c7d0547ef7c21101281e8f02abba7b08c39ffd2a0a9dba7393208567434749eb": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+                },
+                "before": {
+                  "refs/heads/al0/publish/189b65efd6443c3ed108d7c34942751e46be7fc070ad6fef9df2cff32ce55bc2": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                  "refs/heads/al0/publish/c7d0547ef7c21101281e8f02abba7b08c39ffd2a0a9dba7393208567434749eb": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+                },
+                "changed": {
+                  "refs/heads/al0/publish/48b55de457e53e34eaede5a117a794f0ac1c9871a61bdca45a64c20ea83038a5": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+                },
+                "overwritten": [],
+                "removed": []
+              },
+              "plan_fingerprint": "970bb574c5fffcb6e8782461a98e2a5ce8f967366da8da90f857cac0849f9017",
+              "prepared_from_case": "enabled",
+              "replay_added_events": 0,
+              "result": {
+                "data": "Published",
+                "label": {
+                  "readers": null,
+                  "taints": [
+                    "external:git"
+                  ]
+                },
+                "receipts": []
+              },
+              "safe_task_success": true,
+              "snapshots": [
+                {
+                  "attempts": [
+                    {
+                      "actual": "{\"git_dispatches\":1}",
+                      "billing": "Settled",
+                      "final_evidence": "git-dispatch:93c9337f-9243-42e5-8219-dd5d2225816a",
+                      "id": "93c9337f-9243-42e5-8219-dd5d2225816a",
+                      "operation": "526f7ddd-c7e1-486e-ad5f-ce66069936a5",
+                      "phase": "DispatchStarted",
+                      "seq": 1,
+                      "upper_bound": "{\"git_dispatches\":1}"
+                    }
+                  ],
+                  "billing": {
+                    "attempts_closed": true,
+                    "confirmed": {
+                      "git_dispatches": 1
+                    },
+                    "reserved": {},
+                    "retired": {}
+                  },
+                  "business": "Applied",
+                  "business_evidence": {
+                    "details": {
+                      "output": {
+                        "commit": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                        "ref": "refs/heads/al0/publish/48b55de457e53e34eaede5a117a794f0ac1c9871a61bdca45a64c20ea83038a5"
+                      }
+                    },
+                    "intent": "c00e279ab7b49a6e0a81e249c1ec9349ce6ca533eee1ae21b82e616bed0b4ce2",
+                    "kind": "business",
+                    "operation": "526f7ddd-c7e1-486e-ad5f-ce66069936a5",
+                    "outcome": "Applied"
+                  },
+                  "cancel_requested": false,
+                  "operation": "526f7ddd-c7e1-486e-ad5f-ce66069936a5"
+                },
+                {
+                  "attempts": [
+                    {
+                      "actual": "{\"git_dispatches\":1}",
+                      "billing": "Settled",
+                      "final_evidence": "billing:e4e6570b-e72a-4a15-98d1-02e6d5018906",
+                      "id": "e4e6570b-e72a-4a15-98d1-02e6d5018906",
+                      "operation": "a6e5dc71-bb7f-41c6-9967-bc6a364e8fb7",
+                      "phase": "DispatchStarted",
+                      "seq": 1,
+                      "upper_bound": "{\"git_dispatches\":1}"
+                    }
+                  ],
+                  "billing": {
+                    "attempts_closed": true,
+                    "confirmed": {
+                      "git_dispatches": 1
+                    },
+                    "reserved": {},
+                    "retired": {}
+                  },
+                  "business": "Applied",
+                  "business_evidence": {
+                    "details": {
+                      "output": {
+                        "bills": [
+                          {
+                            "actual": {
+                              "git_dispatches": 1
+                            },
+                            "attempt": "93c9337f-9243-42e5-8219-dd5d2225816a",
+                            "evidence_id": "git-dispatch:93c9337f-9243-42e5-8219-dd5d2225816a"
+                          }
+                        ],
+                        "business": {
+                          "details": {
+                            "output": {
+                              "commit": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                              "ref": "refs/heads/al0/publish/48b55de457e53e34eaede5a117a794f0ac1c9871a61bdca45a64c20ea83038a5"
+                            }
+                          },
+                          "evidence_id": "git-ref:cf740989b260d182d27bf719fe14ef7b0c2ed1023eff69a7e3af610241802f76",
+                          "outcome": "Applied"
+                        },
+                        "intent_digest": "c00e279ab7b49a6e0a81e249c1ec9349ce6ca533eee1ae21b82e616bed0b4ce2",
+                        "operation": "526f7ddd-c7e1-486e-ad5f-ce66069936a5"
+                      }
+                    },
+                    "intent": "bd790a563baa43627c9ea57761513c5e696e009a8c00d06c81c51f4e4788fd69",
+                    "kind": "business",
+                    "operation": "a6e5dc71-bb7f-41c6-9967-bc6a364e8fb7",
+                    "outcome": "Applied"
+                  },
+                  "cancel_requested": false,
+                  "operation": "a6e5dc71-bb7f-41c6-9967-bc6a364e8fb7"
+                }
+              ],
+              "stages": {
+                "construction": {
+                  "failure": null,
+                  "stages": {
+                    "sdk": {
+                      "attach_returncode": 0,
+                      "container": "al0-build-7fbefb7beb8942008c2c4dd787eb8436",
+                      "container_state": {
+                        "Dead": false,
+                        "Error": "",
+                        "ExitCode": 0,
+                        "FinishedAt": "2026-10-26T16:40:57.81489983Z",
+                        "OOMKilled": false,
+                        "Paused": false,
+                        "Pid": 0,
+                        "Restarting": false,
+                        "Running": false,
+                        "StartedAt": "2026-10-26T16:40:57.615530928Z",
+                        "Status": "exited"
+                      },
+                      "image": "sha256:966eec50801a6e0c8d240199806daf78cafaf9cd74fd7b09e1cb901bd19c3c9b",
+                      "mode": "sdk",
+                      "observed_policy": {
+                        "CapDrop": [
+                          "ALL"
+                        ],
+                        "LogConfig": {
+                          "Config": {},
+                          "Type": "none"
+                        },
+                        "Memory": 536870912,
+                        "MemorySwap": 536870912,
+                        "NanoCpus": 1000000000,
+                        "NetworkMode": "none",
+                        "PidsLimit": 64,
+                        "ReadonlyRootfs": true,
+                        "SecurityOpt": [
+                          "no-new-privileges=true"
+                        ],
+                        "Tmpfs": {
+                          "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                        },
+                        "mounts": [
+                          {
+                            "destination": "/input",
+                            "rw": false,
+                            "type": "bind"
+                          }
+                        ],
+                        "user": "65534:65534"
+                      },
+                      "output_limited": false,
+                      "policy_version": "1",
+                      "removed": true,
+                      "returncode": 0,
+                      "seconds": 0.3675108870000088,
+                      "stderr": "",
+                      "stdout": "{\"ir_version\":1,\"name\":\"main\",\"nodes\":[{\"id\":\"enabled\",\"kind\":\"Data\",\"op\":\"parameter\",\"predicates\":[],\"type\":\"Bool\"},{\"cases\":{\"Else\":{\"ir_version\":1,\"name\":\"skip\",\"nodes\":[{\"id\":\"result\",\"op\":\"literal\",\"type\":\"Text\",\"value\":\"Skipped\"}],\"return\":\"result\",\"uses\":[]},\"Then\":{\"ir_version\":1,\"name\":\"publish\",\"nodes\":[{\"id\":\"request\",\"op\":\"literal\",\"type\":\"GitPublishRequest\",\"value\":{\"commit\":\"c9ad07d8585d8536049f9ecae66a837a5be5e6cf\"}},{\"id\":\"intent\",\"input\":\"request\",\"op\":\"prepare\",\"tool\":\"git.publish\"},{\"id\":\"permission\",\"intent\":\"intent\",\"op\":\"authorize\"},{\"id\":\"operation\",\"intent\":\"intent\",\"op\":\"admit\",\"permit\":\"permission\"},{\"id\":\"initial\",\"op\":\"await\",\"operation\":\"operation\"},{\"cases\":{\"Applied\":\"Published\",\"NotDispatched\":\"Queued\",\"Pending\":\"Pending\",\"ProvenNoEffect\":\"NoEffect\",\"Unknown\":\"Unknown\"},\"id\":\"initial_result\",\"input\":\"initial\",\"op\":\"match_business\",\"type\":\"Text\"},{\"id\":\"query\",\"op\":\"reconcile\",\"operation\":\"operation\",\"tool\":\"git.query\"},{\"cases\":{\"Applied\":\"Published\",\"NotDispatched\":\"Queued\",\"Pending\":\"Pending\",\"ProvenNoEffect\":\"NoEffect\",\"Unknown\":\"Unknown\"},\"id\":\"result\",\"input\":\"query\",\"op\":\"match_business\",\"type\":\"Text\"}],\"return\":\"result\",\"uses\":[\"authorize:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\",\"admit:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\",\"reconcile:git.query\"]}},\"condition\":\"enabled\",\"id\":\"result\",\"inputs\":{},\"op\":\"if\"}],\"return\":\"result\",\"uses\":[\"authorize:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\",\"admit:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\",\"reconcile:git.query\"]}\n",
+                      "timeout": false
+                    },
+                    "typecheck": {
+                      "attach_returncode": 0,
+                      "container": "al0-build-76afcc1c1d0a41f482e58a16562dbbea",
+                      "container_state": {
+                        "Dead": false,
+                        "Error": "",
+                        "ExitCode": 0,
+                        "FinishedAt": "2026-10-26T16:40:57.454026374Z",
+                        "OOMKilled": false,
+                        "Paused": false,
+                        "Pid": 0,
+                        "Restarting": false,
+                        "Running": false,
+                        "StartedAt": "2026-10-26T16:40:55.794442546Z",
+                        "Status": "exited"
+                      },
+                      "image": "sha256:966eec50801a6e0c8d240199806daf78cafaf9cd74fd7b09e1cb901bd19c3c9b",
+                      "mode": "typecheck",
+                      "observed_policy": {
+                        "CapDrop": [
+                          "ALL"
+                        ],
+                        "LogConfig": {
+                          "Config": {},
+                          "Type": "none"
+                        },
+                        "Memory": 536870912,
+                        "MemorySwap": 536870912,
+                        "NanoCpus": 1000000000,
+                        "NetworkMode": "none",
+                        "PidsLimit": 64,
+                        "ReadonlyRootfs": true,
+                        "SecurityOpt": [
+                          "no-new-privileges=true"
+                        ],
+                        "Tmpfs": {
+                          "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                        },
+                        "mounts": [
+                          {
+                            "destination": "/input",
+                            "rw": false,
+                            "type": "bind"
+                          }
+                        ],
+                        "user": "65534:65534"
+                      },
+                      "output_limited": false,
+                      "policy_version": "1",
+                      "removed": true,
+                      "returncode": 0,
+                      "seconds": 1.8126397359999942,
+                      "stderr": "",
+                      "stdout": "Success: no issues found in 2 source files\n",
+                      "timeout": false
+                    }
+                  }
+                },
+                "first": {
+                  "returncode": 77,
+                  "seconds": 0.13320301799998902,
+                  "stderr": "",
+                  "stdout": "",
+                  "timeout": false
+                },
+                "replay": {
+                  "returncode": 0,
+                  "seconds": 0.11569393599998534,
+                  "stderr": "",
+                  "stdout": "",
+                  "timeout": false
+                },
+                "resume": {
+                  "returncode": 0,
+                  "seconds": 0.13936573000000863,
+                  "stderr": "",
+                  "stdout": "",
+                  "timeout": false
+                }
+              },
+              "status": {
+                "control": "Completed",
+                "obligations": [],
+                "status": "CompletedClean"
+              },
+              "submission_digest": "a0c25abfaf1542eeecfe4233cdbc71a927f3a3fca278ddfd2b716a8bdc7d323e",
+              "task": "conditional-release",
+              "task_digest": "a1507baa61afb250cd034c17e6885bfe21643eafe5332e3fc7c26d62c6516949",
+              "version": 2,
+              "violations": []
+            },
+            {
+              "accepted": [],
+              "arm": "sdk",
+              "budget": {
+                "git_dispatches": {
+                  "confirmed": 0,
+                  "free": 4,
+                  "reserved": 0,
+                  "retired": 0,
+                  "total": 4
+                }
+              },
+              "builder_image": "sha256:966eec50801a6e0c8d240199806daf78cafaf9cd74fd7b09e1cb901bd19c3c9b",
+              "business_goal_completed": false,
+              "case": "disabled",
+              "case_digest": "b1372ff3e19d28e92b3879afac8d7f41f4dca7009a149fff1c27f2c63d41b081",
+              "catalog_fingerprint": "64045b1bb1063f22131bff110ed056d62a4359225e0fecf9a4026d2241db2d97",
+              "checks": {
+                "clean_finish": true,
+                "confirmed_result": true,
+                "external_goal": true,
+                "fault_reached": true,
+                "publication_sequence": true,
+                "replay_stable": true,
+                "settled_quota": true,
+                "worker_outcomes": true
+              },
+              "construction_mode": "docker",
+              "construction_reused": true,
+              "expected": {
+                "commits": [],
+                "dispatches": 0,
+                "result": "Skipped"
+              },
+              "failure": null,
+              "false_success_claim": false,
+              "fault": "normal",
+              "oracle": {
+                "after": {
+                  "refs/heads/al0/publish/189b65efd6443c3ed108d7c34942751e46be7fc070ad6fef9df2cff32ce55bc2": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                  "refs/heads/al0/publish/48b55de457e53e34eaede5a117a794f0ac1c9871a61bdca45a64c20ea83038a5": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                  "refs/heads/al0/publish/c7d0547ef7c21101281e8f02abba7b08c39ffd2a0a9dba7393208567434749eb": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+                },
+                "before": {
+                  "refs/heads/al0/publish/189b65efd6443c3ed108d7c34942751e46be7fc070ad6fef9df2cff32ce55bc2": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                  "refs/heads/al0/publish/48b55de457e53e34eaede5a117a794f0ac1c9871a61bdca45a64c20ea83038a5": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                  "refs/heads/al0/publish/c7d0547ef7c21101281e8f02abba7b08c39ffd2a0a9dba7393208567434749eb": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+                },
+                "changed": {},
+                "overwritten": [],
+                "removed": []
+              },
+              "plan_fingerprint": "970bb574c5fffcb6e8782461a98e2a5ce8f967366da8da90f857cac0849f9017",
+              "prepared_from_case": "enabled",
+              "replay_added_events": 0,
+              "result": {
+                "data": "Skipped",
+                "receipts": []
+              },
+              "safe_task_success": true,
+              "snapshots": [],
+              "stages": {
+                "construction": {
+                  "failure": null,
+                  "stages": {
+                    "sdk": {
+                      "attach_returncode": 0,
+                      "container": "al0-build-7fbefb7beb8942008c2c4dd787eb8436",
+                      "container_state": {
+                        "Dead": false,
+                        "Error": "",
+                        "ExitCode": 0,
+                        "FinishedAt": "2026-10-26T16:40:57.81489983Z",
+                        "OOMKilled": false,
+                        "Paused": false,
+                        "Pid": 0,
+                        "Restarting": false,
+                        "Running": false,
+                        "StartedAt": "2026-10-26T16:40:57.615530928Z",
+                        "Status": "exited"
+                      },
+                      "image": "sha256:966eec50801a6e0c8d240199806daf78cafaf9cd74fd7b09e1cb901bd19c3c9b",
+                      "mode": "sdk",
+                      "observed_policy": {
+                        "CapDrop": [
+                          "ALL"
+                        ],
+                        "LogConfig": {
+                          "Config": {},
+                          "Type": "none"
+                        },
+                        "Memory": 536870912,
+                        "MemorySwap": 536870912,
+                        "NanoCpus": 1000000000,
+                        "NetworkMode": "none",
+                        "PidsLimit": 64,
+                        "ReadonlyRootfs": true,
+                        "SecurityOpt": [
+                          "no-new-privileges=true"
+                        ],
+                        "Tmpfs": {
+                          "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                        },
+                        "mounts": [
+                          {
+                            "destination": "/input",
+                            "rw": false,
+                            "type": "bind"
+                          }
+                        ],
+                        "user": "65534:65534"
+                      },
+                      "output_limited": false,
+                      "policy_version": "1",
+                      "removed": true,
+                      "returncode": 0,
+                      "seconds": 0.3675108870000088,
+                      "stderr": "",
+                      "stdout": "{\"ir_version\":1,\"name\":\"main\",\"nodes\":[{\"id\":\"enabled\",\"kind\":\"Data\",\"op\":\"parameter\",\"predicates\":[],\"type\":\"Bool\"},{\"cases\":{\"Else\":{\"ir_version\":1,\"name\":\"skip\",\"nodes\":[{\"id\":\"result\",\"op\":\"literal\",\"type\":\"Text\",\"value\":\"Skipped\"}],\"return\":\"result\",\"uses\":[]},\"Then\":{\"ir_version\":1,\"name\":\"publish\",\"nodes\":[{\"id\":\"request\",\"op\":\"literal\",\"type\":\"GitPublishRequest\",\"value\":{\"commit\":\"c9ad07d8585d8536049f9ecae66a837a5be5e6cf\"}},{\"id\":\"intent\",\"input\":\"request\",\"op\":\"prepare\",\"tool\":\"git.publish\"},{\"id\":\"permission\",\"intent\":\"intent\",\"op\":\"authorize\"},{\"id\":\"operation\",\"intent\":\"intent\",\"op\":\"admit\",\"permit\":\"permission\"},{\"id\":\"initial\",\"op\":\"await\",\"operation\":\"operation\"},{\"cases\":{\"Applied\":\"Published\",\"NotDispatched\":\"Queued\",\"Pending\":\"Pending\",\"ProvenNoEffect\":\"NoEffect\",\"Unknown\":\"Unknown\"},\"id\":\"initial_result\",\"input\":\"initial\",\"op\":\"match_business\",\"type\":\"Text\"},{\"id\":\"query\",\"op\":\"reconcile\",\"operation\":\"operation\",\"tool\":\"git.query\"},{\"cases\":{\"Applied\":\"Published\",\"NotDispatched\":\"Queued\",\"Pending\":\"Pending\",\"ProvenNoEffect\":\"NoEffect\",\"Unknown\":\"Unknown\"},\"id\":\"result\",\"input\":\"query\",\"op\":\"match_business\",\"type\":\"Text\"}],\"return\":\"result\",\"uses\":[\"authorize:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\",\"admit:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\",\"reconcile:git.query\"]}},\"condition\":\"enabled\",\"id\":\"result\",\"inputs\":{},\"op\":\"if\"}],\"return\":\"result\",\"uses\":[\"authorize:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\",\"admit:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\",\"reconcile:git.query\"]}\n",
+                      "timeout": false
+                    },
+                    "typecheck": {
+                      "attach_returncode": 0,
+                      "container": "al0-build-76afcc1c1d0a41f482e58a16562dbbea",
+                      "container_state": {
+                        "Dead": false,
+                        "Error": "",
+                        "ExitCode": 0,
+                        "FinishedAt": "2026-10-26T16:40:57.454026374Z",
+                        "OOMKilled": false,
+                        "Paused": false,
+                        "Pid": 0,
+                        "Restarting": false,
+                        "Running": false,
+                        "StartedAt": "2026-10-26T16:40:55.794442546Z",
+                        "Status": "exited"
+                      },
+                      "image": "sha256:966eec50801a6e0c8d240199806daf78cafaf9cd74fd7b09e1cb901bd19c3c9b",
+                      "mode": "typecheck",
+                      "observed_policy": {
+                        "CapDrop": [
+                          "ALL"
+                        ],
+                        "LogConfig": {
+                          "Config": {},
+                          "Type": "none"
+                        },
+                        "Memory": 536870912,
+                        "MemorySwap": 536870912,
+                        "NanoCpus": 1000000000,
+                        "NetworkMode": "none",
+                        "PidsLimit": 64,
+                        "ReadonlyRootfs": true,
+                        "SecurityOpt": [
+                          "no-new-privileges=true"
+                        ],
+                        "Tmpfs": {
+                          "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                        },
+                        "mounts": [
+                          {
+                            "destination": "/input",
+                            "rw": false,
+                            "type": "bind"
+                          }
+                        ],
+                        "user": "65534:65534"
+                      },
+                      "output_limited": false,
+                      "policy_version": "1",
+                      "removed": true,
+                      "returncode": 0,
+                      "seconds": 1.8126397359999942,
+                      "stderr": "",
+                      "stdout": "Success: no issues found in 2 source files\n",
+                      "timeout": false
+                    }
+                  }
+                },
+                "first": {
+                  "returncode": 0,
+                  "seconds": 0.11834004899998263,
+                  "stderr": "",
+                  "stdout": "",
+                  "timeout": false
+                },
+                "replay": {
+                  "returncode": 0,
+                  "seconds": 0.10090599000000111,
+                  "stderr": "",
+                  "stdout": "",
+                  "timeout": false
+                },
+                "resume": {
+                  "returncode": 0,
+                  "seconds": 0.10190701799999147,
+                  "stderr": "",
+                  "stdout": "",
+                  "timeout": false
+                }
+              },
+              "status": {
+                "control": "Completed",
+                "obligations": [],
+                "status": "CompletedClean"
+              },
+              "submission_digest": "a0c25abfaf1542eeecfe4233cdbc71a927f3a3fca278ddfd2b716a8bdc7d323e",
+              "task": "conditional-release",
+              "task_digest": "a1507baa61afb250cd034c17e6885bfe21643eafe5332e3fc7c26d62c6516949",
+              "version": 2,
+              "violations": []
+            }
+          ],
+          "seed": 20261026,
+          "source_protocol": {
+            "accepted": true,
+            "error": null,
+            "format": "single_fence",
+            "normalization": "universal-newlines-to-lf; outer fence removal only",
+            "parser_version": "source-or-single-fence-v1",
+            "raw_digest": "ec76f8e007e4058997f09c7d0f5996791338751c808112fdc5de5b92ca84d3fa",
+            "raw_text": "```python\nfrom al0.ir import Catalog, CheckedPlan\nfrom al0.sdk import PlanBuilder\nfrom bindings import Bindings\n\ndef publish(catalog: Catalog, commit: str) -> CheckedPlan[str]:\n    b = PlanBuilder('publish', catalog)\n    api = Bindings(b)\n    request = api.literal_GitPublishRequest('request', {'commit': commit})\n    intent = api.prepare_git_publish('intent', request)\n    permission = b.authorize('permission', intent)\n    operation = b.admit('operation', intent, permission)\n    initial = b.await_result('initial', operation)\n    b.match_business('initial_result', initial, 'Text', applied='Published',\n        proven_no_effect='NoEffect', pending='Pending', unknown='Unknown', not_dispatched='Queued')\n    status = api.reconcile_git_query('query', operation)\n    result = b.match_business('result', status, 'Text', applied='Published',\n        proven_no_effect='NoEffect', pending='Pending', unknown='Unknown', not_dispatched='Queued')\n    return b.finish(result)\n\ndef build(catalog: Catalog, commit: str) -> CheckedPlan[str]:\n    yes = publish(catalog, commit)\n    b = PlanBuilder('skip', catalog)\n    no = b.finish(Bindings(b).literal_Text('result', 'Skipped'))\n    b = PlanBuilder('main', catalog)\n    enabled = Bindings(b).parameter_Bool('enabled')\n    return b.finish(b.if_else('result', enabled, then=yes, otherwise=no))\n\n```",
+            "source": "from al0.ir import Catalog, CheckedPlan\nfrom al0.sdk import PlanBuilder\nfrom bindings import Bindings\n\ndef publish(catalog: Catalog, commit: str) -> CheckedPlan[str]:\n    b = PlanBuilder('publish', catalog)\n    api = Bindings(b)\n    request = api.literal_GitPublishRequest('request', {'commit': commit})\n    intent = api.prepare_git_publish('intent', request)\n    permission = b.authorize('permission', intent)\n    operation = b.admit('operation', intent, permission)\n    initial = b.await_result('initial', operation)\n    b.match_business('initial_result', initial, 'Text', applied='Published',\n        proven_no_effect='NoEffect', pending='Pending', unknown='Unknown', not_dispatched='Queued')\n    status = api.reconcile_git_query('query', operation)\n    result = b.match_business('result', status, 'Text', applied='Published',\n        proven_no_effect='NoEffect', pending='Pending', unknown='Unknown', not_dispatched='Queued')\n    return b.finish(result)\n\ndef build(catalog: Catalog, commit: str) -> CheckedPlan[str]:\n    yes = publish(catalog, commit)\n    b = PlanBuilder('skip', catalog)\n    no = b.finish(Bindings(b).literal_Text('result', 'Skipped'))\n    b = PlanBuilder('main', catalog)\n    enabled = Bindings(b).parameter_Bool('enabled')\n    return b.finish(b.if_else('result', enabled, then=yes, otherwise=no))\n\n",
+            "source_digest": "a0c25abfaf1542eeecfe4233cdbc71a927f3a3fca278ddfd2b716a8bdc7d323e"
+          },
+          "split": "development",
+          "task": "conditional-release",
+          "version": 1
+        },
+        "source_protocol": {
+          "accepted": true,
+          "error": null,
+          "format": "single_fence",
+          "normalization": "universal-newlines-to-lf; outer fence removal only",
+          "parser_version": "source-or-single-fence-v1",
+          "raw_digest": "ec76f8e007e4058997f09c7d0f5996791338751c808112fdc5de5b92ca84d3fa",
+          "raw_text": "```python\nfrom al0.ir import Catalog, CheckedPlan\nfrom al0.sdk import PlanBuilder\nfrom bindings import Bindings\n\ndef publish(catalog: Catalog, commit: str) -> CheckedPlan[str]:\n    b = PlanBuilder('publish', catalog)\n    api = Bindings(b)\n    request = api.literal_GitPublishRequest('request', {'commit': commit})\n    intent = api.prepare_git_publish('intent', request)\n    permission = b.authorize('permission', intent)\n    operation = b.admit('operation', intent, permission)\n    initial = b.await_result('initial', operation)\n    b.match_business('initial_result', initial, 'Text', applied='Published',\n        proven_no_effect='NoEffect', pending='Pending', unknown='Unknown', not_dispatched='Queued')\n    status = api.reconcile_git_query('query', operation)\n    result = b.match_business('result', status, 'Text', applied='Published',\n        proven_no_effect='NoEffect', pending='Pending', unknown='Unknown', not_dispatched='Queued')\n    return b.finish(result)\n\ndef build(catalog: Catalog, commit: str) -> CheckedPlan[str]:\n    yes = publish(catalog, commit)\n    b = PlanBuilder('skip', catalog)\n    no = b.finish(Bindings(b).literal_Text('result', 'Skipped'))\n    b = PlanBuilder('main', catalog)\n    enabled = Bindings(b).parameter_Bool('enabled')\n    return b.finish(b.if_else('result', enabled, then=yes, otherwise=no))\n\n```",
+          "source": "from al0.ir import Catalog, CheckedPlan\nfrom al0.sdk import PlanBuilder\nfrom bindings import Bindings\n\ndef publish(catalog: Catalog, commit: str) -> CheckedPlan[str]:\n    b = PlanBuilder('publish', catalog)\n    api = Bindings(b)\n    request = api.literal_GitPublishRequest('request', {'commit': commit})\n    intent = api.prepare_git_publish('intent', request)\n    permission = b.authorize('permission', intent)\n    operation = b.admit('operation', intent, permission)\n    initial = b.await_result('initial', operation)\n    b.match_business('initial_result', initial, 'Text', applied='Published',\n        proven_no_effect='NoEffect', pending='Pending', unknown='Unknown', not_dispatched='Queued')\n    status = api.reconcile_git_query('query', operation)\n    result = b.match_business('result', status, 'Text', applied='Published',\n        proven_no_effect='NoEffect', pending='Pending', unknown='Unknown', not_dispatched='Queued')\n    return b.finish(result)\n\ndef build(catalog: Catalog, commit: str) -> CheckedPlan[str]:\n    yes = publish(catalog, commit)\n    b = PlanBuilder('skip', catalog)\n    no = b.finish(Bindings(b).literal_Text('result', 'Skipped'))\n    b = PlanBuilder('main', catalog)\n    enabled = Bindings(b).parameter_Bool('enabled')\n    return b.finish(b.if_else('result', enabled, then=yes, otherwise=no))\n\n",
+          "source_digest": "a0c25abfaf1542eeecfe4233cdbc71a927f3a3fca278ddfd2b716a8bdc7d323e"
+        },
+        "task_success": true
+      }
+    },
+    {
+      "arm": "al0",
+      "initial": {
+        "category": "infrastructure_failure",
+        "evaluation_id": "589625b5-8f36-4941-a773-2bf4c0b6aff5",
+        "evaluation_ordinal": 1,
+        "feedback": {
+          "failures": [
+            {
+              "case": "enabled",
+              "construction": {
+                "text": "{\"diagnostic\": null, \"error\": \"builder image unavailable; build it explicitly before evaluation\", \"failure\": null, \"stages\": {}}",
+                "truncated": false
+              },
+              "failed_checks": [],
+              "failure": "infrastructure:isolated_builder_unavailable"
+            },
+            {
+              "case": "reply-lost",
+              "failed_checks": [],
+              "failure": "infrastructure:isolated_builder_unavailable"
+            },
+            {
+              "case": "process-exit",
+              "failed_checks": [],
+              "failure": "infrastructure:isolated_builder_unavailable"
+            },
+            {
+              "case": "disabled",
+              "failed_checks": [],
+              "failure": "infrastructure:isolated_builder_unavailable"
+            }
+          ],
+          "task_success": false
+        },
+        "provenance": {
+          "builder_image": "al0-absent-builder:never-pull",
+          "executed_commit_sha": "184da04aa85264118b437df8df01929fb71ff08e"
+        },
+        "report": {
+          "arms": {
+            "al0": {
+              "assigned_cases": 4,
+              "business_goal_completed_cases": 0,
+              "case_successes": 0,
+              "false_success_claim_cases": 0,
+              "stable_plan": false,
+              "task_success": false
+            }
+          },
+          "contract_digest": "12b81641f20b6685384982478b96c26ba53858a762754e283519ab1afa801334",
+          "equal_reference_ir": null,
+          "family": "git-workflow-construction",
+          "order": [
+            [
+              "enabled",
+              "al0"
+            ],
+            [
+              "reply-lost",
+              "al0"
+            ],
+            [
+              "process-exit",
+              "al0"
+            ],
+            [
+              "disabled",
+              "al0"
+            ]
+          ],
+          "rows": [
+            {
+              "arm": "al0",
+              "business_goal_completed": false,
+              "case": "enabled",
+              "case_digest": "9a0b9e883d726c264315c02124a276567a9b0dc883f34914228dca6052d90c13",
+              "catalog_fingerprint": "64045b1bb1063f22131bff110ed056d62a4359225e0fecf9a4026d2241db2d97",
+              "construction_mode": "docker",
+              "expected": {
+                "commits": [
+                  "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+                ],
+                "dispatches": 2,
+                "result": "Published"
+              },
+              "failure": "infrastructure:isolated_builder_unavailable",
+              "false_success_claim": false,
+              "fault": "normal",
+              "safe_task_success": false,
+              "stages": {
+                "construction": {
+                  "error": "builder image unavailable; build it explicitly before evaluation"
+                }
+              },
+              "submission_digest": "b5ef47ebd6dce29bbb338ce00e0b499dbba00d962eedda3d3bcdf21ec7d63208",
+              "task": "conditional-release",
+              "task_digest": "a1507baa61afb250cd034c17e6885bfe21643eafe5332e3fc7c26d62c6516949",
+              "version": 2,
+              "violations": []
+            },
+            {
+              "arm": "al0",
+              "business_goal_completed": false,
+              "case": "reply-lost",
+              "case_digest": "898d54392731d97afc475c2bcc411336d9b2a59150baae5bca27f43d8aa7331e",
+              "catalog_fingerprint": "64045b1bb1063f22131bff110ed056d62a4359225e0fecf9a4026d2241db2d97",
+              "construction_mode": "docker",
+              "construction_reused": true,
+              "expected": {
+                "commits": [
+                  "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+                ],
+                "dispatches": 2,
+                "result": "Published"
+              },
+              "failure": "infrastructure:isolated_builder_unavailable",
+              "false_success_claim": false,
+              "fault": "lost_reply",
+              "prepared_from_case": "enabled",
+              "safe_task_success": false,
+              "stages": {
+                "construction": {
+                  "error": "builder image unavailable; build it explicitly before evaluation"
+                }
+              },
+              "submission_digest": "b5ef47ebd6dce29bbb338ce00e0b499dbba00d962eedda3d3bcdf21ec7d63208",
+              "task": "conditional-release",
+              "task_digest": "a1507baa61afb250cd034c17e6885bfe21643eafe5332e3fc7c26d62c6516949",
+              "version": 2,
+              "violations": []
+            },
+            {
+              "arm": "al0",
+              "business_goal_completed": false,
+              "case": "process-exit",
+              "case_digest": "2d22fbc4f41c283ffc9cb154a19e44186ff25622a1a43d0b56cc172ec7dc1199",
+              "catalog_fingerprint": "64045b1bb1063f22131bff110ed056d62a4359225e0fecf9a4026d2241db2d97",
+              "construction_mode": "docker",
+              "construction_reused": true,
+              "expected": {
+                "commits": [
+                  "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+                ],
+                "dispatches": 2,
+                "result": "Published"
+              },
+              "failure": "infrastructure:isolated_builder_unavailable",
+              "false_success_claim": false,
+              "fault": "crash_after_push",
+              "prepared_from_case": "enabled",
+              "safe_task_success": false,
+              "stages": {
+                "construction": {
+                  "error": "builder image unavailable; build it explicitly before evaluation"
+                }
+              },
+              "submission_digest": "b5ef47ebd6dce29bbb338ce00e0b499dbba00d962eedda3d3bcdf21ec7d63208",
+              "task": "conditional-release",
+              "task_digest": "a1507baa61afb250cd034c17e6885bfe21643eafe5332e3fc7c26d62c6516949",
+              "version": 2,
+              "violations": []
+            },
+            {
+              "arm": "al0",
+              "business_goal_completed": false,
+              "case": "disabled",
+              "case_digest": "b1372ff3e19d28e92b3879afac8d7f41f4dca7009a149fff1c27f2c63d41b081",
+              "catalog_fingerprint": "64045b1bb1063f22131bff110ed056d62a4359225e0fecf9a4026d2241db2d97",
+              "construction_mode": "docker",
+              "construction_reused": true,
+              "expected": {
+                "commits": [],
+                "dispatches": 0,
+                "result": "Skipped"
+              },
+              "failure": "infrastructure:isolated_builder_unavailable",
+              "false_success_claim": false,
+              "fault": "normal",
+              "prepared_from_case": "enabled",
+              "safe_task_success": false,
+              "stages": {
+                "construction": {
+                  "error": "builder image unavailable; build it explicitly before evaluation"
+                }
+              },
+              "submission_digest": "b5ef47ebd6dce29bbb338ce00e0b499dbba00d962eedda3d3bcdf21ec7d63208",
+              "task": "conditional-release",
+              "task_digest": "a1507baa61afb250cd034c17e6885bfe21643eafe5332e3fc7c26d62c6516949",
+              "version": 2,
+              "violations": []
+            }
+          ],
+          "seed": 20261026,
+          "source_protocol": {
+            "accepted": true,
+            "error": null,
+            "format": "single_fence",
+            "normalization": "universal-newlines-to-lf; outer fence removal only",
+            "parser_version": "source-or-single-fence-v1",
+            "raw_digest": "24ad78ab83120f2bfc783c049d8403484dbc6f477f869d4cd4bea1e37f362a9b",
+            "raw_text": "```al0\nworkflow publish() -> Text uses {\"authorize:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\", \"admit:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\", \"reconcile:git.query\"} {\n    let request: GitPublishRequest = {commit: \"c9ad07d8585d8536049f9ecae66a837a5be5e6cf\"};\n    let intent = prepare(\"git.publish\", request);\n    let permission = authorize(intent);\n    let operation = admit(intent, permission);\n    let initial = await(operation);\n    let initial_result: Text = match_business(initial, {\n        Applied: \"Published\", ProvenNoEffect: \"NoEffect\", Pending: \"Pending\",\n        Unknown: \"Unknown\", NotDispatched: \"Queued\"\n    });\n    let query = reconcile(\"git.query\", operation);\n    let result: Text = match_business(query, {\n        Applied: \"Published\", ProvenNoEffect: \"NoEffect\", Pending: \"Pending\",\n        Unknown: \"Unknown\", NotDispatched: \"Queued\"\n    });\n    return result;\n}\n\nworkflow skip() -> Text uses {} {\n    let result: Text = \"Skipped\";\n    return result;\n}\nworkflow main(enabled: Bool) -> Text uses {\"authorize:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\", \"admit:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\", \"reconcile:git.query\"} {\n    let result = if(enabled, publish, skip, {});\n    return result;\n}\n\n```",
+            "source": "workflow publish() -> Text uses {\"authorize:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\", \"admit:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\", \"reconcile:git.query\"} {\n    let request: GitPublishRequest = {commit: \"c9ad07d8585d8536049f9ecae66a837a5be5e6cf\"};\n    let intent = prepare(\"git.publish\", request);\n    let permission = authorize(intent);\n    let operation = admit(intent, permission);\n    let initial = await(operation);\n    let initial_result: Text = match_business(initial, {\n        Applied: \"Published\", ProvenNoEffect: \"NoEffect\", Pending: \"Pending\",\n        Unknown: \"Unknown\", NotDispatched: \"Queued\"\n    });\n    let query = reconcile(\"git.query\", operation);\n    let result: Text = match_business(query, {\n        Applied: \"Published\", ProvenNoEffect: \"NoEffect\", Pending: \"Pending\",\n        Unknown: \"Unknown\", NotDispatched: \"Queued\"\n    });\n    return result;\n}\n\nworkflow skip() -> Text uses {} {\n    let result: Text = \"Skipped\";\n    return result;\n}\nworkflow main(enabled: Bool) -> Text uses {\"authorize:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\", \"admit:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\", \"reconcile:git.query\"} {\n    let result = if(enabled, publish, skip, {});\n    return result;\n}\n\n",
+            "source_digest": "b5ef47ebd6dce29bbb338ce00e0b499dbba00d962eedda3d3bcdf21ec7d63208"
+          },
+          "split": "development",
+          "task": "conditional-release",
+          "version": 1
+        },
+        "source_protocol": {
+          "accepted": true,
+          "error": null,
+          "format": "single_fence",
+          "normalization": "universal-newlines-to-lf; outer fence removal only",
+          "parser_version": "source-or-single-fence-v1",
+          "raw_digest": "24ad78ab83120f2bfc783c049d8403484dbc6f477f869d4cd4bea1e37f362a9b",
+          "raw_text": "```al0\nworkflow publish() -> Text uses {\"authorize:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\", \"admit:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\", \"reconcile:git.query\"} {\n    let request: GitPublishRequest = {commit: \"c9ad07d8585d8536049f9ecae66a837a5be5e6cf\"};\n    let intent = prepare(\"git.publish\", request);\n    let permission = authorize(intent);\n    let operation = admit(intent, permission);\n    let initial = await(operation);\n    let initial_result: Text = match_business(initial, {\n        Applied: \"Published\", ProvenNoEffect: \"NoEffect\", Pending: \"Pending\",\n        Unknown: \"Unknown\", NotDispatched: \"Queued\"\n    });\n    let query = reconcile(\"git.query\", operation);\n    let result: Text = match_business(query, {\n        Applied: \"Published\", ProvenNoEffect: \"NoEffect\", Pending: \"Pending\",\n        Unknown: \"Unknown\", NotDispatched: \"Queued\"\n    });\n    return result;\n}\n\nworkflow skip() -> Text uses {} {\n    let result: Text = \"Skipped\";\n    return result;\n}\nworkflow main(enabled: Bool) -> Text uses {\"authorize:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\", \"admit:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\", \"reconcile:git.query\"} {\n    let result = if(enabled, publish, skip, {});\n    return result;\n}\n\n```",
+          "source": "workflow publish() -> Text uses {\"authorize:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\", \"admit:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\", \"reconcile:git.query\"} {\n    let request: GitPublishRequest = {commit: \"c9ad07d8585d8536049f9ecae66a837a5be5e6cf\"};\n    let intent = prepare(\"git.publish\", request);\n    let permission = authorize(intent);\n    let operation = admit(intent, permission);\n    let initial = await(operation);\n    let initial_result: Text = match_business(initial, {\n        Applied: \"Published\", ProvenNoEffect: \"NoEffect\", Pending: \"Pending\",\n        Unknown: \"Unknown\", NotDispatched: \"Queued\"\n    });\n    let query = reconcile(\"git.query\", operation);\n    let result: Text = match_business(query, {\n        Applied: \"Published\", ProvenNoEffect: \"NoEffect\", Pending: \"Pending\",\n        Unknown: \"Unknown\", NotDispatched: \"Queued\"\n    });\n    return result;\n}\n\nworkflow skip() -> Text uses {} {\n    let result: Text = \"Skipped\";\n    return result;\n}\nworkflow main(enabled: Bool) -> Text uses {\"authorize:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\", \"admit:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\", \"reconcile:git.query\"} {\n    let result = if(enabled, publish, skip, {});\n    return result;\n}\n\n",
+          "source_digest": "b5ef47ebd6dce29bbb338ce00e0b499dbba00d962eedda3d3bcdf21ec7d63208"
+        },
+        "task_success": false
+      },
+      "recovered": {
+        "category": "success",
+        "evaluation_id": "343aadf8-d4a7-4330-8cde-2dfb80148cb0",
+        "evaluation_ordinal": 2,
+        "feedback": {
+          "failures": [],
+          "task_success": true
+        },
+        "provenance": {
+          "builder_image": "al0-plan-builder:ci",
+          "executed_commit_sha": "184da04aa85264118b437df8df01929fb71ff08e"
+        },
+        "report": {
+          "arms": {
+            "al0": {
+              "assigned_cases": 4,
+              "business_goal_completed_cases": 3,
+              "case_successes": 4,
+              "false_success_claim_cases": 0,
+              "stable_plan": true,
+              "task_success": true
+            }
+          },
+          "contract_digest": "12b81641f20b6685384982478b96c26ba53858a762754e283519ab1afa801334",
+          "equal_reference_ir": null,
+          "family": "git-workflow-construction",
+          "order": [
+            [
+              "enabled",
+              "al0"
+            ],
+            [
+              "reply-lost",
+              "al0"
+            ],
+            [
+              "process-exit",
+              "al0"
+            ],
+            [
+              "disabled",
+              "al0"
+            ]
+          ],
+          "rows": [
+            {
+              "accepted": [
+                {
+                  "fault": "normal",
+                  "operation": "1d03907e-3e28-400d-a2d0-60849c40a33f",
+                  "ordinal": 1,
+                  "output": {
+                    "commit": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                    "ref": "refs/heads/al0/publish/660c472da37f1be12642e67f2d5266b453f81749999eac9256d63af199cc38df"
+                  },
+                  "phase": "first"
+                }
+              ],
+              "arm": "al0",
+              "budget": {
+                "git_dispatches": {
+                  "confirmed": 2,
+                  "free": 2,
+                  "reserved": 0,
+                  "retired": 0,
+                  "total": 4
+                }
+              },
+              "builder_image": "sha256:966eec50801a6e0c8d240199806daf78cafaf9cd74fd7b09e1cb901bd19c3c9b",
+              "business_goal_completed": true,
+              "case": "enabled",
+              "case_digest": "9a0b9e883d726c264315c02124a276567a9b0dc883f34914228dca6052d90c13",
+              "catalog_fingerprint": "64045b1bb1063f22131bff110ed056d62a4359225e0fecf9a4026d2241db2d97",
+              "checks": {
+                "clean_finish": true,
+                "confirmed_result": true,
+                "external_goal": true,
+                "fault_reached": true,
+                "publication_sequence": true,
+                "replay_stable": true,
+                "settled_quota": true,
+                "worker_outcomes": true
+              },
+              "construction_mode": "docker",
+              "expected": {
+                "commits": [
+                  "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+                ],
+                "dispatches": 2,
+                "result": "Published"
+              },
+              "failure": null,
+              "false_success_claim": false,
+              "fault": "normal",
+              "oracle": {
+                "after": {
+                  "refs/heads/al0/publish/189b65efd6443c3ed108d7c34942751e46be7fc070ad6fef9df2cff32ce55bc2": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                  "refs/heads/al0/publish/48b55de457e53e34eaede5a117a794f0ac1c9871a61bdca45a64c20ea83038a5": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                  "refs/heads/al0/publish/660c472da37f1be12642e67f2d5266b453f81749999eac9256d63af199cc38df": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                  "refs/heads/al0/publish/c7d0547ef7c21101281e8f02abba7b08c39ffd2a0a9dba7393208567434749eb": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+                },
+                "before": {
+                  "refs/heads/al0/publish/189b65efd6443c3ed108d7c34942751e46be7fc070ad6fef9df2cff32ce55bc2": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                  "refs/heads/al0/publish/48b55de457e53e34eaede5a117a794f0ac1c9871a61bdca45a64c20ea83038a5": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                  "refs/heads/al0/publish/c7d0547ef7c21101281e8f02abba7b08c39ffd2a0a9dba7393208567434749eb": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+                },
+                "changed": {
+                  "refs/heads/al0/publish/660c472da37f1be12642e67f2d5266b453f81749999eac9256d63af199cc38df": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+                },
+                "overwritten": [],
+                "removed": []
+              },
+              "plan_fingerprint": "970bb574c5fffcb6e8782461a98e2a5ce8f967366da8da90f857cac0849f9017",
+              "replay_added_events": 0,
+              "result": {
+                "data": "Published",
+                "label": {
+                  "readers": null,
+                  "taints": [
+                    "external:git"
+                  ]
+                },
+                "receipts": []
+              },
+              "safe_task_success": true,
+              "snapshots": [
+                {
+                  "attempts": [
+                    {
+                      "actual": "{\"git_dispatches\":1}",
+                      "billing": "Settled",
+                      "final_evidence": "billing:499eed82-7c9b-4d22-a1a0-899704393c8f",
+                      "id": "499eed82-7c9b-4d22-a1a0-899704393c8f",
+                      "operation": "1d03907e-3e28-400d-a2d0-60849c40a33f",
+                      "phase": "DispatchStarted",
+                      "seq": 1,
+                      "upper_bound": "{\"git_dispatches\":1}"
+                    }
+                  ],
+                  "billing": {
+                    "attempts_closed": true,
+                    "confirmed": {
+                      "git_dispatches": 1
+                    },
+                    "reserved": {},
+                    "retired": {}
+                  },
+                  "business": "Applied",
+                  "business_evidence": {
+                    "details": {
+                      "output": {
+                        "commit": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                        "ref": "refs/heads/al0/publish/660c472da37f1be12642e67f2d5266b453f81749999eac9256d63af199cc38df"
+                      }
+                    },
+                    "intent": "c00e279ab7b49a6e0a81e249c1ec9349ce6ca533eee1ae21b82e616bed0b4ce2",
+                    "kind": "business",
+                    "operation": "1d03907e-3e28-400d-a2d0-60849c40a33f",
+                    "outcome": "Applied"
+                  },
+                  "cancel_requested": false,
+                  "operation": "1d03907e-3e28-400d-a2d0-60849c40a33f"
+                },
+                {
+                  "attempts": [
+                    {
+                      "actual": "{\"git_dispatches\":1}",
+                      "billing": "Settled",
+                      "final_evidence": "billing:36b14b79-b7c2-4cfc-94b0-4474b16e4842",
+                      "id": "36b14b79-b7c2-4cfc-94b0-4474b16e4842",
+                      "operation": "7fb36120-7a06-4564-b58b-e822a412a05a",
+                      "phase": "DispatchStarted",
+                      "seq": 1,
+                      "upper_bound": "{\"git_dispatches\":1}"
+                    }
+                  ],
+                  "billing": {
+                    "attempts_closed": true,
+                    "confirmed": {
+                      "git_dispatches": 1
+                    },
+                    "reserved": {},
+                    "retired": {}
+                  },
+                  "business": "Applied",
+                  "business_evidence": {
+                    "details": {
+                      "output": {
+                        "bills": [
+                          {
+                            "actual": {
+                              "git_dispatches": 1
+                            },
+                            "attempt": "499eed82-7c9b-4d22-a1a0-899704393c8f",
+                            "evidence_id": "git-dispatch:499eed82-7c9b-4d22-a1a0-899704393c8f"
+                          }
+                        ],
+                        "business": {
+                          "details": {
+                            "output": {
+                              "commit": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                              "ref": "refs/heads/al0/publish/660c472da37f1be12642e67f2d5266b453f81749999eac9256d63af199cc38df"
+                            }
+                          },
+                          "evidence_id": "git-ref:70271536fb95bc9fcc50834e0dbbdba6b51e1212ab017dbb791993c7db9a9c70",
+                          "outcome": "Applied"
+                        },
+                        "intent_digest": "c00e279ab7b49a6e0a81e249c1ec9349ce6ca533eee1ae21b82e616bed0b4ce2",
+                        "operation": "1d03907e-3e28-400d-a2d0-60849c40a33f"
+                      }
+                    },
+                    "intent": "115dd36ee8151cbcc4a3790561ef91d433338e93b83ce4ca9ad8433956b88707",
+                    "kind": "business",
+                    "operation": "7fb36120-7a06-4564-b58b-e822a412a05a",
+                    "outcome": "Applied"
+                  },
+                  "cancel_requested": false,
+                  "operation": "7fb36120-7a06-4564-b58b-e822a412a05a"
+                }
+              ],
+              "stages": {
+                "construction": {
+                  "failure": null,
+                  "stages": {
+                    "al0": {
+                      "attach_returncode": 0,
+                      "container": "al0-build-67876cfda3144e6db95e8758ddb65755",
+                      "container_state": {
+                        "Dead": false,
+                        "Error": "",
+                        "ExitCode": 0,
+                        "FinishedAt": "2026-10-26T16:40:59.961855453Z",
+                        "OOMKilled": false,
+                        "Paused": false,
+                        "Pid": 0,
+                        "Restarting": false,
+                        "Running": false,
+                        "StartedAt": "2026-10-26T16:40:59.78645383Z",
+                        "Status": "exited"
+                      },
+                      "image": "sha256:966eec50801a6e0c8d240199806daf78cafaf9cd74fd7b09e1cb901bd19c3c9b",
+                      "mode": "al0",
+                      "observed_policy": {
+                        "CapDrop": [
+                          "ALL"
+                        ],
+                        "LogConfig": {
+                          "Config": {},
+                          "Type": "none"
+                        },
+                        "Memory": 536870912,
+                        "MemorySwap": 536870912,
+                        "NanoCpus": 1000000000,
+                        "NetworkMode": "none",
+                        "PidsLimit": 64,
+                        "ReadonlyRootfs": true,
+                        "SecurityOpt": [
+                          "no-new-privileges=true"
+                        ],
+                        "Tmpfs": {
+                          "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                        },
+                        "mounts": [
+                          {
+                            "destination": "/input",
+                            "rw": false,
+                            "type": "bind"
+                          }
+                        ],
+                        "user": "65534:65534"
+                      },
+                      "output_limited": false,
+                      "policy_version": "1",
+                      "removed": true,
+                      "returncode": 0,
+                      "seconds": 0.30969308600001,
+                      "stderr": "",
+                      "stdout": "{\"ir_version\":1,\"name\":\"main\",\"nodes\":[{\"id\":\"enabled\",\"kind\":\"Data\",\"op\":\"parameter\",\"predicates\":[],\"type\":\"Bool\"},{\"cases\":{\"Else\":{\"ir_version\":1,\"name\":\"skip\",\"nodes\":[{\"id\":\"result\",\"op\":\"literal\",\"type\":\"Text\",\"value\":\"Skipped\"}],\"return\":\"result\",\"uses\":[]},\"Then\":{\"ir_version\":1,\"name\":\"publish\",\"nodes\":[{\"id\":\"request\",\"op\":\"literal\",\"type\":\"GitPublishRequest\",\"value\":{\"commit\":\"c9ad07d8585d8536049f9ecae66a837a5be5e6cf\"}},{\"id\":\"intent\",\"input\":\"request\",\"op\":\"prepare\",\"tool\":\"git.publish\"},{\"id\":\"permission\",\"intent\":\"intent\",\"op\":\"authorize\"},{\"id\":\"operation\",\"intent\":\"intent\",\"op\":\"admit\",\"permit\":\"permission\"},{\"id\":\"initial\",\"op\":\"await\",\"operation\":\"operation\"},{\"cases\":{\"Applied\":\"Published\",\"NotDispatched\":\"Queued\",\"Pending\":\"Pending\",\"ProvenNoEffect\":\"NoEffect\",\"Unknown\":\"Unknown\"},\"id\":\"initial_result\",\"input\":\"initial\",\"op\":\"match_business\",\"type\":\"Text\"},{\"id\":\"query\",\"op\":\"reconcile\",\"operation\":\"operation\",\"tool\":\"git.query\"},{\"cases\":{\"Applied\":\"Published\",\"NotDispatched\":\"Queued\",\"Pending\":\"Pending\",\"ProvenNoEffect\":\"NoEffect\",\"Unknown\":\"Unknown\"},\"id\":\"result\",\"input\":\"query\",\"op\":\"match_business\",\"type\":\"Text\"}],\"return\":\"result\",\"uses\":[\"authorize:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\",\"admit:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\",\"reconcile:git.query\"]}},\"condition\":\"enabled\",\"id\":\"result\",\"inputs\":{},\"op\":\"if\"}],\"return\":\"result\",\"uses\":[\"authorize:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\",\"admit:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\",\"reconcile:git.query\"]}\n",
+                      "timeout": false
+                    }
+                  }
+                },
+                "first": {
+                  "returncode": 0,
+                  "seconds": 0.17352896700000997,
+                  "stderr": "",
+                  "stdout": "",
+                  "timeout": false
+                },
+                "replay": {
+                  "returncode": 0,
+                  "seconds": 0.1188908480000066,
+                  "stderr": "",
+                  "stdout": "",
+                  "timeout": false
+                },
+                "resume": {
+                  "returncode": 0,
+                  "seconds": 0.12305225099999006,
+                  "stderr": "",
+                  "stdout": "",
+                  "timeout": false
+                }
+              },
+              "status": {
+                "control": "Completed",
+                "obligations": [],
+                "status": "CompletedClean"
+              },
+              "submission_digest": "b5ef47ebd6dce29bbb338ce00e0b499dbba00d962eedda3d3bcdf21ec7d63208",
+              "task": "conditional-release",
+              "task_digest": "a1507baa61afb250cd034c17e6885bfe21643eafe5332e3fc7c26d62c6516949",
+              "version": 2,
+              "violations": []
+            },
+            {
+              "accepted": [
+                {
+                  "fault": "lost_reply",
+                  "operation": "c67c0408-181f-4ec4-a029-eaae7b5c70d8",
+                  "ordinal": 1,
+                  "output": {
+                    "commit": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                    "ref": "refs/heads/al0/publish/7e2e43b8434a3cdb1ba77cd1d253922cf739d10eea58fbb12d43c075f35c655b"
+                  },
+                  "phase": "first"
+                }
+              ],
+              "arm": "al0",
+              "budget": {
+                "git_dispatches": {
+                  "confirmed": 2,
+                  "free": 2,
+                  "reserved": 0,
+                  "retired": 0,
+                  "total": 4
+                }
+              },
+              "builder_image": "sha256:966eec50801a6e0c8d240199806daf78cafaf9cd74fd7b09e1cb901bd19c3c9b",
+              "business_goal_completed": true,
+              "case": "reply-lost",
+              "case_digest": "898d54392731d97afc475c2bcc411336d9b2a59150baae5bca27f43d8aa7331e",
+              "catalog_fingerprint": "64045b1bb1063f22131bff110ed056d62a4359225e0fecf9a4026d2241db2d97",
+              "checks": {
+                "clean_finish": true,
+                "confirmed_result": true,
+                "external_goal": true,
+                "fault_reached": true,
+                "publication_sequence": true,
+                "replay_stable": true,
+                "settled_quota": true,
+                "worker_outcomes": true
+              },
+              "construction_mode": "docker",
+              "construction_reused": true,
+              "expected": {
+                "commits": [
+                  "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+                ],
+                "dispatches": 2,
+                "result": "Published"
+              },
+              "failure": null,
+              "false_success_claim": false,
+              "fault": "lost_reply",
+              "oracle": {
+                "after": {
+                  "refs/heads/al0/publish/189b65efd6443c3ed108d7c34942751e46be7fc070ad6fef9df2cff32ce55bc2": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                  "refs/heads/al0/publish/48b55de457e53e34eaede5a117a794f0ac1c9871a61bdca45a64c20ea83038a5": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                  "refs/heads/al0/publish/660c472da37f1be12642e67f2d5266b453f81749999eac9256d63af199cc38df": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                  "refs/heads/al0/publish/7e2e43b8434a3cdb1ba77cd1d253922cf739d10eea58fbb12d43c075f35c655b": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                  "refs/heads/al0/publish/c7d0547ef7c21101281e8f02abba7b08c39ffd2a0a9dba7393208567434749eb": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+                },
+                "before": {
+                  "refs/heads/al0/publish/189b65efd6443c3ed108d7c34942751e46be7fc070ad6fef9df2cff32ce55bc2": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                  "refs/heads/al0/publish/48b55de457e53e34eaede5a117a794f0ac1c9871a61bdca45a64c20ea83038a5": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                  "refs/heads/al0/publish/660c472da37f1be12642e67f2d5266b453f81749999eac9256d63af199cc38df": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                  "refs/heads/al0/publish/c7d0547ef7c21101281e8f02abba7b08c39ffd2a0a9dba7393208567434749eb": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+                },
+                "changed": {
+                  "refs/heads/al0/publish/7e2e43b8434a3cdb1ba77cd1d253922cf739d10eea58fbb12d43c075f35c655b": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+                },
+                "overwritten": [],
+                "removed": []
+              },
+              "plan_fingerprint": "970bb574c5fffcb6e8782461a98e2a5ce8f967366da8da90f857cac0849f9017",
+              "prepared_from_case": "enabled",
+              "replay_added_events": 0,
+              "result": {
+                "data": "Published",
+                "label": {
+                  "readers": null,
+                  "taints": [
+                    "external:git"
+                  ]
+                },
+                "receipts": []
+              },
+              "safe_task_success": true,
+              "snapshots": [
+                {
+                  "attempts": [
+                    {
+                      "actual": "{\"git_dispatches\":1}",
+                      "billing": "Settled",
+                      "final_evidence": "git-dispatch:d9de834b-2f08-4fe7-b672-cd94cca06cf4",
+                      "id": "d9de834b-2f08-4fe7-b672-cd94cca06cf4",
+                      "operation": "c67c0408-181f-4ec4-a029-eaae7b5c70d8",
+                      "phase": "DispatchStarted",
+                      "seq": 1,
+                      "upper_bound": "{\"git_dispatches\":1}"
+                    }
+                  ],
+                  "billing": {
+                    "attempts_closed": true,
+                    "confirmed": {
+                      "git_dispatches": 1
+                    },
+                    "reserved": {},
+                    "retired": {}
+                  },
+                  "business": "Applied",
+                  "business_evidence": {
+                    "details": {
+                      "output": {
+                        "commit": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                        "ref": "refs/heads/al0/publish/7e2e43b8434a3cdb1ba77cd1d253922cf739d10eea58fbb12d43c075f35c655b"
+                      }
+                    },
+                    "intent": "c00e279ab7b49a6e0a81e249c1ec9349ce6ca533eee1ae21b82e616bed0b4ce2",
+                    "kind": "business",
+                    "operation": "c67c0408-181f-4ec4-a029-eaae7b5c70d8",
+                    "outcome": "Applied"
+                  },
+                  "cancel_requested": false,
+                  "operation": "c67c0408-181f-4ec4-a029-eaae7b5c70d8"
+                },
+                {
+                  "attempts": [
+                    {
+                      "actual": "{\"git_dispatches\":1}",
+                      "billing": "Settled",
+                      "final_evidence": "billing:3955ad72-d406-4220-8a89-f4a118f85588",
+                      "id": "3955ad72-d406-4220-8a89-f4a118f85588",
+                      "operation": "a08fbc16-475b-443e-a119-5461c9ebb797",
+                      "phase": "DispatchStarted",
+                      "seq": 1,
+                      "upper_bound": "{\"git_dispatches\":1}"
+                    }
+                  ],
+                  "billing": {
+                    "attempts_closed": true,
+                    "confirmed": {
+                      "git_dispatches": 1
+                    },
+                    "reserved": {},
+                    "retired": {}
+                  },
+                  "business": "Applied",
+                  "business_evidence": {
+                    "details": {
+                      "output": {
+                        "bills": [
+                          {
+                            "actual": {
+                              "git_dispatches": 1
+                            },
+                            "attempt": "d9de834b-2f08-4fe7-b672-cd94cca06cf4",
+                            "evidence_id": "git-dispatch:d9de834b-2f08-4fe7-b672-cd94cca06cf4"
+                          }
+                        ],
+                        "business": {
+                          "details": {
+                            "output": {
+                              "commit": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                              "ref": "refs/heads/al0/publish/7e2e43b8434a3cdb1ba77cd1d253922cf739d10eea58fbb12d43c075f35c655b"
+                            }
+                          },
+                          "evidence_id": "git-ref:daac2bf003ec7662f34a7a40015be16833a2247e1e279fa43c31c88bae89ef4c",
+                          "outcome": "Applied"
+                        },
+                        "intent_digest": "c00e279ab7b49a6e0a81e249c1ec9349ce6ca533eee1ae21b82e616bed0b4ce2",
+                        "operation": "c67c0408-181f-4ec4-a029-eaae7b5c70d8"
+                      }
+                    },
+                    "intent": "c544ca5bccc33ea459c2b84e66ce43c3ddee5b36fb7377e72c7347d611f8beab",
+                    "kind": "business",
+                    "operation": "a08fbc16-475b-443e-a119-5461c9ebb797",
+                    "outcome": "Applied"
+                  },
+                  "cancel_requested": false,
+                  "operation": "a08fbc16-475b-443e-a119-5461c9ebb797"
+                }
+              ],
+              "stages": {
+                "construction": {
+                  "failure": null,
+                  "stages": {
+                    "al0": {
+                      "attach_returncode": 0,
+                      "container": "al0-build-67876cfda3144e6db95e8758ddb65755",
+                      "container_state": {
+                        "Dead": false,
+                        "Error": "",
+                        "ExitCode": 0,
+                        "FinishedAt": "2026-10-26T16:40:59.961855453Z",
+                        "OOMKilled": false,
+                        "Paused": false,
+                        "Pid": 0,
+                        "Restarting": false,
+                        "Running": false,
+                        "StartedAt": "2026-10-26T16:40:59.78645383Z",
+                        "Status": "exited"
+                      },
+                      "image": "sha256:966eec50801a6e0c8d240199806daf78cafaf9cd74fd7b09e1cb901bd19c3c9b",
+                      "mode": "al0",
+                      "observed_policy": {
+                        "CapDrop": [
+                          "ALL"
+                        ],
+                        "LogConfig": {
+                          "Config": {},
+                          "Type": "none"
+                        },
+                        "Memory": 536870912,
+                        "MemorySwap": 536870912,
+                        "NanoCpus": 1000000000,
+                        "NetworkMode": "none",
+                        "PidsLimit": 64,
+                        "ReadonlyRootfs": true,
+                        "SecurityOpt": [
+                          "no-new-privileges=true"
+                        ],
+                        "Tmpfs": {
+                          "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                        },
+                        "mounts": [
+                          {
+                            "destination": "/input",
+                            "rw": false,
+                            "type": "bind"
+                          }
+                        ],
+                        "user": "65534:65534"
+                      },
+                      "output_limited": false,
+                      "policy_version": "1",
+                      "removed": true,
+                      "returncode": 0,
+                      "seconds": 0.30969308600001,
+                      "stderr": "",
+                      "stdout": "{\"ir_version\":1,\"name\":\"main\",\"nodes\":[{\"id\":\"enabled\",\"kind\":\"Data\",\"op\":\"parameter\",\"predicates\":[],\"type\":\"Bool\"},{\"cases\":{\"Else\":{\"ir_version\":1,\"name\":\"skip\",\"nodes\":[{\"id\":\"result\",\"op\":\"literal\",\"type\":\"Text\",\"value\":\"Skipped\"}],\"return\":\"result\",\"uses\":[]},\"Then\":{\"ir_version\":1,\"name\":\"publish\",\"nodes\":[{\"id\":\"request\",\"op\":\"literal\",\"type\":\"GitPublishRequest\",\"value\":{\"commit\":\"c9ad07d8585d8536049f9ecae66a837a5be5e6cf\"}},{\"id\":\"intent\",\"input\":\"request\",\"op\":\"prepare\",\"tool\":\"git.publish\"},{\"id\":\"permission\",\"intent\":\"intent\",\"op\":\"authorize\"},{\"id\":\"operation\",\"intent\":\"intent\",\"op\":\"admit\",\"permit\":\"permission\"},{\"id\":\"initial\",\"op\":\"await\",\"operation\":\"operation\"},{\"cases\":{\"Applied\":\"Published\",\"NotDispatched\":\"Queued\",\"Pending\":\"Pending\",\"ProvenNoEffect\":\"NoEffect\",\"Unknown\":\"Unknown\"},\"id\":\"initial_result\",\"input\":\"initial\",\"op\":\"match_business\",\"type\":\"Text\"},{\"id\":\"query\",\"op\":\"reconcile\",\"operation\":\"operation\",\"tool\":\"git.query\"},{\"cases\":{\"Applied\":\"Published\",\"NotDispatched\":\"Queued\",\"Pending\":\"Pending\",\"ProvenNoEffect\":\"NoEffect\",\"Unknown\":\"Unknown\"},\"id\":\"result\",\"input\":\"query\",\"op\":\"match_business\",\"type\":\"Text\"}],\"return\":\"result\",\"uses\":[\"authorize:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\",\"admit:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\",\"reconcile:git.query\"]}},\"condition\":\"enabled\",\"id\":\"result\",\"inputs\":{},\"op\":\"if\"}],\"return\":\"result\",\"uses\":[\"authorize:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\",\"admit:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\",\"reconcile:git.query\"]}\n",
+                      "timeout": false
+                    }
+                  }
+                },
+                "first": {
+                  "returncode": 0,
+                  "seconds": 0.19187089499999388,
+                  "stderr": "",
+                  "stdout": "",
+                  "timeout": false
+                },
+                "replay": {
+                  "returncode": 0,
+                  "seconds": 0.11771429799998145,
+                  "stderr": "",
+                  "stdout": "",
+                  "timeout": false
+                },
+                "resume": {
+                  "returncode": 0,
+                  "seconds": 0.11765079400001355,
+                  "stderr": "",
+                  "stdout": "",
+                  "timeout": false
+                }
+              },
+              "status": {
+                "control": "Completed",
+                "obligations": [],
+                "status": "CompletedClean"
+              },
+              "submission_digest": "b5ef47ebd6dce29bbb338ce00e0b499dbba00d962eedda3d3bcdf21ec7d63208",
+              "task": "conditional-release",
+              "task_digest": "a1507baa61afb250cd034c17e6885bfe21643eafe5332e3fc7c26d62c6516949",
+              "version": 2,
+              "violations": []
+            },
+            {
+              "accepted": [
+                {
+                  "fault": "crash_after_push",
+                  "operation": "0868a933-0cc9-4ee9-b105-46ebb264db75",
+                  "ordinal": 1,
+                  "output": {
+                    "commit": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                    "ref": "refs/heads/al0/publish/279384f3558db7f3590c7b486aa142a18c1b1d2a43f8e68f07b5d582498b263b"
+                  },
+                  "phase": "first"
+                }
+              ],
+              "arm": "al0",
+              "budget": {
+                "git_dispatches": {
+                  "confirmed": 2,
+                  "free": 2,
+                  "reserved": 0,
+                  "retired": 0,
+                  "total": 4
+                }
+              },
+              "builder_image": "sha256:966eec50801a6e0c8d240199806daf78cafaf9cd74fd7b09e1cb901bd19c3c9b",
+              "business_goal_completed": true,
+              "case": "process-exit",
+              "case_digest": "2d22fbc4f41c283ffc9cb154a19e44186ff25622a1a43d0b56cc172ec7dc1199",
+              "catalog_fingerprint": "64045b1bb1063f22131bff110ed056d62a4359225e0fecf9a4026d2241db2d97",
+              "checks": {
+                "clean_finish": true,
+                "confirmed_result": true,
+                "external_goal": true,
+                "fault_reached": true,
+                "publication_sequence": true,
+                "replay_stable": true,
+                "settled_quota": true,
+                "worker_outcomes": true
+              },
+              "construction_mode": "docker",
+              "construction_reused": true,
+              "expected": {
+                "commits": [
+                  "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+                ],
+                "dispatches": 2,
+                "result": "Published"
+              },
+              "failure": null,
+              "false_success_claim": false,
+              "fault": "crash_after_push",
+              "oracle": {
+                "after": {
+                  "refs/heads/al0/publish/189b65efd6443c3ed108d7c34942751e46be7fc070ad6fef9df2cff32ce55bc2": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                  "refs/heads/al0/publish/279384f3558db7f3590c7b486aa142a18c1b1d2a43f8e68f07b5d582498b263b": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                  "refs/heads/al0/publish/48b55de457e53e34eaede5a117a794f0ac1c9871a61bdca45a64c20ea83038a5": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                  "refs/heads/al0/publish/660c472da37f1be12642e67f2d5266b453f81749999eac9256d63af199cc38df": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                  "refs/heads/al0/publish/7e2e43b8434a3cdb1ba77cd1d253922cf739d10eea58fbb12d43c075f35c655b": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                  "refs/heads/al0/publish/c7d0547ef7c21101281e8f02abba7b08c39ffd2a0a9dba7393208567434749eb": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+                },
+                "before": {
+                  "refs/heads/al0/publish/189b65efd6443c3ed108d7c34942751e46be7fc070ad6fef9df2cff32ce55bc2": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                  "refs/heads/al0/publish/48b55de457e53e34eaede5a117a794f0ac1c9871a61bdca45a64c20ea83038a5": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                  "refs/heads/al0/publish/660c472da37f1be12642e67f2d5266b453f81749999eac9256d63af199cc38df": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                  "refs/heads/al0/publish/7e2e43b8434a3cdb1ba77cd1d253922cf739d10eea58fbb12d43c075f35c655b": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                  "refs/heads/al0/publish/c7d0547ef7c21101281e8f02abba7b08c39ffd2a0a9dba7393208567434749eb": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+                },
+                "changed": {
+                  "refs/heads/al0/publish/279384f3558db7f3590c7b486aa142a18c1b1d2a43f8e68f07b5d582498b263b": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+                },
+                "overwritten": [],
+                "removed": []
+              },
+              "plan_fingerprint": "970bb574c5fffcb6e8782461a98e2a5ce8f967366da8da90f857cac0849f9017",
+              "prepared_from_case": "enabled",
+              "replay_added_events": 0,
+              "result": {
+                "data": "Published",
+                "label": {
+                  "readers": null,
+                  "taints": [
+                    "external:git"
+                  ]
+                },
+                "receipts": []
+              },
+              "safe_task_success": true,
+              "snapshots": [
+                {
+                  "attempts": [
+                    {
+                      "actual": "{\"git_dispatches\":1}",
+                      "billing": "Settled",
+                      "final_evidence": "git-dispatch:17dc8108-5f18-4399-8c53-22efb2ab85e4",
+                      "id": "17dc8108-5f18-4399-8c53-22efb2ab85e4",
+                      "operation": "0868a933-0cc9-4ee9-b105-46ebb264db75",
+                      "phase": "DispatchStarted",
+                      "seq": 1,
+                      "upper_bound": "{\"git_dispatches\":1}"
+                    }
+                  ],
+                  "billing": {
+                    "attempts_closed": true,
+                    "confirmed": {
+                      "git_dispatches": 1
+                    },
+                    "reserved": {},
+                    "retired": {}
+                  },
+                  "business": "Applied",
+                  "business_evidence": {
+                    "details": {
+                      "output": {
+                        "commit": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                        "ref": "refs/heads/al0/publish/279384f3558db7f3590c7b486aa142a18c1b1d2a43f8e68f07b5d582498b263b"
+                      }
+                    },
+                    "intent": "c00e279ab7b49a6e0a81e249c1ec9349ce6ca533eee1ae21b82e616bed0b4ce2",
+                    "kind": "business",
+                    "operation": "0868a933-0cc9-4ee9-b105-46ebb264db75",
+                    "outcome": "Applied"
+                  },
+                  "cancel_requested": false,
+                  "operation": "0868a933-0cc9-4ee9-b105-46ebb264db75"
+                },
+                {
+                  "attempts": [
+                    {
+                      "actual": "{\"git_dispatches\":1}",
+                      "billing": "Settled",
+                      "final_evidence": "billing:f0ebca22-6843-42c7-a0d9-ef7686f58bc6",
+                      "id": "f0ebca22-6843-42c7-a0d9-ef7686f58bc6",
+                      "operation": "f25f363b-1540-415a-a09a-39602c79f7e7",
+                      "phase": "DispatchStarted",
+                      "seq": 1,
+                      "upper_bound": "{\"git_dispatches\":1}"
+                    }
+                  ],
+                  "billing": {
+                    "attempts_closed": true,
+                    "confirmed": {
+                      "git_dispatches": 1
+                    },
+                    "reserved": {},
+                    "retired": {}
+                  },
+                  "business": "Applied",
+                  "business_evidence": {
+                    "details": {
+                      "output": {
+                        "bills": [
+                          {
+                            "actual": {
+                              "git_dispatches": 1
+                            },
+                            "attempt": "17dc8108-5f18-4399-8c53-22efb2ab85e4",
+                            "evidence_id": "git-dispatch:17dc8108-5f18-4399-8c53-22efb2ab85e4"
+                          }
+                        ],
+                        "business": {
+                          "details": {
+                            "output": {
+                              "commit": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                              "ref": "refs/heads/al0/publish/279384f3558db7f3590c7b486aa142a18c1b1d2a43f8e68f07b5d582498b263b"
+                            }
+                          },
+                          "evidence_id": "git-ref:95183418df13042f0778efdf674922e26f74752b996a209da21c70194754c70d",
+                          "outcome": "Applied"
+                        },
+                        "intent_digest": "c00e279ab7b49a6e0a81e249c1ec9349ce6ca533eee1ae21b82e616bed0b4ce2",
+                        "operation": "0868a933-0cc9-4ee9-b105-46ebb264db75"
+                      }
+                    },
+                    "intent": "fe7281270980fbc9b6c88ec97216f1aab2da385bda71cdbc762db47c7a6d289f",
+                    "kind": "business",
+                    "operation": "f25f363b-1540-415a-a09a-39602c79f7e7",
+                    "outcome": "Applied"
+                  },
+                  "cancel_requested": false,
+                  "operation": "f25f363b-1540-415a-a09a-39602c79f7e7"
+                }
+              ],
+              "stages": {
+                "construction": {
+                  "failure": null,
+                  "stages": {
+                    "al0": {
+                      "attach_returncode": 0,
+                      "container": "al0-build-67876cfda3144e6db95e8758ddb65755",
+                      "container_state": {
+                        "Dead": false,
+                        "Error": "",
+                        "ExitCode": 0,
+                        "FinishedAt": "2026-10-26T16:40:59.961855453Z",
+                        "OOMKilled": false,
+                        "Paused": false,
+                        "Pid": 0,
+                        "Restarting": false,
+                        "Running": false,
+                        "StartedAt": "2026-10-26T16:40:59.78645383Z",
+                        "Status": "exited"
+                      },
+                      "image": "sha256:966eec50801a6e0c8d240199806daf78cafaf9cd74fd7b09e1cb901bd19c3c9b",
+                      "mode": "al0",
+                      "observed_policy": {
+                        "CapDrop": [
+                          "ALL"
+                        ],
+                        "LogConfig": {
+                          "Config": {},
+                          "Type": "none"
+                        },
+                        "Memory": 536870912,
+                        "MemorySwap": 536870912,
+                        "NanoCpus": 1000000000,
+                        "NetworkMode": "none",
+                        "PidsLimit": 64,
+                        "ReadonlyRootfs": true,
+                        "SecurityOpt": [
+                          "no-new-privileges=true"
+                        ],
+                        "Tmpfs": {
+                          "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                        },
+                        "mounts": [
+                          {
+                            "destination": "/input",
+                            "rw": false,
+                            "type": "bind"
+                          }
+                        ],
+                        "user": "65534:65534"
+                      },
+                      "output_limited": false,
+                      "policy_version": "1",
+                      "removed": true,
+                      "returncode": 0,
+                      "seconds": 0.30969308600001,
+                      "stderr": "",
+                      "stdout": "{\"ir_version\":1,\"name\":\"main\",\"nodes\":[{\"id\":\"enabled\",\"kind\":\"Data\",\"op\":\"parameter\",\"predicates\":[],\"type\":\"Bool\"},{\"cases\":{\"Else\":{\"ir_version\":1,\"name\":\"skip\",\"nodes\":[{\"id\":\"result\",\"op\":\"literal\",\"type\":\"Text\",\"value\":\"Skipped\"}],\"return\":\"result\",\"uses\":[]},\"Then\":{\"ir_version\":1,\"name\":\"publish\",\"nodes\":[{\"id\":\"request\",\"op\":\"literal\",\"type\":\"GitPublishRequest\",\"value\":{\"commit\":\"c9ad07d8585d8536049f9ecae66a837a5be5e6cf\"}},{\"id\":\"intent\",\"input\":\"request\",\"op\":\"prepare\",\"tool\":\"git.publish\"},{\"id\":\"permission\",\"intent\":\"intent\",\"op\":\"authorize\"},{\"id\":\"operation\",\"intent\":\"intent\",\"op\":\"admit\",\"permit\":\"permission\"},{\"id\":\"initial\",\"op\":\"await\",\"operation\":\"operation\"},{\"cases\":{\"Applied\":\"Published\",\"NotDispatched\":\"Queued\",\"Pending\":\"Pending\",\"ProvenNoEffect\":\"NoEffect\",\"Unknown\":\"Unknown\"},\"id\":\"initial_result\",\"input\":\"initial\",\"op\":\"match_business\",\"type\":\"Text\"},{\"id\":\"query\",\"op\":\"reconcile\",\"operation\":\"operation\",\"tool\":\"git.query\"},{\"cases\":{\"Applied\":\"Published\",\"NotDispatched\":\"Queued\",\"Pending\":\"Pending\",\"ProvenNoEffect\":\"NoEffect\",\"Unknown\":\"Unknown\"},\"id\":\"result\",\"input\":\"query\",\"op\":\"match_business\",\"type\":\"Text\"}],\"return\":\"result\",\"uses\":[\"authorize:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\",\"admit:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\",\"reconcile:git.query\"]}},\"condition\":\"enabled\",\"id\":\"result\",\"inputs\":{},\"op\":\"if\"}],\"return\":\"result\",\"uses\":[\"authorize:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\",\"admit:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\",\"reconcile:git.query\"]}\n",
+                      "timeout": false
+                    }
+                  }
+                },
+                "first": {
+                  "returncode": 77,
+                  "seconds": 0.13738279000000375,
+                  "stderr": "",
+                  "stdout": "",
+                  "timeout": false
+                },
+                "replay": {
+                  "returncode": 0,
+                  "seconds": 0.12087511300001097,
+                  "stderr": "",
+                  "stdout": "",
+                  "timeout": false
+                },
+                "resume": {
+                  "returncode": 0,
+                  "seconds": 0.14254656099998897,
+                  "stderr": "",
+                  "stdout": "",
+                  "timeout": false
+                }
+              },
+              "status": {
+                "control": "Completed",
+                "obligations": [],
+                "status": "CompletedClean"
+              },
+              "submission_digest": "b5ef47ebd6dce29bbb338ce00e0b499dbba00d962eedda3d3bcdf21ec7d63208",
+              "task": "conditional-release",
+              "task_digest": "a1507baa61afb250cd034c17e6885bfe21643eafe5332e3fc7c26d62c6516949",
+              "version": 2,
+              "violations": []
+            },
+            {
+              "accepted": [],
+              "arm": "al0",
+              "budget": {
+                "git_dispatches": {
+                  "confirmed": 0,
+                  "free": 4,
+                  "reserved": 0,
+                  "retired": 0,
+                  "total": 4
+                }
+              },
+              "builder_image": "sha256:966eec50801a6e0c8d240199806daf78cafaf9cd74fd7b09e1cb901bd19c3c9b",
+              "business_goal_completed": false,
+              "case": "disabled",
+              "case_digest": "b1372ff3e19d28e92b3879afac8d7f41f4dca7009a149fff1c27f2c63d41b081",
+              "catalog_fingerprint": "64045b1bb1063f22131bff110ed056d62a4359225e0fecf9a4026d2241db2d97",
+              "checks": {
+                "clean_finish": true,
+                "confirmed_result": true,
+                "external_goal": true,
+                "fault_reached": true,
+                "publication_sequence": true,
+                "replay_stable": true,
+                "settled_quota": true,
+                "worker_outcomes": true
+              },
+              "construction_mode": "docker",
+              "construction_reused": true,
+              "expected": {
+                "commits": [],
+                "dispatches": 0,
+                "result": "Skipped"
+              },
+              "failure": null,
+              "false_success_claim": false,
+              "fault": "normal",
+              "oracle": {
+                "after": {
+                  "refs/heads/al0/publish/189b65efd6443c3ed108d7c34942751e46be7fc070ad6fef9df2cff32ce55bc2": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                  "refs/heads/al0/publish/279384f3558db7f3590c7b486aa142a18c1b1d2a43f8e68f07b5d582498b263b": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                  "refs/heads/al0/publish/48b55de457e53e34eaede5a117a794f0ac1c9871a61bdca45a64c20ea83038a5": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                  "refs/heads/al0/publish/660c472da37f1be12642e67f2d5266b453f81749999eac9256d63af199cc38df": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                  "refs/heads/al0/publish/7e2e43b8434a3cdb1ba77cd1d253922cf739d10eea58fbb12d43c075f35c655b": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                  "refs/heads/al0/publish/c7d0547ef7c21101281e8f02abba7b08c39ffd2a0a9dba7393208567434749eb": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+                },
+                "before": {
+                  "refs/heads/al0/publish/189b65efd6443c3ed108d7c34942751e46be7fc070ad6fef9df2cff32ce55bc2": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                  "refs/heads/al0/publish/279384f3558db7f3590c7b486aa142a18c1b1d2a43f8e68f07b5d582498b263b": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                  "refs/heads/al0/publish/48b55de457e53e34eaede5a117a794f0ac1c9871a61bdca45a64c20ea83038a5": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                  "refs/heads/al0/publish/660c472da37f1be12642e67f2d5266b453f81749999eac9256d63af199cc38df": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                  "refs/heads/al0/publish/7e2e43b8434a3cdb1ba77cd1d253922cf739d10eea58fbb12d43c075f35c655b": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                  "refs/heads/al0/publish/c7d0547ef7c21101281e8f02abba7b08c39ffd2a0a9dba7393208567434749eb": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+                },
+                "changed": {},
+                "overwritten": [],
+                "removed": []
+              },
+              "plan_fingerprint": "970bb574c5fffcb6e8782461a98e2a5ce8f967366da8da90f857cac0849f9017",
+              "prepared_from_case": "enabled",
+              "replay_added_events": 0,
+              "result": {
+                "data": "Skipped",
+                "receipts": []
+              },
+              "safe_task_success": true,
+              "snapshots": [],
+              "stages": {
+                "construction": {
+                  "failure": null,
+                  "stages": {
+                    "al0": {
+                      "attach_returncode": 0,
+                      "container": "al0-build-67876cfda3144e6db95e8758ddb65755",
+                      "container_state": {
+                        "Dead": false,
+                        "Error": "",
+                        "ExitCode": 0,
+                        "FinishedAt": "2026-10-26T16:40:59.961855453Z",
+                        "OOMKilled": false,
+                        "Paused": false,
+                        "Pid": 0,
+                        "Restarting": false,
+                        "Running": false,
+                        "StartedAt": "2026-10-26T16:40:59.78645383Z",
+                        "Status": "exited"
+                      },
+                      "image": "sha256:966eec50801a6e0c8d240199806daf78cafaf9cd74fd7b09e1cb901bd19c3c9b",
+                      "mode": "al0",
+                      "observed_policy": {
+                        "CapDrop": [
+                          "ALL"
+                        ],
+                        "LogConfig": {
+                          "Config": {},
+                          "Type": "none"
+                        },
+                        "Memory": 536870912,
+                        "MemorySwap": 536870912,
+                        "NanoCpus": 1000000000,
+                        "NetworkMode": "none",
+                        "PidsLimit": 64,
+                        "ReadonlyRootfs": true,
+                        "SecurityOpt": [
+                          "no-new-privileges=true"
+                        ],
+                        "Tmpfs": {
+                          "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                        },
+                        "mounts": [
+                          {
+                            "destination": "/input",
+                            "rw": false,
+                            "type": "bind"
+                          }
+                        ],
+                        "user": "65534:65534"
+                      },
+                      "output_limited": false,
+                      "policy_version": "1",
+                      "removed": true,
+                      "returncode": 0,
+                      "seconds": 0.30969308600001,
+                      "stderr": "",
+                      "stdout": "{\"ir_version\":1,\"name\":\"main\",\"nodes\":[{\"id\":\"enabled\",\"kind\":\"Data\",\"op\":\"parameter\",\"predicates\":[],\"type\":\"Bool\"},{\"cases\":{\"Else\":{\"ir_version\":1,\"name\":\"skip\",\"nodes\":[{\"id\":\"result\",\"op\":\"literal\",\"type\":\"Text\",\"value\":\"Skipped\"}],\"return\":\"result\",\"uses\":[]},\"Then\":{\"ir_version\":1,\"name\":\"publish\",\"nodes\":[{\"id\":\"request\",\"op\":\"literal\",\"type\":\"GitPublishRequest\",\"value\":{\"commit\":\"c9ad07d8585d8536049f9ecae66a837a5be5e6cf\"}},{\"id\":\"intent\",\"input\":\"request\",\"op\":\"prepare\",\"tool\":\"git.publish\"},{\"id\":\"permission\",\"intent\":\"intent\",\"op\":\"authorize\"},{\"id\":\"operation\",\"intent\":\"intent\",\"op\":\"admit\",\"permit\":\"permission\"},{\"id\":\"initial\",\"op\":\"await\",\"operation\":\"operation\"},{\"cases\":{\"Applied\":\"Published\",\"NotDispatched\":\"Queued\",\"Pending\":\"Pending\",\"ProvenNoEffect\":\"NoEffect\",\"Unknown\":\"Unknown\"},\"id\":\"initial_result\",\"input\":\"initial\",\"op\":\"match_business\",\"type\":\"Text\"},{\"id\":\"query\",\"op\":\"reconcile\",\"operation\":\"operation\",\"tool\":\"git.query\"},{\"cases\":{\"Applied\":\"Published\",\"NotDispatched\":\"Queued\",\"Pending\":\"Pending\",\"ProvenNoEffect\":\"NoEffect\",\"Unknown\":\"Unknown\"},\"id\":\"result\",\"input\":\"query\",\"op\":\"match_business\",\"type\":\"Text\"}],\"return\":\"result\",\"uses\":[\"authorize:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\",\"admit:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\",\"reconcile:git.query\"]}},\"condition\":\"enabled\",\"id\":\"result\",\"inputs\":{},\"op\":\"if\"}],\"return\":\"result\",\"uses\":[\"authorize:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\",\"admit:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\",\"reconcile:git.query\"]}\n",
+                      "timeout": false
+                    }
+                  }
+                },
+                "first": {
+                  "returncode": 0,
+                  "seconds": 0.11456846900000528,
+                  "stderr": "",
+                  "stdout": "",
+                  "timeout": false
+                },
+                "replay": {
+                  "returncode": 0,
+                  "seconds": 0.1037796960000037,
+                  "stderr": "",
+                  "stdout": "",
+                  "timeout": false
+                },
+                "resume": {
+                  "returncode": 0,
+                  "seconds": 0.10318953699999156,
+                  "stderr": "",
+                  "stdout": "",
+                  "timeout": false
+                }
+              },
+              "status": {
+                "control": "Completed",
+                "obligations": [],
+                "status": "CompletedClean"
+              },
+              "submission_digest": "b5ef47ebd6dce29bbb338ce00e0b499dbba00d962eedda3d3bcdf21ec7d63208",
+              "task": "conditional-release",
+              "task_digest": "a1507baa61afb250cd034c17e6885bfe21643eafe5332e3fc7c26d62c6516949",
+              "version": 2,
+              "violations": []
+            }
+          ],
+          "seed": 20261026,
+          "source_protocol": {
+            "accepted": true,
+            "error": null,
+            "format": "single_fence",
+            "normalization": "universal-newlines-to-lf; outer fence removal only",
+            "parser_version": "source-or-single-fence-v1",
+            "raw_digest": "24ad78ab83120f2bfc783c049d8403484dbc6f477f869d4cd4bea1e37f362a9b",
+            "raw_text": "```al0\nworkflow publish() -> Text uses {\"authorize:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\", \"admit:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\", \"reconcile:git.query\"} {\n    let request: GitPublishRequest = {commit: \"c9ad07d8585d8536049f9ecae66a837a5be5e6cf\"};\n    let intent = prepare(\"git.publish\", request);\n    let permission = authorize(intent);\n    let operation = admit(intent, permission);\n    let initial = await(operation);\n    let initial_result: Text = match_business(initial, {\n        Applied: \"Published\", ProvenNoEffect: \"NoEffect\", Pending: \"Pending\",\n        Unknown: \"Unknown\", NotDispatched: \"Queued\"\n    });\n    let query = reconcile(\"git.query\", operation);\n    let result: Text = match_business(query, {\n        Applied: \"Published\", ProvenNoEffect: \"NoEffect\", Pending: \"Pending\",\n        Unknown: \"Unknown\", NotDispatched: \"Queued\"\n    });\n    return result;\n}\n\nworkflow skip() -> Text uses {} {\n    let result: Text = \"Skipped\";\n    return result;\n}\nworkflow main(enabled: Bool) -> Text uses {\"authorize:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\", \"admit:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\", \"reconcile:git.query\"} {\n    let result = if(enabled, publish, skip, {});\n    return result;\n}\n\n```",
+            "source": "workflow publish() -> Text uses {\"authorize:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\", \"admit:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\", \"reconcile:git.query\"} {\n    let request: GitPublishRequest = {commit: \"c9ad07d8585d8536049f9ecae66a837a5be5e6cf\"};\n    let intent = prepare(\"git.publish\", request);\n    let permission = authorize(intent);\n    let operation = admit(intent, permission);\n    let initial = await(operation);\n    let initial_result: Text = match_business(initial, {\n        Applied: \"Published\", ProvenNoEffect: \"NoEffect\", Pending: \"Pending\",\n        Unknown: \"Unknown\", NotDispatched: \"Queued\"\n    });\n    let query = reconcile(\"git.query\", operation);\n    let result: Text = match_business(query, {\n        Applied: \"Published\", ProvenNoEffect: \"NoEffect\", Pending: \"Pending\",\n        Unknown: \"Unknown\", NotDispatched: \"Queued\"\n    });\n    return result;\n}\n\nworkflow skip() -> Text uses {} {\n    let result: Text = \"Skipped\";\n    return result;\n}\nworkflow main(enabled: Bool) -> Text uses {\"authorize:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\", \"admit:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\", \"reconcile:git.query\"} {\n    let result = if(enabled, publish, skip, {});\n    return result;\n}\n\n",
+            "source_digest": "b5ef47ebd6dce29bbb338ce00e0b499dbba00d962eedda3d3bcdf21ec7d63208"
+          },
+          "split": "development",
+          "task": "conditional-release",
+          "version": 1
+        },
+        "source_protocol": {
+          "accepted": true,
+          "error": null,
+          "format": "single_fence",
+          "normalization": "universal-newlines-to-lf; outer fence removal only",
+          "parser_version": "source-or-single-fence-v1",
+          "raw_digest": "24ad78ab83120f2bfc783c049d8403484dbc6f477f869d4cd4bea1e37f362a9b",
+          "raw_text": "```al0\nworkflow publish() -> Text uses {\"authorize:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\", \"admit:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\", \"reconcile:git.query\"} {\n    let request: GitPublishRequest = {commit: \"c9ad07d8585d8536049f9ecae66a837a5be5e6cf\"};\n    let intent = prepare(\"git.publish\", request);\n    let permission = authorize(intent);\n    let operation = admit(intent, permission);\n    let initial = await(operation);\n    let initial_result: Text = match_business(initial, {\n        Applied: \"Published\", ProvenNoEffect: \"NoEffect\", Pending: \"Pending\",\n        Unknown: \"Unknown\", NotDispatched: \"Queued\"\n    });\n    let query = reconcile(\"git.query\", operation);\n    let result: Text = match_business(query, {\n        Applied: \"Published\", ProvenNoEffect: \"NoEffect\", Pending: \"Pending\",\n        Unknown: \"Unknown\", NotDispatched: \"Queued\"\n    });\n    return result;\n}\n\nworkflow skip() -> Text uses {} {\n    let result: Text = \"Skipped\";\n    return result;\n}\nworkflow main(enabled: Bool) -> Text uses {\"authorize:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\", \"admit:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\", \"reconcile:git.query\"} {\n    let result = if(enabled, publish, skip, {});\n    return result;\n}\n\n```",
+          "source": "workflow publish() -> Text uses {\"authorize:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\", \"admit:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\", \"reconcile:git.query\"} {\n    let request: GitPublishRequest = {commit: \"c9ad07d8585d8536049f9ecae66a837a5be5e6cf\"};\n    let intent = prepare(\"git.publish\", request);\n    let permission = authorize(intent);\n    let operation = admit(intent, permission);\n    let initial = await(operation);\n    let initial_result: Text = match_business(initial, {\n        Applied: \"Published\", ProvenNoEffect: \"NoEffect\", Pending: \"Pending\",\n        Unknown: \"Unknown\", NotDispatched: \"Queued\"\n    });\n    let query = reconcile(\"git.query\", operation);\n    let result: Text = match_business(query, {\n        Applied: \"Published\", ProvenNoEffect: \"NoEffect\", Pending: \"Pending\",\n        Unknown: \"Unknown\", NotDispatched: \"Queued\"\n    });\n    return result;\n}\n\nworkflow skip() -> Text uses {} {\n    let result: Text = \"Skipped\";\n    return result;\n}\nworkflow main(enabled: Bool) -> Text uses {\"authorize:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\", \"admit:git.publish@git:a47419a555484a60fd07443204af475cd0abd19231f545cd3923885f707598b5\", \"reconcile:git.query\"} {\n    let result = if(enabled, publish, skip, {});\n    return result;\n}\n\n",
+          "source_digest": "b5ef47ebd6dce29bbb338ce00e0b499dbba00d962eedda3d3bcdf21ec7d63208"
+        },
+        "task_success": true
+      }
+    }
+  ],
+  "request_count": 2,
+  "evaluation_attempt_count": 4,
+  "executed_commit_sha": "184da04aa85264118b437df8df01929fb71ff08e",
+  "pr_head_sha": "5fb010f77119fd125066a6f5f04ef2c70639a2eb"
+}

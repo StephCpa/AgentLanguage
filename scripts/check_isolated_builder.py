@@ -24,6 +24,13 @@ def audit(image, folder):
     def check(name, condition):
         report['checks'][name] = bool(condition)
         if not condition:
+            if report['probes']:
+                latest = report['probes'][next(reversed(report['probes']))]
+                print(json.dumps({'failed_check': name, 'failure': latest.get('failure'),
+                    'diagnostics': {key: {'returncode': stage.get('returncode'),
+                                         'stdout': stage.get('stdout', '')[:4000],
+                                         'stderr': stage.get('stderr', '')[:4000]}
+                                    for key, stage in latest.get('stages', {}).items()}}, indent=2))
             raise AssertionError(name)
     def build(text, selected=builder):
         return selected.build(arm='sdk', source=text, catalog_document=catalog_document,
@@ -66,9 +73,9 @@ def audit(image, folder):
             pass
         else:
             raise AssertionError('external network reachable')
-    status = Path('/proc/self/status').read_text()
-    assert 'NoNewPrivs:\\t1' in status
-    assert 'CapEff:\\t0000000000000000' in status
+    process_status = Path('/proc/self/status').read_text()
+    assert 'NoNewPrivs:\\t1' in process_status
+    assert 'CapEff:\\t0000000000000000' in process_status
 '''.replace('HOST_FILE', repr(str(secret)))
         restricted = build(source.replace("    b = PlanBuilder", checks+"    b = PlanBuilder"))
         report['probes']['restrictions'] = restricted

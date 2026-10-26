@@ -355,6 +355,50 @@ with tempfile.TemporaryDirectory() as directory:
 '''
 
 
+GIT_CONSUMER = r'''
+import os
+from pathlib import Path
+import subprocess
+import tempfile
+from al0.data import Principal
+from al0.execute import Broker, Interpreter
+from al0.git_adapter import GitPublisher, PUBLISH, QUERY
+from al0.sdk import PlanBuilder
+from al0.store import Store
+
+with tempfile.TemporaryDirectory() as folder:
+    root=Path(folder);source=root/'source';source.mkdir();remote=root/'remote.git'
+    env=dict(os.environ,GIT_CONFIG_NOSYSTEM='1',GIT_CONFIG_GLOBAL=os.devnull)
+    def git(*args):
+        return subprocess.check_output(['git','-C',str(source),*args],env=env,stderr=subprocess.PIPE).decode().strip()
+    git('init','--quiet');git('init','--bare','--quiet',str(remote))
+    (source/'report.txt').write_text('approved publication\n',encoding='utf-8')
+    git('add','report.txt')
+    git('-c','user.name=AL0','-c','user.email=al0@example.invalid','commit','--quiet','-m','publication')
+    commit=git('rev-parse','HEAD')
+    adapter=GitPublisher(source,str(remote),commits=[commit],recipients=['public'],environment=env)
+    b=PlanBuilder('installed-git',adapter.catalog)
+    request=b.literal('request','GitPublishRequest',{'commit':commit})
+    intent=b.prepare('intent',b.tool(PUBLISH),request)
+    operation=b.admit('operation',intent,b.authorize('permit',intent))
+    status=b.await_result('status',operation)
+    plan=b.finish(b.match_business('result',status,'Text',applied='Published',proven_no_effect='NoEffect',
+                  pending='Pending',unknown='Unknown',not_dispatched='Queued'))
+    store=Store(root/'runtime.sqlite');who=Principal('installed','host')
+    run=store.create_run(who,plan.fingerprint,{'git_dispatches':3})
+    grants={n:store.grant(run,n,s.scope,expires=store.clock()+1000) for n,s in adapter.catalog.tools.items()}
+    broker=Broker(store,adapter.catalog,adapter.callbacks(store,who))
+    assert Interpreter(broker).run(plan,run,who,grants).data=='Published'
+    op=next(e['data']['operation'] for e in store.events(run,who) if e['kind']=='Admitted')
+    status=broker.reconcile(run,who,'query',op,QUERY,grants[QUERY])
+    receipt=status['business_evidence']['details']['output']
+    assert git('--git-dir',str(remote),'rev-parse',receipt['ref'])==commit
+    count=len(store.events(run,who))
+    assert Interpreter(broker).run(plan,run,who,grants).data=='Published'
+    assert len(store.events(run,who))==count
+'''
+
+
 def audit(python, wheel):
     # Resolving a POSIX venv's python symlink selects the base environment.
     python, wheel = Path(python).absolute(), Path(wheel).resolve()
@@ -414,6 +458,8 @@ def audit(python, wheel):
         (folder/'provider_consumer.py').write_text(PROVIDER_CONSUMER, encoding='utf-8')
         (folder/'provider_negative.py').write_text(PROVIDER_NEGATIVE, encoding='utf-8')
         require(run([consumer_python, 'provider_consumer.py']))
+        (folder/'git_consumer.py').write_text(GIT_CONSUMER, encoding='utf-8')
+        require(run([consumer_python, 'git_consumer.py']))
         common = [python, '-m', 'mypy', '--config-file', ROOT/'pyproject.toml', '--strict',
                   '--follow-imports=silent', '--python-executable', consumer_python,
                   '--no-pretty', '--no-color-output', '--show-error-codes']
@@ -453,6 +499,7 @@ def audit(python, wheel):
                 'inference_admission_consumer_executed_and_plan_typechecked': True,
                 'provider_refusal_and_blocked_dispatch_consumer_executed': True,
                 'provider_response_types_checked': True,
+                'git_adapter_installed_consumer_executed': True,
                 'provider_negative_diagnostic': provider_errors[0],
                 'generated_negative_diagnostic': generated_errors[0],
                 'environment': 'temporary consumer venv; no runtime dependencies installed; outside checkout'}

@@ -8,6 +8,7 @@ from contextlib import contextmanager
 from decimal import Decimal, InvalidOperation
 import json
 from pathlib import Path
+import re
 import sqlite3
 import sys
 import time
@@ -42,7 +43,11 @@ def pointer(document, path):
         raise ValueError('output_pointer must be a JSON pointer')
     try:
         for part in path.split('/')[1:] if path else []:
+            if re.search(r'~(?![01])', part):
+                raise ValueError('invalid JSON pointer escape')
             key = part.replace('~1', '/').replace('~0', '~')
+            if isinstance(document, list) and not re.fullmatch(r'0|[1-9][0-9]*', key):
+                raise ValueError('invalid JSON pointer array index')
             document = document[int(key)] if isinstance(document, list) else document[key]
     except (KeyError, IndexError, TypeError, ValueError):
         raise ValueError('output_pointer does not resolve') from None
@@ -273,6 +278,9 @@ def evaluate_round(folder, request_id, *, builder_image=None, trusted_fixture=Fa
         resume = row['phase'] == 'evaluating'
         db.execute('UPDATE rounds SET phase=? WHERE id=?', ('evaluating', request_id))
         source = pointer(json.loads(row['receipt'])['raw_response'], json.loads(row['receipt'])['output_pointer'])
+        # Match the existing file frontend's universal-newline decoding. Keep
+        # the exact provider text in the receipt and prompt history.
+        source = source.replace('\r\n', '\n').replace('\r', '\n')
         arm = row['arm']
     work = folder/('round-'+request_id)
     output = work/'evaluation'
@@ -287,7 +295,7 @@ def evaluate_round(folder, request_id, *, builder_image=None, trusted_fixture=Fa
         for name, text in state['frozen'].items():
             (package/name).write_text(text, encoding='utf-8')
         candidate = work/('submission.al0' if arm == 'al0' else 'submission.py')
-        candidate.write_text(source, encoding='utf-8')
+        candidate.write_bytes(source.encode('utf-8'))
         # A worker exception leaves evaluating state; never silently issue new work.
         report = evaluate_submissions(package, {arm: candidate}, output, python=python, builder_image=builder_image)
     if (set(report['arms']) != {arm} or report['contract_digest'] != state['task']['contract_digest'] or
@@ -295,6 +303,7 @@ def evaluate_round(folder, request_id, *, builder_image=None, trusted_fixture=Fa
             any(r['arm'] != arm or r['submission_digest'] != digest(source) for r in report['rows'])):
         raise ValueError('evaluation artifact differs from frozen submission')
     result = feedback(report, arm)
+    result['source_normalization'] = 'universal-newlines-to-lf'
     result['report'] = str(output/'summary.json')
     with database(folder) as db:
         db.execute('UPDATE rounds SET phase=?,evaluation=?,evaluated_at=? WHERE id=?',

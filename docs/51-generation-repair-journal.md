@@ -8,7 +8,7 @@
 
 模型请求只含 `participant/` 的三个文件、明确提供的说明材料、该组先前输出及评分反馈；不会递归读取任务包或加入参考答案。宿主在 SQLite 中保存完整评分契约，包含本地 Git 端点路径；它不属于模型请求。两组材料的字符数分别记录，字符数不等于 token 数，记录器也没有证明材料内容和示例难度已匹配。正式实验仍需固定经过检查的材料及计数方法。
 
-每份响应通过 JSON pointer 提取源码，不删除代码围栏、不替换内容、不自动修正程序。单组评分只执行所分配的前端，不用参考答案补齐另一组。该轮程序只构造一次，用同一 IR 执行任务所有场景。
+每份响应通过 JSON pointer 提取源码，不删除代码围栏、不自动修正程序。原始文本完整保留；提交给既有文件前端时统一 CRLF/CR 换行为 LF，并记录这一规范化，避免 Windows 文本写入再次转换 CRLF。单组评分只执行所分配的前端，不用参考答案补齐另一组。该轮程序只构造一次，用同一 IR 执行任务所有场景。
 
 ## 轮次与恢复
 
@@ -77,6 +77,6 @@ python -m scripts.generation_journal --journal <journal> summary
 
 `scripts/check_generation_journal.py` 分别给两组一份语法错误程序，再导入各自参考答案。它检查首次失败、诊断进入修复请求、最终通过、未知费用保留、迟到零费用结算及单组执行。这个过程是人工 fixture 驱动的记录器验收，不是模型成功修复了程序。CI 在真实 Docker 后端运行同一流程，并保留 `generation_journal_ci.json`。
 
-本地联合回归 23 项通过（241.325 秒），随后对最终费用/恢复逻辑及 mypy 分类补验的 11 项专项测试通过（14.622 秒）。日志分别为 `models/generation_journal_regression.log` 和 `models/generation_journal_focused.log`；两次集合存在重叠，不应合计为 34 个不同测试。
+本地联合回归 23 项通过（241.325 秒），随后对最终费用/恢复逻辑及 mypy 分类补验的 11 项专项测试通过（14.785 秒）。日志分别为 `models/generation_journal_regression.log` 和 `models/generation_journal_focused.log`；两次集合存在重叠，不应合计为 34 个不同测试。
 
 记录器目前只支持公开的 development 任务。仍需真实提供方适配器及其计数/收费验证、匹配语言材料、实际模型实验、跨模块代码修复和证据绑定任务，以及不反馈评分细节的独立测试集。当前报告始终声明 `causal_language_benefit: not_measured`；不能把 fixture 轮次或故障场景作为独立开发样本。

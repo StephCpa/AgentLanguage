@@ -11,6 +11,6 @@ test_receipt_identity_idempotency_and_exact_source (tests.test_generation_journa
 test_unknown_cost_reserves_budget_until_late_settlement_and_arms_are_independent (tests.test_generation_journal.GenerationJournalTests) ... ok
 
 ----------------------------------------------------------------------
-Ran 11 tests in 14.622s
+Ran 11 tests in 14.785s
 
 OK

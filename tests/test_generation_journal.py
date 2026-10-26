@@ -46,7 +46,7 @@ class GenerationJournalTests(unittest.TestCase):
         self.assertEqual(second['messages'][2]['content'], 'invalid source')
         self.assertIn('static_rejection', second['messages'][3]['content'])
         text = (self.package/'reference.al0').read_text(encoding='utf-8')
-        receive(folder, second['id'], self.receipt(second, text, cost='0.03',
+        receive(folder, second['id'], self.receipt(second, text.replace('\n', '\r\n'), cost='0.03',
                 usage={'input_tokens': 100, 'output_tokens': 50}))
         good = evaluate_round(folder, second['id'], trusted_fixture=True, python=self.python)
         self.assertTrue(good['task_success'])
@@ -110,6 +110,9 @@ class GenerationJournalTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'different receipt'):
             receive(folder, request['id'], dict(receipt, cost_usd='0.01'))
         self.assertEqual(pointer(receipt['raw_response'], receipt['output_pointer']), '```al0\nnot silently repaired\n```')
+        for path in ('/items/-1/text', '/items/00/text', '/items/0/te~2xt'):
+            with self.assertRaises(ValueError):
+                pointer(receipt['raw_response'], path)
         for usage in ({}, {'input_tokens': True, 'output_tokens': 1}, {'input_tokens': -1, 'output_tokens': 1}):
             with self.assertRaises(ValueError):
                 receive(folder, request['id'], dict(receipt, usage=usage))

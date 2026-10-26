@@ -22,6 +22,8 @@
 
 基础设施故障期间不得新申请模型修复；重评解决故障后，由有效结果决定结束或允许下一次有计数、有预算的模型修复。模型请求次数、原始响应和 token 费用不会因重评改变。远程结果导入也要求显式 evaluation_id，并继续核对源码/契约/Catalog 与 Docker 执行来源。
 
+`first_attempt_success` 仍指第一次模型输出经过有效评估后是否通过，不是第一次评估进程是否运行正常。拒绝等无源码生成结果继续计入模型请求分母，不创建 evaluation_attempt；读取已完成结果也不会启动构造器。
+
 ## 共同解析器和教学材料进入同一请求链
 
 `scripts.next_pilot` 的初始化会实际编译 `teaching_v2` 的所有注册例子，并检查两前端 IR 相同，然后把对应源码追加到两组材料，保存到不可变配置。共享说明和 system 提示都使用同一围栏规则。评估读取保存的响应，通过同一解析器保存原始/提取文本和摘要，再执行前端；混合说明、多块或空输出被记录为格式失败，不启动构造器。
@@ -62,3 +64,9 @@ python -m scripts.next_pilot --pilot TASK_SESSION evaluate --request-id REQUEST_
 本机已建立 preflight 状态的实际入口，0 个新请求；其发送尝试在读取凭据或发起网络调用前被未冻结门禁拒绝。独立任务集及其负例、任务级平衡顺序、最终材料和模型/价格配置仍需在实际研究调用前固定。当前 v1 提供方配置仅用于流程校准，不能把复用配置当成新实验已完成冻结或新的价格核验。
 
 `scripts.check_prospective_journal` 在 CI 用标明为 fixture 的参考源码验证完整流程：不存在的 Docker 镜像使首评失败、禁止新请求、相同源码使用可用镜像重评成功；两臂共 2 个模拟请求、4 个评估身份，0 次模型调用。单元测试另覆盖合成编译器故障、评估次数上限、待完成评估不重复执行、不可变结果、格式拒绝、共同材料/传输路径和并发预算。
+
+## 验收记录
+
+[CI 40361166261](https://github.com/StephCpa/AgentLanguage/actions/runs/40361166261) 的代码 head 为 `5fb010f77119fd125066a6f5f04ef2c70639a2eb`，实际执行合并提交为 `184da04aa85264118b437df8df01929fb71ff08e`。Python 3.10/3.12 分别通过 1023 项测试（184.306/178.773 秒），两项安装验证及 Docker 作业全部通过。
+
+新增 Docker 入口验收的原始报告为 `models/prospective_journal_acceptance.json`，来源为 `models/prospective_journal_acceptance.provenance.json`。SDK 和 AL-0 都由 infrastructure_failure 转为 success，原始/提取源码记录完全相同，评估身份不同。报告中 0.4 美元是合成 fixture 的未结算预约，不是本轮实际模型费用；实际共享账本仍只有原六次调用、0.016987800 美元保守责任。

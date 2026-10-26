@@ -1,0 +1,260 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "AgentLanguage · 发布回包丢失后的显式对账",
+    "locale": "zh-CN",
+    "output": ".archify/architecture-agentlanguage-20261027-010149/sequence.html",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/StephCpa/AgentLanguage.git",
+      "revision": "e29b3f694d81eb06607eb3da26ea14a38034fc11"
+    }
+  },
+  "participants": [
+    {
+      "id": "runtime",
+      "type": "backend",
+      "label": "解释器 / Broker",
+      "sublabel": "恢复同一操作",
+      "sources": [
+        {
+          "path": "al0/execute.py",
+          "line": 250,
+          "end_line": 295
+        },
+        {
+          "path": "al0/execute.py",
+          "line": 359,
+          "end_line": 407
+        }
+      ]
+    },
+    {
+      "id": "store",
+      "type": "database",
+      "label": "Store / SQLite",
+      "sublabel": "先记派发责任",
+      "sources": [
+        {
+          "path": "al0/store.py",
+          "line": 346,
+          "end_line": 410
+        },
+        {
+          "path": "al0/store.py",
+          "line": 532,
+          "end_line": 601
+        },
+        {
+          "path": "al0/store.py",
+          "line": 681,
+          "end_line": 722
+        }
+      ]
+    },
+    {
+      "id": "adapter",
+      "type": "backend",
+      "label": "GitPublisher",
+      "sublabel": "可信宿主适配器",
+      "sources": [
+        {
+          "path": "al0/git_adapter.py",
+          "line": 121,
+          "end_line": 178
+        }
+      ]
+    },
+    {
+      "id": "endpoint",
+      "type": "external",
+      "label": "真实 Git 端点",
+      "sublabel": "不可变操作引用",
+      "sources": [
+        {
+          "path": "al0/git_adapter.py",
+          "line": 121,
+          "end_line": 135
+        },
+        {
+          "path": "al0/git_adapter.py",
+          "line": 149,
+          "end_line": 178
+        }
+      ]
+    }
+  ],
+  "messages": [
+    {
+      "id": "m1",
+      "from": "runtime",
+      "to": "store",
+      "label": "授权与接纳",
+      "variant": "security",
+      "y": 170
+    },
+    {
+      "id": "m2",
+      "from": "store",
+      "to": "runtime",
+      "label": "持久 Operation",
+      "variant": "return",
+      "y": 206
+    },
+    {
+      "id": "m3",
+      "from": "runtime",
+      "to": "store",
+      "label": "获取派发权",
+      "variant": "security",
+      "y": 242
+    },
+    {
+      "id": "m4",
+      "from": "store",
+      "to": "runtime",
+      "label": "记录 DispatchStarted",
+      "variant": "return",
+      "y": 278
+    },
+    {
+      "id": "m5",
+      "from": "runtime",
+      "to": "adapter",
+      "label": "执行 publish",
+      "variant": "default",
+      "y": 314
+    },
+    {
+      "id": "m6",
+      "from": "adapter",
+      "to": "endpoint",
+      "label": "push：空引用 lease",
+      "variant": "emphasis",
+      "y": 350
+    },
+    {
+      "id": "m7",
+      "from": "endpoint",
+      "to": "adapter",
+      "label": "故障场景：回包丢失",
+      "variant": "dashed",
+      "y": 386
+    },
+    {
+      "id": "m8",
+      "from": "adapter",
+      "to": "runtime",
+      "label": "传输异常：结果未知",
+      "variant": "return",
+      "y": 422
+    },
+    {
+      "id": "m9",
+      "from": "runtime",
+      "to": "store",
+      "label": "恢复时读取原操作",
+      "variant": "default",
+      "y": 458
+    },
+    {
+      "id": "m10",
+      "from": "store",
+      "to": "runtime",
+      "label": "保留 Unknown 与费用责任",
+      "variant": "return",
+      "y": 494
+    },
+    {
+      "id": "m11",
+      "from": "runtime",
+      "to": "store",
+      "label": "单独授权并接纳 query",
+      "variant": "security",
+      "y": 530
+    },
+    {
+      "id": "m12",
+      "from": "runtime",
+      "to": "adapter",
+      "label": "显式 query",
+      "variant": "default",
+      "y": 566
+    },
+    {
+      "id": "m13",
+      "from": "adapter",
+      "to": "store",
+      "label": "解析可信目标快照",
+      "variant": "default",
+      "y": 602
+    },
+    {
+      "id": "m14",
+      "from": "store",
+      "to": "adapter",
+      "label": "原 Intent 与 attempts",
+      "variant": "return",
+      "y": 638
+    },
+    {
+      "id": "m15",
+      "from": "adapter",
+      "to": "endpoint",
+      "label": "ls-remote 精确查询",
+      "variant": "emphasis",
+      "y": 674
+    },
+    {
+      "id": "m16",
+      "from": "endpoint",
+      "to": "adapter",
+      "label": "目标引用与提交 OID",
+      "variant": "return",
+      "y": 710
+    },
+    {
+      "id": "m17",
+      "from": "adapter",
+      "to": "runtime",
+      "label": "匹配：Applied 与派发账单",
+      "variant": "return",
+      "y": 746
+    },
+    {
+      "id": "m18",
+      "from": "runtime",
+      "to": "store",
+      "label": "验证并写入业务 / 结算证据",
+      "variant": "security",
+      "y": 782
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "所示场景",
+      "items": [
+        "端点已经写入批准提交，但确认回包丢失；这是一条协议说明轨迹，不是耗时测量。",
+        "Broker 不自动重复已暴露的 publish；对账本身是另一个需要授权与预算的操作。"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "查询分支",
+      "items": [
+        "只有精确引用名与批准 OID 同时匹配，才生成 Applied 业务证据。",
+        "引用缺失仍不能排除延迟 push，因此保持 Unknown；查询传输失败也会留下责任。"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "控制完成与责任清理",
+      "items": [
+        "解释器控制流可以结束，未决操作或账单仍保留。",
+        "CompletedClean 要求无未决责任；否则为 CompletedWithObligations。"
+      ]
+    }
+  ]
+}

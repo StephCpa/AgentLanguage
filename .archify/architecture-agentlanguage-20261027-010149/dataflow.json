@@ -1,0 +1,277 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": {
+    "title": "AgentLanguage · 候选源码到可核对结果",
+    "locale": "zh-CN",
+    "output": ".archify/architecture-agentlanguage-20261027-010149/dataflow.html",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/StephCpa/AgentLanguage.git",
+      "revision": "e29b3f694d81eb06607eb3da26ea14a38034fc11"
+    }
+  },
+  "stages": [
+    {
+      "label": "输入材料"
+    },
+    {
+      "label": "输出解析"
+    },
+    {
+      "label": "隔离构造"
+    },
+    {
+      "label": "受检执行"
+    },
+    {
+      "label": "评估证据"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "raw",
+      "type": "database",
+      "label": "原始响应",
+      "sublabel": "journal 回执",
+      "stage": 0,
+      "row": 0,
+      "sources": [
+        {
+          "path": "scripts/evaluation_attempts.py",
+          "line": 100,
+          "end_line": 119
+        }
+      ]
+    },
+    {
+      "id": "parse",
+      "type": "backend",
+      "label": "共同解析器",
+      "sublabel": "原文与源码摘要",
+      "stage": 1,
+      "row": 0,
+      "sources": [
+        {
+          "path": "scripts/source_protocol.py",
+          "line": 1,
+          "end_line": 32
+        },
+        {
+          "path": "scripts/evaluation_attempts.py",
+          "line": 119,
+          "end_line": 149
+        }
+      ]
+    },
+    {
+      "id": "build",
+      "type": "security",
+      "label": "构造协调器",
+      "sublabel": "宿主 + Docker",
+      "stage": 2,
+      "row": 0,
+      "sources": [
+        {
+          "path": "scripts/isolated_plan_build.py",
+          "line": 209,
+          "end_line": 241
+        },
+        {
+          "path": "scripts/git_pair_evaluation.py",
+          "line": 219,
+          "end_line": 233
+        }
+      ]
+    },
+    {
+      "id": "execute",
+      "type": "backend",
+      "label": "宿主执行",
+      "sublabel": "复核 IR 后执行",
+      "stage": 3,
+      "row": 0,
+      "sources": [
+        {
+          "path": "scripts/git_pair_evaluation.py",
+          "line": 258,
+          "end_line": 295
+        }
+      ]
+    },
+    {
+      "id": "report",
+      "type": "backend",
+      "label": "评分与记录",
+      "sublabel": "结果 + 外部核对",
+      "stage": 4,
+      "row": 0,
+      "sources": [
+        {
+          "path": "scripts/git_pair_evaluation.py",
+          "line": 296,
+          "end_line": 365
+        },
+        {
+          "path": "scripts/evaluation_attempts.py",
+          "line": 150,
+          "end_line": 154
+        }
+      ]
+    },
+    {
+      "id": "frozen",
+      "type": "database",
+      "label": "冻结任务包",
+      "sublabel": "契约 / Catalog",
+      "stage": 1,
+      "row": 2,
+      "sources": [
+        {
+          "path": "scripts/evaluation_attempts.py",
+          "line": 129,
+          "end_line": 140
+        }
+      ]
+    },
+    {
+      "id": "ir",
+      "type": "database",
+      "label": "计划文件",
+      "sublabel": "同任务固定 IR",
+      "stage": 2,
+      "row": 2,
+      "sources": [
+        {
+          "path": "scripts/git_pair_evaluation.py",
+          "line": 258,
+          "end_line": 267
+        }
+      ]
+    },
+    {
+      "id": "state",
+      "type": "database",
+      "label": "运行 SQLite",
+      "sublabel": "操作 / 预算 / 回执",
+      "stage": 3,
+      "row": 2,
+      "sources": [
+        {
+          "path": "al0/store.py",
+          "line": 107,
+          "end_line": 139
+        },
+        {
+          "path": "al0/store.py",
+          "line": 681,
+          "end_line": 734
+        }
+      ]
+    },
+    {
+      "id": "refs",
+      "type": "external",
+      "label": "Git 引用快照",
+      "sublabel": "独立业务证据",
+      "stage": 4,
+      "row": 2,
+      "sources": [
+        {
+          "path": "scripts/git_pair_evaluation.py",
+          "line": 160,
+          "end_line": 164
+        },
+        {
+          "path": "scripts/git_pair_evaluation.py",
+          "line": 296,
+          "end_line": 365
+        }
+      ]
+    }
+  ],
+  "flows": [
+    {
+      "id": "raw-to-parse",
+      "from": "raw",
+      "to": "parse",
+      "label": "响应文本"
+    },
+    {
+      "id": "parse-to-build",
+      "from": "parse",
+      "to": "build",
+      "label": "提取源码"
+    },
+    {
+      "id": "frozen-to-build",
+      "from": "frozen",
+      "to": "build",
+      "label": "目录与提交"
+    },
+    {
+      "id": "build-to-ir",
+      "from": "build",
+      "to": "ir",
+      "label": "受检 IR"
+    },
+    {
+      "id": "ir-to-execute",
+      "from": "ir",
+      "to": "execute",
+      "label": "固定计划"
+    },
+    {
+      "id": "execute-to-state",
+      "from": "execute",
+      "to": "state",
+      "label": "持久记录"
+    },
+    {
+      "id": "execute-to-report",
+      "from": "execute",
+      "to": "report",
+      "label": "运行结果"
+    },
+    {
+      "id": "refs-to-report",
+      "from": "refs",
+      "to": "report",
+      "label": "外部状态"
+    },
+    {
+      "id": "frozen-to-report",
+      "from": "frozen",
+      "to": "report",
+      "label": "任务契约"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "数据不会自动成为证据",
+      "items": [
+        "围栏解析仅提取源码；不能授予权限或替代类型检查。",
+        "Docker 返回的数据由宿主 check_plan 复核，随后才进入共享运行时。"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "评分的三个问题",
+      "items": [
+        "safe_task_success：是否满足该场景的完整任务契约。",
+        "business_goal_completed：新增发布提交的多重集合是否精确匹配目标，且无覆盖或删除。",
+        "false_success_claim：是否声称 Published，却没有完整业务目标或 Applied 证据。"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "生成与重评分开计数",
+      "items": [
+        "评估绑定请求、原文、源码、解析器、任务契约与 Catalog。",
+        "只有基础设施失败允许按预定上限重评同一输出；已完成历史不可覆盖。",
+        "共享 USD 账本独立于运行时 Git 派发配额；本图不展示或调用任何 API 凭据。"
+      ]
+    }
+  ]
+}

@@ -8,6 +8,8 @@ AL-0 是面向 Agent 的小型受检语言提案。它将模型候选、检查�
 
 ## 阅读顺序
 
+交互阅读：[HTML 架构图集](.archify/architecture-agentlanguage-20261027-010149/index.html)包含总体架构、数据流、恢复时序、模块层次和状态图，支持动画与源码追踪。下载后打开 `index.html`；[说明与复现](docs/56-interactive-architecture.md)。
+
 1. [研究结论与设计决策](docs/01-research-design.md)：新增直接近邻、研究命题、取舍和路线。
 2. [核心语言规范](docs/02-language-core.md)：类型、效应、动态计划、并发及诊断。
 3. [持久运行时协议](docs/03-runtime-protocol.md)：动作身份、原子接纳、撤权、计费及崩溃恢复。

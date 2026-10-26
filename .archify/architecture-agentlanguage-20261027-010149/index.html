@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AgentLanguage · 交互架构图集</title>
+<style>
+:root{color-scheme:dark;font:15px/1.6 system-ui,"Microsoft YaHei",sans-serif;background:#0b1018;color:#e3eaf3}*{box-sizing:border-box}body{margin:0}header{padding:24px 32px 20px;border-bottom:1px solid #283446;background:linear-gradient(115deg,#112330,#111623)}.eyebrow{color:#64d9cc;letter-spacing:.14em;font-size:11px;font-weight:700}h1{font-size:26px;letter-spacing:-.5px;margin:5px 0}p{margin:0;color:#a9b8cc;font-size:13px}a{color:#91e6dc;text-decoration:none}a:hover{text-decoration:underline}.bar{display:flex;align-items:center;justify-content:space-between;gap:20px}.badge{border:1px solid #385365;border-radius:20px;padding:5px 12px;white-space:nowrap;font-size:12px;color:#b1d3e4}.tools{display:flex;align-items:center;gap:14px;margin-top:18px;flex-wrap:wrap}nav{display:flex;gap:6px;flex:1;flex-wrap:wrap}button{font:inherit;cursor:pointer;border:1px solid #324258;background:#172333;color:#b9c6d8;border-radius:7px;padding:8px 16px;font-size:13px}button:hover,button[aria-selected=true]{background:#183e43;color:#a7fff0;border-color:#509b94}button:focus-visible,a:focus-visible{outline:2px solid #91e6dc;outline-offset:4px}.hint{padding:10px 32px;border-bottom:1px solid #233044;font-size:12px;color:#a4b5ca;display:flex;justify-content:space-between;gap:12px}iframe{display:block;width:100%;height:calc(100vh - 238px);min-height:560px;border:0;background:#0f1722}footer{padding:12px 32px;font-size:11px;color:#7e91a9}code{font-family:monospace;color:#b8cbdc}@media(max-width:700px){header{padding:18px}h1{font-size:22px}.badge{display:none}.hint{padding:10px 18px;display:block}button{padding:7px 10px}iframe{height:75vh}footer{padding:12px 18px}}
+</style>
+<header>
+ <div class="bar"><div><div class="eyebrow">AGENTLANGUAGE / SYSTEM ATLAS</div><h1>受检计划，持久执行</h1><p>沿着源码、证据与责任，探索 AL-0 的共同执行核心。</p></div><span class="badge">Archify 3.2 · 5 个交互视图</span></div>
+ <div class="tools"><nav role="tablist" aria-label="架构视图">
+  <button role="tab" aria-selected="true" data-view="architecture">01 总体架构</button>
+  <button role="tab" aria-selected="false" data-view="dataflow">02 数据流</button>
+  <button role="tab" aria-selected="false" data-view="sequence">03 恢复时序</button>
+  <button role="tab" aria-selected="false" data-view="tree">04 模块层次</button>
+  <button role="tab" aria-selected="false" data-view="lifecycle">05 状态与责任</button>
+ </nav><a id="standalone" href="architecture.html" target="_blank" rel="noopener">独立打开 ↗</a></div>
+</header>
+<div class="hint"><span id="description">双前端汇入同一 IR；宿主复核后，由共享解释器、Broker 与 Store 执行。</span><span>点击节点探索 · 工具栏开启「动态」 · 滚轮缩放</span></div>
+<iframe id="reader" title="总体架构交互图" src="architecture.html"></iframe>
+<footer>源码快照 <a href="https://github.com/StephCpa/AgentLanguage/tree/e29b3f694d81eb06607eb3da26ea14a38034fc11" target="_blank" rel="noopener"><code>e29b3f6</code></a> · 图形由 <a href="https://github.com/tt-a1i/archify/tree/81c6be8d87090670c45d08a8f97f9d29c5af0bec" target="_blank" rel="noopener">Archify 开源生成器</a>生成 · <a href="README.md">生成说明与许可</a> · 本地图集可离线浏览，源码链接需要网络。</footer>
+<script>
+const descriptions={architecture:'双前端汇入同一 IR；宿主复核后，由共享解释器、Broker 与 Store 执行。',dataflow:'从原始模型响应、共同解析与隔离构造，到真实 Git 外部状态核对。',sequence:'所示轨迹：发布已发生而回包丢失，随后单独授权查询；纵向间距不表示耗时。',tree:'职责分解：连线表示归属，不是调用。ContextView 与独立任务集冻结仍未完成。',lifecycle:'控制流结束与外部责任分别记录；仅责任全部解决后才成为无未决的结束状态。'};
+const buttons=[...document.querySelectorAll('[data-view]')];
+function select(view){if(!Object.hasOwn(descriptions,view))view='architecture';for(const b of buttons)b.setAttribute('aria-selected',String(b.dataset.view===view));document.getElementById('reader').src=view+'.html';document.getElementById('reader').title=buttons.find(b=>b.dataset.view===view).textContent+'交互图';document.getElementById('standalone').href=view+'.html';document.getElementById('description').textContent=descriptions[view];history.replaceState(null,'','#'+view)}
+for(const b of buttons){b.onclick=()=>select(b.dataset.view);b.onkeydown=e=>{if(!['ArrowLeft','ArrowRight','Home','End'].includes(e.key))return;e.preventDefault();const i=buttons.indexOf(b);const n=e.key==='Home'?0:e.key==='End'?buttons.length-1:(i+(e.key==='ArrowRight'?1:-1)+buttons.length)%buttons.length;buttons[n].focus();select(buttons[n].dataset.view)}}
+if(location.hash)select(location.hash.slice(1));
+</script>
+</html>

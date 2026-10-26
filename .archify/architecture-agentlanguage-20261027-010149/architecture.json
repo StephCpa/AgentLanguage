@@ -1,0 +1,317 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "AgentLanguage · 双前端与持久执行架构",
+    "locale": "zh-CN",
+    "output": ".archify/architecture-agentlanguage-20261027-010149/architecture.html",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/StephCpa/AgentLanguage.git",
+      "revision": "e29b3f694d81eb06607eb3da26ea14a38034fc11"
+    }
+  },
+  "components": [
+    {
+      "id": "al0",
+      "type": "frontend",
+      "label": "AL-0 前端",
+      "sublabel": "源码 → 共享 IR",
+      "pos": [
+        40,
+        40
+      ],
+      "size": [
+        180,
+        76
+      ],
+      "sources": [
+        {
+          "path": "al0/frontend.py",
+          "line": 276,
+          "end_line": 295
+        }
+      ]
+    },
+    {
+      "id": "checked",
+      "type": "security",
+      "label": "共享 IR 检查",
+      "sublabel": "类型 · 证据 · 仿射资源",
+      "pos": [
+        360,
+        40
+      ],
+      "size": [
+        180,
+        76
+      ],
+      "sources": [
+        {
+          "path": "al0/ir.py",
+          "line": 268,
+          "end_line": 295
+        },
+        {
+          "path": "al0/sdk.py",
+          "line": 1,
+          "end_line": 5
+        }
+      ]
+    },
+    {
+      "id": "runtime",
+      "type": "backend",
+      "label": "共享解释器",
+      "sublabel": "受检计划 · 恢复执行",
+      "pos": [
+        680,
+        40
+      ],
+      "size": [
+        180,
+        76
+      ],
+      "sources": [
+        {
+          "path": "al0/execute.py",
+          "line": 409,
+          "end_line": 455
+        }
+      ]
+    },
+    {
+      "id": "sdk",
+      "type": "frontend",
+      "label": "Python SDK",
+      "sublabel": "符号构造 · 类型绑定",
+      "pos": [
+        360,
+        230
+      ],
+      "size": [
+        180,
+        76
+      ],
+      "sources": [
+        {
+          "path": "al0/sdk.py",
+          "line": 1,
+          "end_line": 16
+        },
+        {
+          "path": "al0/codegen.py",
+          "line": 1,
+          "end_line": 20
+        }
+      ]
+    },
+    {
+      "id": "broker",
+      "type": "security",
+      "label": "Broker",
+      "sublabel": "接纳 · 派发 · 回执",
+      "pos": [
+        680,
+        230
+      ],
+      "size": [
+        180,
+        76
+      ],
+      "sources": [
+        {
+          "path": "al0/execute.py",
+          "line": 250,
+          "end_line": 295
+        }
+      ]
+    },
+    {
+      "id": "store",
+      "type": "database",
+      "label": "Store / SQLite",
+      "sublabel": "预算 · 任务 · 未决责任",
+      "pos": [
+        1000,
+        230
+      ],
+      "size": [
+        180,
+        76
+      ],
+      "sources": [
+        {
+          "path": "al0/store.py",
+          "line": 107,
+          "end_line": 139
+        },
+        {
+          "path": "al0/store.py",
+          "line": 681,
+          "end_line": 728
+        }
+      ]
+    },
+    {
+      "id": "git",
+      "type": "backend",
+      "label": "可信 Git 适配器",
+      "sublabel": "操作引用 · 显式对账",
+      "pos": [
+        680,
+        430
+      ],
+      "size": [
+        180,
+        76
+      ],
+      "sources": [
+        {
+          "path": "al0/git_adapter.py",
+          "line": 121,
+          "end_line": 178
+        }
+      ]
+    },
+    {
+      "id": "remote",
+      "type": "external",
+      "label": "Git 端点",
+      "sublabel": "批准提交 → 不可变引用",
+      "pos": [
+        1000,
+        430
+      ],
+      "size": [
+        180,
+        76
+      ],
+      "sources": [
+        {
+          "path": "al0/git_adapter.py",
+          "line": 121,
+          "end_line": 135
+        },
+        {
+          "path": "scripts/git_pair_evaluation.py",
+          "line": 1,
+          "end_line": 5
+        }
+      ]
+    },
+    {
+      "id": "isolated",
+      "type": "security",
+      "label": "隔离构造入口",
+      "sublabel": "评测模式 · Docker",
+      "pos": [
+        40,
+        230
+      ],
+      "size": [
+        180,
+        76
+      ],
+      "sources": [
+        {
+          "path": "scripts/isolated_plan_build.py",
+          "line": 209,
+          "end_line": 241
+        },
+        {
+          "path": "scripts/isolated_plan_build.py",
+          "line": 164,
+          "end_line": 177
+        }
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "al0-to-checked",
+      "from": "al0",
+      "to": "checked",
+      "label": "编译产物"
+    },
+    {
+      "id": "sdk-to-checked",
+      "from": "sdk",
+      "to": "checked",
+      "label": "计划数据"
+    },
+    {
+      "id": "checked-to-runtime",
+      "from": "checked",
+      "to": "runtime",
+      "label": "检查通过",
+      "variant": "security"
+    },
+    {
+      "id": "runtime-to-broker",
+      "from": "runtime",
+      "to": "broker",
+      "label": "工具操作"
+    },
+    {
+      "id": "runtime-to-store",
+      "from": "runtime",
+      "to": "store",
+      "label": "恢复 / 检查点"
+    },
+    {
+      "id": "broker-to-store",
+      "from": "broker",
+      "to": "store",
+      "label": "事务 / 回执"
+    },
+    {
+      "id": "broker-to-git",
+      "from": "broker",
+      "to": "git",
+      "label": "获准派发",
+      "variant": "security"
+    },
+    {
+      "id": "git-to-remote",
+      "from": "git",
+      "to": "remote",
+      "label": "push / query"
+    },
+    {
+      "id": "isolated-to-checked",
+      "from": "isolated",
+      "to": "checked",
+      "label": "宿主复核",
+      "variant": "security"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "一个共同执行核心",
+      "items": [
+        "两个前端都生成数据型 IR，共享 check_plan、Interpreter、Broker 和 Store。",
+        "Python 类型检查提供前置诊断；共享 IR 检查仍是权威。"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "隔离范围",
+      "items": [
+        "Docker 用于不可信评测提交的计划构造；SDK 类型检查与构造在不同容器。",
+        "无网络、只读输入、非 root、资源上限；容器输出由宿主重新检查。",
+        "宿主注册适配器、授权与真实 Git 对象，容器不能取得这些运行资源。"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "已实现与边界",
+      "items": [
+        "此图概括真实 Git 发布切片；模型调用、任务、循环与信息流详见层次图。",
+        "传输故障可能留下 Unknown；恢复不等于对任意远程工具保证 exactly-once。",
+        "ContextView 等完整语言目标尚未完成，参见 docs/08 与 docs/45。"
+      ]
+    }
+  ]
+}

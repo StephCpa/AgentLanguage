@@ -1,0 +1,64 @@
+{
+  "diagrams": [
+    {
+      "type": "architecture",
+      "gates": {
+        "validate": "pass",
+        "deliver": "pass",
+        "check": "pass",
+        "browser-check": "pass"
+      },
+      "artifact_sha256": "5f170be8fd08a92155d56206333f1c4c2be7129c5107b1b6536205e4524fb1ab",
+      "receipt": "architecture.finalize-summary.json"
+    },
+    {
+      "type": "dataflow",
+      "gates": {
+        "validate": "pass",
+        "deliver": "pass",
+        "check": "pass",
+        "browser-check": "pass"
+      },
+      "artifact_sha256": "cd327bb5071569f4a5d7f3c90f9cdee32983a1c316159d3a831d17acef4d5a51",
+      "receipt": "review-2/dataflow/dataflow.finalize-summary.json"
+    },
+    {
+      "type": "sequence",
+      "gates": {
+        "validate": "pass",
+        "deliver": "pass",
+        "check": "pass",
+        "browser-check": "pass"
+      },
+      "artifact_sha256": "d52e2946ca65f70387ac76dec99b1d5e8705640e634c04dbffa01276d350d4fd",
+      "receipt": "sequence.finalize-summary.json"
+    },
+    {
+      "type": "tree",
+      "gates": {
+        "validate": "pass",
+        "deliver": "pass",
+        "check": "pass",
+        "browser-check": "pass"
+      },
+      "artifact_sha256": "b9f00850205b4f59d484d8c147ebe39119d5c74760a1eb041f35d09b1fdc87f7",
+      "receipt": "tree.finalize-summary.json"
+    },
+    {
+      "type": "lifecycle",
+      "gates": {
+        "validate": "pass",
+        "deliver": "pass",
+        "check": "pass",
+        "browser-check": "pass"
+      },
+      "artifact_sha256": "6a1f2a616924857597a84b4ca63bee6e5b7b614006affe6b44cf9aa0928bea38",
+      "receipt": "lifecycle.finalize-summary.json"
+    }
+  ],
+  "manual_review": {
+    "scope": "architecture, dataflow, sequence, tree, lifecycle desktop captures; portal navigation, motion toggle, Broker source passport",
+    "finding": "No clipped labels seen; dataflow has three resolved crossings on the task-contract input.",
+    "dataflow_note": "Perceptual capture preceded the final label/source refinement from Docker build to host construction coordinator; topology unchanged."
+  }
+}

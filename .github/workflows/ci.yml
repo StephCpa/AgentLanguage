@@ -103,6 +103,11 @@ jobs:
         run: |
           python -m scripts.check_isolated_builder --image al0-plan-builder:ci \
             --output models/isolated_builder_ci.json 2>&1 | tee models/isolated_builder_ci.log
+      - name: Calibrate development contracts with isolated construction
+        run: |
+          python -m scripts.development_tasks calibrate --output .git/development-suite-ci \
+            --builder-image al0-plan-builder:ci > models/development_suite_ci.log 2>&1
+          cp .git/development-suite-ci/summary.json models/development_suite_ci.json
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -111,3 +116,5 @@ jobs:
             models/isolated_builder_image.json
             models/isolated_builder_ci.json
             models/isolated_builder_ci.log
+            models/development_suite_ci.json
+            models/development_suite_ci.log

@@ -1,0 +1,6 @@
+test_correct_order_and_total_quota_do_not_replace_required_reconciliation_dependency (tests.test_development_tasks.DevelopmentTaskTests) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 7.603s
+
+OK

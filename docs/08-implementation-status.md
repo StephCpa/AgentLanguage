@@ -20,6 +20,8 @@ Git 发布轨道现有[配对评测入口](48-paired-git-evaluation.md)，接受
 
 配对评测器另可选择[Docker 隔离构造](49-isolated-plan-construction.md)：独立类型检查、受限 Python 构造、数据 IR 返回和宿主复核。Linux CI 已验证六格配对恢复与九项边界/清理检查；没有 Docker 时拒绝该模式，不降级执行。隔离建设仍不等同于已完成独立开发任务和模型生成收益实验。
 
+[开发任务契约 v1](50-development-task-contracts.md) 增加条件发布、顺序发布和接纳回退三个契约，共 14 个场景、28 个前端/场景格。每份提交只构造一次，场景复用固定受检 IR，错误对照覆盖外部顺序和对账依赖。它们属于一个 Git 工作流任务族，当前为开发预实验校准，真实模型生成/修复和独立语言收益尚未测量。
+
 真实 Git 发布适配器接入后的 CI 已在 Linux Python 3.10/3.12 各通过 961 项测试，无跳过，包含固定 mypy；两种 venv 的源码外 wheel Git 消费者也通过。实际 GitHub 发布及独立回读、恢复与配额结果见 [真实 Git 适配器](47-real-git-adapter.md)。下文保留各前序里程碑的原始证据。
 
 固定提交审计的 F1–F7 已修复并通过组合验收：Linux Python 3.10.22 和 3.12.15 分别运行 950 项测试，均无跳过并包含固定 mypy 1.18.2；symlinks/copies venv 的独立 wheel 消费者也均通过。CI 记录、语义升级和旧记录兼容规则见 [审计修复](46-audit-remediation.md) 与 `models/audit_ci_acceptance.json`。下述 932 项为修复前基线证据。

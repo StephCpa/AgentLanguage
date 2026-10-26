@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "kind": "github_actions_artifact_provenance",
+  "repository": "StephCpa/AgentLanguage",
+  "code_commit": "4a01b20eb48906f269ca414304a525e35e396a6e",
+  "workflow_run": 40323233832,
+  "workflow_url": "https://github.com/StephCpa/AgentLanguage/actions/runs/40323233832",
+  "isolation_job": 121573236967,
+  "artifact": 12650326966,
+  "artifact_name": "isolated-plan-construction",
+  "artifact_member": "development_suite_ci.json",
+  "archived_as": "models/development_suite_acceptance.json",
+  "regression": [
+    {
+      "python": "3.10",
+      "job": 121573236951,
+      "tests": 974,
+      "seconds": 168.006,
+      "passed": true
+    },
+    {
+      "python": "3.12",
+      "job": 121573236959,
+      "tests": 974,
+      "seconds": 162.731,
+      "passed": true
+    }
+  ],
+  "installed_wheel_modes_passed": [
+    "copies",
+    "symlinks"
+  ],
+  "isolation_checks_passed": 9,
+  "reference_cells_passed": 28,
+  "distinct_constructions": 6,
+  "reused_plan_cells": 22,
+  "model_calls": 0,
+  "causal_language_benefit": "not_measured"
+}

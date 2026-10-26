@@ -1,0 +1,22 @@
+{
+  "kind": "host_retrieved_ci_artifact",
+  "repository": "StephCpa/AgentLanguage",
+  "pr_head_sha": "7ddc0fd3fd10ade51b3bfdefd7f074710d2e749c",
+  "executed_commit_sha": "82017c95b903d952b3265e6c851b336b72df3e31",
+  "run_id": 40349646304,
+  "job_id": 121665882191,
+  "artifact_id": 12662678984,
+  "artifact_name": "isolated-plan-construction",
+  "members": {
+    "isolated_builder_ci.json": "models/audit_r1_r3_isolation.json",
+    "query_outcomes_ci.json": "models/audit_r1_r3_outcomes.json"
+  },
+  "regression_jobs": {
+    "3.10": {"job_id": 121665881852, "tests": 1013, "seconds": 151.660},
+    "3.12": {"job_id": 121665883658, "tests": 1013, "seconds": 119.461}
+  },
+  "docker_checks": 12,
+  "model_calls_added": 0,
+  "historical_bundle": "experiments/deepseek_pilot_v1/captured.json",
+  "interpretation": "Remediation and retrospective scoring of saved outputs; not a new generation experiment. OOM was observed in a real SDK container. Cross-stage termination and malformed-inspect tests also use explicitly synthetic faults."
+}

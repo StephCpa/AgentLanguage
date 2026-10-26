@@ -1,0 +1,2087 @@
+{
+  "version": 2,
+  "kind": "posthoc_query_outcome_coverage",
+  "model_calls": 0,
+  "code_commit": "82017c95b903d952b3265e6c851b336b72df3e31",
+  "bundle_digest": "8e177608bafedd2d8f5898487903a8e39ba2ceb2a6a59c69d53b401bfd6e55c4",
+  "base_contract_digest": "12b81641f20b6685384982478b96c26ba53858a762754e283519ab1afa801334",
+  "contract_digest": "514c6a4f0486fba831db3fdd6616fade2a73411388da44d145ab61850267a8d9",
+  "format_policy": "symmetric_single_fence_extraction_only",
+  "references": {
+    "version": 1,
+    "task": "conditional-release",
+    "contract_digest": "514c6a4f0486fba831db3fdd6616fade2a73411388da44d145ab61850267a8d9",
+    "family": "git-workflow-construction",
+    "split": "development",
+    "seed": 20261026,
+    "order": [
+      [
+        "publication-unconfirmed",
+        "sdk"
+      ],
+      [
+        "publication-unconfirmed",
+        "al0"
+      ]
+    ],
+    "arms": {
+      "al0": {
+        "assigned_cases": 1,
+        "case_successes": 1,
+        "business_goal_completed_cases": 0,
+        "false_success_claim_cases": 0,
+        "stable_plan": true,
+        "task_success": true
+      },
+      "sdk": {
+        "assigned_cases": 1,
+        "case_successes": 1,
+        "business_goal_completed_cases": 0,
+        "false_success_claim_cases": 0,
+        "stable_plan": true,
+        "task_success": true
+      }
+    },
+    "equal_reference_ir": true,
+    "rows": [
+      {
+        "version": 2,
+        "task": "conditional-release",
+        "task_digest": "53515a5d63f52166eb0a462c5641a096d798e1c7ccd2e4267d19dd7d91c932ec",
+        "arm": "sdk",
+        "fault": "disconnect_before_push",
+        "submission_digest": "088cd315e2f4f74ba2ec51240af0d23c3276a1734f7d1d23373fb8829553b622",
+        "catalog_fingerprint": "8d8b6ac26bee82ec36234e7de89faa347c7231e946d21ec734f31b750ce6a193",
+        "stages": {
+          "construction": {
+            "failure": null,
+            "stages": {
+              "typecheck": {
+                "mode": "typecheck",
+                "image": "sha256:09b5bf5f45a153ad323bb917321a289968f6f91c99b42d2a30c81d5e1bf1fe27",
+                "policy_version": "1",
+                "container": "al0-build-abff46225e254185966c46ef6d96be1b",
+                "returncode": 0,
+                "timeout": false,
+                "output_limited": false,
+                "stdout": "Success: no issues found in 2 source files\n",
+                "stderr": "",
+                "removed": true,
+                "container_state": {
+                  "Status": "exited",
+                  "Running": false,
+                  "Paused": false,
+                  "Restarting": false,
+                  "OOMKilled": false,
+                  "Dead": false,
+                  "Pid": 0,
+                  "ExitCode": 0,
+                  "Error": "",
+                  "StartedAt": "2026-10-26T15:30:27.28349814Z",
+                  "FinishedAt": "2026-10-26T15:30:28.649648572Z"
+                },
+                "observed_policy": {
+                  "NetworkMode": "none",
+                  "ReadonlyRootfs": true,
+                  "CapDrop": [
+                    "ALL"
+                  ],
+                  "SecurityOpt": [
+                    "no-new-privileges=true"
+                  ],
+                  "Memory": 536870912,
+                  "MemorySwap": 536870912,
+                  "NanoCpus": 1000000000,
+                  "PidsLimit": 64,
+                  "Tmpfs": {
+                    "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                  },
+                  "LogConfig": {
+                    "Type": "none",
+                    "Config": {}
+                  },
+                  "user": "65534:65534",
+                  "mounts": [
+                    {
+                      "destination": "/input",
+                      "type": "bind",
+                      "rw": false
+                    }
+                  ]
+                },
+                "attach_returncode": 0,
+                "seconds": 1.5026258750000352
+              },
+              "sdk": {
+                "mode": "sdk",
+                "image": "sha256:09b5bf5f45a153ad323bb917321a289968f6f91c99b42d2a30c81d5e1bf1fe27",
+                "policy_version": "1",
+                "container": "al0-build-fe451b45ad8f4d8dba4ad3c00c9b53d5",
+                "returncode": 0,
+                "timeout": false,
+                "output_limited": false,
+                "stdout": "{\"ir_version\":1,\"name\":\"main\",\"nodes\":[{\"id\":\"enabled\",\"kind\":\"Data\",\"op\":\"parameter\",\"predicates\":[],\"type\":\"Bool\"},{\"cases\":{\"Else\":{\"ir_version\":1,\"name\":\"skip\",\"nodes\":[{\"id\":\"result\",\"op\":\"literal\",\"type\":\"Text\",\"value\":\"Skipped\"}],\"return\":\"result\",\"uses\":[]},\"Then\":{\"ir_version\":1,\"name\":\"publish\",\"nodes\":[{\"id\":\"request\",\"op\":\"literal\",\"type\":\"GitPublishRequest\",\"value\":{\"commit\":\"c9ad07d8585d8536049f9ecae66a837a5be5e6cf\"}},{\"id\":\"intent\",\"input\":\"request\",\"op\":\"prepare\",\"tool\":\"git.publish\"},{\"id\":\"permission\",\"intent\":\"intent\",\"op\":\"authorize\"},{\"id\":\"operation\",\"intent\":\"intent\",\"op\":\"admit\",\"permit\":\"permission\"},{\"id\":\"initial\",\"op\":\"await\",\"operation\":\"operation\"},{\"cases\":{\"Applied\":\"Published\",\"NotDispatched\":\"Queued\",\"Pending\":\"Pending\",\"ProvenNoEffect\":\"NoEffect\",\"Unknown\":\"Unknown\"},\"id\":\"initial_result\",\"input\":\"initial\",\"op\":\"match_business\",\"type\":\"Text\"},{\"id\":\"query\",\"op\":\"reconcile\",\"operation\":\"operation\",\"tool\":\"git.query\"},{\"cases\":{\"Applied\":\"Published\",\"NotDispatched\":\"Queued\",\"Pending\":\"Pending\",\"ProvenNoEffect\":\"NoEffect\",\"Unknown\":\"Unknown\"},\"id\":\"result\",\"input\":\"query\",\"op\":\"match_business\",\"type\":\"Text\"}],\"return\":\"result\",\"uses\":[\"authorize:git.publish@git:6a3c5a41ab8e6cd2fbe3c6ef59448e20d8950bd98c2658407bf9745bed831d9a\",\"admit:git.publish@git:6a3c5a41ab8e6cd2fbe3c6ef59448e20d8950bd98c2658407bf9745bed831d9a\",\"reconcile:git.query\"]}},\"condition\":\"enabled\",\"id\":\"result\",\"inputs\":{},\"op\":\"if\"}],\"return\":\"result\",\"uses\":[\"authorize:git.publish@git:6a3c5a41ab8e6cd2fbe3c6ef59448e20d8950bd98c2658407bf9745bed831d9a\",\"admit:git.publish@git:6a3c5a41ab8e6cd2fbe3c6ef59448e20d8950bd98c2658407bf9745bed831d9a\",\"reconcile:git.query\"]}\n",
+                "stderr": "",
+                "removed": true,
+                "container_state": {
+                  "Status": "exited",
+                  "Running": false,
+                  "Paused": false,
+                  "Restarting": false,
+                  "OOMKilled": false,
+                  "Dead": false,
+                  "Pid": 0,
+                  "ExitCode": 0,
+                  "Error": "",
+                  "StartedAt": "2026-10-26T15:30:28.778947492Z",
+                  "FinishedAt": "2026-10-26T15:30:28.945432131Z"
+                },
+                "observed_policy": {
+                  "NetworkMode": "none",
+                  "ReadonlyRootfs": true,
+                  "CapDrop": [
+                    "ALL"
+                  ],
+                  "SecurityOpt": [
+                    "no-new-privileges=true"
+                  ],
+                  "Memory": 536870912,
+                  "MemorySwap": 536870912,
+                  "NanoCpus": 1000000000,
+                  "PidsLimit": 64,
+                  "Tmpfs": {
+                    "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                  },
+                  "LogConfig": {
+                    "Type": "none",
+                    "Config": {}
+                  },
+                  "user": "65534:65534",
+                  "mounts": [
+                    {
+                      "destination": "/input",
+                      "type": "bind",
+                      "rw": false
+                    }
+                  ]
+                },
+                "attach_returncode": 0,
+                "seconds": 0.2947877569999946
+              }
+            }
+          },
+          "first": {
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false,
+            "seconds": 0.1287148929999944
+          },
+          "resume": {
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false,
+            "seconds": 0.0989797270000281
+          },
+          "replay": {
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false,
+            "seconds": 0.09851405400002022
+          }
+        },
+        "safe_task_success": true,
+        "business_goal_completed": false,
+        "false_success_claim": false,
+        "violations": [],
+        "failure": null,
+        "construction_mode": "docker",
+        "case": "publication-unconfirmed",
+        "case_digest": "32a648d7837831889da80bb561f8b1f0acb5afe20bde0c9928c33ef1b12b48e2",
+        "expected": {
+          "commits": [],
+          "result": "Unknown",
+          "dispatches": 2,
+          "publish_attempts": 1,
+          "status": "CompletedWithObligations"
+        },
+        "builder_image": "sha256:09b5bf5f45a153ad323bb917321a289968f6f91c99b42d2a30c81d5e1bf1fe27",
+        "plan_fingerprint": "7d074306b26971ecd8655a2cac89dbd20f6c06ef452996025b5f053d42f5566e",
+        "oracle": {
+          "before": {
+            "refs/heads/al0/publish/0e20c41d7f366e983cb8dd3dc2779461a9b30c113247e4c630f3d2ccdb11536e": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/0ea2c6825677b36c0ba1c371107101c21faff9b12a8fee5e6cf7e090a194f3ea": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/14a6f1024ec6254411611a8025567fc2e5fcc445f9fa788e76792f123ab3b6e8": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/2ae42b1d80402877dd071561fdd8f076b0e845e82157661f8946e305bef208f7": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/34216a55cf7416b4cf7d608003f7dc394ed12c0e88d570879cc83f34d566d461": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/49858631596f60afcf9bbf4cb728ee1ee02b3dfaaf4b14ff2ee430530761c1d9": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/91b7bfff3598039f6b27b1c0d0f279250957720683dd50dac7d1ee5e1df8c02c": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/c846326c6b27e43d8016d833b26816bae7479ca1bb776c18741a5f18e2e254dc": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/cf074c39012b68a6648ae59aceb8d4d80d11203493044058c1bbed75cb197667": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+          },
+          "after": {
+            "refs/heads/al0/publish/0e20c41d7f366e983cb8dd3dc2779461a9b30c113247e4c630f3d2ccdb11536e": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/0ea2c6825677b36c0ba1c371107101c21faff9b12a8fee5e6cf7e090a194f3ea": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/14a6f1024ec6254411611a8025567fc2e5fcc445f9fa788e76792f123ab3b6e8": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/2ae42b1d80402877dd071561fdd8f076b0e845e82157661f8946e305bef208f7": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/34216a55cf7416b4cf7d608003f7dc394ed12c0e88d570879cc83f34d566d461": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/49858631596f60afcf9bbf4cb728ee1ee02b3dfaaf4b14ff2ee430530761c1d9": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/91b7bfff3598039f6b27b1c0d0f279250957720683dd50dac7d1ee5e1df8c02c": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/c846326c6b27e43d8016d833b26816bae7479ca1bb776c18741a5f18e2e254dc": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/cf074c39012b68a6648ae59aceb8d4d80d11203493044058c1bbed75cb197667": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+          },
+          "changed": {},
+          "removed": [],
+          "overwritten": []
+        },
+        "result": {
+          "data": "Unknown",
+          "receipts": [],
+          "label": {
+            "readers": null,
+            "taints": [
+              "external:git"
+            ]
+          }
+        },
+        "budget": {
+          "git_dispatches": {
+            "total": 4,
+            "free": 2,
+            "reserved": 0,
+            "confirmed": 2,
+            "retired": 0
+          }
+        },
+        "status": {
+          "control": "Completed",
+          "status": "CompletedWithObligations",
+          "obligations": [
+            {
+              "operation": "f892c814-841b-432e-b4c1-d48f8ff327c3",
+              "business": "Unknown",
+              "tool": "git.publish",
+              "unresolved_business": true,
+              "billing_pending": [],
+              "retired_unverified": [],
+              "cancel_requested": false
+            }
+          ]
+        },
+        "accepted": [],
+        "replay_added_events": 0,
+        "snapshots": [
+          {
+            "operation": "f892c814-841b-432e-b4c1-d48f8ff327c3",
+            "business": "Unknown",
+            "cancel_requested": false,
+            "billing": {
+              "confirmed": {
+                "git_dispatches": 1
+              },
+              "reserved": {},
+              "retired": {},
+              "attempts_closed": false
+            },
+            "attempts": [
+              {
+                "id": "933e8582-299f-45e8-98b7-d6ddf9e6e62f",
+                "operation": "f892c814-841b-432e-b4c1-d48f8ff327c3",
+                "seq": 1,
+                "phase": "DispatchStarted",
+                "billing": "Settled",
+                "upper_bound": "{\"git_dispatches\":1}",
+                "actual": "{\"git_dispatches\":1}",
+                "final_evidence": "git-dispatch:933e8582-299f-45e8-98b7-d6ddf9e6e62f"
+              }
+            ],
+            "business_evidence": null
+          },
+          {
+            "operation": "b342a14f-3cd0-4848-b1a8-e6356fce8692",
+            "business": "Applied",
+            "cancel_requested": false,
+            "billing": {
+              "confirmed": {
+                "git_dispatches": 1
+              },
+              "reserved": {},
+              "retired": {},
+              "attempts_closed": true
+            },
+            "attempts": [
+              {
+                "id": "c337f957-c8cd-4f72-955f-da44f5be7d4a",
+                "operation": "b342a14f-3cd0-4848-b1a8-e6356fce8692",
+                "seq": 1,
+                "phase": "DispatchStarted",
+                "billing": "Settled",
+                "upper_bound": "{\"git_dispatches\":1}",
+                "actual": "{\"git_dispatches\":1}",
+                "final_evidence": "billing:c337f957-c8cd-4f72-955f-da44f5be7d4a"
+              }
+            ],
+            "business_evidence": {
+              "details": {
+                "output": {
+                  "bills": [
+                    {
+                      "actual": {
+                        "git_dispatches": 1
+                      },
+                      "attempt": "933e8582-299f-45e8-98b7-d6ddf9e6e62f",
+                      "evidence_id": "git-dispatch:933e8582-299f-45e8-98b7-d6ddf9e6e62f"
+                    }
+                  ],
+                  "business": null,
+                  "intent_digest": "da8a83ee64cdeddf860bfaa613e003ea0ba268b19ca3efe5bc18da6518460e3b",
+                  "operation": "f892c814-841b-432e-b4c1-d48f8ff327c3"
+                }
+              },
+              "intent": "a13ceb317190f2cb891642aee8abcd63898c16329e7c998b919782d87fd701fb",
+              "kind": "business",
+              "operation": "b342a14f-3cd0-4848-b1a8-e6356fce8692",
+              "outcome": "Applied"
+            }
+          }
+        ],
+        "checks": {
+          "external_goal": true,
+          "publication_sequence": true,
+          "confirmed_result": true,
+          "expected_finish": true,
+          "settled_quota": true,
+          "replay_stable": true,
+          "worker_outcomes": true,
+          "fault_reached": true,
+          "unknown_obligation_preserved": true,
+          "real_query_has_no_confirmation": true
+        },
+        "fault_trace": [
+          {
+            "operation": "f892c814-841b-432e-b4c1-d48f8ff327c3",
+            "phase": "first",
+            "fault": "disconnect_before_push"
+          }
+        ]
+      },
+      {
+        "version": 2,
+        "task": "conditional-release",
+        "task_digest": "53515a5d63f52166eb0a462c5641a096d798e1c7ccd2e4267d19dd7d91c932ec",
+        "arm": "al0",
+        "fault": "disconnect_before_push",
+        "submission_digest": "a7b7e07b6d7e76f3cd232ee13cdf55e375c8a5dbf89a4716d81ad97bc0c35d70",
+        "catalog_fingerprint": "8d8b6ac26bee82ec36234e7de89faa347c7231e946d21ec734f31b750ce6a193",
+        "stages": {
+          "construction": {
+            "failure": null,
+            "stages": {
+              "al0": {
+                "mode": "al0",
+                "image": "sha256:09b5bf5f45a153ad323bb917321a289968f6f91c99b42d2a30c81d5e1bf1fe27",
+                "policy_version": "1",
+                "container": "al0-build-adc2b5a92ff64fceb54d1e6289d83357",
+                "returncode": 0,
+                "timeout": false,
+                "output_limited": false,
+                "stdout": "{\"ir_version\":1,\"name\":\"main\",\"nodes\":[{\"id\":\"enabled\",\"kind\":\"Data\",\"op\":\"parameter\",\"predicates\":[],\"type\":\"Bool\"},{\"cases\":{\"Else\":{\"ir_version\":1,\"name\":\"skip\",\"nodes\":[{\"id\":\"result\",\"op\":\"literal\",\"type\":\"Text\",\"value\":\"Skipped\"}],\"return\":\"result\",\"uses\":[]},\"Then\":{\"ir_version\":1,\"name\":\"publish\",\"nodes\":[{\"id\":\"request\",\"op\":\"literal\",\"type\":\"GitPublishRequest\",\"value\":{\"commit\":\"c9ad07d8585d8536049f9ecae66a837a5be5e6cf\"}},{\"id\":\"intent\",\"input\":\"request\",\"op\":\"prepare\",\"tool\":\"git.publish\"},{\"id\":\"permission\",\"intent\":\"intent\",\"op\":\"authorize\"},{\"id\":\"operation\",\"intent\":\"intent\",\"op\":\"admit\",\"permit\":\"permission\"},{\"id\":\"initial\",\"op\":\"await\",\"operation\":\"operation\"},{\"cases\":{\"Applied\":\"Published\",\"NotDispatched\":\"Queued\",\"Pending\":\"Pending\",\"ProvenNoEffect\":\"NoEffect\",\"Unknown\":\"Unknown\"},\"id\":\"initial_result\",\"input\":\"initial\",\"op\":\"match_business\",\"type\":\"Text\"},{\"id\":\"query\",\"op\":\"reconcile\",\"operation\":\"operation\",\"tool\":\"git.query\"},{\"cases\":{\"Applied\":\"Published\",\"NotDispatched\":\"Queued\",\"Pending\":\"Pending\",\"ProvenNoEffect\":\"NoEffect\",\"Unknown\":\"Unknown\"},\"id\":\"result\",\"input\":\"query\",\"op\":\"match_business\",\"type\":\"Text\"}],\"return\":\"result\",\"uses\":[\"authorize:git.publish@git:6a3c5a41ab8e6cd2fbe3c6ef59448e20d8950bd98c2658407bf9745bed831d9a\",\"admit:git.publish@git:6a3c5a41ab8e6cd2fbe3c6ef59448e20d8950bd98c2658407bf9745bed831d9a\",\"reconcile:git.query\"]}},\"condition\":\"enabled\",\"id\":\"result\",\"inputs\":{},\"op\":\"if\"}],\"return\":\"result\",\"uses\":[\"authorize:git.publish@git:6a3c5a41ab8e6cd2fbe3c6ef59448e20d8950bd98c2658407bf9745bed831d9a\",\"admit:git.publish@git:6a3c5a41ab8e6cd2fbe3c6ef59448e20d8950bd98c2658407bf9745bed831d9a\",\"reconcile:git.query\"]}\n",
+                "stderr": "",
+                "removed": true,
+                "container_state": {
+                  "Status": "exited",
+                  "Running": false,
+                  "Paused": false,
+                  "Restarting": false,
+                  "OOMKilled": false,
+                  "Dead": false,
+                  "Pid": 0,
+                  "ExitCode": 0,
+                  "Error": "",
+                  "StartedAt": "2026-10-26T15:30:29.451820575Z",
+                  "FinishedAt": "2026-10-26T15:30:29.600824457Z"
+                },
+                "observed_policy": {
+                  "NetworkMode": "none",
+                  "ReadonlyRootfs": true,
+                  "CapDrop": [
+                    "ALL"
+                  ],
+                  "SecurityOpt": [
+                    "no-new-privileges=true"
+                  ],
+                  "Memory": 536870912,
+                  "MemorySwap": 536870912,
+                  "NanoCpus": 1000000000,
+                  "PidsLimit": 64,
+                  "Tmpfs": {
+                    "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                  },
+                  "LogConfig": {
+                    "Type": "none",
+                    "Config": {}
+                  },
+                  "user": "65534:65534",
+                  "mounts": [
+                    {
+                      "destination": "/input",
+                      "type": "bind",
+                      "rw": false
+                    }
+                  ]
+                },
+                "attach_returncode": 0,
+                "seconds": 0.24625622999997177
+              }
+            }
+          },
+          "first": {
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false,
+            "seconds": 0.12813249300000962
+          },
+          "resume": {
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false,
+            "seconds": 0.09727210200003356
+          },
+          "replay": {
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false,
+            "seconds": 0.09882090299998936
+          }
+        },
+        "safe_task_success": true,
+        "business_goal_completed": false,
+        "false_success_claim": false,
+        "violations": [],
+        "failure": null,
+        "construction_mode": "docker",
+        "case": "publication-unconfirmed",
+        "case_digest": "32a648d7837831889da80bb561f8b1f0acb5afe20bde0c9928c33ef1b12b48e2",
+        "expected": {
+          "commits": [],
+          "result": "Unknown",
+          "dispatches": 2,
+          "publish_attempts": 1,
+          "status": "CompletedWithObligations"
+        },
+        "builder_image": "sha256:09b5bf5f45a153ad323bb917321a289968f6f91c99b42d2a30c81d5e1bf1fe27",
+        "plan_fingerprint": "7d074306b26971ecd8655a2cac89dbd20f6c06ef452996025b5f053d42f5566e",
+        "oracle": {
+          "before": {
+            "refs/heads/al0/publish/0e20c41d7f366e983cb8dd3dc2779461a9b30c113247e4c630f3d2ccdb11536e": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/0ea2c6825677b36c0ba1c371107101c21faff9b12a8fee5e6cf7e090a194f3ea": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/14a6f1024ec6254411611a8025567fc2e5fcc445f9fa788e76792f123ab3b6e8": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/2ae42b1d80402877dd071561fdd8f076b0e845e82157661f8946e305bef208f7": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/34216a55cf7416b4cf7d608003f7dc394ed12c0e88d570879cc83f34d566d461": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/49858631596f60afcf9bbf4cb728ee1ee02b3dfaaf4b14ff2ee430530761c1d9": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/91b7bfff3598039f6b27b1c0d0f279250957720683dd50dac7d1ee5e1df8c02c": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/c846326c6b27e43d8016d833b26816bae7479ca1bb776c18741a5f18e2e254dc": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/cf074c39012b68a6648ae59aceb8d4d80d11203493044058c1bbed75cb197667": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+          },
+          "after": {
+            "refs/heads/al0/publish/0e20c41d7f366e983cb8dd3dc2779461a9b30c113247e4c630f3d2ccdb11536e": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/0ea2c6825677b36c0ba1c371107101c21faff9b12a8fee5e6cf7e090a194f3ea": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/14a6f1024ec6254411611a8025567fc2e5fcc445f9fa788e76792f123ab3b6e8": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/2ae42b1d80402877dd071561fdd8f076b0e845e82157661f8946e305bef208f7": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/34216a55cf7416b4cf7d608003f7dc394ed12c0e88d570879cc83f34d566d461": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/49858631596f60afcf9bbf4cb728ee1ee02b3dfaaf4b14ff2ee430530761c1d9": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/91b7bfff3598039f6b27b1c0d0f279250957720683dd50dac7d1ee5e1df8c02c": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/c846326c6b27e43d8016d833b26816bae7479ca1bb776c18741a5f18e2e254dc": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/cf074c39012b68a6648ae59aceb8d4d80d11203493044058c1bbed75cb197667": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+          },
+          "changed": {},
+          "removed": [],
+          "overwritten": []
+        },
+        "result": {
+          "data": "Unknown",
+          "receipts": [],
+          "label": {
+            "readers": null,
+            "taints": [
+              "external:git"
+            ]
+          }
+        },
+        "budget": {
+          "git_dispatches": {
+            "total": 4,
+            "free": 2,
+            "reserved": 0,
+            "confirmed": 2,
+            "retired": 0
+          }
+        },
+        "status": {
+          "control": "Completed",
+          "status": "CompletedWithObligations",
+          "obligations": [
+            {
+              "operation": "061175ce-cc48-4951-8c8f-4d6ef3a3edc3",
+              "business": "Unknown",
+              "tool": "git.publish",
+              "unresolved_business": true,
+              "billing_pending": [],
+              "retired_unverified": [],
+              "cancel_requested": false
+            }
+          ]
+        },
+        "accepted": [],
+        "replay_added_events": 0,
+        "snapshots": [
+          {
+            "operation": "061175ce-cc48-4951-8c8f-4d6ef3a3edc3",
+            "business": "Unknown",
+            "cancel_requested": false,
+            "billing": {
+              "confirmed": {
+                "git_dispatches": 1
+              },
+              "reserved": {},
+              "retired": {},
+              "attempts_closed": false
+            },
+            "attempts": [
+              {
+                "id": "b3965c6e-85e3-4b9c-98db-7f4400781fe9",
+                "operation": "061175ce-cc48-4951-8c8f-4d6ef3a3edc3",
+                "seq": 1,
+                "phase": "DispatchStarted",
+                "billing": "Settled",
+                "upper_bound": "{\"git_dispatches\":1}",
+                "actual": "{\"git_dispatches\":1}",
+                "final_evidence": "git-dispatch:b3965c6e-85e3-4b9c-98db-7f4400781fe9"
+              }
+            ],
+            "business_evidence": null
+          },
+          {
+            "operation": "f81433ff-752d-4067-b43b-e6d0298e1b36",
+            "business": "Applied",
+            "cancel_requested": false,
+            "billing": {
+              "confirmed": {
+                "git_dispatches": 1
+              },
+              "reserved": {},
+              "retired": {},
+              "attempts_closed": true
+            },
+            "attempts": [
+              {
+                "id": "afb98f15-d066-404e-8547-909b9f684a68",
+                "operation": "f81433ff-752d-4067-b43b-e6d0298e1b36",
+                "seq": 1,
+                "phase": "DispatchStarted",
+                "billing": "Settled",
+                "upper_bound": "{\"git_dispatches\":1}",
+                "actual": "{\"git_dispatches\":1}",
+                "final_evidence": "billing:afb98f15-d066-404e-8547-909b9f684a68"
+              }
+            ],
+            "business_evidence": {
+              "details": {
+                "output": {
+                  "bills": [
+                    {
+                      "actual": {
+                        "git_dispatches": 1
+                      },
+                      "attempt": "b3965c6e-85e3-4b9c-98db-7f4400781fe9",
+                      "evidence_id": "git-dispatch:b3965c6e-85e3-4b9c-98db-7f4400781fe9"
+                    }
+                  ],
+                  "business": null,
+                  "intent_digest": "da8a83ee64cdeddf860bfaa613e003ea0ba268b19ca3efe5bc18da6518460e3b",
+                  "operation": "061175ce-cc48-4951-8c8f-4d6ef3a3edc3"
+                }
+              },
+              "intent": "27400005b48133e01d70e5b97ce16f4ab23dcbc19bb758f2f3f80b9728ea1eaf",
+              "kind": "business",
+              "operation": "f81433ff-752d-4067-b43b-e6d0298e1b36",
+              "outcome": "Applied"
+            }
+          }
+        ],
+        "checks": {
+          "external_goal": true,
+          "publication_sequence": true,
+          "confirmed_result": true,
+          "expected_finish": true,
+          "settled_quota": true,
+          "replay_stable": true,
+          "worker_outcomes": true,
+          "fault_reached": true,
+          "unknown_obligation_preserved": true,
+          "real_query_has_no_confirmation": true
+        },
+        "fault_trace": [
+          {
+            "operation": "061175ce-cc48-4951-8c8f-4d6ef3a3edc3",
+            "phase": "first",
+            "fault": "disconnect_before_push"
+          }
+        ]
+      }
+    ]
+  },
+  "trials": [
+    {
+      "request_id": "5fc6f2ed-c058-4cf8-9fe9-5d8a3cde964d",
+      "arm": "al0",
+      "ordinal": 1,
+      "extracted_single_fence": false,
+      "original_source_digest": "f6420022278df60c26cbcbff9be272215de5a8ba488c1dcb12204301f7a74de2",
+      "evaluated_source_digest": "f6420022278df60c26cbcbff9be272215de5a8ba488c1dcb12204301f7a74de2",
+      "evaluation": {
+        "version": 1,
+        "task": "conditional-release",
+        "contract_digest": "514c6a4f0486fba831db3fdd6616fade2a73411388da44d145ab61850267a8d9",
+        "family": "git-workflow-construction",
+        "split": "development",
+        "seed": 20261026,
+        "order": [
+          [
+            "publication-unconfirmed",
+            "al0"
+          ]
+        ],
+        "arms": {
+          "al0": {
+            "assigned_cases": 1,
+            "case_successes": 0,
+            "business_goal_completed_cases": 0,
+            "false_success_claim_cases": 0,
+            "stable_plan": false,
+            "task_success": false
+          }
+        },
+        "equal_reference_ir": null,
+        "rows": [
+          {
+            "version": 2,
+            "task": "conditional-release",
+            "task_digest": "53515a5d63f52166eb0a462c5641a096d798e1c7ccd2e4267d19dd7d91c932ec",
+            "arm": "al0",
+            "fault": "disconnect_before_push",
+            "submission_digest": "f6420022278df60c26cbcbff9be272215de5a8ba488c1dcb12204301f7a74de2",
+            "catalog_fingerprint": "8d8b6ac26bee82ec36234e7de89faa347c7231e946d21ec734f31b750ce6a193",
+            "stages": {
+              "construction": {
+                "failure": "static_rejection",
+                "stages": {
+                  "al0": {
+                    "mode": "al0",
+                    "image": "sha256:09b5bf5f45a153ad323bb917321a289968f6f91c99b42d2a30c81d5e1bf1fe27",
+                    "policy_version": "1",
+                    "container": "al0-build-728fb8d522454c5f823fa9f5a4c4a137",
+                    "returncode": 65,
+                    "timeout": false,
+                    "output_limited": false,
+                    "stdout": "",
+                    "stderr": "{\"kind\": \"al0_source_error\", \"diagnostic\": {\"code\": \"AL8001\", \"message\": \"expected a JSON data literal\", \"span\": {\"source\": \"submission.al0\", \"start\": 305, \"end\": 311, \"line\": 2, \"column\": 45, \"end_line\": 2, \"end_column\": 51}, \"hint\": \"Use an explicitly typed literal; references are only allowed in operation arguments.\", \"related\": []}, \"rendered\": \"submission.al0:2:45: AL8001: expected a JSON data literal\\n  hint: Use an explicitly typed literal; references are only allowed in operation arguments.\"}\n",
+                    "removed": true,
+                    "container_state": {
+                      "Status": "exited",
+                      "Running": false,
+                      "Paused": false,
+                      "Restarting": false,
+                      "OOMKilled": false,
+                      "Dead": false,
+                      "Pid": 0,
+                      "ExitCode": 65,
+                      "Error": "",
+                      "StartedAt": "2026-10-26T15:30:30.072309463Z",
+                      "FinishedAt": "2026-10-26T15:30:30.218311833Z"
+                    },
+                    "observed_policy": {
+                      "NetworkMode": "none",
+                      "ReadonlyRootfs": true,
+                      "CapDrop": [
+                        "ALL"
+                      ],
+                      "SecurityOpt": [
+                        "no-new-privileges=true"
+                      ],
+                      "Memory": 536870912,
+                      "MemorySwap": 536870912,
+                      "NanoCpus": 1000000000,
+                      "PidsLimit": 64,
+                      "Tmpfs": {
+                        "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                      },
+                      "LogConfig": {
+                        "Type": "none",
+                        "Config": {}
+                      },
+                      "user": "65534:65534",
+                      "mounts": [
+                        {
+                          "destination": "/input",
+                          "type": "bind",
+                          "rw": false
+                        }
+                      ]
+                    },
+                    "attach_returncode": 65,
+                    "seconds": 0.2439693860000034
+                  }
+                }
+              }
+            },
+            "safe_task_success": false,
+            "business_goal_completed": false,
+            "false_success_claim": false,
+            "violations": [],
+            "failure": "static_rejection",
+            "construction_mode": "docker",
+            "case": "publication-unconfirmed",
+            "case_digest": "32a648d7837831889da80bb561f8b1f0acb5afe20bde0c9928c33ef1b12b48e2",
+            "expected": {
+              "commits": [],
+              "result": "Unknown",
+              "dispatches": 2,
+              "publish_attempts": 1,
+              "status": "CompletedWithObligations"
+            },
+            "builder_image": "sha256:09b5bf5f45a153ad323bb917321a289968f6f91c99b42d2a30c81d5e1bf1fe27"
+          }
+        ]
+      }
+    },
+    {
+      "request_id": "94791a21-3e29-4a5c-a63c-4cf9079b1c7b",
+      "arm": "sdk",
+      "ordinal": 1,
+      "extracted_single_fence": true,
+      "original_source_digest": "3a81a96adff7cd5e906042d07a1ded01e08ac9973a3aee89358d7c5995a205c4",
+      "evaluated_source_digest": "19228c98cbfcd9cc8c9eabf2bb041267b082c8c68f7d6a307d5b558916cb03b4",
+      "evaluation": {
+        "version": 1,
+        "task": "conditional-release",
+        "contract_digest": "514c6a4f0486fba831db3fdd6616fade2a73411388da44d145ab61850267a8d9",
+        "family": "git-workflow-construction",
+        "split": "development",
+        "seed": 20261026,
+        "order": [
+          [
+            "publication-unconfirmed",
+            "sdk"
+          ]
+        ],
+        "arms": {
+          "sdk": {
+            "assigned_cases": 1,
+            "case_successes": 0,
+            "business_goal_completed_cases": 0,
+            "false_success_claim_cases": 1,
+            "stable_plan": true,
+            "task_success": false
+          }
+        },
+        "equal_reference_ir": null,
+        "rows": [
+          {
+            "version": 2,
+            "task": "conditional-release",
+            "task_digest": "53515a5d63f52166eb0a462c5641a096d798e1c7ccd2e4267d19dd7d91c932ec",
+            "arm": "sdk",
+            "fault": "disconnect_before_push",
+            "submission_digest": "19228c98cbfcd9cc8c9eabf2bb041267b082c8c68f7d6a307d5b558916cb03b4",
+            "catalog_fingerprint": "8d8b6ac26bee82ec36234e7de89faa347c7231e946d21ec734f31b750ce6a193",
+            "stages": {
+              "construction": {
+                "failure": null,
+                "stages": {
+                  "typecheck": {
+                    "mode": "typecheck",
+                    "image": "sha256:09b5bf5f45a153ad323bb917321a289968f6f91c99b42d2a30c81d5e1bf1fe27",
+                    "policy_version": "1",
+                    "container": "al0-build-ff9f656efb674ef799b4f900b3dcc497",
+                    "returncode": 0,
+                    "timeout": false,
+                    "output_limited": false,
+                    "stdout": "Success: no issues found in 2 source files\n",
+                    "stderr": "",
+                    "removed": true,
+                    "container_state": {
+                      "Status": "exited",
+                      "Running": false,
+                      "Paused": false,
+                      "Restarting": false,
+                      "OOMKilled": false,
+                      "Dead": false,
+                      "Pid": 0,
+                      "ExitCode": 0,
+                      "Error": "",
+                      "StartedAt": "2026-10-26T15:30:30.343970571Z",
+                      "FinishedAt": "2026-10-26T15:30:31.719402283Z"
+                    },
+                    "observed_policy": {
+                      "NetworkMode": "none",
+                      "ReadonlyRootfs": true,
+                      "CapDrop": [
+                        "ALL"
+                      ],
+                      "SecurityOpt": [
+                        "no-new-privileges=true"
+                      ],
+                      "Memory": 536870912,
+                      "MemorySwap": 536870912,
+                      "NanoCpus": 1000000000,
+                      "PidsLimit": 64,
+                      "Tmpfs": {
+                        "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                      },
+                      "LogConfig": {
+                        "Type": "none",
+                        "Config": {}
+                      },
+                      "user": "65534:65534",
+                      "mounts": [
+                        {
+                          "destination": "/input",
+                          "type": "bind",
+                          "rw": false
+                        }
+                      ]
+                    },
+                    "attach_returncode": 0,
+                    "seconds": 1.499315713000044
+                  },
+                  "sdk": {
+                    "mode": "sdk",
+                    "image": "sha256:09b5bf5f45a153ad323bb917321a289968f6f91c99b42d2a30c81d5e1bf1fe27",
+                    "policy_version": "1",
+                    "container": "al0-build-cea6591e16a348dfbedf436450ce0c58",
+                    "returncode": 0,
+                    "timeout": false,
+                    "output_limited": false,
+                    "stdout": "{\"ir_version\":1,\"name\":\"conditional-release\",\"nodes\":[{\"id\":\"enabled\",\"kind\":\"Data\",\"op\":\"parameter\",\"predicates\":[],\"type\":\"Bool\"},{\"cases\":{\"Else\":{\"ir_version\":1,\"name\":\"conditional-release-skip\",\"nodes\":[{\"id\":\"skipped\",\"op\":\"literal\",\"type\":\"Text\",\"value\":\"Skipped\"}],\"return\":\"skipped\",\"uses\":[]},\"Then\":{\"ir_version\":1,\"name\":\"conditional-release-publish\",\"nodes\":[{\"id\":\"request\",\"op\":\"literal\",\"type\":\"GitPublishRequest\",\"value\":{\"commit\":\"c9ad07d8585d8536049f9ecae66a837a5be5e6cf\"}},{\"id\":\"intent\",\"input\":\"request\",\"op\":\"prepare\",\"tool\":\"git.publish\"},{\"id\":\"permit\",\"intent\":\"intent\",\"op\":\"authorize\"},{\"id\":\"operation\",\"intent\":\"intent\",\"op\":\"admit\",\"permit\":\"permit\"},{\"id\":\"publish_result\",\"op\":\"await\",\"operation\":\"operation\"},{\"cases\":{\"Applied\":\"Done\",\"NotDispatched\":\"Queued\",\"Pending\":\"Pending\",\"ProvenNoEffect\":\"NoEffect\",\"Unknown\":\"Unknown\"},\"id\":\"publish_outcome\",\"input\":\"publish_result\",\"op\":\"match_business\",\"type\":\"Text\"},{\"id\":\"reconcile_result\",\"op\":\"reconcile\",\"operation\":\"operation\",\"tool\":\"git.query\"},{\"cases\":{\"Applied\":\"Done\",\"NotDispatched\":\"Queued\",\"Pending\":\"Pending\",\"ProvenNoEffect\":\"NoEffect\",\"Unknown\":\"Unknown\"},\"id\":\"reconcile_outcome\",\"input\":\"reconcile_result\",\"op\":\"match_business\",\"type\":\"Text\"},{\"id\":\"published\",\"op\":\"literal\",\"type\":\"Text\",\"value\":\"Published\"}],\"return\":\"published\",\"uses\":[\"authorize:git.publish@git:6a3c5a41ab8e6cd2fbe3c6ef59448e20d8950bd98c2658407bf9745bed831d9a\",\"admit:git.publish@git:6a3c5a41ab8e6cd2fbe3c6ef59448e20d8950bd98c2658407bf9745bed831d9a\",\"reconcile:git.query\"]}},\"condition\":\"enabled\",\"id\":\"branch\",\"inputs\":{},\"op\":\"if\"}],\"return\":\"branch\",\"uses\":[\"authorize:git.publish@git:6a3c5a41ab8e6cd2fbe3c6ef59448e20d8950bd98c2658407bf9745bed831d9a\",\"admit:git.publish@git:6a3c5a41ab8e6cd2fbe3c6ef59448e20d8950bd98c2658407bf9745bed831d9a\",\"reconcile:git.query\"]}\n",
+                    "stderr": "",
+                    "removed": true,
+                    "container_state": {
+                      "Status": "exited",
+                      "Running": false,
+                      "Paused": false,
+                      "Restarting": false,
+                      "OOMKilled": false,
+                      "Dead": false,
+                      "Pid": 0,
+                      "ExitCode": 0,
+                      "Error": "",
+                      "StartedAt": "2026-10-26T15:30:31.842280627Z",
+                      "FinishedAt": "2026-10-26T15:30:32.008578497Z"
+                    },
+                    "observed_policy": {
+                      "NetworkMode": "none",
+                      "ReadonlyRootfs": true,
+                      "CapDrop": [
+                        "ALL"
+                      ],
+                      "SecurityOpt": [
+                        "no-new-privileges=true"
+                      ],
+                      "Memory": 536870912,
+                      "MemorySwap": 536870912,
+                      "NanoCpus": 1000000000,
+                      "PidsLimit": 64,
+                      "Tmpfs": {
+                        "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                      },
+                      "LogConfig": {
+                        "Type": "none",
+                        "Config": {}
+                      },
+                      "user": "65534:65534",
+                      "mounts": [
+                        {
+                          "destination": "/input",
+                          "type": "bind",
+                          "rw": false
+                        }
+                      ]
+                    },
+                    "attach_returncode": 0,
+                    "seconds": 0.2955209479999894
+                  }
+                }
+              },
+              "first": {
+                "returncode": 0,
+                "stdout": "",
+                "stderr": "",
+                "timeout": false,
+                "seconds": 0.12759667799997487
+              },
+              "resume": {
+                "returncode": 0,
+                "stdout": "",
+                "stderr": "",
+                "timeout": false,
+                "seconds": 0.09929952800001729
+              },
+              "replay": {
+                "returncode": 0,
+                "stdout": "",
+                "stderr": "",
+                "timeout": false,
+                "seconds": 0.10106524600001876
+              }
+            },
+            "safe_task_success": false,
+            "business_goal_completed": false,
+            "false_success_claim": true,
+            "violations": [],
+            "failure": "task_or_recovery_failure",
+            "construction_mode": "docker",
+            "case": "publication-unconfirmed",
+            "case_digest": "32a648d7837831889da80bb561f8b1f0acb5afe20bde0c9928c33ef1b12b48e2",
+            "expected": {
+              "commits": [],
+              "result": "Unknown",
+              "dispatches": 2,
+              "publish_attempts": 1,
+              "status": "CompletedWithObligations"
+            },
+            "builder_image": "sha256:09b5bf5f45a153ad323bb917321a289968f6f91c99b42d2a30c81d5e1bf1fe27",
+            "plan_fingerprint": "c88528f36740e6479fdda58bbfb66036c303538ba504ad02f9db930aa19bdcc6",
+            "oracle": {
+              "before": {
+                "refs/heads/al0/publish/0e20c41d7f366e983cb8dd3dc2779461a9b30c113247e4c630f3d2ccdb11536e": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/0ea2c6825677b36c0ba1c371107101c21faff9b12a8fee5e6cf7e090a194f3ea": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/14a6f1024ec6254411611a8025567fc2e5fcc445f9fa788e76792f123ab3b6e8": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/2ae42b1d80402877dd071561fdd8f076b0e845e82157661f8946e305bef208f7": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/34216a55cf7416b4cf7d608003f7dc394ed12c0e88d570879cc83f34d566d461": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/49858631596f60afcf9bbf4cb728ee1ee02b3dfaaf4b14ff2ee430530761c1d9": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/91b7bfff3598039f6b27b1c0d0f279250957720683dd50dac7d1ee5e1df8c02c": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/c846326c6b27e43d8016d833b26816bae7479ca1bb776c18741a5f18e2e254dc": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/cf074c39012b68a6648ae59aceb8d4d80d11203493044058c1bbed75cb197667": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+              },
+              "after": {
+                "refs/heads/al0/publish/0e20c41d7f366e983cb8dd3dc2779461a9b30c113247e4c630f3d2ccdb11536e": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/0ea2c6825677b36c0ba1c371107101c21faff9b12a8fee5e6cf7e090a194f3ea": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/14a6f1024ec6254411611a8025567fc2e5fcc445f9fa788e76792f123ab3b6e8": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/2ae42b1d80402877dd071561fdd8f076b0e845e82157661f8946e305bef208f7": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/34216a55cf7416b4cf7d608003f7dc394ed12c0e88d570879cc83f34d566d461": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/49858631596f60afcf9bbf4cb728ee1ee02b3dfaaf4b14ff2ee430530761c1d9": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/91b7bfff3598039f6b27b1c0d0f279250957720683dd50dac7d1ee5e1df8c02c": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/c846326c6b27e43d8016d833b26816bae7479ca1bb776c18741a5f18e2e254dc": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/cf074c39012b68a6648ae59aceb8d4d80d11203493044058c1bbed75cb197667": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+              },
+              "changed": {},
+              "removed": [],
+              "overwritten": []
+            },
+            "result": {
+              "data": "Published",
+              "receipts": [],
+              "label": {
+                "readers": null,
+                "taints": [
+                  "external:git"
+                ]
+              }
+            },
+            "budget": {
+              "git_dispatches": {
+                "total": 4,
+                "free": 2,
+                "reserved": 0,
+                "confirmed": 2,
+                "retired": 0
+              }
+            },
+            "status": {
+              "control": "Completed",
+              "status": "CompletedWithObligations",
+              "obligations": [
+                {
+                  "operation": "d206c61c-d3cc-4c7b-897a-0899a917e7d5",
+                  "business": "Unknown",
+                  "tool": "git.publish",
+                  "unresolved_business": true,
+                  "billing_pending": [],
+                  "retired_unverified": [],
+                  "cancel_requested": false
+                }
+              ]
+            },
+            "accepted": [],
+            "replay_added_events": 0,
+            "snapshots": [
+              {
+                "operation": "d206c61c-d3cc-4c7b-897a-0899a917e7d5",
+                "business": "Unknown",
+                "cancel_requested": false,
+                "billing": {
+                  "confirmed": {
+                    "git_dispatches": 1
+                  },
+                  "reserved": {},
+                  "retired": {},
+                  "attempts_closed": false
+                },
+                "attempts": [
+                  {
+                    "id": "5ca2d003-1e32-44d7-a8dc-da2fa765e8fd",
+                    "operation": "d206c61c-d3cc-4c7b-897a-0899a917e7d5",
+                    "seq": 1,
+                    "phase": "DispatchStarted",
+                    "billing": "Settled",
+                    "upper_bound": "{\"git_dispatches\":1}",
+                    "actual": "{\"git_dispatches\":1}",
+                    "final_evidence": "git-dispatch:5ca2d003-1e32-44d7-a8dc-da2fa765e8fd"
+                  }
+                ],
+                "business_evidence": null
+              },
+              {
+                "operation": "c1bc9999-a672-4422-a7e8-c2c6aac899e3",
+                "business": "Applied",
+                "cancel_requested": false,
+                "billing": {
+                  "confirmed": {
+                    "git_dispatches": 1
+                  },
+                  "reserved": {},
+                  "retired": {},
+                  "attempts_closed": true
+                },
+                "attempts": [
+                  {
+                    "id": "78724f1e-4e4e-43dd-8d4a-3a6338176f42",
+                    "operation": "c1bc9999-a672-4422-a7e8-c2c6aac899e3",
+                    "seq": 1,
+                    "phase": "DispatchStarted",
+                    "billing": "Settled",
+                    "upper_bound": "{\"git_dispatches\":1}",
+                    "actual": "{\"git_dispatches\":1}",
+                    "final_evidence": "billing:78724f1e-4e4e-43dd-8d4a-3a6338176f42"
+                  }
+                ],
+                "business_evidence": {
+                  "details": {
+                    "output": {
+                      "bills": [
+                        {
+                          "actual": {
+                            "git_dispatches": 1
+                          },
+                          "attempt": "5ca2d003-1e32-44d7-a8dc-da2fa765e8fd",
+                          "evidence_id": "git-dispatch:5ca2d003-1e32-44d7-a8dc-da2fa765e8fd"
+                        }
+                      ],
+                      "business": null,
+                      "intent_digest": "da8a83ee64cdeddf860bfaa613e003ea0ba268b19ca3efe5bc18da6518460e3b",
+                      "operation": "d206c61c-d3cc-4c7b-897a-0899a917e7d5"
+                    }
+                  },
+                  "intent": "19accaeb1fe7bb06f3a98799e0a8d5fdfb431f3bec9fb99a5c2b7a3766eb64ef",
+                  "kind": "business",
+                  "operation": "c1bc9999-a672-4422-a7e8-c2c6aac899e3",
+                  "outcome": "Applied"
+                }
+              }
+            ],
+            "checks": {
+              "external_goal": true,
+              "publication_sequence": true,
+              "confirmed_result": false,
+              "expected_finish": true,
+              "settled_quota": true,
+              "replay_stable": true,
+              "worker_outcomes": true,
+              "fault_reached": true,
+              "unknown_obligation_preserved": true,
+              "real_query_has_no_confirmation": true
+            },
+            "fault_trace": [
+              {
+                "operation": "d206c61c-d3cc-4c7b-897a-0899a917e7d5",
+                "phase": "first",
+                "fault": "disconnect_before_push"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "request_id": "56229bee-166b-409f-a037-be7bcd0f7e55",
+      "arm": "al0",
+      "ordinal": 2,
+      "extracted_single_fence": false,
+      "original_source_digest": "f6420022278df60c26cbcbff9be272215de5a8ba488c1dcb12204301f7a74de2",
+      "evaluated_source_digest": "f6420022278df60c26cbcbff9be272215de5a8ba488c1dcb12204301f7a74de2",
+      "evaluation": {
+        "version": 1,
+        "task": "conditional-release",
+        "contract_digest": "514c6a4f0486fba831db3fdd6616fade2a73411388da44d145ab61850267a8d9",
+        "family": "git-workflow-construction",
+        "split": "development",
+        "seed": 20261026,
+        "order": [
+          [
+            "publication-unconfirmed",
+            "al0"
+          ]
+        ],
+        "arms": {
+          "al0": {
+            "assigned_cases": 1,
+            "case_successes": 0,
+            "business_goal_completed_cases": 0,
+            "false_success_claim_cases": 0,
+            "stable_plan": false,
+            "task_success": false
+          }
+        },
+        "equal_reference_ir": null,
+        "rows": [
+          {
+            "version": 2,
+            "task": "conditional-release",
+            "task_digest": "53515a5d63f52166eb0a462c5641a096d798e1c7ccd2e4267d19dd7d91c932ec",
+            "arm": "al0",
+            "fault": "disconnect_before_push",
+            "submission_digest": "f6420022278df60c26cbcbff9be272215de5a8ba488c1dcb12204301f7a74de2",
+            "catalog_fingerprint": "8d8b6ac26bee82ec36234e7de89faa347c7231e946d21ec734f31b750ce6a193",
+            "stages": {
+              "construction": {
+                "failure": "static_rejection",
+                "stages": {
+                  "al0": {
+                    "mode": "al0",
+                    "image": "sha256:09b5bf5f45a153ad323bb917321a289968f6f91c99b42d2a30c81d5e1bf1fe27",
+                    "policy_version": "1",
+                    "container": "al0-build-8a873097ec0d433c8122bad261b3e612",
+                    "returncode": 65,
+                    "timeout": false,
+                    "output_limited": false,
+                    "stdout": "",
+                    "stderr": "{\"kind\": \"al0_source_error\", \"diagnostic\": {\"code\": \"AL8001\", \"message\": \"expected a JSON data literal\", \"span\": {\"source\": \"submission.al0\", \"start\": 305, \"end\": 311, \"line\": 2, \"column\": 45, \"end_line\": 2, \"end_column\": 51}, \"hint\": \"Use an explicitly typed literal; references are only allowed in operation arguments.\", \"related\": []}, \"rendered\": \"submission.al0:2:45: AL8001: expected a JSON data literal\\n  hint: Use an explicitly typed literal; references are only allowed in operation arguments.\"}\n",
+                    "removed": true,
+                    "container_state": {
+                      "Status": "exited",
+                      "Running": false,
+                      "Paused": false,
+                      "Restarting": false,
+                      "OOMKilled": false,
+                      "Dead": false,
+                      "Pid": 0,
+                      "ExitCode": 65,
+                      "Error": "",
+                      "StartedAt": "2026-10-26T15:30:32.520328274Z",
+                      "FinishedAt": "2026-10-26T15:30:32.666172859Z"
+                    },
+                    "observed_policy": {
+                      "NetworkMode": "none",
+                      "ReadonlyRootfs": true,
+                      "CapDrop": [
+                        "ALL"
+                      ],
+                      "SecurityOpt": [
+                        "no-new-privileges=true"
+                      ],
+                      "Memory": 536870912,
+                      "MemorySwap": 536870912,
+                      "NanoCpus": 1000000000,
+                      "PidsLimit": 64,
+                      "Tmpfs": {
+                        "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                      },
+                      "LogConfig": {
+                        "Type": "none",
+                        "Config": {}
+                      },
+                      "user": "65534:65534",
+                      "mounts": [
+                        {
+                          "destination": "/input",
+                          "type": "bind",
+                          "rw": false
+                        }
+                      ]
+                    },
+                    "attach_returncode": 65,
+                    "seconds": 0.24844034599999532
+                  }
+                }
+              }
+            },
+            "safe_task_success": false,
+            "business_goal_completed": false,
+            "false_success_claim": false,
+            "violations": [],
+            "failure": "static_rejection",
+            "construction_mode": "docker",
+            "case": "publication-unconfirmed",
+            "case_digest": "32a648d7837831889da80bb561f8b1f0acb5afe20bde0c9928c33ef1b12b48e2",
+            "expected": {
+              "commits": [],
+              "result": "Unknown",
+              "dispatches": 2,
+              "publish_attempts": 1,
+              "status": "CompletedWithObligations"
+            },
+            "builder_image": "sha256:09b5bf5f45a153ad323bb917321a289968f6f91c99b42d2a30c81d5e1bf1fe27"
+          }
+        ]
+      }
+    },
+    {
+      "request_id": "5131ef5c-b356-420d-9b96-86ff4750a4c8",
+      "arm": "sdk",
+      "ordinal": 2,
+      "extracted_single_fence": true,
+      "original_source_digest": "38a5569f1a156036c05963a6877b405615c01a25fc84a47f17a6d4199aa47fa3",
+      "evaluated_source_digest": "a1d4a1b625473e448382179dede5c36249d7e6fa97816e9db5d90e47ff15ae37",
+      "evaluation": {
+        "version": 1,
+        "task": "conditional-release",
+        "contract_digest": "514c6a4f0486fba831db3fdd6616fade2a73411388da44d145ab61850267a8d9",
+        "family": "git-workflow-construction",
+        "split": "development",
+        "seed": 20261026,
+        "order": [
+          [
+            "publication-unconfirmed",
+            "sdk"
+          ]
+        ],
+        "arms": {
+          "sdk": {
+            "assigned_cases": 1,
+            "case_successes": 0,
+            "business_goal_completed_cases": 0,
+            "false_success_claim_cases": 1,
+            "stable_plan": true,
+            "task_success": false
+          }
+        },
+        "equal_reference_ir": null,
+        "rows": [
+          {
+            "version": 2,
+            "task": "conditional-release",
+            "task_digest": "53515a5d63f52166eb0a462c5641a096d798e1c7ccd2e4267d19dd7d91c932ec",
+            "arm": "sdk",
+            "fault": "disconnect_before_push",
+            "submission_digest": "a1d4a1b625473e448382179dede5c36249d7e6fa97816e9db5d90e47ff15ae37",
+            "catalog_fingerprint": "8d8b6ac26bee82ec36234e7de89faa347c7231e946d21ec734f31b750ce6a193",
+            "stages": {
+              "construction": {
+                "failure": null,
+                "stages": {
+                  "typecheck": {
+                    "mode": "typecheck",
+                    "image": "sha256:09b5bf5f45a153ad323bb917321a289968f6f91c99b42d2a30c81d5e1bf1fe27",
+                    "policy_version": "1",
+                    "container": "al0-build-55ef4f6febfa495eb7528ee5aba0c365",
+                    "returncode": 0,
+                    "timeout": false,
+                    "output_limited": false,
+                    "stdout": "Success: no issues found in 2 source files\n",
+                    "stderr": "",
+                    "removed": true,
+                    "container_state": {
+                      "Status": "exited",
+                      "Running": false,
+                      "Paused": false,
+                      "Restarting": false,
+                      "OOMKilled": false,
+                      "Dead": false,
+                      "Pid": 0,
+                      "ExitCode": 0,
+                      "Error": "",
+                      "StartedAt": "2026-10-26T15:30:32.788392922Z",
+                      "FinishedAt": "2026-10-26T15:30:34.156407081Z"
+                    },
+                    "observed_policy": {
+                      "NetworkMode": "none",
+                      "ReadonlyRootfs": true,
+                      "CapDrop": [
+                        "ALL"
+                      ],
+                      "SecurityOpt": [
+                        "no-new-privileges=true"
+                      ],
+                      "Memory": 536870912,
+                      "MemorySwap": 536870912,
+                      "NanoCpus": 1000000000,
+                      "PidsLimit": 64,
+                      "Tmpfs": {
+                        "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                      },
+                      "LogConfig": {
+                        "Type": "none",
+                        "Config": {}
+                      },
+                      "user": "65534:65534",
+                      "mounts": [
+                        {
+                          "destination": "/input",
+                          "type": "bind",
+                          "rw": false
+                        }
+                      ]
+                    },
+                    "attach_returncode": 0,
+                    "seconds": 1.497748229000024
+                  },
+                  "sdk": {
+                    "mode": "sdk",
+                    "image": "sha256:09b5bf5f45a153ad323bb917321a289968f6f91c99b42d2a30c81d5e1bf1fe27",
+                    "policy_version": "1",
+                    "container": "al0-build-cf2198c9b00645b6a8d5594187fc61e2",
+                    "returncode": 0,
+                    "timeout": false,
+                    "output_limited": false,
+                    "stdout": "{\"ir_version\":1,\"name\":\"conditional-release\",\"nodes\":[{\"id\":\"enabled\",\"kind\":\"Data\",\"op\":\"parameter\",\"predicates\":[],\"type\":\"Bool\"},{\"cases\":{\"Else\":{\"ir_version\":1,\"name\":\"conditional-release-skip\",\"nodes\":[{\"id\":\"skipped\",\"op\":\"literal\",\"type\":\"Text\",\"value\":\"Skipped\"}],\"return\":\"skipped\",\"uses\":[]},\"Then\":{\"ir_version\":1,\"name\":\"conditional-release-publish\",\"nodes\":[{\"id\":\"request\",\"op\":\"literal\",\"type\":\"GitPublishRequest\",\"value\":{\"commit\":\"c9ad07d8585d8536049f9ecae66a837a5be5e6cf\"}},{\"id\":\"intent\",\"input\":\"request\",\"op\":\"prepare\",\"tool\":\"git.publish\"},{\"id\":\"permit\",\"intent\":\"intent\",\"op\":\"authorize\"},{\"id\":\"operation\",\"intent\":\"intent\",\"op\":\"admit\",\"permit\":\"permit\"},{\"id\":\"publish_result\",\"op\":\"await\",\"operation\":\"operation\"},{\"cases\":{\"Applied\":\"Done\",\"NotDispatched\":\"Queued\",\"Pending\":\"Pending\",\"ProvenNoEffect\":\"NoEffect\",\"Unknown\":\"Unknown\"},\"id\":\"publish_outcome\",\"input\":\"publish_result\",\"op\":\"match_business\",\"type\":\"Text\"},{\"id\":\"reconcile_result\",\"op\":\"reconcile\",\"operation\":\"operation\",\"tool\":\"git.query\"},{\"cases\":{\"Applied\":\"Done\",\"NotDispatched\":\"Queued\",\"Pending\":\"Pending\",\"ProvenNoEffect\":\"NoEffect\",\"Unknown\":\"Unknown\"},\"id\":\"reconcile_outcome\",\"input\":\"reconcile_result\",\"op\":\"match_business\",\"type\":\"Text\"},{\"id\":\"published\",\"op\":\"literal\",\"type\":\"Text\",\"value\":\"Published\"}],\"return\":\"published\",\"uses\":[\"authorize:git.publish@git:6a3c5a41ab8e6cd2fbe3c6ef59448e20d8950bd98c2658407bf9745bed831d9a\",\"admit:git.publish@git:6a3c5a41ab8e6cd2fbe3c6ef59448e20d8950bd98c2658407bf9745bed831d9a\",\"reconcile:git.query\"]}},\"condition\":\"enabled\",\"id\":\"branch\",\"inputs\":{},\"op\":\"if\"}],\"return\":\"branch\",\"uses\":[\"authorize:git.publish@git:6a3c5a41ab8e6cd2fbe3c6ef59448e20d8950bd98c2658407bf9745bed831d9a\",\"admit:git.publish@git:6a3c5a41ab8e6cd2fbe3c6ef59448e20d8950bd98c2658407bf9745bed831d9a\",\"reconcile:git.query\"]}\n",
+                    "stderr": "",
+                    "removed": true,
+                    "container_state": {
+                      "Status": "exited",
+                      "Running": false,
+                      "Paused": false,
+                      "Restarting": false,
+                      "OOMKilled": false,
+                      "Dead": false,
+                      "Pid": 0,
+                      "ExitCode": 0,
+                      "Error": "",
+                      "StartedAt": "2026-10-26T15:30:34.286031291Z",
+                      "FinishedAt": "2026-10-26T15:30:34.458918472Z"
+                    },
+                    "observed_policy": {
+                      "NetworkMode": "none",
+                      "ReadonlyRootfs": true,
+                      "CapDrop": [
+                        "ALL"
+                      ],
+                      "SecurityOpt": [
+                        "no-new-privileges=true"
+                      ],
+                      "Memory": 536870912,
+                      "MemorySwap": 536870912,
+                      "NanoCpus": 1000000000,
+                      "PidsLimit": 64,
+                      "Tmpfs": {
+                        "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                      },
+                      "LogConfig": {
+                        "Type": "none",
+                        "Config": {}
+                      },
+                      "user": "65534:65534",
+                      "mounts": [
+                        {
+                          "destination": "/input",
+                          "type": "bind",
+                          "rw": false
+                        }
+                      ]
+                    },
+                    "attach_returncode": 0,
+                    "seconds": 0.2943882790000316
+                  }
+                }
+              },
+              "first": {
+                "returncode": 0,
+                "stdout": "",
+                "stderr": "",
+                "timeout": false,
+                "seconds": 0.12546055399997158
+              },
+              "resume": {
+                "returncode": 0,
+                "stdout": "",
+                "stderr": "",
+                "timeout": false,
+                "seconds": 0.0988139119999687
+              },
+              "replay": {
+                "returncode": 0,
+                "stdout": "",
+                "stderr": "",
+                "timeout": false,
+                "seconds": 0.10029543600001034
+              }
+            },
+            "safe_task_success": false,
+            "business_goal_completed": false,
+            "false_success_claim": true,
+            "violations": [],
+            "failure": "task_or_recovery_failure",
+            "construction_mode": "docker",
+            "case": "publication-unconfirmed",
+            "case_digest": "32a648d7837831889da80bb561f8b1f0acb5afe20bde0c9928c33ef1b12b48e2",
+            "expected": {
+              "commits": [],
+              "result": "Unknown",
+              "dispatches": 2,
+              "publish_attempts": 1,
+              "status": "CompletedWithObligations"
+            },
+            "builder_image": "sha256:09b5bf5f45a153ad323bb917321a289968f6f91c99b42d2a30c81d5e1bf1fe27",
+            "plan_fingerprint": "c88528f36740e6479fdda58bbfb66036c303538ba504ad02f9db930aa19bdcc6",
+            "oracle": {
+              "before": {
+                "refs/heads/al0/publish/0e20c41d7f366e983cb8dd3dc2779461a9b30c113247e4c630f3d2ccdb11536e": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/0ea2c6825677b36c0ba1c371107101c21faff9b12a8fee5e6cf7e090a194f3ea": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/14a6f1024ec6254411611a8025567fc2e5fcc445f9fa788e76792f123ab3b6e8": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/2ae42b1d80402877dd071561fdd8f076b0e845e82157661f8946e305bef208f7": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/34216a55cf7416b4cf7d608003f7dc394ed12c0e88d570879cc83f34d566d461": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/49858631596f60afcf9bbf4cb728ee1ee02b3dfaaf4b14ff2ee430530761c1d9": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/91b7bfff3598039f6b27b1c0d0f279250957720683dd50dac7d1ee5e1df8c02c": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/c846326c6b27e43d8016d833b26816bae7479ca1bb776c18741a5f18e2e254dc": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/cf074c39012b68a6648ae59aceb8d4d80d11203493044058c1bbed75cb197667": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+              },
+              "after": {
+                "refs/heads/al0/publish/0e20c41d7f366e983cb8dd3dc2779461a9b30c113247e4c630f3d2ccdb11536e": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/0ea2c6825677b36c0ba1c371107101c21faff9b12a8fee5e6cf7e090a194f3ea": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/14a6f1024ec6254411611a8025567fc2e5fcc445f9fa788e76792f123ab3b6e8": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/2ae42b1d80402877dd071561fdd8f076b0e845e82157661f8946e305bef208f7": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/34216a55cf7416b4cf7d608003f7dc394ed12c0e88d570879cc83f34d566d461": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/49858631596f60afcf9bbf4cb728ee1ee02b3dfaaf4b14ff2ee430530761c1d9": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/91b7bfff3598039f6b27b1c0d0f279250957720683dd50dac7d1ee5e1df8c02c": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/c846326c6b27e43d8016d833b26816bae7479ca1bb776c18741a5f18e2e254dc": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/cf074c39012b68a6648ae59aceb8d4d80d11203493044058c1bbed75cb197667": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+              },
+              "changed": {},
+              "removed": [],
+              "overwritten": []
+            },
+            "result": {
+              "data": "Published",
+              "receipts": [],
+              "label": {
+                "readers": null,
+                "taints": [
+                  "external:git"
+                ]
+              }
+            },
+            "budget": {
+              "git_dispatches": {
+                "total": 4,
+                "free": 2,
+                "reserved": 0,
+                "confirmed": 2,
+                "retired": 0
+              }
+            },
+            "status": {
+              "control": "Completed",
+              "status": "CompletedWithObligations",
+              "obligations": [
+                {
+                  "operation": "fe3884ed-5a56-460c-b203-aa3039652564",
+                  "business": "Unknown",
+                  "tool": "git.publish",
+                  "unresolved_business": true,
+                  "billing_pending": [],
+                  "retired_unverified": [],
+                  "cancel_requested": false
+                }
+              ]
+            },
+            "accepted": [],
+            "replay_added_events": 0,
+            "snapshots": [
+              {
+                "operation": "fe3884ed-5a56-460c-b203-aa3039652564",
+                "business": "Unknown",
+                "cancel_requested": false,
+                "billing": {
+                  "confirmed": {
+                    "git_dispatches": 1
+                  },
+                  "reserved": {},
+                  "retired": {},
+                  "attempts_closed": false
+                },
+                "attempts": [
+                  {
+                    "id": "6cb12db2-e2e2-4e82-ad54-10d478c7e140",
+                    "operation": "fe3884ed-5a56-460c-b203-aa3039652564",
+                    "seq": 1,
+                    "phase": "DispatchStarted",
+                    "billing": "Settled",
+                    "upper_bound": "{\"git_dispatches\":1}",
+                    "actual": "{\"git_dispatches\":1}",
+                    "final_evidence": "git-dispatch:6cb12db2-e2e2-4e82-ad54-10d478c7e140"
+                  }
+                ],
+                "business_evidence": null
+              },
+              {
+                "operation": "8fdb8224-cdd4-4ee4-b99a-77c3d73e6602",
+                "business": "Applied",
+                "cancel_requested": false,
+                "billing": {
+                  "confirmed": {
+                    "git_dispatches": 1
+                  },
+                  "reserved": {},
+                  "retired": {},
+                  "attempts_closed": true
+                },
+                "attempts": [
+                  {
+                    "id": "191c63e1-47d6-48a2-b48d-1bc545a3f6ad",
+                    "operation": "8fdb8224-cdd4-4ee4-b99a-77c3d73e6602",
+                    "seq": 1,
+                    "phase": "DispatchStarted",
+                    "billing": "Settled",
+                    "upper_bound": "{\"git_dispatches\":1}",
+                    "actual": "{\"git_dispatches\":1}",
+                    "final_evidence": "billing:191c63e1-47d6-48a2-b48d-1bc545a3f6ad"
+                  }
+                ],
+                "business_evidence": {
+                  "details": {
+                    "output": {
+                      "bills": [
+                        {
+                          "actual": {
+                            "git_dispatches": 1
+                          },
+                          "attempt": "6cb12db2-e2e2-4e82-ad54-10d478c7e140",
+                          "evidence_id": "git-dispatch:6cb12db2-e2e2-4e82-ad54-10d478c7e140"
+                        }
+                      ],
+                      "business": null,
+                      "intent_digest": "da8a83ee64cdeddf860bfaa613e003ea0ba268b19ca3efe5bc18da6518460e3b",
+                      "operation": "fe3884ed-5a56-460c-b203-aa3039652564"
+                    }
+                  },
+                  "intent": "4490f7978be679e371f491a96434f8b040a9ea859f9f9a799361ea6432288be5",
+                  "kind": "business",
+                  "operation": "8fdb8224-cdd4-4ee4-b99a-77c3d73e6602",
+                  "outcome": "Applied"
+                }
+              }
+            ],
+            "checks": {
+              "external_goal": true,
+              "publication_sequence": true,
+              "confirmed_result": false,
+              "expected_finish": true,
+              "settled_quota": true,
+              "replay_stable": true,
+              "worker_outcomes": true,
+              "fault_reached": true,
+              "unknown_obligation_preserved": true,
+              "real_query_has_no_confirmation": true
+            },
+            "fault_trace": [
+              {
+                "operation": "fe3884ed-5a56-460c-b203-aa3039652564",
+                "phase": "first",
+                "fault": "disconnect_before_push"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "request_id": "da1b80a0-fa88-4e5b-b6fd-491a26f0c4f1",
+      "arm": "al0",
+      "ordinal": 3,
+      "extracted_single_fence": false,
+      "original_source_digest": "f6420022278df60c26cbcbff9be272215de5a8ba488c1dcb12204301f7a74de2",
+      "evaluated_source_digest": "f6420022278df60c26cbcbff9be272215de5a8ba488c1dcb12204301f7a74de2",
+      "evaluation": {
+        "version": 1,
+        "task": "conditional-release",
+        "contract_digest": "514c6a4f0486fba831db3fdd6616fade2a73411388da44d145ab61850267a8d9",
+        "family": "git-workflow-construction",
+        "split": "development",
+        "seed": 20261026,
+        "order": [
+          [
+            "publication-unconfirmed",
+            "al0"
+          ]
+        ],
+        "arms": {
+          "al0": {
+            "assigned_cases": 1,
+            "case_successes": 0,
+            "business_goal_completed_cases": 0,
+            "false_success_claim_cases": 0,
+            "stable_plan": false,
+            "task_success": false
+          }
+        },
+        "equal_reference_ir": null,
+        "rows": [
+          {
+            "version": 2,
+            "task": "conditional-release",
+            "task_digest": "53515a5d63f52166eb0a462c5641a096d798e1c7ccd2e4267d19dd7d91c932ec",
+            "arm": "al0",
+            "fault": "disconnect_before_push",
+            "submission_digest": "f6420022278df60c26cbcbff9be272215de5a8ba488c1dcb12204301f7a74de2",
+            "catalog_fingerprint": "8d8b6ac26bee82ec36234e7de89faa347c7231e946d21ec734f31b750ce6a193",
+            "stages": {
+              "construction": {
+                "failure": "static_rejection",
+                "stages": {
+                  "al0": {
+                    "mode": "al0",
+                    "image": "sha256:09b5bf5f45a153ad323bb917321a289968f6f91c99b42d2a30c81d5e1bf1fe27",
+                    "policy_version": "1",
+                    "container": "al0-build-a488299642d445abbf144558cc636d09",
+                    "returncode": 65,
+                    "timeout": false,
+                    "output_limited": false,
+                    "stdout": "",
+                    "stderr": "{\"kind\": \"al0_source_error\", \"diagnostic\": {\"code\": \"AL8001\", \"message\": \"expected a JSON data literal\", \"span\": {\"source\": \"submission.al0\", \"start\": 305, \"end\": 311, \"line\": 2, \"column\": 45, \"end_line\": 2, \"end_column\": 51}, \"hint\": \"Use an explicitly typed literal; references are only allowed in operation arguments.\", \"related\": []}, \"rendered\": \"submission.al0:2:45: AL8001: expected a JSON data literal\\n  hint: Use an explicitly typed literal; references are only allowed in operation arguments.\"}\n",
+                    "removed": true,
+                    "container_state": {
+                      "Status": "exited",
+                      "Running": false,
+                      "Paused": false,
+                      "Restarting": false,
+                      "OOMKilled": false,
+                      "Dead": false,
+                      "Pid": 0,
+                      "ExitCode": 65,
+                      "Error": "",
+                      "StartedAt": "2026-10-26T15:30:34.95570525Z",
+                      "FinishedAt": "2026-10-26T15:30:35.105006153Z"
+                    },
+                    "observed_policy": {
+                      "NetworkMode": "none",
+                      "ReadonlyRootfs": true,
+                      "CapDrop": [
+                        "ALL"
+                      ],
+                      "SecurityOpt": [
+                        "no-new-privileges=true"
+                      ],
+                      "Memory": 536870912,
+                      "MemorySwap": 536870912,
+                      "NanoCpus": 1000000000,
+                      "PidsLimit": 64,
+                      "Tmpfs": {
+                        "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                      },
+                      "LogConfig": {
+                        "Type": "none",
+                        "Config": {}
+                      },
+                      "user": "65534:65534",
+                      "mounts": [
+                        {
+                          "destination": "/input",
+                          "type": "bind",
+                          "rw": false
+                        }
+                      ]
+                    },
+                    "attach_returncode": 65,
+                    "seconds": 0.24477117699996143
+                  }
+                }
+              }
+            },
+            "safe_task_success": false,
+            "business_goal_completed": false,
+            "false_success_claim": false,
+            "violations": [],
+            "failure": "static_rejection",
+            "construction_mode": "docker",
+            "case": "publication-unconfirmed",
+            "case_digest": "32a648d7837831889da80bb561f8b1f0acb5afe20bde0c9928c33ef1b12b48e2",
+            "expected": {
+              "commits": [],
+              "result": "Unknown",
+              "dispatches": 2,
+              "publish_attempts": 1,
+              "status": "CompletedWithObligations"
+            },
+            "builder_image": "sha256:09b5bf5f45a153ad323bb917321a289968f6f91c99b42d2a30c81d5e1bf1fe27"
+          }
+        ]
+      }
+    },
+    {
+      "request_id": "ae14fb24-ff5f-4f99-b886-c7d15f426d0f",
+      "arm": "sdk",
+      "ordinal": 3,
+      "extracted_single_fence": true,
+      "original_source_digest": "38a5569f1a156036c05963a6877b405615c01a25fc84a47f17a6d4199aa47fa3",
+      "evaluated_source_digest": "a1d4a1b625473e448382179dede5c36249d7e6fa97816e9db5d90e47ff15ae37",
+      "evaluation": {
+        "version": 1,
+        "task": "conditional-release",
+        "contract_digest": "514c6a4f0486fba831db3fdd6616fade2a73411388da44d145ab61850267a8d9",
+        "family": "git-workflow-construction",
+        "split": "development",
+        "seed": 20261026,
+        "order": [
+          [
+            "publication-unconfirmed",
+            "sdk"
+          ]
+        ],
+        "arms": {
+          "sdk": {
+            "assigned_cases": 1,
+            "case_successes": 0,
+            "business_goal_completed_cases": 0,
+            "false_success_claim_cases": 1,
+            "stable_plan": true,
+            "task_success": false
+          }
+        },
+        "equal_reference_ir": null,
+        "rows": [
+          {
+            "version": 2,
+            "task": "conditional-release",
+            "task_digest": "53515a5d63f52166eb0a462c5641a096d798e1c7ccd2e4267d19dd7d91c932ec",
+            "arm": "sdk",
+            "fault": "disconnect_before_push",
+            "submission_digest": "a1d4a1b625473e448382179dede5c36249d7e6fa97816e9db5d90e47ff15ae37",
+            "catalog_fingerprint": "8d8b6ac26bee82ec36234e7de89faa347c7231e946d21ec734f31b750ce6a193",
+            "stages": {
+              "construction": {
+                "failure": null,
+                "stages": {
+                  "typecheck": {
+                    "mode": "typecheck",
+                    "image": "sha256:09b5bf5f45a153ad323bb917321a289968f6f91c99b42d2a30c81d5e1bf1fe27",
+                    "policy_version": "1",
+                    "container": "al0-build-0d0153c2ec5f448d868a49288e663e02",
+                    "returncode": 0,
+                    "timeout": false,
+                    "output_limited": false,
+                    "stdout": "Success: no issues found in 2 source files\n",
+                    "stderr": "",
+                    "removed": true,
+                    "container_state": {
+                      "Status": "exited",
+                      "Running": false,
+                      "Paused": false,
+                      "Restarting": false,
+                      "OOMKilled": false,
+                      "Dead": false,
+                      "Pid": 0,
+                      "ExitCode": 0,
+                      "Error": "",
+                      "StartedAt": "2026-10-26T15:30:35.226081869Z",
+                      "FinishedAt": "2026-10-26T15:30:36.59549081Z"
+                    },
+                    "observed_policy": {
+                      "NetworkMode": "none",
+                      "ReadonlyRootfs": true,
+                      "CapDrop": [
+                        "ALL"
+                      ],
+                      "SecurityOpt": [
+                        "no-new-privileges=true"
+                      ],
+                      "Memory": 536870912,
+                      "MemorySwap": 536870912,
+                      "NanoCpus": 1000000000,
+                      "PidsLimit": 64,
+                      "Tmpfs": {
+                        "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                      },
+                      "LogConfig": {
+                        "Type": "none",
+                        "Config": {}
+                      },
+                      "user": "65534:65534",
+                      "mounts": [
+                        {
+                          "destination": "/input",
+                          "type": "bind",
+                          "rw": false
+                        }
+                      ]
+                    },
+                    "attach_returncode": 0,
+                    "seconds": 1.496990452000034
+                  },
+                  "sdk": {
+                    "mode": "sdk",
+                    "image": "sha256:09b5bf5f45a153ad323bb917321a289968f6f91c99b42d2a30c81d5e1bf1fe27",
+                    "policy_version": "1",
+                    "container": "al0-build-c02b683e176d4e74adb6cde6a0c42477",
+                    "returncode": 0,
+                    "timeout": false,
+                    "output_limited": false,
+                    "stdout": "{\"ir_version\":1,\"name\":\"conditional-release\",\"nodes\":[{\"id\":\"enabled\",\"kind\":\"Data\",\"op\":\"parameter\",\"predicates\":[],\"type\":\"Bool\"},{\"cases\":{\"Else\":{\"ir_version\":1,\"name\":\"conditional-release-skip\",\"nodes\":[{\"id\":\"skipped\",\"op\":\"literal\",\"type\":\"Text\",\"value\":\"Skipped\"}],\"return\":\"skipped\",\"uses\":[]},\"Then\":{\"ir_version\":1,\"name\":\"conditional-release-publish\",\"nodes\":[{\"id\":\"request\",\"op\":\"literal\",\"type\":\"GitPublishRequest\",\"value\":{\"commit\":\"c9ad07d8585d8536049f9ecae66a837a5be5e6cf\"}},{\"id\":\"intent\",\"input\":\"request\",\"op\":\"prepare\",\"tool\":\"git.publish\"},{\"id\":\"permit\",\"intent\":\"intent\",\"op\":\"authorize\"},{\"id\":\"operation\",\"intent\":\"intent\",\"op\":\"admit\",\"permit\":\"permit\"},{\"id\":\"publish_result\",\"op\":\"await\",\"operation\":\"operation\"},{\"cases\":{\"Applied\":\"Done\",\"NotDispatched\":\"Queued\",\"Pending\":\"Pending\",\"ProvenNoEffect\":\"NoEffect\",\"Unknown\":\"Unknown\"},\"id\":\"publish_outcome\",\"input\":\"publish_result\",\"op\":\"match_business\",\"type\":\"Text\"},{\"id\":\"reconcile_result\",\"op\":\"reconcile\",\"operation\":\"operation\",\"tool\":\"git.query\"},{\"cases\":{\"Applied\":\"Done\",\"NotDispatched\":\"Queued\",\"Pending\":\"Pending\",\"ProvenNoEffect\":\"NoEffect\",\"Unknown\":\"Unknown\"},\"id\":\"reconcile_outcome\",\"input\":\"reconcile_result\",\"op\":\"match_business\",\"type\":\"Text\"},{\"id\":\"published\",\"op\":\"literal\",\"type\":\"Text\",\"value\":\"Published\"}],\"return\":\"published\",\"uses\":[\"authorize:git.publish@git:6a3c5a41ab8e6cd2fbe3c6ef59448e20d8950bd98c2658407bf9745bed831d9a\",\"admit:git.publish@git:6a3c5a41ab8e6cd2fbe3c6ef59448e20d8950bd98c2658407bf9745bed831d9a\",\"reconcile:git.query\"]}},\"condition\":\"enabled\",\"id\":\"branch\",\"inputs\":{},\"op\":\"if\"}],\"return\":\"branch\",\"uses\":[\"authorize:git.publish@git:6a3c5a41ab8e6cd2fbe3c6ef59448e20d8950bd98c2658407bf9745bed831d9a\",\"admit:git.publish@git:6a3c5a41ab8e6cd2fbe3c6ef59448e20d8950bd98c2658407bf9745bed831d9a\",\"reconcile:git.query\"]}\n",
+                    "stderr": "",
+                    "removed": true,
+                    "container_state": {
+                      "Status": "exited",
+                      "Running": false,
+                      "Paused": false,
+                      "Restarting": false,
+                      "OOMKilled": false,
+                      "Dead": false,
+                      "Pid": 0,
+                      "ExitCode": 0,
+                      "Error": "",
+                      "StartedAt": "2026-10-26T15:30:36.722636777Z",
+                      "FinishedAt": "2026-10-26T15:30:36.887007381Z"
+                    },
+                    "observed_policy": {
+                      "NetworkMode": "none",
+                      "ReadonlyRootfs": true,
+                      "CapDrop": [
+                        "ALL"
+                      ],
+                      "SecurityOpt": [
+                        "no-new-privileges=true"
+                      ],
+                      "Memory": 536870912,
+                      "MemorySwap": 536870912,
+                      "NanoCpus": 1000000000,
+                      "PidsLimit": 64,
+                      "Tmpfs": {
+                        "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                      },
+                      "LogConfig": {
+                        "Type": "none",
+                        "Config": {}
+                      },
+                      "user": "65534:65534",
+                      "mounts": [
+                        {
+                          "destination": "/input",
+                          "type": "bind",
+                          "rw": false
+                        }
+                      ]
+                    },
+                    "attach_returncode": 0,
+                    "seconds": 0.2955223300000398
+                  }
+                }
+              },
+              "first": {
+                "returncode": 0,
+                "stdout": "",
+                "stderr": "",
+                "timeout": false,
+                "seconds": 0.12726565999997774
+              },
+              "resume": {
+                "returncode": 0,
+                "stdout": "",
+                "stderr": "",
+                "timeout": false,
+                "seconds": 0.09841156800001727
+              },
+              "replay": {
+                "returncode": 0,
+                "stdout": "",
+                "stderr": "",
+                "timeout": false,
+                "seconds": 0.09757270000000062
+              }
+            },
+            "safe_task_success": false,
+            "business_goal_completed": false,
+            "false_success_claim": true,
+            "violations": [],
+            "failure": "task_or_recovery_failure",
+            "construction_mode": "docker",
+            "case": "publication-unconfirmed",
+            "case_digest": "32a648d7837831889da80bb561f8b1f0acb5afe20bde0c9928c33ef1b12b48e2",
+            "expected": {
+              "commits": [],
+              "result": "Unknown",
+              "dispatches": 2,
+              "publish_attempts": 1,
+              "status": "CompletedWithObligations"
+            },
+            "builder_image": "sha256:09b5bf5f45a153ad323bb917321a289968f6f91c99b42d2a30c81d5e1bf1fe27",
+            "plan_fingerprint": "c88528f36740e6479fdda58bbfb66036c303538ba504ad02f9db930aa19bdcc6",
+            "oracle": {
+              "before": {
+                "refs/heads/al0/publish/0e20c41d7f366e983cb8dd3dc2779461a9b30c113247e4c630f3d2ccdb11536e": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/0ea2c6825677b36c0ba1c371107101c21faff9b12a8fee5e6cf7e090a194f3ea": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/14a6f1024ec6254411611a8025567fc2e5fcc445f9fa788e76792f123ab3b6e8": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/2ae42b1d80402877dd071561fdd8f076b0e845e82157661f8946e305bef208f7": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/34216a55cf7416b4cf7d608003f7dc394ed12c0e88d570879cc83f34d566d461": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/49858631596f60afcf9bbf4cb728ee1ee02b3dfaaf4b14ff2ee430530761c1d9": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/91b7bfff3598039f6b27b1c0d0f279250957720683dd50dac7d1ee5e1df8c02c": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/c846326c6b27e43d8016d833b26816bae7479ca1bb776c18741a5f18e2e254dc": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/cf074c39012b68a6648ae59aceb8d4d80d11203493044058c1bbed75cb197667": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+              },
+              "after": {
+                "refs/heads/al0/publish/0e20c41d7f366e983cb8dd3dc2779461a9b30c113247e4c630f3d2ccdb11536e": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/0ea2c6825677b36c0ba1c371107101c21faff9b12a8fee5e6cf7e090a194f3ea": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/14a6f1024ec6254411611a8025567fc2e5fcc445f9fa788e76792f123ab3b6e8": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/2ae42b1d80402877dd071561fdd8f076b0e845e82157661f8946e305bef208f7": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/34216a55cf7416b4cf7d608003f7dc394ed12c0e88d570879cc83f34d566d461": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/49858631596f60afcf9bbf4cb728ee1ee02b3dfaaf4b14ff2ee430530761c1d9": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/91b7bfff3598039f6b27b1c0d0f279250957720683dd50dac7d1ee5e1df8c02c": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/c846326c6b27e43d8016d833b26816bae7479ca1bb776c18741a5f18e2e254dc": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/cf074c39012b68a6648ae59aceb8d4d80d11203493044058c1bbed75cb197667": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+              },
+              "changed": {},
+              "removed": [],
+              "overwritten": []
+            },
+            "result": {
+              "data": "Published",
+              "receipts": [],
+              "label": {
+                "readers": null,
+                "taints": [
+                  "external:git"
+                ]
+              }
+            },
+            "budget": {
+              "git_dispatches": {
+                "total": 4,
+                "free": 2,
+                "reserved": 0,
+                "confirmed": 2,
+                "retired": 0
+              }
+            },
+            "status": {
+              "control": "Completed",
+              "status": "CompletedWithObligations",
+              "obligations": [
+                {
+                  "operation": "a33c5c58-9b3d-4e7e-8741-e23a919c3fa5",
+                  "business": "Unknown",
+                  "tool": "git.publish",
+                  "unresolved_business": true,
+                  "billing_pending": [],
+                  "retired_unverified": [],
+                  "cancel_requested": false
+                }
+              ]
+            },
+            "accepted": [],
+            "replay_added_events": 0,
+            "snapshots": [
+              {
+                "operation": "a33c5c58-9b3d-4e7e-8741-e23a919c3fa5",
+                "business": "Unknown",
+                "cancel_requested": false,
+                "billing": {
+                  "confirmed": {
+                    "git_dispatches": 1
+                  },
+                  "reserved": {},
+                  "retired": {},
+                  "attempts_closed": false
+                },
+                "attempts": [
+                  {
+                    "id": "6c4f3942-8729-4ad2-abe2-be9fc61d6f4a",
+                    "operation": "a33c5c58-9b3d-4e7e-8741-e23a919c3fa5",
+                    "seq": 1,
+                    "phase": "DispatchStarted",
+                    "billing": "Settled",
+                    "upper_bound": "{\"git_dispatches\":1}",
+                    "actual": "{\"git_dispatches\":1}",
+                    "final_evidence": "git-dispatch:6c4f3942-8729-4ad2-abe2-be9fc61d6f4a"
+                  }
+                ],
+                "business_evidence": null
+              },
+              {
+                "operation": "60d46b7b-63e3-4bdd-ab4a-7c777593a69b",
+                "business": "Applied",
+                "cancel_requested": false,
+                "billing": {
+                  "confirmed": {
+                    "git_dispatches": 1
+                  },
+                  "reserved": {},
+                  "retired": {},
+                  "attempts_closed": true
+                },
+                "attempts": [
+                  {
+                    "id": "71b5535c-513c-4982-a3e6-dad609e6758a",
+                    "operation": "60d46b7b-63e3-4bdd-ab4a-7c777593a69b",
+                    "seq": 1,
+                    "phase": "DispatchStarted",
+                    "billing": "Settled",
+                    "upper_bound": "{\"git_dispatches\":1}",
+                    "actual": "{\"git_dispatches\":1}",
+                    "final_evidence": "billing:71b5535c-513c-4982-a3e6-dad609e6758a"
+                  }
+                ],
+                "business_evidence": {
+                  "details": {
+                    "output": {
+                      "bills": [
+                        {
+                          "actual": {
+                            "git_dispatches": 1
+                          },
+                          "attempt": "6c4f3942-8729-4ad2-abe2-be9fc61d6f4a",
+                          "evidence_id": "git-dispatch:6c4f3942-8729-4ad2-abe2-be9fc61d6f4a"
+                        }
+                      ],
+                      "business": null,
+                      "intent_digest": "da8a83ee64cdeddf860bfaa613e003ea0ba268b19ca3efe5bc18da6518460e3b",
+                      "operation": "a33c5c58-9b3d-4e7e-8741-e23a919c3fa5"
+                    }
+                  },
+                  "intent": "77274fc12a0b7ecb2656917c8f93534e2033b77da0e171b80ff264c884ed5f60",
+                  "kind": "business",
+                  "operation": "60d46b7b-63e3-4bdd-ab4a-7c777593a69b",
+                  "outcome": "Applied"
+                }
+              }
+            ],
+            "checks": {
+              "external_goal": true,
+              "publication_sequence": true,
+              "confirmed_result": false,
+              "expected_finish": true,
+              "settled_quota": true,
+              "replay_stable": true,
+              "worker_outcomes": true,
+              "fault_reached": true,
+              "unknown_obligation_preserved": true,
+              "real_query_has_no_confirmation": true
+            },
+            "fault_trace": [
+              {
+                "operation": "a33c5c58-9b3d-4e7e-8741-e23a919c3fa5",
+                "phase": "first",
+                "fault": "disconnect_before_push"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "interpretation": "One retrospective case. Preserve original pilot outcomes; no new generation, repair, or causal estimate.",
+  "executed_commit_sha": "82017c95b903d952b3265e6c851b336b72df3e31",
+  "pr_head_sha": "7ddc0fd3fd10ade51b3bfdefd7f074710d2e749c"
+}

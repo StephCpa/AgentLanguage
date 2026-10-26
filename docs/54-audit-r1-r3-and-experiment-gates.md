@@ -59,3 +59,9 @@ AL-0 只把专用退出码与完整 SourceError 诊断记录判为 `static_rejec
 正式实验应按任务配对，两臂共享 Catalog、运行时、故障计划、预算和修复次数。拒绝、超时、无输出、格式失败及预算耗尽保留在任务分母；基础设施重评只使用相同已保存源码、另记评估身份，不增加模型修复机会。已有六次调用及 0.0169878 美元保守预留继续计入原 1 美元总账本。
 
 未来若提供机器可验证的成功声明，应另行设计两前端共享的 IR/运行时证据类型：绑定 operation、intent、目标和适配器版本，出口复核，文本仅作说明。这是后续语言设计事项，本轮没有新增或宣称实现 Published(receipt) API。
+
+## 验证记录
+
+[CI 40349646304](https://github.com/StephCpa/AgentLanguage/actions/runs/40349646304) 的 PR head 为 `7ddc0fd3fd10ade51b3bfdefd7f074710d2e749c`，实际执行提交为 `82017c95b903d952b3265e6c851b336b72df3e31`。Python 3.10/3.12 分别在 151.660/119.461 秒内通过 1013 项测试；两项安装验证通过。Docker 十二项检查全部通过，包括实际 OOMKilled=true、退出码 137、资源失败分类及容器删除，以及两组教学例子的真实编译。
+
+原始容器报告保存在 `models/audit_r1_r3_isolation.json`，分离指标后的 Unknown 重评保存在 `models/audit_r1_r3_outcomes.json`，CI 来源见 `models/audit_r1_r3.provenance.json`。参考程序的 safe_task_success=true、business_goal_completed=false、false_success_claim=false；三份 SDK 保存输出的 false_success_claim=true。AL-0 保存输出仍然静态拒绝，没有运行时报告可比较；其 false_success_claim=false 只表示没有发出成功声明，不能解释成运行时可靠性优于 SDK。

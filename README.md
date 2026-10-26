@@ -60,6 +60,7 @@ AL-0 是面向 Agent 的小型受检语言提案。它将模型候选、检查�
 49. [隔离计划构造](docs/49-isolated-plan-construction.md)：Docker 构造边界、独立类型检查、宿主 IR 复核及限制清理验收。
 50. [开发任务契约](docs/50-development-task-contracts.md)：条件发布、顺序发布、接纳回退、任务级评分及参与者材料边界。
 51. [生成与修复实验记录](docs/51-generation-repair-journal.md)：固定材料、逐轮回执与评分、未知费用和迟到结算。
+52. [DeepSeek 开发预实验](docs/52-deepseek-development-pilot.md)：真实 API 调用、1 美元总限额、冻结材料与容器评分。
 
 ## 运行参考实现
 

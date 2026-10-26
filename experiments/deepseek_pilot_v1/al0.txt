@@ -1,0 +1,24 @@
+AL-0 source guide for this task. All declarations are at module scope; the host selects workflow main. Workflow syntax is:
+workflow name(parameter: Type) -> Text uses {"effect", "effect"} {
+  let name: Type = literal;
+  let other = builtin(arguments);
+  return name;
+}
+Types include Text, Bool, Json and catalog schemas. Each literal requires a type annotation. Records use JSON values, for example let message: SomeRequest = {field: "value"};. Variables cannot be assigned twice. return takes an existing variable name, not a literal or nested expression. Builtins are prefix calls. No import statement, dotted Python calls, if statement, nested call expression or arbitrary user function call is supported. // starts a comment.
+
+Operation syntax (use actual catalog tool names): prepare("action.tool", request), authorize(intent), admit(intent, permit), await(operation), reconcile("query.tool", operation). prepare and await do not require extra effects. authorize requires "authorize:ACTION@SCOPE", admit requires "admit:ACTION@SCOPE", and reconcile requires "reconcile:QUERY" in uses. Replace ACTION, QUERY and SCOPE with exact catalog strings. A parent workflow's uses must include effects of its invoked workflows and branches. These declarations do not grant authority.
+
+Snapshot matching syntax requires an explicit data type:
+let answer: Text = match_business(snapshot, {Applied: "Done", ProvenNoEffect: "NoEffect", Pending: "Pending", Unknown: "Unknown", NotDispatched: "Queued"});
+All five cases are required even when a particular test normally confirms success. Each produced business snapshot must be matched, including an intermediate snapshot whose Text result is otherwise unused.
+
+Runtime conditionals use if(condition, true_workflow, false_workflow, {parameter: captured_variable}); empty captures are {}. Called workflows must be declared before the caller. Each branch must return the same type. Invoke a workflow explicitly with invoke(workflow_name, {parameter: value}); it is not an ordinary function call. In this task the root Bool parameter, when required, is named enabled.
+
+One unrelated pure branch example:
+workflow warm() -> Text uses {} { let word: Text = "warm"; return word; }
+workflow cool() -> Text uses {} { let word: Text = "cool"; return word; }
+workflow main(flag: Bool) -> Text uses {} {
+  let word = if(flag, warm, cool, {});
+  return word;
+}
+Use the task's required parameter name, return values and catalog effects in your own program. Do not copy this unrelated example's result strings into the business task.

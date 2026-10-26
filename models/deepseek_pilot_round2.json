@@ -1,0 +1,1569 @@
+{
+  "version": 1,
+  "kind": "deepseek_provider_submission_evaluation",
+  "model_calls_from_ci": 0,
+  "bundle_digest": "75e933700064adf05eb67e5e900889f360a03ac99c1b5eb2b34f7b1e58cd3f14",
+  "code_commit": "ed820bb9c302e2ebed78fdf252db40629c1aae76",
+  "trials": [
+    {
+      "request_id": "5fc6f2ed-c058-4cf8-9fe9-5d8a3cde964d",
+      "arm": "al0",
+      "ordinal": 1,
+      "evaluation": {
+        "version": 1,
+        "task": "conditional-release",
+        "contract_digest": "12b81641f20b6685384982478b96c26ba53858a762754e283519ab1afa801334",
+        "family": "git-workflow-construction",
+        "split": "development",
+        "seed": 20261026,
+        "order": [
+          [
+            "enabled",
+            "al0"
+          ],
+          [
+            "reply-lost",
+            "al0"
+          ],
+          [
+            "process-exit",
+            "al0"
+          ],
+          [
+            "disabled",
+            "al0"
+          ]
+        ],
+        "arms": {
+          "al0": {
+            "assigned_cases": 4,
+            "case_successes": 0,
+            "stable_plan": false,
+            "task_success": false
+          }
+        },
+        "equal_reference_ir": null,
+        "rows": [
+          {
+            "version": 2,
+            "task": "conditional-release",
+            "task_digest": "be6f9d69c84e74d408f0d91c8dd8e9a08066c997536d32e7f4c5c6a03d0d38ac",
+            "arm": "al0",
+            "fault": "normal",
+            "submission_digest": "f6420022278df60c26cbcbff9be272215de5a8ba488c1dcb12204301f7a74de2",
+            "catalog_fingerprint": "8d8b6ac26bee82ec36234e7de89faa347c7231e946d21ec734f31b750ce6a193",
+            "stages": {
+              "construction": {
+                "failure": "static_rejection",
+                "stages": {
+                  "al0": {
+                    "mode": "al0",
+                    "image": "sha256:6c531d937dc839ccde9bd0098dfacb04e1db90eb6641b57dc6f4f052dfe2672b",
+                    "policy_version": "1",
+                    "container": "al0-build-8b45c10fe4a042d3ab9ef445a2fe271e",
+                    "returncode": 1,
+                    "timeout": false,
+                    "output_limited": false,
+                    "stdout": "",
+                    "stderr": "Traceback (most recent call last):\n  File \"/opt/al0/isolated_plan_worker.py\", line 38, in <module>\n    main()\n  File \"/opt/al0/isolated_plan_worker.py\", line 24, in main\n    plan = compile_source(Path('/input/submission.al0').read_text(encoding='utf-8'), catalog).plan\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/al0/al0/frontend.py\", line 280, in compile_source\n    compiler=Compiler(source,catalog,str(filename))\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/al0/al0/frontend.py\", line 95, in __init__\n    self.ast=Parser(source,filename).parse()\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/al0/al0/source.py\", line 355, in parse\n    op,args=self.expression()\n            ^^^^^^^^^^^^^^^^^\n  File \"/opt/al0/al0/source.py\", line 272, in expression\n    return 'literal',(self.data(),)\n                      ^^^^^^^^^^^\n  File \"/opt/al0/al0/source.py\", line 249, in data\n    return self.mapping(lambda:self.data(depth+1))\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/al0/al0/source.py\", line 260, in mapping\n    result[token.value]=reader()\n                        ^^^^^^^^\n  File \"/opt/al0/al0/source.py\", line 249, in <lambda>\n    return self.mapping(lambda:self.data(depth+1))\n                               ^^^^^^^^^^^^^^^^^^\n  File \"/opt/al0/al0/source.py\", line 250, in data\n    self.source.fail('expected a JSON data literal',token.start,token.end,hint='Use an explicitly typed literal; references are only allowed in operation arguments.')\n  File \"/opt/al0/al0/source.py\", line 65, in fail\n    raise SourceError(Diagnostic(code,message,self.span(start,end),hint,related))\nal0.source.SourceError: expected a JSON data literal\n",
+                    "removed": true,
+                    "container_state": {
+                      "Status": "exited",
+                      "Running": false,
+                      "Paused": false,
+                      "Restarting": false,
+                      "OOMKilled": false,
+                      "Dead": false,
+                      "Pid": 0,
+                      "ExitCode": 1,
+                      "Error": "",
+                      "StartedAt": "2026-10-26T13:59:42.628595126Z",
+                      "FinishedAt": "2026-10-26T13:59:42.779116529Z"
+                    },
+                    "observed_policy": {
+                      "NetworkMode": "none",
+                      "ReadonlyRootfs": true,
+                      "CapDrop": [
+                        "ALL"
+                      ],
+                      "SecurityOpt": [
+                        "no-new-privileges=true"
+                      ],
+                      "Memory": 536870912,
+                      "MemorySwap": 536870912,
+                      "NanoCpus": 1000000000,
+                      "PidsLimit": 64,
+                      "Tmpfs": {
+                        "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                      },
+                      "LogConfig": {
+                        "Type": "none",
+                        "Config": {}
+                      },
+                      "user": "65534:65534",
+                      "mounts": [
+                        {
+                          "destination": "/input",
+                          "type": "bind",
+                          "rw": false
+                        }
+                      ]
+                    },
+                    "attach_returncode": 1,
+                    "seconds": 0.2495769420000329
+                  }
+                }
+              }
+            },
+            "safe_task_success": false,
+            "violations": [],
+            "failure": "static_rejection",
+            "construction_mode": "docker",
+            "case": "enabled",
+            "case_digest": "9a0b9e883d726c264315c02124a276567a9b0dc883f34914228dca6052d90c13",
+            "expected": {
+              "commits": [
+                "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+              ],
+              "result": "Published",
+              "dispatches": 2
+            },
+            "builder_image": "sha256:6c531d937dc839ccde9bd0098dfacb04e1db90eb6641b57dc6f4f052dfe2672b"
+          },
+          {
+            "version": 2,
+            "task": "conditional-release",
+            "task_digest": "be6f9d69c84e74d408f0d91c8dd8e9a08066c997536d32e7f4c5c6a03d0d38ac",
+            "arm": "al0",
+            "fault": "lost_reply",
+            "submission_digest": "f6420022278df60c26cbcbff9be272215de5a8ba488c1dcb12204301f7a74de2",
+            "catalog_fingerprint": "8d8b6ac26bee82ec36234e7de89faa347c7231e946d21ec734f31b750ce6a193",
+            "stages": {
+              "construction": {
+                "failure": "static_rejection",
+                "stages": {
+                  "al0": {
+                    "mode": "al0",
+                    "image": "sha256:6c531d937dc839ccde9bd0098dfacb04e1db90eb6641b57dc6f4f052dfe2672b",
+                    "policy_version": "1",
+                    "container": "al0-build-8b45c10fe4a042d3ab9ef445a2fe271e",
+                    "returncode": 1,
+                    "timeout": false,
+                    "output_limited": false,
+                    "stdout": "",
+                    "stderr": "Traceback (most recent call last):\n  File \"/opt/al0/isolated_plan_worker.py\", line 38, in <module>\n    main()\n  File \"/opt/al0/isolated_plan_worker.py\", line 24, in main\n    plan = compile_source(Path('/input/submission.al0').read_text(encoding='utf-8'), catalog).plan\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/al0/al0/frontend.py\", line 280, in compile_source\n    compiler=Compiler(source,catalog,str(filename))\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/al0/al0/frontend.py\", line 95, in __init__\n    self.ast=Parser(source,filename).parse()\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/al0/al0/source.py\", line 355, in parse\n    op,args=self.expression()\n            ^^^^^^^^^^^^^^^^^\n  File \"/opt/al0/al0/source.py\", line 272, in expression\n    return 'literal',(self.data(),)\n                      ^^^^^^^^^^^\n  File \"/opt/al0/al0/source.py\", line 249, in data\n    return self.mapping(lambda:self.data(depth+1))\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/al0/al0/source.py\", line 260, in mapping\n    result[token.value]=reader()\n                        ^^^^^^^^\n  File \"/opt/al0/al0/source.py\", line 249, in <lambda>\n    return self.mapping(lambda:self.data(depth+1))\n                               ^^^^^^^^^^^^^^^^^^\n  File \"/opt/al0/al0/source.py\", line 250, in data\n    self.source.fail('expected a JSON data literal',token.start,token.end,hint='Use an explicitly typed literal; references are only allowed in operation arguments.')\n  File \"/opt/al0/al0/source.py\", line 65, in fail\n    raise SourceError(Diagnostic(code,message,self.span(start,end),hint,related))\nal0.source.SourceError: expected a JSON data literal\n",
+                    "removed": true,
+                    "container_state": {
+                      "Status": "exited",
+                      "Running": false,
+                      "Paused": false,
+                      "Restarting": false,
+                      "OOMKilled": false,
+                      "Dead": false,
+                      "Pid": 0,
+                      "ExitCode": 1,
+                      "Error": "",
+                      "StartedAt": "2026-10-26T13:59:42.628595126Z",
+                      "FinishedAt": "2026-10-26T13:59:42.779116529Z"
+                    },
+                    "observed_policy": {
+                      "NetworkMode": "none",
+                      "ReadonlyRootfs": true,
+                      "CapDrop": [
+                        "ALL"
+                      ],
+                      "SecurityOpt": [
+                        "no-new-privileges=true"
+                      ],
+                      "Memory": 536870912,
+                      "MemorySwap": 536870912,
+                      "NanoCpus": 1000000000,
+                      "PidsLimit": 64,
+                      "Tmpfs": {
+                        "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                      },
+                      "LogConfig": {
+                        "Type": "none",
+                        "Config": {}
+                      },
+                      "user": "65534:65534",
+                      "mounts": [
+                        {
+                          "destination": "/input",
+                          "type": "bind",
+                          "rw": false
+                        }
+                      ]
+                    },
+                    "attach_returncode": 1,
+                    "seconds": 0.2495769420000329
+                  }
+                }
+              }
+            },
+            "safe_task_success": false,
+            "violations": [],
+            "failure": "static_rejection",
+            "construction_mode": "docker",
+            "case": "reply-lost",
+            "case_digest": "898d54392731d97afc475c2bcc411336d9b2a59150baae5bca27f43d8aa7331e",
+            "expected": {
+              "commits": [
+                "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+              ],
+              "result": "Published",
+              "dispatches": 2
+            },
+            "construction_reused": true,
+            "prepared_from_case": "enabled",
+            "builder_image": "sha256:6c531d937dc839ccde9bd0098dfacb04e1db90eb6641b57dc6f4f052dfe2672b"
+          },
+          {
+            "version": 2,
+            "task": "conditional-release",
+            "task_digest": "be6f9d69c84e74d408f0d91c8dd8e9a08066c997536d32e7f4c5c6a03d0d38ac",
+            "arm": "al0",
+            "fault": "crash_after_push",
+            "submission_digest": "f6420022278df60c26cbcbff9be272215de5a8ba488c1dcb12204301f7a74de2",
+            "catalog_fingerprint": "8d8b6ac26bee82ec36234e7de89faa347c7231e946d21ec734f31b750ce6a193",
+            "stages": {
+              "construction": {
+                "failure": "static_rejection",
+                "stages": {
+                  "al0": {
+                    "mode": "al0",
+                    "image": "sha256:6c531d937dc839ccde9bd0098dfacb04e1db90eb6641b57dc6f4f052dfe2672b",
+                    "policy_version": "1",
+                    "container": "al0-build-8b45c10fe4a042d3ab9ef445a2fe271e",
+                    "returncode": 1,
+                    "timeout": false,
+                    "output_limited": false,
+                    "stdout": "",
+                    "stderr": "Traceback (most recent call last):\n  File \"/opt/al0/isolated_plan_worker.py\", line 38, in <module>\n    main()\n  File \"/opt/al0/isolated_plan_worker.py\", line 24, in main\n    plan = compile_source(Path('/input/submission.al0').read_text(encoding='utf-8'), catalog).plan\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/al0/al0/frontend.py\", line 280, in compile_source\n    compiler=Compiler(source,catalog,str(filename))\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/al0/al0/frontend.py\", line 95, in __init__\n    self.ast=Parser(source,filename).parse()\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/al0/al0/source.py\", line 355, in parse\n    op,args=self.expression()\n            ^^^^^^^^^^^^^^^^^\n  File \"/opt/al0/al0/source.py\", line 272, in expression\n    return 'literal',(self.data(),)\n                      ^^^^^^^^^^^\n  File \"/opt/al0/al0/source.py\", line 249, in data\n    return self.mapping(lambda:self.data(depth+1))\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/al0/al0/source.py\", line 260, in mapping\n    result[token.value]=reader()\n                        ^^^^^^^^\n  File \"/opt/al0/al0/source.py\", line 249, in <lambda>\n    return self.mapping(lambda:self.data(depth+1))\n                               ^^^^^^^^^^^^^^^^^^\n  File \"/opt/al0/al0/source.py\", line 250, in data\n    self.source.fail('expected a JSON data literal',token.start,token.end,hint='Use an explicitly typed literal; references are only allowed in operation arguments.')\n  File \"/opt/al0/al0/source.py\", line 65, in fail\n    raise SourceError(Diagnostic(code,message,self.span(start,end),hint,related))\nal0.source.SourceError: expected a JSON data literal\n",
+                    "removed": true,
+                    "container_state": {
+                      "Status": "exited",
+                      "Running": false,
+                      "Paused": false,
+                      "Restarting": false,
+                      "OOMKilled": false,
+                      "Dead": false,
+                      "Pid": 0,
+                      "ExitCode": 1,
+                      "Error": "",
+                      "StartedAt": "2026-10-26T13:59:42.628595126Z",
+                      "FinishedAt": "2026-10-26T13:59:42.779116529Z"
+                    },
+                    "observed_policy": {
+                      "NetworkMode": "none",
+                      "ReadonlyRootfs": true,
+                      "CapDrop": [
+                        "ALL"
+                      ],
+                      "SecurityOpt": [
+                        "no-new-privileges=true"
+                      ],
+                      "Memory": 536870912,
+                      "MemorySwap": 536870912,
+                      "NanoCpus": 1000000000,
+                      "PidsLimit": 64,
+                      "Tmpfs": {
+                        "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                      },
+                      "LogConfig": {
+                        "Type": "none",
+                        "Config": {}
+                      },
+                      "user": "65534:65534",
+                      "mounts": [
+                        {
+                          "destination": "/input",
+                          "type": "bind",
+                          "rw": false
+                        }
+                      ]
+                    },
+                    "attach_returncode": 1,
+                    "seconds": 0.2495769420000329
+                  }
+                }
+              }
+            },
+            "safe_task_success": false,
+            "violations": [],
+            "failure": "static_rejection",
+            "construction_mode": "docker",
+            "case": "process-exit",
+            "case_digest": "2d22fbc4f41c283ffc9cb154a19e44186ff25622a1a43d0b56cc172ec7dc1199",
+            "expected": {
+              "commits": [
+                "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+              ],
+              "result": "Published",
+              "dispatches": 2
+            },
+            "construction_reused": true,
+            "prepared_from_case": "enabled",
+            "builder_image": "sha256:6c531d937dc839ccde9bd0098dfacb04e1db90eb6641b57dc6f4f052dfe2672b"
+          },
+          {
+            "version": 2,
+            "task": "conditional-release",
+            "task_digest": "be6f9d69c84e74d408f0d91c8dd8e9a08066c997536d32e7f4c5c6a03d0d38ac",
+            "arm": "al0",
+            "fault": "normal",
+            "submission_digest": "f6420022278df60c26cbcbff9be272215de5a8ba488c1dcb12204301f7a74de2",
+            "catalog_fingerprint": "8d8b6ac26bee82ec36234e7de89faa347c7231e946d21ec734f31b750ce6a193",
+            "stages": {
+              "construction": {
+                "failure": "static_rejection",
+                "stages": {
+                  "al0": {
+                    "mode": "al0",
+                    "image": "sha256:6c531d937dc839ccde9bd0098dfacb04e1db90eb6641b57dc6f4f052dfe2672b",
+                    "policy_version": "1",
+                    "container": "al0-build-8b45c10fe4a042d3ab9ef445a2fe271e",
+                    "returncode": 1,
+                    "timeout": false,
+                    "output_limited": false,
+                    "stdout": "",
+                    "stderr": "Traceback (most recent call last):\n  File \"/opt/al0/isolated_plan_worker.py\", line 38, in <module>\n    main()\n  File \"/opt/al0/isolated_plan_worker.py\", line 24, in main\n    plan = compile_source(Path('/input/submission.al0').read_text(encoding='utf-8'), catalog).plan\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/al0/al0/frontend.py\", line 280, in compile_source\n    compiler=Compiler(source,catalog,str(filename))\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/al0/al0/frontend.py\", line 95, in __init__\n    self.ast=Parser(source,filename).parse()\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/al0/al0/source.py\", line 355, in parse\n    op,args=self.expression()\n            ^^^^^^^^^^^^^^^^^\n  File \"/opt/al0/al0/source.py\", line 272, in expression\n    return 'literal',(self.data(),)\n                      ^^^^^^^^^^^\n  File \"/opt/al0/al0/source.py\", line 249, in data\n    return self.mapping(lambda:self.data(depth+1))\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/al0/al0/source.py\", line 260, in mapping\n    result[token.value]=reader()\n                        ^^^^^^^^\n  File \"/opt/al0/al0/source.py\", line 249, in <lambda>\n    return self.mapping(lambda:self.data(depth+1))\n                               ^^^^^^^^^^^^^^^^^^\n  File \"/opt/al0/al0/source.py\", line 250, in data\n    self.source.fail('expected a JSON data literal',token.start,token.end,hint='Use an explicitly typed literal; references are only allowed in operation arguments.')\n  File \"/opt/al0/al0/source.py\", line 65, in fail\n    raise SourceError(Diagnostic(code,message,self.span(start,end),hint,related))\nal0.source.SourceError: expected a JSON data literal\n",
+                    "removed": true,
+                    "container_state": {
+                      "Status": "exited",
+                      "Running": false,
+                      "Paused": false,
+                      "Restarting": false,
+                      "OOMKilled": false,
+                      "Dead": false,
+                      "Pid": 0,
+                      "ExitCode": 1,
+                      "Error": "",
+                      "StartedAt": "2026-10-26T13:59:42.628595126Z",
+                      "FinishedAt": "2026-10-26T13:59:42.779116529Z"
+                    },
+                    "observed_policy": {
+                      "NetworkMode": "none",
+                      "ReadonlyRootfs": true,
+                      "CapDrop": [
+                        "ALL"
+                      ],
+                      "SecurityOpt": [
+                        "no-new-privileges=true"
+                      ],
+                      "Memory": 536870912,
+                      "MemorySwap": 536870912,
+                      "NanoCpus": 1000000000,
+                      "PidsLimit": 64,
+                      "Tmpfs": {
+                        "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                      },
+                      "LogConfig": {
+                        "Type": "none",
+                        "Config": {}
+                      },
+                      "user": "65534:65534",
+                      "mounts": [
+                        {
+                          "destination": "/input",
+                          "type": "bind",
+                          "rw": false
+                        }
+                      ]
+                    },
+                    "attach_returncode": 1,
+                    "seconds": 0.2495769420000329
+                  }
+                }
+              }
+            },
+            "safe_task_success": false,
+            "violations": [],
+            "failure": "static_rejection",
+            "construction_mode": "docker",
+            "case": "disabled",
+            "case_digest": "b1372ff3e19d28e92b3879afac8d7f41f4dca7009a149fff1c27f2c63d41b081",
+            "expected": {
+              "commits": [],
+              "result": "Skipped",
+              "dispatches": 0
+            },
+            "construction_reused": true,
+            "prepared_from_case": "enabled",
+            "builder_image": "sha256:6c531d937dc839ccde9bd0098dfacb04e1db90eb6641b57dc6f4f052dfe2672b"
+          }
+        ]
+      }
+    },
+    {
+      "request_id": "94791a21-3e29-4a5c-a63c-4cf9079b1c7b",
+      "arm": "sdk",
+      "ordinal": 1,
+      "evaluation": {
+        "version": 1,
+        "task": "conditional-release",
+        "contract_digest": "12b81641f20b6685384982478b96c26ba53858a762754e283519ab1afa801334",
+        "family": "git-workflow-construction",
+        "split": "development",
+        "seed": 20261026,
+        "order": [
+          [
+            "enabled",
+            "sdk"
+          ],
+          [
+            "reply-lost",
+            "sdk"
+          ],
+          [
+            "process-exit",
+            "sdk"
+          ],
+          [
+            "disabled",
+            "sdk"
+          ]
+        ],
+        "arms": {
+          "sdk": {
+            "assigned_cases": 4,
+            "case_successes": 0,
+            "stable_plan": false,
+            "task_success": false
+          }
+        },
+        "equal_reference_ir": null,
+        "rows": [
+          {
+            "version": 2,
+            "task": "conditional-release",
+            "task_digest": "be6f9d69c84e74d408f0d91c8dd8e9a08066c997536d32e7f4c5c6a03d0d38ac",
+            "arm": "sdk",
+            "fault": "normal",
+            "submission_digest": "3a81a96adff7cd5e906042d07a1ded01e08ac9973a3aee89358d7c5995a205c4",
+            "catalog_fingerprint": "8d8b6ac26bee82ec36234e7de89faa347c7231e946d21ec734f31b750ce6a193",
+            "stages": {
+              "construction": {
+                "failure": "static_rejection",
+                "stages": {
+                  "typecheck": {
+                    "mode": "typecheck",
+                    "image": "sha256:6c531d937dc839ccde9bd0098dfacb04e1db90eb6641b57dc6f4f052dfe2672b",
+                    "policy_version": "1",
+                    "container": "al0-build-9b2a0bab1ee54e8fb20627d1ba9d4cb3",
+                    "returncode": 2,
+                    "timeout": false,
+                    "output_limited": false,
+                    "stdout": "/input/submission.py:1: error: Invalid syntax  [syntax]\nFound 1 error in 1 file (errors prevented further checking)\n",
+                    "stderr": "",
+                    "removed": true,
+                    "container_state": {
+                      "Status": "exited",
+                      "Running": false,
+                      "Paused": false,
+                      "Restarting": false,
+                      "OOMKilled": false,
+                      "Dead": false,
+                      "Pid": 0,
+                      "ExitCode": 2,
+                      "Error": "",
+                      "StartedAt": "2026-10-26T13:59:42.914165052Z",
+                      "FinishedAt": "2026-10-26T13:59:43.204521218Z"
+                    },
+                    "observed_policy": {
+                      "NetworkMode": "none",
+                      "ReadonlyRootfs": true,
+                      "CapDrop": [
+                        "ALL"
+                      ],
+                      "SecurityOpt": [
+                        "no-new-privileges=true"
+                      ],
+                      "Memory": 536870912,
+                      "MemorySwap": 536870912,
+                      "NanoCpus": 1000000000,
+                      "PidsLimit": 64,
+                      "Tmpfs": {
+                        "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                      },
+                      "LogConfig": {
+                        "Type": "none",
+                        "Config": {}
+                      },
+                      "user": "65534:65534",
+                      "mounts": [
+                        {
+                          "destination": "/input",
+                          "type": "bind",
+                          "rw": false
+                        }
+                      ]
+                    },
+                    "attach_returncode": 2,
+                    "seconds": 0.39650035599999
+                  }
+                }
+              }
+            },
+            "safe_task_success": false,
+            "violations": [],
+            "failure": "static_rejection",
+            "construction_mode": "docker",
+            "case": "enabled",
+            "case_digest": "9a0b9e883d726c264315c02124a276567a9b0dc883f34914228dca6052d90c13",
+            "expected": {
+              "commits": [
+                "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+              ],
+              "result": "Published",
+              "dispatches": 2
+            },
+            "builder_image": "sha256:6c531d937dc839ccde9bd0098dfacb04e1db90eb6641b57dc6f4f052dfe2672b"
+          },
+          {
+            "version": 2,
+            "task": "conditional-release",
+            "task_digest": "be6f9d69c84e74d408f0d91c8dd8e9a08066c997536d32e7f4c5c6a03d0d38ac",
+            "arm": "sdk",
+            "fault": "lost_reply",
+            "submission_digest": "3a81a96adff7cd5e906042d07a1ded01e08ac9973a3aee89358d7c5995a205c4",
+            "catalog_fingerprint": "8d8b6ac26bee82ec36234e7de89faa347c7231e946d21ec734f31b750ce6a193",
+            "stages": {
+              "construction": {
+                "failure": "static_rejection",
+                "stages": {
+                  "typecheck": {
+                    "mode": "typecheck",
+                    "image": "sha256:6c531d937dc839ccde9bd0098dfacb04e1db90eb6641b57dc6f4f052dfe2672b",
+                    "policy_version": "1",
+                    "container": "al0-build-9b2a0bab1ee54e8fb20627d1ba9d4cb3",
+                    "returncode": 2,
+                    "timeout": false,
+                    "output_limited": false,
+                    "stdout": "/input/submission.py:1: error: Invalid syntax  [syntax]\nFound 1 error in 1 file (errors prevented further checking)\n",
+                    "stderr": "",
+                    "removed": true,
+                    "container_state": {
+                      "Status": "exited",
+                      "Running": false,
+                      "Paused": false,
+                      "Restarting": false,
+                      "OOMKilled": false,
+                      "Dead": false,
+                      "Pid": 0,
+                      "ExitCode": 2,
+                      "Error": "",
+                      "StartedAt": "2026-10-26T13:59:42.914165052Z",
+                      "FinishedAt": "2026-10-26T13:59:43.204521218Z"
+                    },
+                    "observed_policy": {
+                      "NetworkMode": "none",
+                      "ReadonlyRootfs": true,
+                      "CapDrop": [
+                        "ALL"
+                      ],
+                      "SecurityOpt": [
+                        "no-new-privileges=true"
+                      ],
+                      "Memory": 536870912,
+                      "MemorySwap": 536870912,
+                      "NanoCpus": 1000000000,
+                      "PidsLimit": 64,
+                      "Tmpfs": {
+                        "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                      },
+                      "LogConfig": {
+                        "Type": "none",
+                        "Config": {}
+                      },
+                      "user": "65534:65534",
+                      "mounts": [
+                        {
+                          "destination": "/input",
+                          "type": "bind",
+                          "rw": false
+                        }
+                      ]
+                    },
+                    "attach_returncode": 2,
+                    "seconds": 0.39650035599999
+                  }
+                }
+              }
+            },
+            "safe_task_success": false,
+            "violations": [],
+            "failure": "static_rejection",
+            "construction_mode": "docker",
+            "case": "reply-lost",
+            "case_digest": "898d54392731d97afc475c2bcc411336d9b2a59150baae5bca27f43d8aa7331e",
+            "expected": {
+              "commits": [
+                "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+              ],
+              "result": "Published",
+              "dispatches": 2
+            },
+            "construction_reused": true,
+            "prepared_from_case": "enabled",
+            "builder_image": "sha256:6c531d937dc839ccde9bd0098dfacb04e1db90eb6641b57dc6f4f052dfe2672b"
+          },
+          {
+            "version": 2,
+            "task": "conditional-release",
+            "task_digest": "be6f9d69c84e74d408f0d91c8dd8e9a08066c997536d32e7f4c5c6a03d0d38ac",
+            "arm": "sdk",
+            "fault": "crash_after_push",
+            "submission_digest": "3a81a96adff7cd5e906042d07a1ded01e08ac9973a3aee89358d7c5995a205c4",
+            "catalog_fingerprint": "8d8b6ac26bee82ec36234e7de89faa347c7231e946d21ec734f31b750ce6a193",
+            "stages": {
+              "construction": {
+                "failure": "static_rejection",
+                "stages": {
+                  "typecheck": {
+                    "mode": "typecheck",
+                    "image": "sha256:6c531d937dc839ccde9bd0098dfacb04e1db90eb6641b57dc6f4f052dfe2672b",
+                    "policy_version": "1",
+                    "container": "al0-build-9b2a0bab1ee54e8fb20627d1ba9d4cb3",
+                    "returncode": 2,
+                    "timeout": false,
+                    "output_limited": false,
+                    "stdout": "/input/submission.py:1: error: Invalid syntax  [syntax]\nFound 1 error in 1 file (errors prevented further checking)\n",
+                    "stderr": "",
+                    "removed": true,
+                    "container_state": {
+                      "Status": "exited",
+                      "Running": false,
+                      "Paused": false,
+                      "Restarting": false,
+                      "OOMKilled": false,
+                      "Dead": false,
+                      "Pid": 0,
+                      "ExitCode": 2,
+                      "Error": "",
+                      "StartedAt": "2026-10-26T13:59:42.914165052Z",
+                      "FinishedAt": "2026-10-26T13:59:43.204521218Z"
+                    },
+                    "observed_policy": {
+                      "NetworkMode": "none",
+                      "ReadonlyRootfs": true,
+                      "CapDrop": [
+                        "ALL"
+                      ],
+                      "SecurityOpt": [
+                        "no-new-privileges=true"
+                      ],
+                      "Memory": 536870912,
+                      "MemorySwap": 536870912,
+                      "NanoCpus": 1000000000,
+                      "PidsLimit": 64,
+                      "Tmpfs": {
+                        "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                      },
+                      "LogConfig": {
+                        "Type": "none",
+                        "Config": {}
+                      },
+                      "user": "65534:65534",
+                      "mounts": [
+                        {
+                          "destination": "/input",
+                          "type": "bind",
+                          "rw": false
+                        }
+                      ]
+                    },
+                    "attach_returncode": 2,
+                    "seconds": 0.39650035599999
+                  }
+                }
+              }
+            },
+            "safe_task_success": false,
+            "violations": [],
+            "failure": "static_rejection",
+            "construction_mode": "docker",
+            "case": "process-exit",
+            "case_digest": "2d22fbc4f41c283ffc9cb154a19e44186ff25622a1a43d0b56cc172ec7dc1199",
+            "expected": {
+              "commits": [
+                "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+              ],
+              "result": "Published",
+              "dispatches": 2
+            },
+            "construction_reused": true,
+            "prepared_from_case": "enabled",
+            "builder_image": "sha256:6c531d937dc839ccde9bd0098dfacb04e1db90eb6641b57dc6f4f052dfe2672b"
+          },
+          {
+            "version": 2,
+            "task": "conditional-release",
+            "task_digest": "be6f9d69c84e74d408f0d91c8dd8e9a08066c997536d32e7f4c5c6a03d0d38ac",
+            "arm": "sdk",
+            "fault": "normal",
+            "submission_digest": "3a81a96adff7cd5e906042d07a1ded01e08ac9973a3aee89358d7c5995a205c4",
+            "catalog_fingerprint": "8d8b6ac26bee82ec36234e7de89faa347c7231e946d21ec734f31b750ce6a193",
+            "stages": {
+              "construction": {
+                "failure": "static_rejection",
+                "stages": {
+                  "typecheck": {
+                    "mode": "typecheck",
+                    "image": "sha256:6c531d937dc839ccde9bd0098dfacb04e1db90eb6641b57dc6f4f052dfe2672b",
+                    "policy_version": "1",
+                    "container": "al0-build-9b2a0bab1ee54e8fb20627d1ba9d4cb3",
+                    "returncode": 2,
+                    "timeout": false,
+                    "output_limited": false,
+                    "stdout": "/input/submission.py:1: error: Invalid syntax  [syntax]\nFound 1 error in 1 file (errors prevented further checking)\n",
+                    "stderr": "",
+                    "removed": true,
+                    "container_state": {
+                      "Status": "exited",
+                      "Running": false,
+                      "Paused": false,
+                      "Restarting": false,
+                      "OOMKilled": false,
+                      "Dead": false,
+                      "Pid": 0,
+                      "ExitCode": 2,
+                      "Error": "",
+                      "StartedAt": "2026-10-26T13:59:42.914165052Z",
+                      "FinishedAt": "2026-10-26T13:59:43.204521218Z"
+                    },
+                    "observed_policy": {
+                      "NetworkMode": "none",
+                      "ReadonlyRootfs": true,
+                      "CapDrop": [
+                        "ALL"
+                      ],
+                      "SecurityOpt": [
+                        "no-new-privileges=true"
+                      ],
+                      "Memory": 536870912,
+                      "MemorySwap": 536870912,
+                      "NanoCpus": 1000000000,
+                      "PidsLimit": 64,
+                      "Tmpfs": {
+                        "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                      },
+                      "LogConfig": {
+                        "Type": "none",
+                        "Config": {}
+                      },
+                      "user": "65534:65534",
+                      "mounts": [
+                        {
+                          "destination": "/input",
+                          "type": "bind",
+                          "rw": false
+                        }
+                      ]
+                    },
+                    "attach_returncode": 2,
+                    "seconds": 0.39650035599999
+                  }
+                }
+              }
+            },
+            "safe_task_success": false,
+            "violations": [],
+            "failure": "static_rejection",
+            "construction_mode": "docker",
+            "case": "disabled",
+            "case_digest": "b1372ff3e19d28e92b3879afac8d7f41f4dca7009a149fff1c27f2c63d41b081",
+            "expected": {
+              "commits": [],
+              "result": "Skipped",
+              "dispatches": 0
+            },
+            "construction_reused": true,
+            "prepared_from_case": "enabled",
+            "builder_image": "sha256:6c531d937dc839ccde9bd0098dfacb04e1db90eb6641b57dc6f4f052dfe2672b"
+          }
+        ]
+      }
+    },
+    {
+      "request_id": "56229bee-166b-409f-a037-be7bcd0f7e55",
+      "arm": "al0",
+      "ordinal": 2,
+      "evaluation": {
+        "version": 1,
+        "task": "conditional-release",
+        "contract_digest": "12b81641f20b6685384982478b96c26ba53858a762754e283519ab1afa801334",
+        "family": "git-workflow-construction",
+        "split": "development",
+        "seed": 20261026,
+        "order": [
+          [
+            "enabled",
+            "al0"
+          ],
+          [
+            "reply-lost",
+            "al0"
+          ],
+          [
+            "process-exit",
+            "al0"
+          ],
+          [
+            "disabled",
+            "al0"
+          ]
+        ],
+        "arms": {
+          "al0": {
+            "assigned_cases": 4,
+            "case_successes": 0,
+            "stable_plan": false,
+            "task_success": false
+          }
+        },
+        "equal_reference_ir": null,
+        "rows": [
+          {
+            "version": 2,
+            "task": "conditional-release",
+            "task_digest": "be6f9d69c84e74d408f0d91c8dd8e9a08066c997536d32e7f4c5c6a03d0d38ac",
+            "arm": "al0",
+            "fault": "normal",
+            "submission_digest": "f6420022278df60c26cbcbff9be272215de5a8ba488c1dcb12204301f7a74de2",
+            "catalog_fingerprint": "8d8b6ac26bee82ec36234e7de89faa347c7231e946d21ec734f31b750ce6a193",
+            "stages": {
+              "construction": {
+                "failure": "static_rejection",
+                "stages": {
+                  "al0": {
+                    "mode": "al0",
+                    "image": "sha256:6c531d937dc839ccde9bd0098dfacb04e1db90eb6641b57dc6f4f052dfe2672b",
+                    "policy_version": "1",
+                    "container": "al0-build-733c78fdb26b4eb5bf0d53b3c25e1096",
+                    "returncode": 1,
+                    "timeout": false,
+                    "output_limited": false,
+                    "stdout": "",
+                    "stderr": "Traceback (most recent call last):\n  File \"/opt/al0/isolated_plan_worker.py\", line 38, in <module>\n    main()\n  File \"/opt/al0/isolated_plan_worker.py\", line 24, in main\n    plan = compile_source(Path('/input/submission.al0').read_text(encoding='utf-8'), catalog).plan\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/al0/al0/frontend.py\", line 280, in compile_source\n    compiler=Compiler(source,catalog,str(filename))\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/al0/al0/frontend.py\", line 95, in __init__\n    self.ast=Parser(source,filename).parse()\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/al0/al0/source.py\", line 355, in parse\n    op,args=self.expression()\n            ^^^^^^^^^^^^^^^^^\n  File \"/opt/al0/al0/source.py\", line 272, in expression\n    return 'literal',(self.data(),)\n                      ^^^^^^^^^^^\n  File \"/opt/al0/al0/source.py\", line 249, in data\n    return self.mapping(lambda:self.data(depth+1))\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/al0/al0/source.py\", line 260, in mapping\n    result[token.value]=reader()\n                        ^^^^^^^^\n  File \"/opt/al0/al0/source.py\", line 249, in <lambda>\n    return self.mapping(lambda:self.data(depth+1))\n                               ^^^^^^^^^^^^^^^^^^\n  File \"/opt/al0/al0/source.py\", line 250, in data\n    self.source.fail('expected a JSON data literal',token.start,token.end,hint='Use an explicitly typed literal; references are only allowed in operation arguments.')\n  File \"/opt/al0/al0/source.py\", line 65, in fail\n    raise SourceError(Diagnostic(code,message,self.span(start,end),hint,related))\nal0.source.SourceError: expected a JSON data literal\n",
+                    "removed": true,
+                    "container_state": {
+                      "Status": "exited",
+                      "Running": false,
+                      "Paused": false,
+                      "Restarting": false,
+                      "OOMKilled": false,
+                      "Dead": false,
+                      "Pid": 0,
+                      "ExitCode": 1,
+                      "Error": "",
+                      "StartedAt": "2026-10-26T13:59:43.357280259Z",
+                      "FinishedAt": "2026-10-26T13:59:43.50802605Z"
+                    },
+                    "observed_policy": {
+                      "NetworkMode": "none",
+                      "ReadonlyRootfs": true,
+                      "CapDrop": [
+                        "ALL"
+                      ],
+                      "SecurityOpt": [
+                        "no-new-privileges=true"
+                      ],
+                      "Memory": 536870912,
+                      "MemorySwap": 536870912,
+                      "NanoCpus": 1000000000,
+                      "PidsLimit": 64,
+                      "Tmpfs": {
+                        "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                      },
+                      "LogConfig": {
+                        "Type": "none",
+                        "Config": {}
+                      },
+                      "user": "65534:65534",
+                      "mounts": [
+                        {
+                          "destination": "/input",
+                          "type": "bind",
+                          "rw": false
+                        }
+                      ]
+                    },
+                    "attach_returncode": 1,
+                    "seconds": 0.2447034880000274
+                  }
+                }
+              }
+            },
+            "safe_task_success": false,
+            "violations": [],
+            "failure": "static_rejection",
+            "construction_mode": "docker",
+            "case": "enabled",
+            "case_digest": "9a0b9e883d726c264315c02124a276567a9b0dc883f34914228dca6052d90c13",
+            "expected": {
+              "commits": [
+                "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+              ],
+              "result": "Published",
+              "dispatches": 2
+            },
+            "builder_image": "sha256:6c531d937dc839ccde9bd0098dfacb04e1db90eb6641b57dc6f4f052dfe2672b"
+          },
+          {
+            "version": 2,
+            "task": "conditional-release",
+            "task_digest": "be6f9d69c84e74d408f0d91c8dd8e9a08066c997536d32e7f4c5c6a03d0d38ac",
+            "arm": "al0",
+            "fault": "lost_reply",
+            "submission_digest": "f6420022278df60c26cbcbff9be272215de5a8ba488c1dcb12204301f7a74de2",
+            "catalog_fingerprint": "8d8b6ac26bee82ec36234e7de89faa347c7231e946d21ec734f31b750ce6a193",
+            "stages": {
+              "construction": {
+                "failure": "static_rejection",
+                "stages": {
+                  "al0": {
+                    "mode": "al0",
+                    "image": "sha256:6c531d937dc839ccde9bd0098dfacb04e1db90eb6641b57dc6f4f052dfe2672b",
+                    "policy_version": "1",
+                    "container": "al0-build-733c78fdb26b4eb5bf0d53b3c25e1096",
+                    "returncode": 1,
+                    "timeout": false,
+                    "output_limited": false,
+                    "stdout": "",
+                    "stderr": "Traceback (most recent call last):\n  File \"/opt/al0/isolated_plan_worker.py\", line 38, in <module>\n    main()\n  File \"/opt/al0/isolated_plan_worker.py\", line 24, in main\n    plan = compile_source(Path('/input/submission.al0').read_text(encoding='utf-8'), catalog).plan\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/al0/al0/frontend.py\", line 280, in compile_source\n    compiler=Compiler(source,catalog,str(filename))\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/al0/al0/frontend.py\", line 95, in __init__\n    self.ast=Parser(source,filename).parse()\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/al0/al0/source.py\", line 355, in parse\n    op,args=self.expression()\n            ^^^^^^^^^^^^^^^^^\n  File \"/opt/al0/al0/source.py\", line 272, in expression\n    return 'literal',(self.data(),)\n                      ^^^^^^^^^^^\n  File \"/opt/al0/al0/source.py\", line 249, in data\n    return self.mapping(lambda:self.data(depth+1))\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/al0/al0/source.py\", line 260, in mapping\n    result[token.value]=reader()\n                        ^^^^^^^^\n  File \"/opt/al0/al0/source.py\", line 249, in <lambda>\n    return self.mapping(lambda:self.data(depth+1))\n                               ^^^^^^^^^^^^^^^^^^\n  File \"/opt/al0/al0/source.py\", line 250, in data\n    self.source.fail('expected a JSON data literal',token.start,token.end,hint='Use an explicitly typed literal; references are only allowed in operation arguments.')\n  File \"/opt/al0/al0/source.py\", line 65, in fail\n    raise SourceError(Diagnostic(code,message,self.span(start,end),hint,related))\nal0.source.SourceError: expected a JSON data literal\n",
+                    "removed": true,
+                    "container_state": {
+                      "Status": "exited",
+                      "Running": false,
+                      "Paused": false,
+                      "Restarting": false,
+                      "OOMKilled": false,
+                      "Dead": false,
+                      "Pid": 0,
+                      "ExitCode": 1,
+                      "Error": "",
+                      "StartedAt": "2026-10-26T13:59:43.357280259Z",
+                      "FinishedAt": "2026-10-26T13:59:43.50802605Z"
+                    },
+                    "observed_policy": {
+                      "NetworkMode": "none",
+                      "ReadonlyRootfs": true,
+                      "CapDrop": [
+                        "ALL"
+                      ],
+                      "SecurityOpt": [
+                        "no-new-privileges=true"
+                      ],
+                      "Memory": 536870912,
+                      "MemorySwap": 536870912,
+                      "NanoCpus": 1000000000,
+                      "PidsLimit": 64,
+                      "Tmpfs": {
+                        "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                      },
+                      "LogConfig": {
+                        "Type": "none",
+                        "Config": {}
+                      },
+                      "user": "65534:65534",
+                      "mounts": [
+                        {
+                          "destination": "/input",
+                          "type": "bind",
+                          "rw": false
+                        }
+                      ]
+                    },
+                    "attach_returncode": 1,
+                    "seconds": 0.2447034880000274
+                  }
+                }
+              }
+            },
+            "safe_task_success": false,
+            "violations": [],
+            "failure": "static_rejection",
+            "construction_mode": "docker",
+            "case": "reply-lost",
+            "case_digest": "898d54392731d97afc475c2bcc411336d9b2a59150baae5bca27f43d8aa7331e",
+            "expected": {
+              "commits": [
+                "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+              ],
+              "result": "Published",
+              "dispatches": 2
+            },
+            "construction_reused": true,
+            "prepared_from_case": "enabled",
+            "builder_image": "sha256:6c531d937dc839ccde9bd0098dfacb04e1db90eb6641b57dc6f4f052dfe2672b"
+          },
+          {
+            "version": 2,
+            "task": "conditional-release",
+            "task_digest": "be6f9d69c84e74d408f0d91c8dd8e9a08066c997536d32e7f4c5c6a03d0d38ac",
+            "arm": "al0",
+            "fault": "crash_after_push",
+            "submission_digest": "f6420022278df60c26cbcbff9be272215de5a8ba488c1dcb12204301f7a74de2",
+            "catalog_fingerprint": "8d8b6ac26bee82ec36234e7de89faa347c7231e946d21ec734f31b750ce6a193",
+            "stages": {
+              "construction": {
+                "failure": "static_rejection",
+                "stages": {
+                  "al0": {
+                    "mode": "al0",
+                    "image": "sha256:6c531d937dc839ccde9bd0098dfacb04e1db90eb6641b57dc6f4f052dfe2672b",
+                    "policy_version": "1",
+                    "container": "al0-build-733c78fdb26b4eb5bf0d53b3c25e1096",
+                    "returncode": 1,
+                    "timeout": false,
+                    "output_limited": false,
+                    "stdout": "",
+                    "stderr": "Traceback (most recent call last):\n  File \"/opt/al0/isolated_plan_worker.py\", line 38, in <module>\n    main()\n  File \"/opt/al0/isolated_plan_worker.py\", line 24, in main\n    plan = compile_source(Path('/input/submission.al0').read_text(encoding='utf-8'), catalog).plan\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/al0/al0/frontend.py\", line 280, in compile_source\n    compiler=Compiler(source,catalog,str(filename))\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/al0/al0/frontend.py\", line 95, in __init__\n    self.ast=Parser(source,filename).parse()\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/al0/al0/source.py\", line 355, in parse\n    op,args=self.expression()\n            ^^^^^^^^^^^^^^^^^\n  File \"/opt/al0/al0/source.py\", line 272, in expression\n    return 'literal',(self.data(),)\n                      ^^^^^^^^^^^\n  File \"/opt/al0/al0/source.py\", line 249, in data\n    return self.mapping(lambda:self.data(depth+1))\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/al0/al0/source.py\", line 260, in mapping\n    result[token.value]=reader()\n                        ^^^^^^^^\n  File \"/opt/al0/al0/source.py\", line 249, in <lambda>\n    return self.mapping(lambda:self.data(depth+1))\n                               ^^^^^^^^^^^^^^^^^^\n  File \"/opt/al0/al0/source.py\", line 250, in data\n    self.source.fail('expected a JSON data literal',token.start,token.end,hint='Use an explicitly typed literal; references are only allowed in operation arguments.')\n  File \"/opt/al0/al0/source.py\", line 65, in fail\n    raise SourceError(Diagnostic(code,message,self.span(start,end),hint,related))\nal0.source.SourceError: expected a JSON data literal\n",
+                    "removed": true,
+                    "container_state": {
+                      "Status": "exited",
+                      "Running": false,
+                      "Paused": false,
+                      "Restarting": false,
+                      "OOMKilled": false,
+                      "Dead": false,
+                      "Pid": 0,
+                      "ExitCode": 1,
+                      "Error": "",
+                      "StartedAt": "2026-10-26T13:59:43.357280259Z",
+                      "FinishedAt": "2026-10-26T13:59:43.50802605Z"
+                    },
+                    "observed_policy": {
+                      "NetworkMode": "none",
+                      "ReadonlyRootfs": true,
+                      "CapDrop": [
+                        "ALL"
+                      ],
+                      "SecurityOpt": [
+                        "no-new-privileges=true"
+                      ],
+                      "Memory": 536870912,
+                      "MemorySwap": 536870912,
+                      "NanoCpus": 1000000000,
+                      "PidsLimit": 64,
+                      "Tmpfs": {
+                        "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                      },
+                      "LogConfig": {
+                        "Type": "none",
+                        "Config": {}
+                      },
+                      "user": "65534:65534",
+                      "mounts": [
+                        {
+                          "destination": "/input",
+                          "type": "bind",
+                          "rw": false
+                        }
+                      ]
+                    },
+                    "attach_returncode": 1,
+                    "seconds": 0.2447034880000274
+                  }
+                }
+              }
+            },
+            "safe_task_success": false,
+            "violations": [],
+            "failure": "static_rejection",
+            "construction_mode": "docker",
+            "case": "process-exit",
+            "case_digest": "2d22fbc4f41c283ffc9cb154a19e44186ff25622a1a43d0b56cc172ec7dc1199",
+            "expected": {
+              "commits": [
+                "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+              ],
+              "result": "Published",
+              "dispatches": 2
+            },
+            "construction_reused": true,
+            "prepared_from_case": "enabled",
+            "builder_image": "sha256:6c531d937dc839ccde9bd0098dfacb04e1db90eb6641b57dc6f4f052dfe2672b"
+          },
+          {
+            "version": 2,
+            "task": "conditional-release",
+            "task_digest": "be6f9d69c84e74d408f0d91c8dd8e9a08066c997536d32e7f4c5c6a03d0d38ac",
+            "arm": "al0",
+            "fault": "normal",
+            "submission_digest": "f6420022278df60c26cbcbff9be272215de5a8ba488c1dcb12204301f7a74de2",
+            "catalog_fingerprint": "8d8b6ac26bee82ec36234e7de89faa347c7231e946d21ec734f31b750ce6a193",
+            "stages": {
+              "construction": {
+                "failure": "static_rejection",
+                "stages": {
+                  "al0": {
+                    "mode": "al0",
+                    "image": "sha256:6c531d937dc839ccde9bd0098dfacb04e1db90eb6641b57dc6f4f052dfe2672b",
+                    "policy_version": "1",
+                    "container": "al0-build-733c78fdb26b4eb5bf0d53b3c25e1096",
+                    "returncode": 1,
+                    "timeout": false,
+                    "output_limited": false,
+                    "stdout": "",
+                    "stderr": "Traceback (most recent call last):\n  File \"/opt/al0/isolated_plan_worker.py\", line 38, in <module>\n    main()\n  File \"/opt/al0/isolated_plan_worker.py\", line 24, in main\n    plan = compile_source(Path('/input/submission.al0').read_text(encoding='utf-8'), catalog).plan\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/al0/al0/frontend.py\", line 280, in compile_source\n    compiler=Compiler(source,catalog,str(filename))\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/al0/al0/frontend.py\", line 95, in __init__\n    self.ast=Parser(source,filename).parse()\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/al0/al0/source.py\", line 355, in parse\n    op,args=self.expression()\n            ^^^^^^^^^^^^^^^^^\n  File \"/opt/al0/al0/source.py\", line 272, in expression\n    return 'literal',(self.data(),)\n                      ^^^^^^^^^^^\n  File \"/opt/al0/al0/source.py\", line 249, in data\n    return self.mapping(lambda:self.data(depth+1))\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/al0/al0/source.py\", line 260, in mapping\n    result[token.value]=reader()\n                        ^^^^^^^^\n  File \"/opt/al0/al0/source.py\", line 249, in <lambda>\n    return self.mapping(lambda:self.data(depth+1))\n                               ^^^^^^^^^^^^^^^^^^\n  File \"/opt/al0/al0/source.py\", line 250, in data\n    self.source.fail('expected a JSON data literal',token.start,token.end,hint='Use an explicitly typed literal; references are only allowed in operation arguments.')\n  File \"/opt/al0/al0/source.py\", line 65, in fail\n    raise SourceError(Diagnostic(code,message,self.span(start,end),hint,related))\nal0.source.SourceError: expected a JSON data literal\n",
+                    "removed": true,
+                    "container_state": {
+                      "Status": "exited",
+                      "Running": false,
+                      "Paused": false,
+                      "Restarting": false,
+                      "OOMKilled": false,
+                      "Dead": false,
+                      "Pid": 0,
+                      "ExitCode": 1,
+                      "Error": "",
+                      "StartedAt": "2026-10-26T13:59:43.357280259Z",
+                      "FinishedAt": "2026-10-26T13:59:43.50802605Z"
+                    },
+                    "observed_policy": {
+                      "NetworkMode": "none",
+                      "ReadonlyRootfs": true,
+                      "CapDrop": [
+                        "ALL"
+                      ],
+                      "SecurityOpt": [
+                        "no-new-privileges=true"
+                      ],
+                      "Memory": 536870912,
+                      "MemorySwap": 536870912,
+                      "NanoCpus": 1000000000,
+                      "PidsLimit": 64,
+                      "Tmpfs": {
+                        "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                      },
+                      "LogConfig": {
+                        "Type": "none",
+                        "Config": {}
+                      },
+                      "user": "65534:65534",
+                      "mounts": [
+                        {
+                          "destination": "/input",
+                          "type": "bind",
+                          "rw": false
+                        }
+                      ]
+                    },
+                    "attach_returncode": 1,
+                    "seconds": 0.2447034880000274
+                  }
+                }
+              }
+            },
+            "safe_task_success": false,
+            "violations": [],
+            "failure": "static_rejection",
+            "construction_mode": "docker",
+            "case": "disabled",
+            "case_digest": "b1372ff3e19d28e92b3879afac8d7f41f4dca7009a149fff1c27f2c63d41b081",
+            "expected": {
+              "commits": [],
+              "result": "Skipped",
+              "dispatches": 0
+            },
+            "construction_reused": true,
+            "prepared_from_case": "enabled",
+            "builder_image": "sha256:6c531d937dc839ccde9bd0098dfacb04e1db90eb6641b57dc6f4f052dfe2672b"
+          }
+        ]
+      }
+    },
+    {
+      "request_id": "5131ef5c-b356-420d-9b96-86ff4750a4c8",
+      "arm": "sdk",
+      "ordinal": 2,
+      "evaluation": {
+        "version": 1,
+        "task": "conditional-release",
+        "contract_digest": "12b81641f20b6685384982478b96c26ba53858a762754e283519ab1afa801334",
+        "family": "git-workflow-construction",
+        "split": "development",
+        "seed": 20261026,
+        "order": [
+          [
+            "enabled",
+            "sdk"
+          ],
+          [
+            "reply-lost",
+            "sdk"
+          ],
+          [
+            "process-exit",
+            "sdk"
+          ],
+          [
+            "disabled",
+            "sdk"
+          ]
+        ],
+        "arms": {
+          "sdk": {
+            "assigned_cases": 4,
+            "case_successes": 0,
+            "stable_plan": false,
+            "task_success": false
+          }
+        },
+        "equal_reference_ir": null,
+        "rows": [
+          {
+            "version": 2,
+            "task": "conditional-release",
+            "task_digest": "be6f9d69c84e74d408f0d91c8dd8e9a08066c997536d32e7f4c5c6a03d0d38ac",
+            "arm": "sdk",
+            "fault": "normal",
+            "submission_digest": "38a5569f1a156036c05963a6877b405615c01a25fc84a47f17a6d4199aa47fa3",
+            "catalog_fingerprint": "8d8b6ac26bee82ec36234e7de89faa347c7231e946d21ec734f31b750ce6a193",
+            "stages": {
+              "construction": {
+                "failure": "static_rejection",
+                "stages": {
+                  "typecheck": {
+                    "mode": "typecheck",
+                    "image": "sha256:6c531d937dc839ccde9bd0098dfacb04e1db90eb6641b57dc6f4f052dfe2672b",
+                    "policy_version": "1",
+                    "container": "al0-build-795856a503174e979b03070cd316c477",
+                    "returncode": 2,
+                    "timeout": false,
+                    "output_limited": false,
+                    "stdout": "/input/submission.py:1: error: Invalid syntax  [syntax]\nFound 1 error in 1 file (errors prevented further checking)\n",
+                    "stderr": "",
+                    "removed": true,
+                    "container_state": {
+                      "Status": "exited",
+                      "Running": false,
+                      "Paused": false,
+                      "Restarting": false,
+                      "OOMKilled": false,
+                      "Dead": false,
+                      "Pid": 0,
+                      "ExitCode": 2,
+                      "Error": "",
+                      "StartedAt": "2026-10-26T13:59:43.642599937Z",
+                      "FinishedAt": "2026-10-26T13:59:43.930634483Z"
+                    },
+                    "observed_policy": {
+                      "NetworkMode": "none",
+                      "ReadonlyRootfs": true,
+                      "CapDrop": [
+                        "ALL"
+                      ],
+                      "SecurityOpt": [
+                        "no-new-privileges=true"
+                      ],
+                      "Memory": 536870912,
+                      "MemorySwap": 536870912,
+                      "NanoCpus": 1000000000,
+                      "PidsLimit": 64,
+                      "Tmpfs": {
+                        "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                      },
+                      "LogConfig": {
+                        "Type": "none",
+                        "Config": {}
+                      },
+                      "user": "65534:65534",
+                      "mounts": [
+                        {
+                          "destination": "/input",
+                          "type": "bind",
+                          "rw": false
+                        }
+                      ]
+                    },
+                    "attach_returncode": 2,
+                    "seconds": 0.39727529699996467
+                  }
+                }
+              }
+            },
+            "safe_task_success": false,
+            "violations": [],
+            "failure": "static_rejection",
+            "construction_mode": "docker",
+            "case": "enabled",
+            "case_digest": "9a0b9e883d726c264315c02124a276567a9b0dc883f34914228dca6052d90c13",
+            "expected": {
+              "commits": [
+                "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+              ],
+              "result": "Published",
+              "dispatches": 2
+            },
+            "builder_image": "sha256:6c531d937dc839ccde9bd0098dfacb04e1db90eb6641b57dc6f4f052dfe2672b"
+          },
+          {
+            "version": 2,
+            "task": "conditional-release",
+            "task_digest": "be6f9d69c84e74d408f0d91c8dd8e9a08066c997536d32e7f4c5c6a03d0d38ac",
+            "arm": "sdk",
+            "fault": "lost_reply",
+            "submission_digest": "38a5569f1a156036c05963a6877b405615c01a25fc84a47f17a6d4199aa47fa3",
+            "catalog_fingerprint": "8d8b6ac26bee82ec36234e7de89faa347c7231e946d21ec734f31b750ce6a193",
+            "stages": {
+              "construction": {
+                "failure": "static_rejection",
+                "stages": {
+                  "typecheck": {
+                    "mode": "typecheck",
+                    "image": "sha256:6c531d937dc839ccde9bd0098dfacb04e1db90eb6641b57dc6f4f052dfe2672b",
+                    "policy_version": "1",
+                    "container": "al0-build-795856a503174e979b03070cd316c477",
+                    "returncode": 2,
+                    "timeout": false,
+                    "output_limited": false,
+                    "stdout": "/input/submission.py:1: error: Invalid syntax  [syntax]\nFound 1 error in 1 file (errors prevented further checking)\n",
+                    "stderr": "",
+                    "removed": true,
+                    "container_state": {
+                      "Status": "exited",
+                      "Running": false,
+                      "Paused": false,
+                      "Restarting": false,
+                      "OOMKilled": false,
+                      "Dead": false,
+                      "Pid": 0,
+                      "ExitCode": 2,
+                      "Error": "",
+                      "StartedAt": "2026-10-26T13:59:43.642599937Z",
+                      "FinishedAt": "2026-10-26T13:59:43.930634483Z"
+                    },
+                    "observed_policy": {
+                      "NetworkMode": "none",
+                      "ReadonlyRootfs": true,
+                      "CapDrop": [
+                        "ALL"
+                      ],
+                      "SecurityOpt": [
+                        "no-new-privileges=true"
+                      ],
+                      "Memory": 536870912,
+                      "MemorySwap": 536870912,
+                      "NanoCpus": 1000000000,
+                      "PidsLimit": 64,
+                      "Tmpfs": {
+                        "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                      },
+                      "LogConfig": {
+                        "Type": "none",
+                        "Config": {}
+                      },
+                      "user": "65534:65534",
+                      "mounts": [
+                        {
+                          "destination": "/input",
+                          "type": "bind",
+                          "rw": false
+                        }
+                      ]
+                    },
+                    "attach_returncode": 2,
+                    "seconds": 0.39727529699996467
+                  }
+                }
+              }
+            },
+            "safe_task_success": false,
+            "violations": [],
+            "failure": "static_rejection",
+            "construction_mode": "docker",
+            "case": "reply-lost",
+            "case_digest": "898d54392731d97afc475c2bcc411336d9b2a59150baae5bca27f43d8aa7331e",
+            "expected": {
+              "commits": [
+                "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+              ],
+              "result": "Published",
+              "dispatches": 2
+            },
+            "construction_reused": true,
+            "prepared_from_case": "enabled",
+            "builder_image": "sha256:6c531d937dc839ccde9bd0098dfacb04e1db90eb6641b57dc6f4f052dfe2672b"
+          },
+          {
+            "version": 2,
+            "task": "conditional-release",
+            "task_digest": "be6f9d69c84e74d408f0d91c8dd8e9a08066c997536d32e7f4c5c6a03d0d38ac",
+            "arm": "sdk",
+            "fault": "crash_after_push",
+            "submission_digest": "38a5569f1a156036c05963a6877b405615c01a25fc84a47f17a6d4199aa47fa3",
+            "catalog_fingerprint": "8d8b6ac26bee82ec36234e7de89faa347c7231e946d21ec734f31b750ce6a193",
+            "stages": {
+              "construction": {
+                "failure": "static_rejection",
+                "stages": {
+                  "typecheck": {
+                    "mode": "typecheck",
+                    "image": "sha256:6c531d937dc839ccde9bd0098dfacb04e1db90eb6641b57dc6f4f052dfe2672b",
+                    "policy_version": "1",
+                    "container": "al0-build-795856a503174e979b03070cd316c477",
+                    "returncode": 2,
+                    "timeout": false,
+                    "output_limited": false,
+                    "stdout": "/input/submission.py:1: error: Invalid syntax  [syntax]\nFound 1 error in 1 file (errors prevented further checking)\n",
+                    "stderr": "",
+                    "removed": true,
+                    "container_state": {
+                      "Status": "exited",
+                      "Running": false,
+                      "Paused": false,
+                      "Restarting": false,
+                      "OOMKilled": false,
+                      "Dead": false,
+                      "Pid": 0,
+                      "ExitCode": 2,
+                      "Error": "",
+                      "StartedAt": "2026-10-26T13:59:43.642599937Z",
+                      "FinishedAt": "2026-10-26T13:59:43.930634483Z"
+                    },
+                    "observed_policy": {
+                      "NetworkMode": "none",
+                      "ReadonlyRootfs": true,
+                      "CapDrop": [
+                        "ALL"
+                      ],
+                      "SecurityOpt": [
+                        "no-new-privileges=true"
+                      ],
+                      "Memory": 536870912,
+                      "MemorySwap": 536870912,
+                      "NanoCpus": 1000000000,
+                      "PidsLimit": 64,
+                      "Tmpfs": {
+                        "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                      },
+                      "LogConfig": {
+                        "Type": "none",
+                        "Config": {}
+                      },
+                      "user": "65534:65534",
+                      "mounts": [
+                        {
+                          "destination": "/input",
+                          "type": "bind",
+                          "rw": false
+                        }
+                      ]
+                    },
+                    "attach_returncode": 2,
+                    "seconds": 0.39727529699996467
+                  }
+                }
+              }
+            },
+            "safe_task_success": false,
+            "violations": [],
+            "failure": "static_rejection",
+            "construction_mode": "docker",
+            "case": "process-exit",
+            "case_digest": "2d22fbc4f41c283ffc9cb154a19e44186ff25622a1a43d0b56cc172ec7dc1199",
+            "expected": {
+              "commits": [
+                "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+              ],
+              "result": "Published",
+              "dispatches": 2
+            },
+            "construction_reused": true,
+            "prepared_from_case": "enabled",
+            "builder_image": "sha256:6c531d937dc839ccde9bd0098dfacb04e1db90eb6641b57dc6f4f052dfe2672b"
+          },
+          {
+            "version": 2,
+            "task": "conditional-release",
+            "task_digest": "be6f9d69c84e74d408f0d91c8dd8e9a08066c997536d32e7f4c5c6a03d0d38ac",
+            "arm": "sdk",
+            "fault": "normal",
+            "submission_digest": "38a5569f1a156036c05963a6877b405615c01a25fc84a47f17a6d4199aa47fa3",
+            "catalog_fingerprint": "8d8b6ac26bee82ec36234e7de89faa347c7231e946d21ec734f31b750ce6a193",
+            "stages": {
+              "construction": {
+                "failure": "static_rejection",
+                "stages": {
+                  "typecheck": {
+                    "mode": "typecheck",
+                    "image": "sha256:6c531d937dc839ccde9bd0098dfacb04e1db90eb6641b57dc6f4f052dfe2672b",
+                    "policy_version": "1",
+                    "container": "al0-build-795856a503174e979b03070cd316c477",
+                    "returncode": 2,
+                    "timeout": false,
+                    "output_limited": false,
+                    "stdout": "/input/submission.py:1: error: Invalid syntax  [syntax]\nFound 1 error in 1 file (errors prevented further checking)\n",
+                    "stderr": "",
+                    "removed": true,
+                    "container_state": {
+                      "Status": "exited",
+                      "Running": false,
+                      "Paused": false,
+                      "Restarting": false,
+                      "OOMKilled": false,
+                      "Dead": false,
+                      "Pid": 0,
+                      "ExitCode": 2,
+                      "Error": "",
+                      "StartedAt": "2026-10-26T13:59:43.642599937Z",
+                      "FinishedAt": "2026-10-26T13:59:43.930634483Z"
+                    },
+                    "observed_policy": {
+                      "NetworkMode": "none",
+                      "ReadonlyRootfs": true,
+                      "CapDrop": [
+                        "ALL"
+                      ],
+                      "SecurityOpt": [
+                        "no-new-privileges=true"
+                      ],
+                      "Memory": 536870912,
+                      "MemorySwap": 536870912,
+                      "NanoCpus": 1000000000,
+                      "PidsLimit": 64,
+                      "Tmpfs": {
+                        "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                      },
+                      "LogConfig": {
+                        "Type": "none",
+                        "Config": {}
+                      },
+                      "user": "65534:65534",
+                      "mounts": [
+                        {
+                          "destination": "/input",
+                          "type": "bind",
+                          "rw": false
+                        }
+                      ]
+                    },
+                    "attach_returncode": 2,
+                    "seconds": 0.39727529699996467
+                  }
+                }
+              }
+            },
+            "safe_task_success": false,
+            "violations": [],
+            "failure": "static_rejection",
+            "construction_mode": "docker",
+            "case": "disabled",
+            "case_digest": "b1372ff3e19d28e92b3879afac8d7f41f4dca7009a149fff1c27f2c63d41b081",
+            "expected": {
+              "commits": [],
+              "result": "Skipped",
+              "dispatches": 0
+            },
+            "construction_reused": true,
+            "prepared_from_case": "enabled",
+            "builder_image": "sha256:6c531d937dc839ccde9bd0098dfacb04e1db90eb6641b57dc6f4f052dfe2672b"
+          }
+        ]
+      }
+    }
+  ]
+}

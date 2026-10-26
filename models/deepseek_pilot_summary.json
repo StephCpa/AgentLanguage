@@ -1,0 +1,83 @@
+{
+  "version": 1,
+  "kind": "real_deepseek_development_pilot",
+  "task_families": 1,
+  "task_contracts": 1,
+  "split": "development",
+  "model_calls": 6,
+  "arms": [
+    {
+      "arm": "al0",
+      "assigned_tasks": 1,
+      "model_attempts": 3,
+      "unique_raw_sources": 1,
+      "primary_first_attempt_success": false,
+      "primary_final_success": false,
+      "posthoc_single_fence_first_success": false,
+      "posthoc_single_fence_final_success": false,
+      "posthoc_case_successes_per_attempt": [
+        0,
+        0,
+        0
+      ],
+      "cost_upper_usd": "0.008726400"
+    },
+    {
+      "arm": "sdk",
+      "assigned_tasks": 1,
+      "model_attempts": 3,
+      "unique_raw_sources": 2,
+      "primary_first_attempt_success": false,
+      "primary_final_success": false,
+      "posthoc_single_fence_first_success": true,
+      "posthoc_single_fence_final_success": true,
+      "posthoc_case_successes_per_attempt": [
+        4,
+        4,
+        4
+      ],
+      "cost_upper_usd": "0.008261400"
+    }
+  ],
+  "usage": {
+    "input_tokens": 44466,
+    "output_tokens": 3040
+  },
+  "billed_cost_usd": null,
+  "conservative_cost_upper_usd": "0.016987800",
+  "authorized_total_usd": "1.00",
+  "cost_basis": "provider token counts at frozen peak uncached rates; not a provider bill",
+  "primary_source_policy": "unchanged output except universal newline normalization",
+  "sensitivity_source_policy": "post-hoc common single-fence extraction, without edits inside source",
+  "infrastructure_failure_excluded_from_model_outcomes": {
+    "run": 40332835613,
+    "reason": "report aggregator rejected floating-point metadata; same saved submissions scored after fix"
+  },
+  "scoring_evidence": [
+    {
+      "round": 1,
+      "run": 40333878068,
+      "artifact": 12655249174,
+      "commit": "72007aa976c372f832ff2939d0d0740dce8c6bb9"
+    },
+    {
+      "round": 2,
+      "run": 40335303636,
+      "artifact": 12656118348,
+      "commit": "28750acde6c16bdeeb09e38667e86e9a7054a4fb"
+    },
+    {
+      "round": 3,
+      "run": 40336469673,
+      "artifact": 12656818626,
+      "commit": "1cb040c8367f0bec70802ffefdb740743d5afdb9"
+    }
+  ],
+  "causal_language_benefit": "not_measured",
+  "limits": [
+    "one public task, fixed generation order, non-thinking mode, mutable model alias",
+    "concept-matched materials have unequal token counts",
+    "query Pending/Unknown/NoEffect responses are not among the four scoring schedules",
+    "secondary fence extraction was added after observing format failures"
+  ]
+}

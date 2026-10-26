@@ -64,7 +64,9 @@ refs/heads/al0/publish/7804f5d69f105a8bbe1a3a1219e4f71156d080130106f11215c18cbe3
 
 结果为 Applied / CompletedClean，确认额度 2、预留 0、未决责任为空，重放新增事件 0。`models/git_adapter_live.json` 保存运行结果；`models/git_adapter_live_oracle.json` 保存通过 GitHub REST 独立回读的引用与提交。该引用保留作为此次操作的恢复记录。本次在线调用验证正常 HTTPS 路径；丢回复、取消交错和崩溃证据来自本地真实 Git 服务测试，不能把它们写成已经在 GitHub 上注入故障。
 
-安装验收脚本也增加了源码目录之外的真实 Git 消费者，检验 wheel 中的适配器、发布/查询和重放。全量 CI 与最终安装验收结果在完成后补入。
+安装验收脚本也增加了源码目录之外的真实 Git 消费者，检验 wheel 中的适配器、发布/查询和重放。本机重建 wheel 的运行及固定 mypy 验收已通过，结果为 `models/git_adapter_wheel.json`，日志为 `models/git_adapter_wheel.log`。
+
+[CI 运行 40307365400](https://github.com/StephCpa/AgentLanguage/actions/runs/40307365400) 对代码提交 `89934ff2d201c1752ac685ad04f9d232d4283f72` 的四个 job 全部通过：Python 3.10 和 3.12 各运行 961 项测试、无跳过，包含固定 mypy 1.18.2；copies 和 symlinks 两种环境均通过包含真实 Git 消费者的独立 wheel 验收。摘录与 job 记录保存在 `models/git_adapter_ci.json`。
 
 ## 后续研究边界
 

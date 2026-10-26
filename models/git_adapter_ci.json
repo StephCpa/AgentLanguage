@@ -1,0 +1,43 @@
+{
+  "commit": "89934ff2d201c1752ac685ad04f9d232d4283f72",
+  "run": 40307365400,
+  "url": "https://github.com/StephCpa/AgentLanguage/actions/runs/40307365400",
+  "jobs": [
+    {
+      "id": 121519674118,
+      "name": "Regression and typing (Python 3.12)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 121519674293,
+      "name": "Installed wheel (copies)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 121519674308,
+      "name": "Installed wheel (symlinks)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 121519674328,
+      "name": "Regression and typing (Python 3.10)",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "python310": [
+    "2026-10-26T10:26:03.4046506Z Successfully set up CPython (3.10.22)",
+    "2026-10-26T10:28:22.3926071Z Ran 961 tests in 127.632s",
+    "2026-10-26T10:28:22.3926657Z OK"
+  ],
+  "python312": [
+    "2026-10-26T10:26:02.8372250Z Successfully set up CPython (3.12.15)",
+    "2026-10-26T10:28:53.8940332Z Ran 961 tests in 166.032s",
+    "2026-10-26T10:28:53.8940600Z OK"
+  ],
+  "typing": "mypy==1.18.2 required; no skips",
+  "wheel": "Both copies and symlinks run a real Git publisher/query consumer outside checkout"
+}

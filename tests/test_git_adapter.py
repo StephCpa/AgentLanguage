@@ -11,7 +11,7 @@ import unittest
 from unittest.mock import patch
 
 from al0.data import Intent, Principal
-from al0.errors import ContractError, EvidenceMismatch, FlowDenied, InvalidData
+from al0.errors import ContractError, EvidenceMismatch, FlowDenied, InvalidData, StateConflict
 from al0.execute import Broker, Interpreter
 from al0.flow import Label
 from al0.git_adapter import GitPublisher, PUBLISH, QUERY
@@ -136,6 +136,45 @@ class GitAdapterTests(unittest.TestCase):
         with self.assertRaises(EvidenceMismatch):
             self.query()
 
+    def test_exact_reference_survives_suffix_matching_backup_after_reply_loss(self):
+        def lost(ticket):
+            self.adapter.publish(ticket)
+            raise ConnectionError('lost reply')
+        self.assertEqual(self.execute(Broker(self.store, self.adapter.catalog,
+                                            {**self.callbacks, PUBLISH: lost})).data, 'Unknown')
+        ref = self.refs()[0][0]
+        self.assertEqual(self.adapter._command(['push', '--', str(self.remote),
+                                               self.second+':refs/original/'+ref]).returncode, 0)
+        self.assertEqual(len(self.adapter._command(['ls-remote', '--refs', '--', str(self.remote), ref]).stdout.splitlines()), 2)
+        self.store.finish_run(self.run, self.who)
+        self.assertEqual(self.query()['business'], 'Applied')
+        self.assertEqual(self.store.status(self.run, self.who)['status'], 'CompletedClean')
+        self.assertEqual(self.store.budget(self.run, self.who)['git_dispatches']['reserved'], 0)
+
+    def test_backup_only_is_not_evidence_for_absent_exact_reference(self):
+        def lost(ticket):
+            raise ConnectionError('never reached Git')
+        self.assertEqual(self.execute(Broker(self.store, self.adapter.catalog,
+                                            {**self.callbacks, PUBLISH: lost})).data, 'Unknown')
+        info = self.store.operation_info(self.operation(), self.who)['intent']
+        intent = Intent(info['tool'], info['version'], info['scope'], info['args'])
+        ref = self.adapter.reference(self.operation(), intent.digest)
+        self.assertEqual(self.adapter._command(['push', '--', str(self.remote),
+                                               self.first+':refs/original/'+ref]).returncode, 0)
+        self.assertEqual(self.adapter._command(['ls-remote', '--refs', '--exit-code', '--', str(self.remote), ref]).returncode, 0)
+        self.assertEqual(self.query()['business'], 'Unknown')
+        self.assertEqual(self.store.budget(self.run, self.who)['git_dispatches']['reserved'], 0)
+
+    def test_malformed_or_duplicate_query_rows_are_rejected(self):
+        self.execute()
+        ref = self.refs()[0][0]
+        for index, stdout in enumerate(('not-a-row\n', 'wrong-oid\t'+ref+'\n',
+                                      (self.first+'\t'+ref+'\n')*2)):
+            with self.subTest(stdout=stdout), patch.object(self.adapter, '_command',
+                    return_value=subprocess.CompletedProcess([], 0, stdout, '')):
+                with self.assertRaises(EvidenceMismatch):
+                    self.query('invalid-'+str(index))
+
     def test_private_request_never_reaches_public_git_adapter(self):
         spec = self.adapter.catalog.tools[PUBLISH]
         intent = Intent(PUBLISH, spec.version, spec.scope, {'commit': self.first}, label=Label({'owner'}))
@@ -182,6 +221,29 @@ class GitAdapterTests(unittest.TestCase):
             self.store.retry(self.operation(), self.who)
         self.assertEqual(self.execute().data, 'Unknown')
         self.assertEqual(self.refs(), [])
+
+    def test_query_transport_failure_and_cancel_do_not_erase_history(self):
+        def lost(ticket):
+            self.adapter.publish(ticket)
+            raise ConnectionError('reply lost')
+        self.execute(Broker(self.store, self.adapter.catalog, {**self.callbacks, PUBLISH: lost}))
+        operation = self.operation()
+        self.store.cancel(operation, self.who)
+        with patch.object(self.adapter, '_command', side_effect=ConnectionError('query failed')):
+            from al0.execute import Suspended
+            with self.assertRaises(Suspended):
+                self.query()
+        self.store.finish_run(self.run, self.who)
+        status = self.store.status(self.run, self.who)
+        self.assertEqual(status['status'], 'CompletedWithObligations')
+        self.assertEqual(len(status['obligations']), 2)
+        original = next(o for o in status['obligations'] if o['operation'] == operation)
+        self.assertTrue(original['cancel_requested'])
+        self.assertTrue(original['unresolved_business'])
+        self.assertTrue(original['billing_pending'])
+        self.assertEqual(len(self.refs()), 1)
+        with self.assertRaises(StateConflict):
+            self.store.retry(operation, self.who)
 
     def test_process_death_after_git_commit_recovers_through_query(self):
         config = self.folder/'worker.json'

@@ -192,6 +192,17 @@ class GenerationJournalTests(unittest.TestCase):
             self.assertEqual(mypy_failure({'returncode': code, 'stderr': 'Traceback: tool startup failed'}),
                              'static_tool_failure')
 
+    def test_infrastructure_failure_cannot_enable_an_extra_model_attempt(self):
+        folder = self.session()
+        request = reserve(folder, 'al0', '0.10')
+        receive(folder, request['id'], self.receipt(request))
+        with patch('scripts.git_pair_evaluation.compile_source', side_effect=RuntimeError('synthetic compiler crash')):
+            result = evaluate_round(folder, request['id'], trusted_fixture=True, python=self.python)
+        self.assertEqual(result['category'], 'infrastructure_failure')
+        with self.assertRaisesRegex(ValueError, 'reevaluation of saved source'):
+            reserve(folder, 'al0', '0.10')
+        self.assertEqual(len(summary(folder)['requests']), 1)
+
 
 if __name__ == '__main__':
     unittest.main()

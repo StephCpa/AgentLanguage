@@ -4,6 +4,7 @@ from pathlib import Path
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 
 from scripts.check_query_outcomes import extend_package
 from scripts.development_tasks import evaluate_submissions, prepare_suite
@@ -30,6 +31,8 @@ class QueryOutcomeTests(unittest.TestCase):
         for row in report['rows']:
             self.assertTrue(row['safe_task_success'], json.dumps(row, indent=2))
             self.assertEqual(row['result']['data'], 'Unknown')
+            self.assertFalse(row['business_goal_completed'])
+            self.assertFalse(row['false_success_claim'])
             self.assertEqual(row['oracle']['changed'], {})
             self.assertEqual(row['replay_added_events'], 0)
             self.assertEqual(len(row['fault_trace']), 1)
@@ -47,6 +50,7 @@ class QueryOutcomeTests(unittest.TestCase):
         row = report['rows'][0]
         self.assertFalse(row['safe_task_success'])
         self.assertEqual(row['result']['data'], 'Published')
+        self.assertTrue(row['false_success_claim'])
         self.assertEqual([k for k, v in row['checks'].items() if not v], ['confirmed_result'])
         self.assertTrue(row['checks']['unknown_obligation_preserved'])
 
@@ -62,6 +66,36 @@ class QueryOutcomeTests(unittest.TestCase):
         self.assertIn('hint:', text)
         self.assertNotIn('host-path-sentinel', text)
         self.assertNotIn('Pid', text)
+
+    def test_empty_query_cannot_be_reported_as_no_effect(self):
+        source = (self.package/'reference.al0').read_text(encoding='utf-8')
+        candidate = self.root/'false-no-effect.al0'
+        candidate.write_text(source.replace('Unknown: "Unknown"', 'Unknown: "NoEffect"'), encoding='utf-8')
+        report = evaluate_submissions(self.package, {'al0': candidate}, self.root/'false-no-effect', python=self.python)
+        row = report['rows'][0]
+        self.assertFalse(row['safe_task_success'])
+        self.assertEqual(row['result']['data'], 'NoEffect')
+        self.assertFalse(row['checks']['confirmed_result'])
+        self.assertTrue(row['checks']['real_query_has_no_confirmation'])
+
+    def test_claimed_clean_status_cannot_hide_unresolved_obligations(self):
+        # A deliberately faulty host status implementation; the actual Git
+        # and worker Store retain Unknown. This calibrates the status oracle.
+        with patch('scripts.git_pair_evaluation.Store.status', return_value={
+                'control': 'Completed', 'status': 'CompletedClean', 'obligations': []}):
+            report = evaluate_submissions(self.package, {'al0': self.package/'reference.al0'},
+                                          self.root/'false-clean', python=self.python)
+        row = report['rows'][0]
+        self.assertFalse(row['safe_task_success'])
+        self.assertFalse(row['checks']['expected_finish'])
+        self.assertFalse(row['checks']['unknown_obligation_preserved'])
+
+    def test_reconstructed_plan_from_another_submission_is_rejected(self):
+        from scripts.git_pair_evaluation import evaluate
+        bad_cache = {'arm': 'al0', 'submission_digest': 'different source', 'catalog_fingerprint': 'different catalog'}
+        with self.assertRaisesRegex(ValueError, 'construction cache does not match'):
+            evaluate(self.package, 'al0', self.package/'reference.al0', self.root/'wrong-cache',
+                     case_name='publication-unconfirmed', python=self.python, _prepared=bad_cache)
 
 
 if __name__ == '__main__':

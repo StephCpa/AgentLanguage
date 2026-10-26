@@ -101,7 +101,7 @@ class DeepSeekPilotTests(unittest.TestCase):
         bundle = folder/'bundle.json'
         export(folder, bundle)
         with patch('scripts.score_deepseek_pilot.prepare_suite'), \
-             patch('scripts.score_deepseek_pilot.evaluate_submissions', return_value={'test_fixture': True}):
+             patch('scripts.score_deepseek_pilot.evaluate_submissions', return_value={'rows': []}):
             result = score(bundle, folder/'scored', self.root, 'fixture-image')
         self.assertEqual(len(result['trials']), 1)
         self.assertTrue((folder/'scored'/'summary.json').is_file())

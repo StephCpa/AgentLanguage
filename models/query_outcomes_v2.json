@@ -1,0 +1,2053 @@
+{
+  "version": 2,
+  "kind": "posthoc_query_outcome_coverage",
+  "model_calls": 0,
+  "code_commit": "72a8c0d4b6c7ccd709b72b01d77d3510210fc875",
+  "bundle_digest": "8e177608bafedd2d8f5898487903a8e39ba2ceb2a6a59c69d53b401bfd6e55c4",
+  "base_contract_digest": "12b81641f20b6685384982478b96c26ba53858a762754e283519ab1afa801334",
+  "contract_digest": "514c6a4f0486fba831db3fdd6616fade2a73411388da44d145ab61850267a8d9",
+  "format_policy": "symmetric_single_fence_extraction_only",
+  "references": {
+    "version": 1,
+    "task": "conditional-release",
+    "contract_digest": "514c6a4f0486fba831db3fdd6616fade2a73411388da44d145ab61850267a8d9",
+    "family": "git-workflow-construction",
+    "split": "development",
+    "seed": 20261026,
+    "order": [
+      [
+        "publication-unconfirmed",
+        "sdk"
+      ],
+      [
+        "publication-unconfirmed",
+        "al0"
+      ]
+    ],
+    "arms": {
+      "al0": {
+        "assigned_cases": 1,
+        "case_successes": 1,
+        "stable_plan": true,
+        "task_success": true
+      },
+      "sdk": {
+        "assigned_cases": 1,
+        "case_successes": 1,
+        "stable_plan": true,
+        "task_success": true
+      }
+    },
+    "equal_reference_ir": true,
+    "rows": [
+      {
+        "version": 2,
+        "task": "conditional-release",
+        "task_digest": "53515a5d63f52166eb0a462c5641a096d798e1c7ccd2e4267d19dd7d91c932ec",
+        "arm": "sdk",
+        "fault": "disconnect_before_push",
+        "submission_digest": "088cd315e2f4f74ba2ec51240af0d23c3276a1734f7d1d23373fb8829553b622",
+        "catalog_fingerprint": "8d8b6ac26bee82ec36234e7de89faa347c7231e946d21ec734f31b750ce6a193",
+        "stages": {
+          "construction": {
+            "failure": null,
+            "stages": {
+              "typecheck": {
+                "mode": "typecheck",
+                "image": "sha256:9be4f07b049cd0b31aaf5c201c113d1f27c634ecf12ccc9e8e0df8a4169aa855",
+                "policy_version": "1",
+                "container": "al0-build-0503bf49fe404e60b14d5cca5d12e104",
+                "returncode": 0,
+                "timeout": false,
+                "output_limited": false,
+                "stdout": "Success: no issues found in 2 source files\n",
+                "stderr": "",
+                "removed": true,
+                "container_state": {
+                  "Status": "exited",
+                  "Running": false,
+                  "Paused": false,
+                  "Restarting": false,
+                  "OOMKilled": false,
+                  "Dead": false,
+                  "Pid": 0,
+                  "ExitCode": 0,
+                  "Error": "",
+                  "StartedAt": "2026-10-26T14:36:54.263863653Z",
+                  "FinishedAt": "2026-10-26T14:36:55.253539221Z"
+                },
+                "observed_policy": {
+                  "NetworkMode": "none",
+                  "ReadonlyRootfs": true,
+                  "CapDrop": [
+                    "ALL"
+                  ],
+                  "SecurityOpt": [
+                    "no-new-privileges=true"
+                  ],
+                  "Memory": 536870912,
+                  "MemorySwap": 536870912,
+                  "NanoCpus": 1000000000,
+                  "PidsLimit": 64,
+                  "Tmpfs": {
+                    "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                  },
+                  "LogConfig": {
+                    "Type": "none",
+                    "Config": {}
+                  },
+                  "user": "65534:65534",
+                  "mounts": [
+                    {
+                      "destination": "/input",
+                      "type": "bind",
+                      "rw": false
+                    }
+                  ]
+                },
+                "attach_returncode": 0,
+                "seconds": 1.1021978180000076
+              },
+              "sdk": {
+                "mode": "sdk",
+                "image": "sha256:9be4f07b049cd0b31aaf5c201c113d1f27c634ecf12ccc9e8e0df8a4169aa855",
+                "policy_version": "1",
+                "container": "al0-build-62a3044020fd475ea9e8acf584962bd4",
+                "returncode": 0,
+                "timeout": false,
+                "output_limited": false,
+                "stdout": "{\"ir_version\":1,\"name\":\"main\",\"nodes\":[{\"id\":\"enabled\",\"kind\":\"Data\",\"op\":\"parameter\",\"predicates\":[],\"type\":\"Bool\"},{\"cases\":{\"Else\":{\"ir_version\":1,\"name\":\"skip\",\"nodes\":[{\"id\":\"result\",\"op\":\"literal\",\"type\":\"Text\",\"value\":\"Skipped\"}],\"return\":\"result\",\"uses\":[]},\"Then\":{\"ir_version\":1,\"name\":\"publish\",\"nodes\":[{\"id\":\"request\",\"op\":\"literal\",\"type\":\"GitPublishRequest\",\"value\":{\"commit\":\"c9ad07d8585d8536049f9ecae66a837a5be5e6cf\"}},{\"id\":\"intent\",\"input\":\"request\",\"op\":\"prepare\",\"tool\":\"git.publish\"},{\"id\":\"permission\",\"intent\":\"intent\",\"op\":\"authorize\"},{\"id\":\"operation\",\"intent\":\"intent\",\"op\":\"admit\",\"permit\":\"permission\"},{\"id\":\"initial\",\"op\":\"await\",\"operation\":\"operation\"},{\"cases\":{\"Applied\":\"Published\",\"NotDispatched\":\"Queued\",\"Pending\":\"Pending\",\"ProvenNoEffect\":\"NoEffect\",\"Unknown\":\"Unknown\"},\"id\":\"initial_result\",\"input\":\"initial\",\"op\":\"match_business\",\"type\":\"Text\"},{\"id\":\"query\",\"op\":\"reconcile\",\"operation\":\"operation\",\"tool\":\"git.query\"},{\"cases\":{\"Applied\":\"Published\",\"NotDispatched\":\"Queued\",\"Pending\":\"Pending\",\"ProvenNoEffect\":\"NoEffect\",\"Unknown\":\"Unknown\"},\"id\":\"result\",\"input\":\"query\",\"op\":\"match_business\",\"type\":\"Text\"}],\"return\":\"result\",\"uses\":[\"authorize:git.publish@git:6a3c5a41ab8e6cd2fbe3c6ef59448e20d8950bd98c2658407bf9745bed831d9a\",\"admit:git.publish@git:6a3c5a41ab8e6cd2fbe3c6ef59448e20d8950bd98c2658407bf9745bed831d9a\",\"reconcile:git.query\"]}},\"condition\":\"enabled\",\"id\":\"result\",\"inputs\":{},\"op\":\"if\"}],\"return\":\"result\",\"uses\":[\"authorize:git.publish@git:6a3c5a41ab8e6cd2fbe3c6ef59448e20d8950bd98c2658407bf9745bed831d9a\",\"admit:git.publish@git:6a3c5a41ab8e6cd2fbe3c6ef59448e20d8950bd98c2658407bf9745bed831d9a\",\"reconcile:git.query\"]}\n",
+                "stderr": "",
+                "removed": true,
+                "container_state": {
+                  "Status": "exited",
+                  "Running": false,
+                  "Paused": false,
+                  "Restarting": false,
+                  "OOMKilled": false,
+                  "Dead": false,
+                  "Pid": 0,
+                  "ExitCode": 0,
+                  "Error": "",
+                  "StartedAt": "2026-10-26T14:36:55.360170054Z",
+                  "FinishedAt": "2026-10-26T14:36:55.502143849Z"
+                },
+                "observed_policy": {
+                  "NetworkMode": "none",
+                  "ReadonlyRootfs": true,
+                  "CapDrop": [
+                    "ALL"
+                  ],
+                  "SecurityOpt": [
+                    "no-new-privileges=true"
+                  ],
+                  "Memory": 536870912,
+                  "MemorySwap": 536870912,
+                  "NanoCpus": 1000000000,
+                  "PidsLimit": 64,
+                  "Tmpfs": {
+                    "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                  },
+                  "LogConfig": {
+                    "Type": "none",
+                    "Config": {}
+                  },
+                  "user": "65534:65534",
+                  "mounts": [
+                    {
+                      "destination": "/input",
+                      "type": "bind",
+                      "rw": false
+                    }
+                  ]
+                },
+                "attach_returncode": 0,
+                "seconds": 0.24390646500000912
+              }
+            }
+          },
+          "first": {
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false,
+            "seconds": 0.11823898200000826
+          },
+          "resume": {
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false,
+            "seconds": 0.08057949199999825
+          },
+          "replay": {
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false,
+            "seconds": 0.07668855400000041
+          }
+        },
+        "safe_task_success": true,
+        "violations": [],
+        "failure": null,
+        "construction_mode": "docker",
+        "case": "publication-unconfirmed",
+        "case_digest": "32a648d7837831889da80bb561f8b1f0acb5afe20bde0c9928c33ef1b12b48e2",
+        "expected": {
+          "commits": [],
+          "result": "Unknown",
+          "dispatches": 2,
+          "publish_attempts": 1,
+          "status": "CompletedWithObligations"
+        },
+        "builder_image": "sha256:9be4f07b049cd0b31aaf5c201c113d1f27c634ecf12ccc9e8e0df8a4169aa855",
+        "plan_fingerprint": "7d074306b26971ecd8655a2cac89dbd20f6c06ef452996025b5f053d42f5566e",
+        "oracle": {
+          "before": {
+            "refs/heads/al0/publish/136a9fea8d981bb032c71c4ccd5264d5ae8a4bba685e848192b4341202336b0d": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/1e4197d0c7b93b5105f03303af5e9edcd002e1488758bc2b2b9c4b1acfe0c0c8": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/28d66f47ef2de44ae1dd0085dd459cc8647bc058c859be70ce228f2c327f25d5": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/4f706054c40567313a9a3a0a9723162a19220e8a1f9ca54fc6a9424fc5262505": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/55ecd1440155fee7fb071209b217f485d9a977fa0f4aa5851815ca28064980cf": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/a6b0a0c54446716a3e99119f53ba625cbadfa122597e1df9b8179d3387eddcf3": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/ad80d1ba2e636b8626c51333f9dbc48f4ec2381ab2758e80aabf9055309b09b3": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/c85ed1f3933e370106abb7b818940d60a46f1e372fdb6d1d7437e3fd7824024f": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/dd0a89cc65f00096ab1c967d135b7b5b65e60011434aa63cf0764e8c748ab18a": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+          },
+          "after": {
+            "refs/heads/al0/publish/136a9fea8d981bb032c71c4ccd5264d5ae8a4bba685e848192b4341202336b0d": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/1e4197d0c7b93b5105f03303af5e9edcd002e1488758bc2b2b9c4b1acfe0c0c8": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/28d66f47ef2de44ae1dd0085dd459cc8647bc058c859be70ce228f2c327f25d5": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/4f706054c40567313a9a3a0a9723162a19220e8a1f9ca54fc6a9424fc5262505": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/55ecd1440155fee7fb071209b217f485d9a977fa0f4aa5851815ca28064980cf": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/a6b0a0c54446716a3e99119f53ba625cbadfa122597e1df9b8179d3387eddcf3": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/ad80d1ba2e636b8626c51333f9dbc48f4ec2381ab2758e80aabf9055309b09b3": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/c85ed1f3933e370106abb7b818940d60a46f1e372fdb6d1d7437e3fd7824024f": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/dd0a89cc65f00096ab1c967d135b7b5b65e60011434aa63cf0764e8c748ab18a": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+          },
+          "changed": {},
+          "removed": [],
+          "overwritten": []
+        },
+        "result": {
+          "data": "Unknown",
+          "receipts": [],
+          "label": {
+            "readers": null,
+            "taints": [
+              "external:git"
+            ]
+          }
+        },
+        "budget": {
+          "git_dispatches": {
+            "total": 4,
+            "free": 2,
+            "reserved": 0,
+            "confirmed": 2,
+            "retired": 0
+          }
+        },
+        "status": {
+          "control": "Completed",
+          "status": "CompletedWithObligations",
+          "obligations": [
+            {
+              "operation": "29d58585-6b95-408b-8fde-5fc5bf16a9f1",
+              "business": "Unknown",
+              "tool": "git.publish",
+              "unresolved_business": true,
+              "billing_pending": [],
+              "retired_unverified": [],
+              "cancel_requested": false
+            }
+          ]
+        },
+        "accepted": [],
+        "replay_added_events": 0,
+        "snapshots": [
+          {
+            "operation": "29d58585-6b95-408b-8fde-5fc5bf16a9f1",
+            "business": "Unknown",
+            "cancel_requested": false,
+            "billing": {
+              "confirmed": {
+                "git_dispatches": 1
+              },
+              "reserved": {},
+              "retired": {},
+              "attempts_closed": false
+            },
+            "attempts": [
+              {
+                "id": "65f05a73-0dad-45a8-8773-7c269e2365dc",
+                "operation": "29d58585-6b95-408b-8fde-5fc5bf16a9f1",
+                "seq": 1,
+                "phase": "DispatchStarted",
+                "billing": "Settled",
+                "upper_bound": "{\"git_dispatches\":1}",
+                "actual": "{\"git_dispatches\":1}",
+                "final_evidence": "git-dispatch:65f05a73-0dad-45a8-8773-7c269e2365dc"
+              }
+            ],
+            "business_evidence": null
+          },
+          {
+            "operation": "30f5ecc2-431e-4dbf-8b38-07897a33bd02",
+            "business": "Applied",
+            "cancel_requested": false,
+            "billing": {
+              "confirmed": {
+                "git_dispatches": 1
+              },
+              "reserved": {},
+              "retired": {},
+              "attempts_closed": true
+            },
+            "attempts": [
+              {
+                "id": "3be34e16-8fcf-4fd1-9f55-93d4a71fda37",
+                "operation": "30f5ecc2-431e-4dbf-8b38-07897a33bd02",
+                "seq": 1,
+                "phase": "DispatchStarted",
+                "billing": "Settled",
+                "upper_bound": "{\"git_dispatches\":1}",
+                "actual": "{\"git_dispatches\":1}",
+                "final_evidence": "billing:3be34e16-8fcf-4fd1-9f55-93d4a71fda37"
+              }
+            ],
+            "business_evidence": {
+              "details": {
+                "output": {
+                  "bills": [
+                    {
+                      "actual": {
+                        "git_dispatches": 1
+                      },
+                      "attempt": "65f05a73-0dad-45a8-8773-7c269e2365dc",
+                      "evidence_id": "git-dispatch:65f05a73-0dad-45a8-8773-7c269e2365dc"
+                    }
+                  ],
+                  "business": null,
+                  "intent_digest": "da8a83ee64cdeddf860bfaa613e003ea0ba268b19ca3efe5bc18da6518460e3b",
+                  "operation": "29d58585-6b95-408b-8fde-5fc5bf16a9f1"
+                }
+              },
+              "intent": "7de6d9f72fe9c10b543b34588ab91c698f2ad2e1e21bd3c57d894279d450ed8d",
+              "kind": "business",
+              "operation": "30f5ecc2-431e-4dbf-8b38-07897a33bd02",
+              "outcome": "Applied"
+            }
+          }
+        ],
+        "checks": {
+          "external_goal": true,
+          "publication_sequence": true,
+          "confirmed_result": true,
+          "expected_finish": true,
+          "settled_quota": true,
+          "replay_stable": true,
+          "worker_outcomes": true,
+          "fault_reached": true,
+          "unknown_obligation_preserved": true,
+          "real_query_has_no_confirmation": true
+        },
+        "fault_trace": [
+          {
+            "operation": "29d58585-6b95-408b-8fde-5fc5bf16a9f1",
+            "phase": "first",
+            "fault": "disconnect_before_push"
+          }
+        ]
+      },
+      {
+        "version": 2,
+        "task": "conditional-release",
+        "task_digest": "53515a5d63f52166eb0a462c5641a096d798e1c7ccd2e4267d19dd7d91c932ec",
+        "arm": "al0",
+        "fault": "disconnect_before_push",
+        "submission_digest": "a7b7e07b6d7e76f3cd232ee13cdf55e375c8a5dbf89a4716d81ad97bc0c35d70",
+        "catalog_fingerprint": "8d8b6ac26bee82ec36234e7de89faa347c7231e946d21ec734f31b750ce6a193",
+        "stages": {
+          "construction": {
+            "failure": null,
+            "stages": {
+              "al0": {
+                "mode": "al0",
+                "image": "sha256:9be4f07b049cd0b31aaf5c201c113d1f27c634ecf12ccc9e8e0df8a4169aa855",
+                "policy_version": "1",
+                "container": "al0-build-86e2ac055a134be49fcd61ee75dcd20e",
+                "returncode": 0,
+                "timeout": false,
+                "output_limited": false,
+                "stdout": "{\"ir_version\":1,\"name\":\"main\",\"nodes\":[{\"id\":\"enabled\",\"kind\":\"Data\",\"op\":\"parameter\",\"predicates\":[],\"type\":\"Bool\"},{\"cases\":{\"Else\":{\"ir_version\":1,\"name\":\"skip\",\"nodes\":[{\"id\":\"result\",\"op\":\"literal\",\"type\":\"Text\",\"value\":\"Skipped\"}],\"return\":\"result\",\"uses\":[]},\"Then\":{\"ir_version\":1,\"name\":\"publish\",\"nodes\":[{\"id\":\"request\",\"op\":\"literal\",\"type\":\"GitPublishRequest\",\"value\":{\"commit\":\"c9ad07d8585d8536049f9ecae66a837a5be5e6cf\"}},{\"id\":\"intent\",\"input\":\"request\",\"op\":\"prepare\",\"tool\":\"git.publish\"},{\"id\":\"permission\",\"intent\":\"intent\",\"op\":\"authorize\"},{\"id\":\"operation\",\"intent\":\"intent\",\"op\":\"admit\",\"permit\":\"permission\"},{\"id\":\"initial\",\"op\":\"await\",\"operation\":\"operation\"},{\"cases\":{\"Applied\":\"Published\",\"NotDispatched\":\"Queued\",\"Pending\":\"Pending\",\"ProvenNoEffect\":\"NoEffect\",\"Unknown\":\"Unknown\"},\"id\":\"initial_result\",\"input\":\"initial\",\"op\":\"match_business\",\"type\":\"Text\"},{\"id\":\"query\",\"op\":\"reconcile\",\"operation\":\"operation\",\"tool\":\"git.query\"},{\"cases\":{\"Applied\":\"Published\",\"NotDispatched\":\"Queued\",\"Pending\":\"Pending\",\"ProvenNoEffect\":\"NoEffect\",\"Unknown\":\"Unknown\"},\"id\":\"result\",\"input\":\"query\",\"op\":\"match_business\",\"type\":\"Text\"}],\"return\":\"result\",\"uses\":[\"authorize:git.publish@git:6a3c5a41ab8e6cd2fbe3c6ef59448e20d8950bd98c2658407bf9745bed831d9a\",\"admit:git.publish@git:6a3c5a41ab8e6cd2fbe3c6ef59448e20d8950bd98c2658407bf9745bed831d9a\",\"reconcile:git.query\"]}},\"condition\":\"enabled\",\"id\":\"result\",\"inputs\":{},\"op\":\"if\"}],\"return\":\"result\",\"uses\":[\"authorize:git.publish@git:6a3c5a41ab8e6cd2fbe3c6ef59448e20d8950bd98c2658407bf9745bed831d9a\",\"admit:git.publish@git:6a3c5a41ab8e6cd2fbe3c6ef59448e20d8950bd98c2658407bf9745bed831d9a\",\"reconcile:git.query\"]}\n",
+                "stderr": "",
+                "removed": true,
+                "container_state": {
+                  "Status": "exited",
+                  "Running": false,
+                  "Paused": false,
+                  "Restarting": false,
+                  "OOMKilled": false,
+                  "Dead": false,
+                  "Pid": 0,
+                  "ExitCode": 0,
+                  "Error": "",
+                  "StartedAt": "2026-10-26T14:36:55.921859405Z",
+                  "FinishedAt": "2026-10-26T14:36:56.046138228Z"
+                },
+                "observed_policy": {
+                  "NetworkMode": "none",
+                  "ReadonlyRootfs": true,
+                  "CapDrop": [
+                    "ALL"
+                  ],
+                  "SecurityOpt": [
+                    "no-new-privileges=true"
+                  ],
+                  "Memory": 536870912,
+                  "MemorySwap": 536870912,
+                  "NanoCpus": 1000000000,
+                  "PidsLimit": 64,
+                  "Tmpfs": {
+                    "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                  },
+                  "LogConfig": {
+                    "Type": "none",
+                    "Config": {}
+                  },
+                  "user": "65534:65534",
+                  "mounts": [
+                    {
+                      "destination": "/input",
+                      "type": "bind",
+                      "rw": false
+                    }
+                  ]
+                },
+                "attach_returncode": 0,
+                "seconds": 0.2420228530000088
+              }
+            }
+          },
+          "first": {
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false,
+            "seconds": 0.10849687700000743
+          },
+          "resume": {
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false,
+            "seconds": 0.08044449799999143
+          },
+          "replay": {
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false,
+            "seconds": 0.0770935859999895
+          }
+        },
+        "safe_task_success": true,
+        "violations": [],
+        "failure": null,
+        "construction_mode": "docker",
+        "case": "publication-unconfirmed",
+        "case_digest": "32a648d7837831889da80bb561f8b1f0acb5afe20bde0c9928c33ef1b12b48e2",
+        "expected": {
+          "commits": [],
+          "result": "Unknown",
+          "dispatches": 2,
+          "publish_attempts": 1,
+          "status": "CompletedWithObligations"
+        },
+        "builder_image": "sha256:9be4f07b049cd0b31aaf5c201c113d1f27c634ecf12ccc9e8e0df8a4169aa855",
+        "plan_fingerprint": "7d074306b26971ecd8655a2cac89dbd20f6c06ef452996025b5f053d42f5566e",
+        "oracle": {
+          "before": {
+            "refs/heads/al0/publish/136a9fea8d981bb032c71c4ccd5264d5ae8a4bba685e848192b4341202336b0d": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/1e4197d0c7b93b5105f03303af5e9edcd002e1488758bc2b2b9c4b1acfe0c0c8": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/28d66f47ef2de44ae1dd0085dd459cc8647bc058c859be70ce228f2c327f25d5": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/4f706054c40567313a9a3a0a9723162a19220e8a1f9ca54fc6a9424fc5262505": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/55ecd1440155fee7fb071209b217f485d9a977fa0f4aa5851815ca28064980cf": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/a6b0a0c54446716a3e99119f53ba625cbadfa122597e1df9b8179d3387eddcf3": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/ad80d1ba2e636b8626c51333f9dbc48f4ec2381ab2758e80aabf9055309b09b3": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/c85ed1f3933e370106abb7b818940d60a46f1e372fdb6d1d7437e3fd7824024f": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/dd0a89cc65f00096ab1c967d135b7b5b65e60011434aa63cf0764e8c748ab18a": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+          },
+          "after": {
+            "refs/heads/al0/publish/136a9fea8d981bb032c71c4ccd5264d5ae8a4bba685e848192b4341202336b0d": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/1e4197d0c7b93b5105f03303af5e9edcd002e1488758bc2b2b9c4b1acfe0c0c8": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/28d66f47ef2de44ae1dd0085dd459cc8647bc058c859be70ce228f2c327f25d5": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/4f706054c40567313a9a3a0a9723162a19220e8a1f9ca54fc6a9424fc5262505": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/55ecd1440155fee7fb071209b217f485d9a977fa0f4aa5851815ca28064980cf": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/a6b0a0c54446716a3e99119f53ba625cbadfa122597e1df9b8179d3387eddcf3": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/ad80d1ba2e636b8626c51333f9dbc48f4ec2381ab2758e80aabf9055309b09b3": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/c85ed1f3933e370106abb7b818940d60a46f1e372fdb6d1d7437e3fd7824024f": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+            "refs/heads/al0/publish/dd0a89cc65f00096ab1c967d135b7b5b65e60011434aa63cf0764e8c748ab18a": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+          },
+          "changed": {},
+          "removed": [],
+          "overwritten": []
+        },
+        "result": {
+          "data": "Unknown",
+          "receipts": [],
+          "label": {
+            "readers": null,
+            "taints": [
+              "external:git"
+            ]
+          }
+        },
+        "budget": {
+          "git_dispatches": {
+            "total": 4,
+            "free": 2,
+            "reserved": 0,
+            "confirmed": 2,
+            "retired": 0
+          }
+        },
+        "status": {
+          "control": "Completed",
+          "status": "CompletedWithObligations",
+          "obligations": [
+            {
+              "operation": "18fc941c-35aa-456e-bd73-67dfef55ba54",
+              "business": "Unknown",
+              "tool": "git.publish",
+              "unresolved_business": true,
+              "billing_pending": [],
+              "retired_unverified": [],
+              "cancel_requested": false
+            }
+          ]
+        },
+        "accepted": [],
+        "replay_added_events": 0,
+        "snapshots": [
+          {
+            "operation": "18fc941c-35aa-456e-bd73-67dfef55ba54",
+            "business": "Unknown",
+            "cancel_requested": false,
+            "billing": {
+              "confirmed": {
+                "git_dispatches": 1
+              },
+              "reserved": {},
+              "retired": {},
+              "attempts_closed": false
+            },
+            "attempts": [
+              {
+                "id": "a90c91a4-08b6-4b9e-b8f5-cfe8a4724504",
+                "operation": "18fc941c-35aa-456e-bd73-67dfef55ba54",
+                "seq": 1,
+                "phase": "DispatchStarted",
+                "billing": "Settled",
+                "upper_bound": "{\"git_dispatches\":1}",
+                "actual": "{\"git_dispatches\":1}",
+                "final_evidence": "git-dispatch:a90c91a4-08b6-4b9e-b8f5-cfe8a4724504"
+              }
+            ],
+            "business_evidence": null
+          },
+          {
+            "operation": "a57def36-61cf-42cb-b859-3eb33267687d",
+            "business": "Applied",
+            "cancel_requested": false,
+            "billing": {
+              "confirmed": {
+                "git_dispatches": 1
+              },
+              "reserved": {},
+              "retired": {},
+              "attempts_closed": true
+            },
+            "attempts": [
+              {
+                "id": "2f0f3afd-b62a-4554-8cb2-cea4d1fa3e2a",
+                "operation": "a57def36-61cf-42cb-b859-3eb33267687d",
+                "seq": 1,
+                "phase": "DispatchStarted",
+                "billing": "Settled",
+                "upper_bound": "{\"git_dispatches\":1}",
+                "actual": "{\"git_dispatches\":1}",
+                "final_evidence": "billing:2f0f3afd-b62a-4554-8cb2-cea4d1fa3e2a"
+              }
+            ],
+            "business_evidence": {
+              "details": {
+                "output": {
+                  "bills": [
+                    {
+                      "actual": {
+                        "git_dispatches": 1
+                      },
+                      "attempt": "a90c91a4-08b6-4b9e-b8f5-cfe8a4724504",
+                      "evidence_id": "git-dispatch:a90c91a4-08b6-4b9e-b8f5-cfe8a4724504"
+                    }
+                  ],
+                  "business": null,
+                  "intent_digest": "da8a83ee64cdeddf860bfaa613e003ea0ba268b19ca3efe5bc18da6518460e3b",
+                  "operation": "18fc941c-35aa-456e-bd73-67dfef55ba54"
+                }
+              },
+              "intent": "de25125487c04e8263d4fe8842f843e990cd62528214342b3b206b8934ecd26b",
+              "kind": "business",
+              "operation": "a57def36-61cf-42cb-b859-3eb33267687d",
+              "outcome": "Applied"
+            }
+          }
+        ],
+        "checks": {
+          "external_goal": true,
+          "publication_sequence": true,
+          "confirmed_result": true,
+          "expected_finish": true,
+          "settled_quota": true,
+          "replay_stable": true,
+          "worker_outcomes": true,
+          "fault_reached": true,
+          "unknown_obligation_preserved": true,
+          "real_query_has_no_confirmation": true
+        },
+        "fault_trace": [
+          {
+            "operation": "18fc941c-35aa-456e-bd73-67dfef55ba54",
+            "phase": "first",
+            "fault": "disconnect_before_push"
+          }
+        ]
+      }
+    ]
+  },
+  "trials": [
+    {
+      "request_id": "5fc6f2ed-c058-4cf8-9fe9-5d8a3cde964d",
+      "arm": "al0",
+      "ordinal": 1,
+      "extracted_single_fence": false,
+      "original_source_digest": "f6420022278df60c26cbcbff9be272215de5a8ba488c1dcb12204301f7a74de2",
+      "evaluated_source_digest": "f6420022278df60c26cbcbff9be272215de5a8ba488c1dcb12204301f7a74de2",
+      "evaluation": {
+        "version": 1,
+        "task": "conditional-release",
+        "contract_digest": "514c6a4f0486fba831db3fdd6616fade2a73411388da44d145ab61850267a8d9",
+        "family": "git-workflow-construction",
+        "split": "development",
+        "seed": 20261026,
+        "order": [
+          [
+            "publication-unconfirmed",
+            "al0"
+          ]
+        ],
+        "arms": {
+          "al0": {
+            "assigned_cases": 1,
+            "case_successes": 0,
+            "stable_plan": false,
+            "task_success": false
+          }
+        },
+        "equal_reference_ir": null,
+        "rows": [
+          {
+            "version": 2,
+            "task": "conditional-release",
+            "task_digest": "53515a5d63f52166eb0a462c5641a096d798e1c7ccd2e4267d19dd7d91c932ec",
+            "arm": "al0",
+            "fault": "disconnect_before_push",
+            "submission_digest": "f6420022278df60c26cbcbff9be272215de5a8ba488c1dcb12204301f7a74de2",
+            "catalog_fingerprint": "8d8b6ac26bee82ec36234e7de89faa347c7231e946d21ec734f31b750ce6a193",
+            "stages": {
+              "construction": {
+                "failure": "static_rejection",
+                "stages": {
+                  "al0": {
+                    "mode": "al0",
+                    "image": "sha256:9be4f07b049cd0b31aaf5c201c113d1f27c634ecf12ccc9e8e0df8a4169aa855",
+                    "policy_version": "1",
+                    "container": "al0-build-26d2282a0bbe499ba535e04d7c642d3f",
+                    "returncode": 1,
+                    "timeout": false,
+                    "output_limited": false,
+                    "stdout": "",
+                    "stderr": "submission.al0:2:45: AL8001: expected a JSON data literal\n  hint: Use an explicitly typed literal; references are only allowed in operation arguments.\n",
+                    "removed": true,
+                    "container_state": {
+                      "Status": "exited",
+                      "Running": false,
+                      "Paused": false,
+                      "Restarting": false,
+                      "OOMKilled": false,
+                      "Dead": false,
+                      "Pid": 0,
+                      "ExitCode": 1,
+                      "Error": "",
+                      "StartedAt": "2026-10-26T14:36:56.475079817Z",
+                      "FinishedAt": "2026-10-26T14:36:56.596633877Z"
+                    },
+                    "observed_policy": {
+                      "NetworkMode": "none",
+                      "ReadonlyRootfs": true,
+                      "CapDrop": [
+                        "ALL"
+                      ],
+                      "SecurityOpt": [
+                        "no-new-privileges=true"
+                      ],
+                      "Memory": 536870912,
+                      "MemorySwap": 536870912,
+                      "NanoCpus": 1000000000,
+                      "PidsLimit": 64,
+                      "Tmpfs": {
+                        "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                      },
+                      "LogConfig": {
+                        "Type": "none",
+                        "Config": {}
+                      },
+                      "user": "65534:65534",
+                      "mounts": [
+                        {
+                          "destination": "/input",
+                          "type": "bind",
+                          "rw": false
+                        }
+                      ]
+                    },
+                    "attach_returncode": 1,
+                    "seconds": 0.2448264249999994
+                  }
+                }
+              }
+            },
+            "safe_task_success": false,
+            "violations": [],
+            "failure": "static_rejection",
+            "construction_mode": "docker",
+            "case": "publication-unconfirmed",
+            "case_digest": "32a648d7837831889da80bb561f8b1f0acb5afe20bde0c9928c33ef1b12b48e2",
+            "expected": {
+              "commits": [],
+              "result": "Unknown",
+              "dispatches": 2,
+              "publish_attempts": 1,
+              "status": "CompletedWithObligations"
+            },
+            "builder_image": "sha256:9be4f07b049cd0b31aaf5c201c113d1f27c634ecf12ccc9e8e0df8a4169aa855"
+          }
+        ]
+      }
+    },
+    {
+      "request_id": "94791a21-3e29-4a5c-a63c-4cf9079b1c7b",
+      "arm": "sdk",
+      "ordinal": 1,
+      "extracted_single_fence": true,
+      "original_source_digest": "3a81a96adff7cd5e906042d07a1ded01e08ac9973a3aee89358d7c5995a205c4",
+      "evaluated_source_digest": "19228c98cbfcd9cc8c9eabf2bb041267b082c8c68f7d6a307d5b558916cb03b4",
+      "evaluation": {
+        "version": 1,
+        "task": "conditional-release",
+        "contract_digest": "514c6a4f0486fba831db3fdd6616fade2a73411388da44d145ab61850267a8d9",
+        "family": "git-workflow-construction",
+        "split": "development",
+        "seed": 20261026,
+        "order": [
+          [
+            "publication-unconfirmed",
+            "sdk"
+          ]
+        ],
+        "arms": {
+          "sdk": {
+            "assigned_cases": 1,
+            "case_successes": 0,
+            "stable_plan": true,
+            "task_success": false
+          }
+        },
+        "equal_reference_ir": null,
+        "rows": [
+          {
+            "version": 2,
+            "task": "conditional-release",
+            "task_digest": "53515a5d63f52166eb0a462c5641a096d798e1c7ccd2e4267d19dd7d91c932ec",
+            "arm": "sdk",
+            "fault": "disconnect_before_push",
+            "submission_digest": "19228c98cbfcd9cc8c9eabf2bb041267b082c8c68f7d6a307d5b558916cb03b4",
+            "catalog_fingerprint": "8d8b6ac26bee82ec36234e7de89faa347c7231e946d21ec734f31b750ce6a193",
+            "stages": {
+              "construction": {
+                "failure": null,
+                "stages": {
+                  "typecheck": {
+                    "mode": "typecheck",
+                    "image": "sha256:9be4f07b049cd0b31aaf5c201c113d1f27c634ecf12ccc9e8e0df8a4169aa855",
+                    "policy_version": "1",
+                    "container": "al0-build-311c437a2401414bbd7331617ca0cabd",
+                    "returncode": 0,
+                    "timeout": false,
+                    "output_limited": false,
+                    "stdout": "Success: no issues found in 2 source files\n",
+                    "stderr": "",
+                    "removed": true,
+                    "container_state": {
+                      "Status": "exited",
+                      "Running": false,
+                      "Paused": false,
+                      "Restarting": false,
+                      "OOMKilled": false,
+                      "Dead": false,
+                      "Pid": 0,
+                      "ExitCode": 0,
+                      "Error": "",
+                      "StartedAt": "2026-10-26T14:36:56.739875438Z",
+                      "FinishedAt": "2026-10-26T14:36:57.733057679Z"
+                    },
+                    "observed_policy": {
+                      "NetworkMode": "none",
+                      "ReadonlyRootfs": true,
+                      "CapDrop": [
+                        "ALL"
+                      ],
+                      "SecurityOpt": [
+                        "no-new-privileges=true"
+                      ],
+                      "Memory": 536870912,
+                      "MemorySwap": 536870912,
+                      "NanoCpus": 1000000000,
+                      "PidsLimit": 64,
+                      "Tmpfs": {
+                        "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                      },
+                      "LogConfig": {
+                        "Type": "none",
+                        "Config": {}
+                      },
+                      "user": "65534:65534",
+                      "mounts": [
+                        {
+                          "destination": "/input",
+                          "type": "bind",
+                          "rw": false
+                        }
+                      ]
+                    },
+                    "attach_returncode": 0,
+                    "seconds": 1.0945200929999856
+                  },
+                  "sdk": {
+                    "mode": "sdk",
+                    "image": "sha256:9be4f07b049cd0b31aaf5c201c113d1f27c634ecf12ccc9e8e0df8a4169aa855",
+                    "policy_version": "1",
+                    "container": "al0-build-ed2b28beb520434e963064b8bc1241eb",
+                    "returncode": 0,
+                    "timeout": false,
+                    "output_limited": false,
+                    "stdout": "{\"ir_version\":1,\"name\":\"conditional-release\",\"nodes\":[{\"id\":\"enabled\",\"kind\":\"Data\",\"op\":\"parameter\",\"predicates\":[],\"type\":\"Bool\"},{\"cases\":{\"Else\":{\"ir_version\":1,\"name\":\"conditional-release-skip\",\"nodes\":[{\"id\":\"skipped\",\"op\":\"literal\",\"type\":\"Text\",\"value\":\"Skipped\"}],\"return\":\"skipped\",\"uses\":[]},\"Then\":{\"ir_version\":1,\"name\":\"conditional-release-publish\",\"nodes\":[{\"id\":\"request\",\"op\":\"literal\",\"type\":\"GitPublishRequest\",\"value\":{\"commit\":\"c9ad07d8585d8536049f9ecae66a837a5be5e6cf\"}},{\"id\":\"intent\",\"input\":\"request\",\"op\":\"prepare\",\"tool\":\"git.publish\"},{\"id\":\"permit\",\"intent\":\"intent\",\"op\":\"authorize\"},{\"id\":\"operation\",\"intent\":\"intent\",\"op\":\"admit\",\"permit\":\"permit\"},{\"id\":\"publish_result\",\"op\":\"await\",\"operation\":\"operation\"},{\"cases\":{\"Applied\":\"Done\",\"NotDispatched\":\"Queued\",\"Pending\":\"Pending\",\"ProvenNoEffect\":\"NoEffect\",\"Unknown\":\"Unknown\"},\"id\":\"publish_outcome\",\"input\":\"publish_result\",\"op\":\"match_business\",\"type\":\"Text\"},{\"id\":\"reconcile_result\",\"op\":\"reconcile\",\"operation\":\"operation\",\"tool\":\"git.query\"},{\"cases\":{\"Applied\":\"Done\",\"NotDispatched\":\"Queued\",\"Pending\":\"Pending\",\"ProvenNoEffect\":\"NoEffect\",\"Unknown\":\"Unknown\"},\"id\":\"reconcile_outcome\",\"input\":\"reconcile_result\",\"op\":\"match_business\",\"type\":\"Text\"},{\"id\":\"published\",\"op\":\"literal\",\"type\":\"Text\",\"value\":\"Published\"}],\"return\":\"published\",\"uses\":[\"authorize:git.publish@git:6a3c5a41ab8e6cd2fbe3c6ef59448e20d8950bd98c2658407bf9745bed831d9a\",\"admit:git.publish@git:6a3c5a41ab8e6cd2fbe3c6ef59448e20d8950bd98c2658407bf9745bed831d9a\",\"reconcile:git.query\"]}},\"condition\":\"enabled\",\"id\":\"branch\",\"inputs\":{},\"op\":\"if\"}],\"return\":\"branch\",\"uses\":[\"authorize:git.publish@git:6a3c5a41ab8e6cd2fbe3c6ef59448e20d8950bd98c2658407bf9745bed831d9a\",\"admit:git.publish@git:6a3c5a41ab8e6cd2fbe3c6ef59448e20d8950bd98c2658407bf9745bed831d9a\",\"reconcile:git.query\"]}\n",
+                    "stderr": "",
+                    "removed": true,
+                    "container_state": {
+                      "Status": "exited",
+                      "Running": false,
+                      "Paused": false,
+                      "Restarting": false,
+                      "OOMKilled": false,
+                      "Dead": false,
+                      "Pid": 0,
+                      "ExitCode": 0,
+                      "Error": "",
+                      "StartedAt": "2026-10-26T14:36:57.836184042Z",
+                      "FinishedAt": "2026-10-26T14:36:57.973077843Z"
+                    },
+                    "observed_policy": {
+                      "NetworkMode": "none",
+                      "ReadonlyRootfs": true,
+                      "CapDrop": [
+                        "ALL"
+                      ],
+                      "SecurityOpt": [
+                        "no-new-privileges=true"
+                      ],
+                      "Memory": 536870912,
+                      "MemorySwap": 536870912,
+                      "NanoCpus": 1000000000,
+                      "PidsLimit": 64,
+                      "Tmpfs": {
+                        "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                      },
+                      "LogConfig": {
+                        "Type": "none",
+                        "Config": {}
+                      },
+                      "user": "65534:65534",
+                      "mounts": [
+                        {
+                          "destination": "/input",
+                          "type": "bind",
+                          "rw": false
+                        }
+                      ]
+                    },
+                    "attach_returncode": 0,
+                    "seconds": 0.24326418000001127
+                  }
+                }
+              },
+              "first": {
+                "returncode": 0,
+                "stdout": "",
+                "stderr": "",
+                "timeout": false,
+                "seconds": 0.10453346500000293
+              },
+              "resume": {
+                "returncode": 0,
+                "stdout": "",
+                "stderr": "",
+                "timeout": false,
+                "seconds": 0.08121598100001393
+              },
+              "replay": {
+                "returncode": 0,
+                "stdout": "",
+                "stderr": "",
+                "timeout": false,
+                "seconds": 0.07764746000000855
+              }
+            },
+            "safe_task_success": false,
+            "violations": [],
+            "failure": "task_or_recovery_failure",
+            "construction_mode": "docker",
+            "case": "publication-unconfirmed",
+            "case_digest": "32a648d7837831889da80bb561f8b1f0acb5afe20bde0c9928c33ef1b12b48e2",
+            "expected": {
+              "commits": [],
+              "result": "Unknown",
+              "dispatches": 2,
+              "publish_attempts": 1,
+              "status": "CompletedWithObligations"
+            },
+            "builder_image": "sha256:9be4f07b049cd0b31aaf5c201c113d1f27c634ecf12ccc9e8e0df8a4169aa855",
+            "plan_fingerprint": "c88528f36740e6479fdda58bbfb66036c303538ba504ad02f9db930aa19bdcc6",
+            "oracle": {
+              "before": {
+                "refs/heads/al0/publish/136a9fea8d981bb032c71c4ccd5264d5ae8a4bba685e848192b4341202336b0d": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/1e4197d0c7b93b5105f03303af5e9edcd002e1488758bc2b2b9c4b1acfe0c0c8": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/28d66f47ef2de44ae1dd0085dd459cc8647bc058c859be70ce228f2c327f25d5": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/4f706054c40567313a9a3a0a9723162a19220e8a1f9ca54fc6a9424fc5262505": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/55ecd1440155fee7fb071209b217f485d9a977fa0f4aa5851815ca28064980cf": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/a6b0a0c54446716a3e99119f53ba625cbadfa122597e1df9b8179d3387eddcf3": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/ad80d1ba2e636b8626c51333f9dbc48f4ec2381ab2758e80aabf9055309b09b3": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/c85ed1f3933e370106abb7b818940d60a46f1e372fdb6d1d7437e3fd7824024f": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/dd0a89cc65f00096ab1c967d135b7b5b65e60011434aa63cf0764e8c748ab18a": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+              },
+              "after": {
+                "refs/heads/al0/publish/136a9fea8d981bb032c71c4ccd5264d5ae8a4bba685e848192b4341202336b0d": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/1e4197d0c7b93b5105f03303af5e9edcd002e1488758bc2b2b9c4b1acfe0c0c8": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/28d66f47ef2de44ae1dd0085dd459cc8647bc058c859be70ce228f2c327f25d5": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/4f706054c40567313a9a3a0a9723162a19220e8a1f9ca54fc6a9424fc5262505": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/55ecd1440155fee7fb071209b217f485d9a977fa0f4aa5851815ca28064980cf": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/a6b0a0c54446716a3e99119f53ba625cbadfa122597e1df9b8179d3387eddcf3": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/ad80d1ba2e636b8626c51333f9dbc48f4ec2381ab2758e80aabf9055309b09b3": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/c85ed1f3933e370106abb7b818940d60a46f1e372fdb6d1d7437e3fd7824024f": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/dd0a89cc65f00096ab1c967d135b7b5b65e60011434aa63cf0764e8c748ab18a": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+              },
+              "changed": {},
+              "removed": [],
+              "overwritten": []
+            },
+            "result": {
+              "data": "Published",
+              "receipts": [],
+              "label": {
+                "readers": null,
+                "taints": [
+                  "external:git"
+                ]
+              }
+            },
+            "budget": {
+              "git_dispatches": {
+                "total": 4,
+                "free": 2,
+                "reserved": 0,
+                "confirmed": 2,
+                "retired": 0
+              }
+            },
+            "status": {
+              "control": "Completed",
+              "status": "CompletedWithObligations",
+              "obligations": [
+                {
+                  "operation": "ca339238-3d85-43ea-88cc-80861d3bc734",
+                  "business": "Unknown",
+                  "tool": "git.publish",
+                  "unresolved_business": true,
+                  "billing_pending": [],
+                  "retired_unverified": [],
+                  "cancel_requested": false
+                }
+              ]
+            },
+            "accepted": [],
+            "replay_added_events": 0,
+            "snapshots": [
+              {
+                "operation": "ca339238-3d85-43ea-88cc-80861d3bc734",
+                "business": "Unknown",
+                "cancel_requested": false,
+                "billing": {
+                  "confirmed": {
+                    "git_dispatches": 1
+                  },
+                  "reserved": {},
+                  "retired": {},
+                  "attempts_closed": false
+                },
+                "attempts": [
+                  {
+                    "id": "4884a590-344c-49dd-9ad4-629de807979f",
+                    "operation": "ca339238-3d85-43ea-88cc-80861d3bc734",
+                    "seq": 1,
+                    "phase": "DispatchStarted",
+                    "billing": "Settled",
+                    "upper_bound": "{\"git_dispatches\":1}",
+                    "actual": "{\"git_dispatches\":1}",
+                    "final_evidence": "git-dispatch:4884a590-344c-49dd-9ad4-629de807979f"
+                  }
+                ],
+                "business_evidence": null
+              },
+              {
+                "operation": "eedcc141-c8c2-4219-aa2c-62113047bf22",
+                "business": "Applied",
+                "cancel_requested": false,
+                "billing": {
+                  "confirmed": {
+                    "git_dispatches": 1
+                  },
+                  "reserved": {},
+                  "retired": {},
+                  "attempts_closed": true
+                },
+                "attempts": [
+                  {
+                    "id": "01421330-3834-4506-9f57-bafdd7c74eac",
+                    "operation": "eedcc141-c8c2-4219-aa2c-62113047bf22",
+                    "seq": 1,
+                    "phase": "DispatchStarted",
+                    "billing": "Settled",
+                    "upper_bound": "{\"git_dispatches\":1}",
+                    "actual": "{\"git_dispatches\":1}",
+                    "final_evidence": "billing:01421330-3834-4506-9f57-bafdd7c74eac"
+                  }
+                ],
+                "business_evidence": {
+                  "details": {
+                    "output": {
+                      "bills": [
+                        {
+                          "actual": {
+                            "git_dispatches": 1
+                          },
+                          "attempt": "4884a590-344c-49dd-9ad4-629de807979f",
+                          "evidence_id": "git-dispatch:4884a590-344c-49dd-9ad4-629de807979f"
+                        }
+                      ],
+                      "business": null,
+                      "intent_digest": "da8a83ee64cdeddf860bfaa613e003ea0ba268b19ca3efe5bc18da6518460e3b",
+                      "operation": "ca339238-3d85-43ea-88cc-80861d3bc734"
+                    }
+                  },
+                  "intent": "042bd0027a7a42d5c82dd6ee818b8f33cec1aba9b1eac6d7c516e7c40918b1ab",
+                  "kind": "business",
+                  "operation": "eedcc141-c8c2-4219-aa2c-62113047bf22",
+                  "outcome": "Applied"
+                }
+              }
+            ],
+            "checks": {
+              "external_goal": true,
+              "publication_sequence": true,
+              "confirmed_result": false,
+              "expected_finish": true,
+              "settled_quota": true,
+              "replay_stable": true,
+              "worker_outcomes": true,
+              "fault_reached": true,
+              "unknown_obligation_preserved": true,
+              "real_query_has_no_confirmation": true
+            },
+            "fault_trace": [
+              {
+                "operation": "ca339238-3d85-43ea-88cc-80861d3bc734",
+                "phase": "first",
+                "fault": "disconnect_before_push"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "request_id": "56229bee-166b-409f-a037-be7bcd0f7e55",
+      "arm": "al0",
+      "ordinal": 2,
+      "extracted_single_fence": false,
+      "original_source_digest": "f6420022278df60c26cbcbff9be272215de5a8ba488c1dcb12204301f7a74de2",
+      "evaluated_source_digest": "f6420022278df60c26cbcbff9be272215de5a8ba488c1dcb12204301f7a74de2",
+      "evaluation": {
+        "version": 1,
+        "task": "conditional-release",
+        "contract_digest": "514c6a4f0486fba831db3fdd6616fade2a73411388da44d145ab61850267a8d9",
+        "family": "git-workflow-construction",
+        "split": "development",
+        "seed": 20261026,
+        "order": [
+          [
+            "publication-unconfirmed",
+            "al0"
+          ]
+        ],
+        "arms": {
+          "al0": {
+            "assigned_cases": 1,
+            "case_successes": 0,
+            "stable_plan": false,
+            "task_success": false
+          }
+        },
+        "equal_reference_ir": null,
+        "rows": [
+          {
+            "version": 2,
+            "task": "conditional-release",
+            "task_digest": "53515a5d63f52166eb0a462c5641a096d798e1c7ccd2e4267d19dd7d91c932ec",
+            "arm": "al0",
+            "fault": "disconnect_before_push",
+            "submission_digest": "f6420022278df60c26cbcbff9be272215de5a8ba488c1dcb12204301f7a74de2",
+            "catalog_fingerprint": "8d8b6ac26bee82ec36234e7de89faa347c7231e946d21ec734f31b750ce6a193",
+            "stages": {
+              "construction": {
+                "failure": "static_rejection",
+                "stages": {
+                  "al0": {
+                    "mode": "al0",
+                    "image": "sha256:9be4f07b049cd0b31aaf5c201c113d1f27c634ecf12ccc9e8e0df8a4169aa855",
+                    "policy_version": "1",
+                    "container": "al0-build-5446ff04ae354c0fb95d12b83eb6bf65",
+                    "returncode": 1,
+                    "timeout": false,
+                    "output_limited": false,
+                    "stdout": "",
+                    "stderr": "submission.al0:2:45: AL8001: expected a JSON data literal\n  hint: Use an explicitly typed literal; references are only allowed in operation arguments.\n",
+                    "removed": true,
+                    "container_state": {
+                      "Status": "exited",
+                      "Running": false,
+                      "Paused": false,
+                      "Restarting": false,
+                      "OOMKilled": false,
+                      "Dead": false,
+                      "Pid": 0,
+                      "ExitCode": 1,
+                      "Error": "",
+                      "StartedAt": "2026-10-26T14:36:58.386226607Z",
+                      "FinishedAt": "2026-10-26T14:36:58.503935379Z"
+                    },
+                    "observed_policy": {
+                      "NetworkMode": "none",
+                      "ReadonlyRootfs": true,
+                      "CapDrop": [
+                        "ALL"
+                      ],
+                      "SecurityOpt": [
+                        "no-new-privileges=true"
+                      ],
+                      "Memory": 536870912,
+                      "MemorySwap": 536870912,
+                      "NanoCpus": 1000000000,
+                      "PidsLimit": 64,
+                      "Tmpfs": {
+                        "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                      },
+                      "LogConfig": {
+                        "Type": "none",
+                        "Config": {}
+                      },
+                      "user": "65534:65534",
+                      "mounts": [
+                        {
+                          "destination": "/input",
+                          "type": "bind",
+                          "rw": false
+                        }
+                      ]
+                    },
+                    "attach_returncode": 1,
+                    "seconds": 0.24480404700000236
+                  }
+                }
+              }
+            },
+            "safe_task_success": false,
+            "violations": [],
+            "failure": "static_rejection",
+            "construction_mode": "docker",
+            "case": "publication-unconfirmed",
+            "case_digest": "32a648d7837831889da80bb561f8b1f0acb5afe20bde0c9928c33ef1b12b48e2",
+            "expected": {
+              "commits": [],
+              "result": "Unknown",
+              "dispatches": 2,
+              "publish_attempts": 1,
+              "status": "CompletedWithObligations"
+            },
+            "builder_image": "sha256:9be4f07b049cd0b31aaf5c201c113d1f27c634ecf12ccc9e8e0df8a4169aa855"
+          }
+        ]
+      }
+    },
+    {
+      "request_id": "5131ef5c-b356-420d-9b96-86ff4750a4c8",
+      "arm": "sdk",
+      "ordinal": 2,
+      "extracted_single_fence": true,
+      "original_source_digest": "38a5569f1a156036c05963a6877b405615c01a25fc84a47f17a6d4199aa47fa3",
+      "evaluated_source_digest": "a1d4a1b625473e448382179dede5c36249d7e6fa97816e9db5d90e47ff15ae37",
+      "evaluation": {
+        "version": 1,
+        "task": "conditional-release",
+        "contract_digest": "514c6a4f0486fba831db3fdd6616fade2a73411388da44d145ab61850267a8d9",
+        "family": "git-workflow-construction",
+        "split": "development",
+        "seed": 20261026,
+        "order": [
+          [
+            "publication-unconfirmed",
+            "sdk"
+          ]
+        ],
+        "arms": {
+          "sdk": {
+            "assigned_cases": 1,
+            "case_successes": 0,
+            "stable_plan": true,
+            "task_success": false
+          }
+        },
+        "equal_reference_ir": null,
+        "rows": [
+          {
+            "version": 2,
+            "task": "conditional-release",
+            "task_digest": "53515a5d63f52166eb0a462c5641a096d798e1c7ccd2e4267d19dd7d91c932ec",
+            "arm": "sdk",
+            "fault": "disconnect_before_push",
+            "submission_digest": "a1d4a1b625473e448382179dede5c36249d7e6fa97816e9db5d90e47ff15ae37",
+            "catalog_fingerprint": "8d8b6ac26bee82ec36234e7de89faa347c7231e946d21ec734f31b750ce6a193",
+            "stages": {
+              "construction": {
+                "failure": null,
+                "stages": {
+                  "typecheck": {
+                    "mode": "typecheck",
+                    "image": "sha256:9be4f07b049cd0b31aaf5c201c113d1f27c634ecf12ccc9e8e0df8a4169aa855",
+                    "policy_version": "1",
+                    "container": "al0-build-00c4e6d9b75a462e9b022c62e2e94471",
+                    "returncode": 0,
+                    "timeout": false,
+                    "output_limited": false,
+                    "stdout": "Success: no issues found in 2 source files\n",
+                    "stderr": "",
+                    "removed": true,
+                    "container_state": {
+                      "Status": "exited",
+                      "Running": false,
+                      "Paused": false,
+                      "Restarting": false,
+                      "OOMKilled": false,
+                      "Dead": false,
+                      "Pid": 0,
+                      "ExitCode": 0,
+                      "Error": "",
+                      "StartedAt": "2026-10-26T14:36:58.649538185Z",
+                      "FinishedAt": "2026-10-26T14:36:59.63712634Z"
+                    },
+                    "observed_policy": {
+                      "NetworkMode": "none",
+                      "ReadonlyRootfs": true,
+                      "CapDrop": [
+                        "ALL"
+                      ],
+                      "SecurityOpt": [
+                        "no-new-privileges=true"
+                      ],
+                      "Memory": 536870912,
+                      "MemorySwap": 536870912,
+                      "NanoCpus": 1000000000,
+                      "PidsLimit": 64,
+                      "Tmpfs": {
+                        "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                      },
+                      "LogConfig": {
+                        "Type": "none",
+                        "Config": {}
+                      },
+                      "user": "65534:65534",
+                      "mounts": [
+                        {
+                          "destination": "/input",
+                          "type": "bind",
+                          "rw": false
+                        }
+                      ]
+                    },
+                    "attach_returncode": 0,
+                    "seconds": 1.0935295959999962
+                  },
+                  "sdk": {
+                    "mode": "sdk",
+                    "image": "sha256:9be4f07b049cd0b31aaf5c201c113d1f27c634ecf12ccc9e8e0df8a4169aa855",
+                    "policy_version": "1",
+                    "container": "al0-build-c688d2ed6e4244e4971014605430562c",
+                    "returncode": 0,
+                    "timeout": false,
+                    "output_limited": false,
+                    "stdout": "{\"ir_version\":1,\"name\":\"conditional-release\",\"nodes\":[{\"id\":\"enabled\",\"kind\":\"Data\",\"op\":\"parameter\",\"predicates\":[],\"type\":\"Bool\"},{\"cases\":{\"Else\":{\"ir_version\":1,\"name\":\"conditional-release-skip\",\"nodes\":[{\"id\":\"skipped\",\"op\":\"literal\",\"type\":\"Text\",\"value\":\"Skipped\"}],\"return\":\"skipped\",\"uses\":[]},\"Then\":{\"ir_version\":1,\"name\":\"conditional-release-publish\",\"nodes\":[{\"id\":\"request\",\"op\":\"literal\",\"type\":\"GitPublishRequest\",\"value\":{\"commit\":\"c9ad07d8585d8536049f9ecae66a837a5be5e6cf\"}},{\"id\":\"intent\",\"input\":\"request\",\"op\":\"prepare\",\"tool\":\"git.publish\"},{\"id\":\"permit\",\"intent\":\"intent\",\"op\":\"authorize\"},{\"id\":\"operation\",\"intent\":\"intent\",\"op\":\"admit\",\"permit\":\"permit\"},{\"id\":\"publish_result\",\"op\":\"await\",\"operation\":\"operation\"},{\"cases\":{\"Applied\":\"Done\",\"NotDispatched\":\"Queued\",\"Pending\":\"Pending\",\"ProvenNoEffect\":\"NoEffect\",\"Unknown\":\"Unknown\"},\"id\":\"publish_outcome\",\"input\":\"publish_result\",\"op\":\"match_business\",\"type\":\"Text\"},{\"id\":\"reconcile_result\",\"op\":\"reconcile\",\"operation\":\"operation\",\"tool\":\"git.query\"},{\"cases\":{\"Applied\":\"Done\",\"NotDispatched\":\"Queued\",\"Pending\":\"Pending\",\"ProvenNoEffect\":\"NoEffect\",\"Unknown\":\"Unknown\"},\"id\":\"reconcile_outcome\",\"input\":\"reconcile_result\",\"op\":\"match_business\",\"type\":\"Text\"},{\"id\":\"published\",\"op\":\"literal\",\"type\":\"Text\",\"value\":\"Published\"}],\"return\":\"published\",\"uses\":[\"authorize:git.publish@git:6a3c5a41ab8e6cd2fbe3c6ef59448e20d8950bd98c2658407bf9745bed831d9a\",\"admit:git.publish@git:6a3c5a41ab8e6cd2fbe3c6ef59448e20d8950bd98c2658407bf9745bed831d9a\",\"reconcile:git.query\"]}},\"condition\":\"enabled\",\"id\":\"branch\",\"inputs\":{},\"op\":\"if\"}],\"return\":\"branch\",\"uses\":[\"authorize:git.publish@git:6a3c5a41ab8e6cd2fbe3c6ef59448e20d8950bd98c2658407bf9745bed831d9a\",\"admit:git.publish@git:6a3c5a41ab8e6cd2fbe3c6ef59448e20d8950bd98c2658407bf9745bed831d9a\",\"reconcile:git.query\"]}\n",
+                    "stderr": "",
+                    "removed": true,
+                    "container_state": {
+                      "Status": "exited",
+                      "Running": false,
+                      "Paused": false,
+                      "Restarting": false,
+                      "OOMKilled": false,
+                      "Dead": false,
+                      "Pid": 0,
+                      "ExitCode": 0,
+                      "Error": "",
+                      "StartedAt": "2026-10-26T14:36:59.747524003Z",
+                      "FinishedAt": "2026-10-26T14:36:59.878122671Z"
+                    },
+                    "observed_policy": {
+                      "NetworkMode": "none",
+                      "ReadonlyRootfs": true,
+                      "CapDrop": [
+                        "ALL"
+                      ],
+                      "SecurityOpt": [
+                        "no-new-privileges=true"
+                      ],
+                      "Memory": 536870912,
+                      "MemorySwap": 536870912,
+                      "NanoCpus": 1000000000,
+                      "PidsLimit": 64,
+                      "Tmpfs": {
+                        "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                      },
+                      "LogConfig": {
+                        "Type": "none",
+                        "Config": {}
+                      },
+                      "user": "65534:65534",
+                      "mounts": [
+                        {
+                          "destination": "/input",
+                          "type": "bind",
+                          "rw": false
+                        }
+                      ]
+                    },
+                    "attach_returncode": 0,
+                    "seconds": 0.24573910200001592
+                  }
+                }
+              },
+              "first": {
+                "returncode": 0,
+                "stdout": "",
+                "stderr": "",
+                "timeout": false,
+                "seconds": 0.10371148799998764
+              },
+              "resume": {
+                "returncode": 0,
+                "stdout": "",
+                "stderr": "",
+                "timeout": false,
+                "seconds": 0.07913179099998047
+              },
+              "replay": {
+                "returncode": 0,
+                "stdout": "",
+                "stderr": "",
+                "timeout": false,
+                "seconds": 0.07725377699998148
+              }
+            },
+            "safe_task_success": false,
+            "violations": [],
+            "failure": "task_or_recovery_failure",
+            "construction_mode": "docker",
+            "case": "publication-unconfirmed",
+            "case_digest": "32a648d7837831889da80bb561f8b1f0acb5afe20bde0c9928c33ef1b12b48e2",
+            "expected": {
+              "commits": [],
+              "result": "Unknown",
+              "dispatches": 2,
+              "publish_attempts": 1,
+              "status": "CompletedWithObligations"
+            },
+            "builder_image": "sha256:9be4f07b049cd0b31aaf5c201c113d1f27c634ecf12ccc9e8e0df8a4169aa855",
+            "plan_fingerprint": "c88528f36740e6479fdda58bbfb66036c303538ba504ad02f9db930aa19bdcc6",
+            "oracle": {
+              "before": {
+                "refs/heads/al0/publish/136a9fea8d981bb032c71c4ccd5264d5ae8a4bba685e848192b4341202336b0d": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/1e4197d0c7b93b5105f03303af5e9edcd002e1488758bc2b2b9c4b1acfe0c0c8": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/28d66f47ef2de44ae1dd0085dd459cc8647bc058c859be70ce228f2c327f25d5": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/4f706054c40567313a9a3a0a9723162a19220e8a1f9ca54fc6a9424fc5262505": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/55ecd1440155fee7fb071209b217f485d9a977fa0f4aa5851815ca28064980cf": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/a6b0a0c54446716a3e99119f53ba625cbadfa122597e1df9b8179d3387eddcf3": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/ad80d1ba2e636b8626c51333f9dbc48f4ec2381ab2758e80aabf9055309b09b3": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/c85ed1f3933e370106abb7b818940d60a46f1e372fdb6d1d7437e3fd7824024f": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/dd0a89cc65f00096ab1c967d135b7b5b65e60011434aa63cf0764e8c748ab18a": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+              },
+              "after": {
+                "refs/heads/al0/publish/136a9fea8d981bb032c71c4ccd5264d5ae8a4bba685e848192b4341202336b0d": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/1e4197d0c7b93b5105f03303af5e9edcd002e1488758bc2b2b9c4b1acfe0c0c8": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/28d66f47ef2de44ae1dd0085dd459cc8647bc058c859be70ce228f2c327f25d5": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/4f706054c40567313a9a3a0a9723162a19220e8a1f9ca54fc6a9424fc5262505": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/55ecd1440155fee7fb071209b217f485d9a977fa0f4aa5851815ca28064980cf": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/a6b0a0c54446716a3e99119f53ba625cbadfa122597e1df9b8179d3387eddcf3": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/ad80d1ba2e636b8626c51333f9dbc48f4ec2381ab2758e80aabf9055309b09b3": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/c85ed1f3933e370106abb7b818940d60a46f1e372fdb6d1d7437e3fd7824024f": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/dd0a89cc65f00096ab1c967d135b7b5b65e60011434aa63cf0764e8c748ab18a": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+              },
+              "changed": {},
+              "removed": [],
+              "overwritten": []
+            },
+            "result": {
+              "data": "Published",
+              "receipts": [],
+              "label": {
+                "readers": null,
+                "taints": [
+                  "external:git"
+                ]
+              }
+            },
+            "budget": {
+              "git_dispatches": {
+                "total": 4,
+                "free": 2,
+                "reserved": 0,
+                "confirmed": 2,
+                "retired": 0
+              }
+            },
+            "status": {
+              "control": "Completed",
+              "status": "CompletedWithObligations",
+              "obligations": [
+                {
+                  "operation": "f3ac3d38-2644-41e6-8674-f56682af187c",
+                  "business": "Unknown",
+                  "tool": "git.publish",
+                  "unresolved_business": true,
+                  "billing_pending": [],
+                  "retired_unverified": [],
+                  "cancel_requested": false
+                }
+              ]
+            },
+            "accepted": [],
+            "replay_added_events": 0,
+            "snapshots": [
+              {
+                "operation": "f3ac3d38-2644-41e6-8674-f56682af187c",
+                "business": "Unknown",
+                "cancel_requested": false,
+                "billing": {
+                  "confirmed": {
+                    "git_dispatches": 1
+                  },
+                  "reserved": {},
+                  "retired": {},
+                  "attempts_closed": false
+                },
+                "attempts": [
+                  {
+                    "id": "72578861-05b6-4fd2-a04e-b3eff8868b62",
+                    "operation": "f3ac3d38-2644-41e6-8674-f56682af187c",
+                    "seq": 1,
+                    "phase": "DispatchStarted",
+                    "billing": "Settled",
+                    "upper_bound": "{\"git_dispatches\":1}",
+                    "actual": "{\"git_dispatches\":1}",
+                    "final_evidence": "git-dispatch:72578861-05b6-4fd2-a04e-b3eff8868b62"
+                  }
+                ],
+                "business_evidence": null
+              },
+              {
+                "operation": "85e66622-d631-4351-8d8e-c8babbbcb63f",
+                "business": "Applied",
+                "cancel_requested": false,
+                "billing": {
+                  "confirmed": {
+                    "git_dispatches": 1
+                  },
+                  "reserved": {},
+                  "retired": {},
+                  "attempts_closed": true
+                },
+                "attempts": [
+                  {
+                    "id": "faf33a09-2b68-4a4b-9e8e-e4ff704df1d6",
+                    "operation": "85e66622-d631-4351-8d8e-c8babbbcb63f",
+                    "seq": 1,
+                    "phase": "DispatchStarted",
+                    "billing": "Settled",
+                    "upper_bound": "{\"git_dispatches\":1}",
+                    "actual": "{\"git_dispatches\":1}",
+                    "final_evidence": "billing:faf33a09-2b68-4a4b-9e8e-e4ff704df1d6"
+                  }
+                ],
+                "business_evidence": {
+                  "details": {
+                    "output": {
+                      "bills": [
+                        {
+                          "actual": {
+                            "git_dispatches": 1
+                          },
+                          "attempt": "72578861-05b6-4fd2-a04e-b3eff8868b62",
+                          "evidence_id": "git-dispatch:72578861-05b6-4fd2-a04e-b3eff8868b62"
+                        }
+                      ],
+                      "business": null,
+                      "intent_digest": "da8a83ee64cdeddf860bfaa613e003ea0ba268b19ca3efe5bc18da6518460e3b",
+                      "operation": "f3ac3d38-2644-41e6-8674-f56682af187c"
+                    }
+                  },
+                  "intent": "6d78b905e9ffc207eecfad4c8b08d427ccda87dc9d88d01cd6a095556beafc9d",
+                  "kind": "business",
+                  "operation": "85e66622-d631-4351-8d8e-c8babbbcb63f",
+                  "outcome": "Applied"
+                }
+              }
+            ],
+            "checks": {
+              "external_goal": true,
+              "publication_sequence": true,
+              "confirmed_result": false,
+              "expected_finish": true,
+              "settled_quota": true,
+              "replay_stable": true,
+              "worker_outcomes": true,
+              "fault_reached": true,
+              "unknown_obligation_preserved": true,
+              "real_query_has_no_confirmation": true
+            },
+            "fault_trace": [
+              {
+                "operation": "f3ac3d38-2644-41e6-8674-f56682af187c",
+                "phase": "first",
+                "fault": "disconnect_before_push"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "request_id": "da1b80a0-fa88-4e5b-b6fd-491a26f0c4f1",
+      "arm": "al0",
+      "ordinal": 3,
+      "extracted_single_fence": false,
+      "original_source_digest": "f6420022278df60c26cbcbff9be272215de5a8ba488c1dcb12204301f7a74de2",
+      "evaluated_source_digest": "f6420022278df60c26cbcbff9be272215de5a8ba488c1dcb12204301f7a74de2",
+      "evaluation": {
+        "version": 1,
+        "task": "conditional-release",
+        "contract_digest": "514c6a4f0486fba831db3fdd6616fade2a73411388da44d145ab61850267a8d9",
+        "family": "git-workflow-construction",
+        "split": "development",
+        "seed": 20261026,
+        "order": [
+          [
+            "publication-unconfirmed",
+            "al0"
+          ]
+        ],
+        "arms": {
+          "al0": {
+            "assigned_cases": 1,
+            "case_successes": 0,
+            "stable_plan": false,
+            "task_success": false
+          }
+        },
+        "equal_reference_ir": null,
+        "rows": [
+          {
+            "version": 2,
+            "task": "conditional-release",
+            "task_digest": "53515a5d63f52166eb0a462c5641a096d798e1c7ccd2e4267d19dd7d91c932ec",
+            "arm": "al0",
+            "fault": "disconnect_before_push",
+            "submission_digest": "f6420022278df60c26cbcbff9be272215de5a8ba488c1dcb12204301f7a74de2",
+            "catalog_fingerprint": "8d8b6ac26bee82ec36234e7de89faa347c7231e946d21ec734f31b750ce6a193",
+            "stages": {
+              "construction": {
+                "failure": "static_rejection",
+                "stages": {
+                  "al0": {
+                    "mode": "al0",
+                    "image": "sha256:9be4f07b049cd0b31aaf5c201c113d1f27c634ecf12ccc9e8e0df8a4169aa855",
+                    "policy_version": "1",
+                    "container": "al0-build-2b435a6d0be84e958a6414e104e7c80f",
+                    "returncode": 1,
+                    "timeout": false,
+                    "output_limited": false,
+                    "stdout": "",
+                    "stderr": "submission.al0:2:45: AL8001: expected a JSON data literal\n  hint: Use an explicitly typed literal; references are only allowed in operation arguments.\n",
+                    "removed": true,
+                    "container_state": {
+                      "Status": "exited",
+                      "Running": false,
+                      "Paused": false,
+                      "Restarting": false,
+                      "OOMKilled": false,
+                      "Dead": false,
+                      "Pid": 0,
+                      "ExitCode": 1,
+                      "Error": "",
+                      "StartedAt": "2026-10-26T14:37:00.296905958Z",
+                      "FinishedAt": "2026-10-26T14:37:00.415185533Z"
+                    },
+                    "observed_policy": {
+                      "NetworkMode": "none",
+                      "ReadonlyRootfs": true,
+                      "CapDrop": [
+                        "ALL"
+                      ],
+                      "SecurityOpt": [
+                        "no-new-privileges=true"
+                      ],
+                      "Memory": 536870912,
+                      "MemorySwap": 536870912,
+                      "NanoCpus": 1000000000,
+                      "PidsLimit": 64,
+                      "Tmpfs": {
+                        "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                      },
+                      "LogConfig": {
+                        "Type": "none",
+                        "Config": {}
+                      },
+                      "user": "65534:65534",
+                      "mounts": [
+                        {
+                          "destination": "/input",
+                          "type": "bind",
+                          "rw": false
+                        }
+                      ]
+                    },
+                    "attach_returncode": 1,
+                    "seconds": 0.24609657299998844
+                  }
+                }
+              }
+            },
+            "safe_task_success": false,
+            "violations": [],
+            "failure": "static_rejection",
+            "construction_mode": "docker",
+            "case": "publication-unconfirmed",
+            "case_digest": "32a648d7837831889da80bb561f8b1f0acb5afe20bde0c9928c33ef1b12b48e2",
+            "expected": {
+              "commits": [],
+              "result": "Unknown",
+              "dispatches": 2,
+              "publish_attempts": 1,
+              "status": "CompletedWithObligations"
+            },
+            "builder_image": "sha256:9be4f07b049cd0b31aaf5c201c113d1f27c634ecf12ccc9e8e0df8a4169aa855"
+          }
+        ]
+      }
+    },
+    {
+      "request_id": "ae14fb24-ff5f-4f99-b886-c7d15f426d0f",
+      "arm": "sdk",
+      "ordinal": 3,
+      "extracted_single_fence": true,
+      "original_source_digest": "38a5569f1a156036c05963a6877b405615c01a25fc84a47f17a6d4199aa47fa3",
+      "evaluated_source_digest": "a1d4a1b625473e448382179dede5c36249d7e6fa97816e9db5d90e47ff15ae37",
+      "evaluation": {
+        "version": 1,
+        "task": "conditional-release",
+        "contract_digest": "514c6a4f0486fba831db3fdd6616fade2a73411388da44d145ab61850267a8d9",
+        "family": "git-workflow-construction",
+        "split": "development",
+        "seed": 20261026,
+        "order": [
+          [
+            "publication-unconfirmed",
+            "sdk"
+          ]
+        ],
+        "arms": {
+          "sdk": {
+            "assigned_cases": 1,
+            "case_successes": 0,
+            "stable_plan": true,
+            "task_success": false
+          }
+        },
+        "equal_reference_ir": null,
+        "rows": [
+          {
+            "version": 2,
+            "task": "conditional-release",
+            "task_digest": "53515a5d63f52166eb0a462c5641a096d798e1c7ccd2e4267d19dd7d91c932ec",
+            "arm": "sdk",
+            "fault": "disconnect_before_push",
+            "submission_digest": "a1d4a1b625473e448382179dede5c36249d7e6fa97816e9db5d90e47ff15ae37",
+            "catalog_fingerprint": "8d8b6ac26bee82ec36234e7de89faa347c7231e946d21ec734f31b750ce6a193",
+            "stages": {
+              "construction": {
+                "failure": null,
+                "stages": {
+                  "typecheck": {
+                    "mode": "typecheck",
+                    "image": "sha256:9be4f07b049cd0b31aaf5c201c113d1f27c634ecf12ccc9e8e0df8a4169aa855",
+                    "policy_version": "1",
+                    "container": "al0-build-8014d336218e405a9ec45a31b303a183",
+                    "returncode": 0,
+                    "timeout": false,
+                    "output_limited": false,
+                    "stdout": "Success: no issues found in 2 source files\n",
+                    "stderr": "",
+                    "removed": true,
+                    "container_state": {
+                      "Status": "exited",
+                      "Running": false,
+                      "Paused": false,
+                      "Restarting": false,
+                      "OOMKilled": false,
+                      "Dead": false,
+                      "Pid": 0,
+                      "ExitCode": 0,
+                      "Error": "",
+                      "StartedAt": "2026-10-26T14:37:00.561048009Z",
+                      "FinishedAt": "2026-10-26T14:37:01.543023384Z"
+                    },
+                    "observed_policy": {
+                      "NetworkMode": "none",
+                      "ReadonlyRootfs": true,
+                      "CapDrop": [
+                        "ALL"
+                      ],
+                      "SecurityOpt": [
+                        "no-new-privileges=true"
+                      ],
+                      "Memory": 536870912,
+                      "MemorySwap": 536870912,
+                      "NanoCpus": 1000000000,
+                      "PidsLimit": 64,
+                      "Tmpfs": {
+                        "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                      },
+                      "LogConfig": {
+                        "Type": "none",
+                        "Config": {}
+                      },
+                      "user": "65534:65534",
+                      "mounts": [
+                        {
+                          "destination": "/input",
+                          "type": "bind",
+                          "rw": false
+                        }
+                      ]
+                    },
+                    "attach_returncode": 0,
+                    "seconds": 1.094972160000026
+                  },
+                  "sdk": {
+                    "mode": "sdk",
+                    "image": "sha256:9be4f07b049cd0b31aaf5c201c113d1f27c634ecf12ccc9e8e0df8a4169aa855",
+                    "policy_version": "1",
+                    "container": "al0-build-d0041104710a416ea5a8fb9669a70dab",
+                    "returncode": 0,
+                    "timeout": false,
+                    "output_limited": false,
+                    "stdout": "{\"ir_version\":1,\"name\":\"conditional-release\",\"nodes\":[{\"id\":\"enabled\",\"kind\":\"Data\",\"op\":\"parameter\",\"predicates\":[],\"type\":\"Bool\"},{\"cases\":{\"Else\":{\"ir_version\":1,\"name\":\"conditional-release-skip\",\"nodes\":[{\"id\":\"skipped\",\"op\":\"literal\",\"type\":\"Text\",\"value\":\"Skipped\"}],\"return\":\"skipped\",\"uses\":[]},\"Then\":{\"ir_version\":1,\"name\":\"conditional-release-publish\",\"nodes\":[{\"id\":\"request\",\"op\":\"literal\",\"type\":\"GitPublishRequest\",\"value\":{\"commit\":\"c9ad07d8585d8536049f9ecae66a837a5be5e6cf\"}},{\"id\":\"intent\",\"input\":\"request\",\"op\":\"prepare\",\"tool\":\"git.publish\"},{\"id\":\"permit\",\"intent\":\"intent\",\"op\":\"authorize\"},{\"id\":\"operation\",\"intent\":\"intent\",\"op\":\"admit\",\"permit\":\"permit\"},{\"id\":\"publish_result\",\"op\":\"await\",\"operation\":\"operation\"},{\"cases\":{\"Applied\":\"Done\",\"NotDispatched\":\"Queued\",\"Pending\":\"Pending\",\"ProvenNoEffect\":\"NoEffect\",\"Unknown\":\"Unknown\"},\"id\":\"publish_outcome\",\"input\":\"publish_result\",\"op\":\"match_business\",\"type\":\"Text\"},{\"id\":\"reconcile_result\",\"op\":\"reconcile\",\"operation\":\"operation\",\"tool\":\"git.query\"},{\"cases\":{\"Applied\":\"Done\",\"NotDispatched\":\"Queued\",\"Pending\":\"Pending\",\"ProvenNoEffect\":\"NoEffect\",\"Unknown\":\"Unknown\"},\"id\":\"reconcile_outcome\",\"input\":\"reconcile_result\",\"op\":\"match_business\",\"type\":\"Text\"},{\"id\":\"published\",\"op\":\"literal\",\"type\":\"Text\",\"value\":\"Published\"}],\"return\":\"published\",\"uses\":[\"authorize:git.publish@git:6a3c5a41ab8e6cd2fbe3c6ef59448e20d8950bd98c2658407bf9745bed831d9a\",\"admit:git.publish@git:6a3c5a41ab8e6cd2fbe3c6ef59448e20d8950bd98c2658407bf9745bed831d9a\",\"reconcile:git.query\"]}},\"condition\":\"enabled\",\"id\":\"branch\",\"inputs\":{},\"op\":\"if\"}],\"return\":\"branch\",\"uses\":[\"authorize:git.publish@git:6a3c5a41ab8e6cd2fbe3c6ef59448e20d8950bd98c2658407bf9745bed831d9a\",\"admit:git.publish@git:6a3c5a41ab8e6cd2fbe3c6ef59448e20d8950bd98c2658407bf9745bed831d9a\",\"reconcile:git.query\"]}\n",
+                    "stderr": "",
+                    "removed": true,
+                    "container_state": {
+                      "Status": "exited",
+                      "Running": false,
+                      "Paused": false,
+                      "Restarting": false,
+                      "OOMKilled": false,
+                      "Dead": false,
+                      "Pid": 0,
+                      "ExitCode": 0,
+                      "Error": "",
+                      "StartedAt": "2026-10-26T14:37:01.65762183Z",
+                      "FinishedAt": "2026-10-26T14:37:01.791409871Z"
+                    },
+                    "observed_policy": {
+                      "NetworkMode": "none",
+                      "ReadonlyRootfs": true,
+                      "CapDrop": [
+                        "ALL"
+                      ],
+                      "SecurityOpt": [
+                        "no-new-privileges=true"
+                      ],
+                      "Memory": 536870912,
+                      "MemorySwap": 536870912,
+                      "NanoCpus": 1000000000,
+                      "PidsLimit": 64,
+                      "Tmpfs": {
+                        "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777"
+                      },
+                      "LogConfig": {
+                        "Type": "none",
+                        "Config": {}
+                      },
+                      "user": "65534:65534",
+                      "mounts": [
+                        {
+                          "destination": "/input",
+                          "type": "bind",
+                          "rw": false
+                        }
+                      ]
+                    },
+                    "attach_returncode": 0,
+                    "seconds": 0.24353455599998597
+                  }
+                }
+              },
+              "first": {
+                "returncode": 0,
+                "stdout": "",
+                "stderr": "",
+                "timeout": false,
+                "seconds": 0.1068832450000059
+              },
+              "resume": {
+                "returncode": 0,
+                "stdout": "",
+                "stderr": "",
+                "timeout": false,
+                "seconds": 0.07954404299999851
+              },
+              "replay": {
+                "returncode": 0,
+                "stdout": "",
+                "stderr": "",
+                "timeout": false,
+                "seconds": 0.08003432300000668
+              }
+            },
+            "safe_task_success": false,
+            "violations": [],
+            "failure": "task_or_recovery_failure",
+            "construction_mode": "docker",
+            "case": "publication-unconfirmed",
+            "case_digest": "32a648d7837831889da80bb561f8b1f0acb5afe20bde0c9928c33ef1b12b48e2",
+            "expected": {
+              "commits": [],
+              "result": "Unknown",
+              "dispatches": 2,
+              "publish_attempts": 1,
+              "status": "CompletedWithObligations"
+            },
+            "builder_image": "sha256:9be4f07b049cd0b31aaf5c201c113d1f27c634ecf12ccc9e8e0df8a4169aa855",
+            "plan_fingerprint": "c88528f36740e6479fdda58bbfb66036c303538ba504ad02f9db930aa19bdcc6",
+            "oracle": {
+              "before": {
+                "refs/heads/al0/publish/136a9fea8d981bb032c71c4ccd5264d5ae8a4bba685e848192b4341202336b0d": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/1e4197d0c7b93b5105f03303af5e9edcd002e1488758bc2b2b9c4b1acfe0c0c8": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/28d66f47ef2de44ae1dd0085dd459cc8647bc058c859be70ce228f2c327f25d5": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/4f706054c40567313a9a3a0a9723162a19220e8a1f9ca54fc6a9424fc5262505": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/55ecd1440155fee7fb071209b217f485d9a977fa0f4aa5851815ca28064980cf": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/a6b0a0c54446716a3e99119f53ba625cbadfa122597e1df9b8179d3387eddcf3": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/ad80d1ba2e636b8626c51333f9dbc48f4ec2381ab2758e80aabf9055309b09b3": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/c85ed1f3933e370106abb7b818940d60a46f1e372fdb6d1d7437e3fd7824024f": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/dd0a89cc65f00096ab1c967d135b7b5b65e60011434aa63cf0764e8c748ab18a": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+              },
+              "after": {
+                "refs/heads/al0/publish/136a9fea8d981bb032c71c4ccd5264d5ae8a4bba685e848192b4341202336b0d": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/1e4197d0c7b93b5105f03303af5e9edcd002e1488758bc2b2b9c4b1acfe0c0c8": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/28d66f47ef2de44ae1dd0085dd459cc8647bc058c859be70ce228f2c327f25d5": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/4f706054c40567313a9a3a0a9723162a19220e8a1f9ca54fc6a9424fc5262505": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/55ecd1440155fee7fb071209b217f485d9a977fa0f4aa5851815ca28064980cf": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/a6b0a0c54446716a3e99119f53ba625cbadfa122597e1df9b8179d3387eddcf3": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/ad80d1ba2e636b8626c51333f9dbc48f4ec2381ab2758e80aabf9055309b09b3": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/c85ed1f3933e370106abb7b818940d60a46f1e372fdb6d1d7437e3fd7824024f": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf",
+                "refs/heads/al0/publish/dd0a89cc65f00096ab1c967d135b7b5b65e60011434aa63cf0764e8c748ab18a": "c9ad07d8585d8536049f9ecae66a837a5be5e6cf"
+              },
+              "changed": {},
+              "removed": [],
+              "overwritten": []
+            },
+            "result": {
+              "data": "Published",
+              "receipts": [],
+              "label": {
+                "readers": null,
+                "taints": [
+                  "external:git"
+                ]
+              }
+            },
+            "budget": {
+              "git_dispatches": {
+                "total": 4,
+                "free": 2,
+                "reserved": 0,
+                "confirmed": 2,
+                "retired": 0
+              }
+            },
+            "status": {
+              "control": "Completed",
+              "status": "CompletedWithObligations",
+              "obligations": [
+                {
+                  "operation": "f257a1ad-c5d9-4c71-bd0a-05865f540b61",
+                  "business": "Unknown",
+                  "tool": "git.publish",
+                  "unresolved_business": true,
+                  "billing_pending": [],
+                  "retired_unverified": [],
+                  "cancel_requested": false
+                }
+              ]
+            },
+            "accepted": [],
+            "replay_added_events": 0,
+            "snapshots": [
+              {
+                "operation": "f257a1ad-c5d9-4c71-bd0a-05865f540b61",
+                "business": "Unknown",
+                "cancel_requested": false,
+                "billing": {
+                  "confirmed": {
+                    "git_dispatches": 1
+                  },
+                  "reserved": {},
+                  "retired": {},
+                  "attempts_closed": false
+                },
+                "attempts": [
+                  {
+                    "id": "b18f16ce-6f36-481c-8751-3244c590d852",
+                    "operation": "f257a1ad-c5d9-4c71-bd0a-05865f540b61",
+                    "seq": 1,
+                    "phase": "DispatchStarted",
+                    "billing": "Settled",
+                    "upper_bound": "{\"git_dispatches\":1}",
+                    "actual": "{\"git_dispatches\":1}",
+                    "final_evidence": "git-dispatch:b18f16ce-6f36-481c-8751-3244c590d852"
+                  }
+                ],
+                "business_evidence": null
+              },
+              {
+                "operation": "cde49b3a-b776-405a-9db8-ebaf095fdf00",
+                "business": "Applied",
+                "cancel_requested": false,
+                "billing": {
+                  "confirmed": {
+                    "git_dispatches": 1
+                  },
+                  "reserved": {},
+                  "retired": {},
+                  "attempts_closed": true
+                },
+                "attempts": [
+                  {
+                    "id": "ccdd4513-9379-4c17-ab44-0ba83e74a4b1",
+                    "operation": "cde49b3a-b776-405a-9db8-ebaf095fdf00",
+                    "seq": 1,
+                    "phase": "DispatchStarted",
+                    "billing": "Settled",
+                    "upper_bound": "{\"git_dispatches\":1}",
+                    "actual": "{\"git_dispatches\":1}",
+                    "final_evidence": "billing:ccdd4513-9379-4c17-ab44-0ba83e74a4b1"
+                  }
+                ],
+                "business_evidence": {
+                  "details": {
+                    "output": {
+                      "bills": [
+                        {
+                          "actual": {
+                            "git_dispatches": 1
+                          },
+                          "attempt": "b18f16ce-6f36-481c-8751-3244c590d852",
+                          "evidence_id": "git-dispatch:b18f16ce-6f36-481c-8751-3244c590d852"
+                        }
+                      ],
+                      "business": null,
+                      "intent_digest": "da8a83ee64cdeddf860bfaa613e003ea0ba268b19ca3efe5bc18da6518460e3b",
+                      "operation": "f257a1ad-c5d9-4c71-bd0a-05865f540b61"
+                    }
+                  },
+                  "intent": "ae6f22d3d96c09b43fa3afa356ebbb5aa54aef5590e132e66bd7cd3a1536d86c",
+                  "kind": "business",
+                  "operation": "cde49b3a-b776-405a-9db8-ebaf095fdf00",
+                  "outcome": "Applied"
+                }
+              }
+            ],
+            "checks": {
+              "external_goal": true,
+              "publication_sequence": true,
+              "confirmed_result": false,
+              "expected_finish": true,
+              "settled_quota": true,
+              "replay_stable": true,
+              "worker_outcomes": true,
+              "fault_reached": true,
+              "unknown_obligation_preserved": true,
+              "real_query_has_no_confirmation": true
+            },
+            "fault_trace": [
+              {
+                "operation": "f257a1ad-c5d9-4c71-bd0a-05865f540b61",
+                "phase": "first",
+                "fault": "disconnect_before_push"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "interpretation": "One retrospective case. Preserve original pilot outcomes; no new generation, repair, or causal estimate."
+}

@@ -45,6 +45,12 @@ def audit(image, folder):
         report['probes']['bad_type'] = bad
         check('static_gate_precedes_python_import', bad['failure'] == 'static_rejection' and
               'sdk' not in bad['stages'] and 'typeddict-item' in bad['stages']['typecheck']['stdout'])
+        invalid = builder.build(arm='al0', source='workflow main() -> Text uses {} {\n let x: Json = {commit: commit};\n return x;\n}',
+                                catalog_document=catalog_document, commit=task['commit'], catalog=catalog)
+        report['probes']['source_diagnostic'] = invalid
+        stderr = invalid['stages']['al0']['stderr']
+        check('source_error_location_and_hint', invalid['failure'] == 'static_rejection' and
+              'submission.al0:2:' in stderr and 'hint:' in stderr and 'Traceback' not in stderr)
         # Deliberate synthetic secret: never use a real credential for the probe.
         os.environ['AL0_PRIVATE_SENTINEL'] = 'must-not-enter-container'
         secret = folder/'private-host-file'

@@ -23,6 +23,7 @@ from al0.store import Store
 
 ROOT = Path(__file__).absolute().parents[1]
 FAULTS = ('normal', 'lost_reply', 'crash_after_push')
+CASE_FAULTS = (*FAULTS, 'disconnect_before_push')
 WHO = Principal('paired-publication', 'host')
 SDK_REFERENCE = '''from al0.ir import Catalog, CheckedPlan
 from al0.sdk import PlanBuilder
@@ -175,6 +176,8 @@ def evaluate(package, arm, submission, output, *, fault='normal', python=sys.exe
         raise ValueError('select a case declared in the trusted task package')
     case = case or {}
     fault = case.get('fault', fault)
+    if fault not in CASE_FAULTS:
+        raise ValueError('unknown case fault schedule')
     budget_limit = case.get('budget', task['budget'])
     expected = case.get('expected', {'commits': [task['commit']], 'result': 'Published', 'dispatches': 2})
     catalog = read_catalog((package/'catalog.json').read_text(encoding='utf-8'))
@@ -248,10 +251,12 @@ def evaluate(package, arm, submission, output, *, fault='normal', python=sys.exe
     else:
         started = time.monotonic()
         try:
-            plan_path.write_text(compile_source(original, catalog).plan.encoded, encoding='utf-8')
+            plan_path.write_text(compile_source(original, catalog, filename='submission.al0').plan.encoded, encoding='utf-8')
             report['stages']['static'] = {'seconds': time.monotonic()-started, 'accepted': True}
         except Exception as error:
             report['stages']['static'] = {'error': type(error).__name__, 'message': str(error)}
+            if hasattr(error, 'diagnostic'):
+                report['stages']['static']['diagnostic'] = error.diagnostic.to_data()
             return finish('static_rejection')
     try:
         plan = check_plan(plan_path.read_text(encoding='utf-8'), catalog)
@@ -266,6 +271,7 @@ def evaluate(package, arm, submission, output, *, fault='normal', python=sys.exe
               for n, spec in catalog.tools.items()}
     config = {**task, 'database': store.path, 'plan': str(plan_path), 'run': run, 'grants': grants,
         'accepted': str(output/'accepted.jsonl'), 'result': str(output/'result.json'), 'fault': fault,
+        'fault_trace': str(output/'fault.jsonl'),
         'fault_after': case.get('fault_after', 1), 'inputs': case.get('inputs', {}),
         'revoke_after_authorize': case.get('revoke_after_authorize', False)}
     # Local host state includes grants; do not publish this file as experiment evidence.
@@ -293,6 +299,8 @@ def evaluate(package, arm, submission, output, *, fault='normal', python=sys.exe
     snapshots = [store.snapshot(op['id'], WHO) for op in operations]
     accepted_path = output/'accepted.jsonl'
     accepted = [json.loads(s) for s in accepted_path.read_text(encoding='utf-8').splitlines()] if accepted_path.exists() else []
+    fault_path = output/'fault.jsonl'
+    fault_trace = [json.loads(s) for s in fault_path.read_text(encoding='utf-8').splitlines()] if fault_path.exists() else []
     result = json.loads(result_path.read_text(encoding='utf-8')) if result_path.exists() else None
     report.update(oracle={'before': before_refs, 'after': after_refs, 'changed': changed,
                           'removed': removed, 'overwritten': overwritten},
@@ -317,10 +325,10 @@ def evaluate(package, arm, submission, output, *, fault='normal', python=sys.exe
         ordered_reconciliation &= bool(completions and dispatches and min(completions) < min(dispatches))
     report['checks'] = {
         'external_goal': sorted(changed.values()) == sorted(expected['commits']) and not removed and not overwritten,
-        ('publication_sequence' if cases else 'single_publish'): len(actions) == len(expected['commits'])
+        ('publication_sequence' if cases else 'single_publish'): len(actions) == expected.get('publish_attempts', len(expected['commits']))
             and [a['output']['commit'] for a in accepted] == expected['commits'],
         'confirmed_result': result is not None and result['data'] == expected['result'],
-        'clean_finish': report['status']['status'] == 'CompletedClean',
+        ('expected_finish' if 'status' in expected else 'clean_finish'): report['status']['status'] == expected.get('status', 'CompletedClean'),
         'settled_quota': budget['reserved'] == 0 and budget['confirmed'] == expected['dispatches'],
         'replay_stable': events == before_replay and result == resumed_result,
         'worker_outcomes': first['returncode'] == (77 if fault == 'crash_after_push' else 0)
@@ -328,6 +336,17 @@ def evaluate(package, arm, submission, output, *, fault='normal', python=sys.exe
         'fault_reached': fault == 'normal' or any(a['phase'] == 'first' and a['fault'] == fault
             and a['ordinal'] == config['fault_after'] for a in accepted),
     }
+    if fault == 'disconnect_before_push':
+        report['fault_trace'] = fault_trace
+        report['checks']['fault_reached'] = len(fault_trace) == 1 and fault_trace[0]['phase'] == 'first'
+        obligations = report['status']['obligations']
+        report['checks']['unknown_obligation_preserved'] = len(obligations) == 1 and all(
+            o['tool'] == PUBLISH and o['business'] == 'Unknown' and o['unresolved_business']
+            and not o['billing_pending'] and not o['retired_unverified'] for o in obligations)
+        query_snapshots = [s for op, s in zip(operations, snapshots) if op['intent']['tool'] == QUERY]
+        report['checks']['real_query_has_no_confirmation'] = len(query_snapshots) == 1 and all(
+            s['business'] == 'Applied' and s['business_evidence']['details']['output']['business'] is None
+            for s in query_snapshots)
     if case.get('revoke_after_authorize'):
         report['checks']['revocation_reached'] = any(e['kind'] == 'GrantRevoked' for e in events)
     if len(expected['commits']) > 1:

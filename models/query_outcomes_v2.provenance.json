@@ -1,0 +1,14 @@
+{
+  "kind": "host_retrieved_ci_artifact",
+  "repository": "StephCpa/AgentLanguage",
+  "code_commit": "e91d37222eaf919ea398cafd8b1f439e6eb76fd8",
+  "run_id": 40341000369,
+  "job_id": 121635341914,
+  "artifact_id": 12658599095,
+  "artifact_name": "isolated-plan-construction",
+  "member": "query_outcomes_ci.json",
+  "saved_as": "models/query_outcomes_v2.json",
+  "model_calls_added": 0,
+  "source_bundle": "experiments/deepseek_pilot_v1/captured.json",
+  "interpretation": "Post-hoc coverage probe of the six saved outputs. Original pilot task and scores remain unchanged."
+}

@@ -7,6 +7,7 @@ from al0.data import digest
 from scripts.development_tasks import prepare_suite, evaluate_submissions
 from scripts.generation_journal import pointer, encoded
 from scripts.git_pair_evaluation import dump, git, ROOT
+from scripts.evaluation_contract import require_valid_evaluations, checkout_provenance
 
 
 def extract_single_fence(source):
@@ -54,7 +55,9 @@ def score(bundle_path, output, fixture_root, builder_image):
               # its canonical text, not the language's integer-only data domain.
               'bundle_digest': digest(encoded(bundle)), 'code_commit': git('-C', ROOT, 'rev-parse', 'HEAD'), 'trials': trials,
               'sensitivity': {'kind': 'posthoc_symmetric_single_fence_extraction', 'trials': sensitivity}}
+    report.update(checkout_provenance(report['code_commit']))
     dump(output/'summary.json', report)
+    require_valid_evaluations([t['evaluation'] for t in trials+sensitivity])
     # A model's failed task is a valid measured outcome, not broken CI. Invalid
     # fixture/host execution raises above and fails the CI step separately.
     return report

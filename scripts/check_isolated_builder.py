@@ -41,6 +41,9 @@ def audit(image, folder):
         report['paired'] = paired
         check('both_fronts_real_git_recovery', paired['successes'] == 6 and
               all(p['equal_ir'] for p in paired['pairs']))
+        from scripts.check_teaching_materials import check as check_teaching
+        report['teaching'] = check_teaching(folder/'teaching', builder_image=builder.image)
+        check('prospective_teaching_examples_compile_to_equal_ir', report['teaching']['equal_ir'])
         bad = build(source.replace("{'commit': commit}", "{'commit': 7}"))
         report['probes']['bad_type'] = bad
         check('static_gate_precedes_python_import', bad['failure'] == 'static_rejection' and
@@ -111,6 +114,13 @@ def audit(image, folder):
         report['probes']['timeout_with_child'] = hanging
         check('deadline_removes_container_and_descendants', hanging['failure'] == 'construction_limit' and
               hanging['stages']['sdk']['timeout'] and hanging['stages']['sdk']['removed'])
+        exhausted = build(source.replace('    b = PlanBuilder', '''    blocks: list[bytearray] = []
+    while True:
+        blocks.append(bytearray(8*1024*1024))
+    b = PlanBuilder'''), limited)
+        report['probes']['memory_limit'] = exhausted
+        check('oom_is_resource_limit_and_container_removed', exhausted['failure'] == 'construction_limit' and
+              exhausted['stages']['sdk']['container_state']['OOMKilled'] and exhausted['stages']['sdk']['removed'])
         before = refs(task)
         unavailable = evaluate(package, 'sdk', package/'reference.py', folder/'unavailable',
                                builder_image='al0-absent-builder:never-pull')

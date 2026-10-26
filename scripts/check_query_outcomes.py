@@ -9,6 +9,7 @@ from scripts.development_tasks import evaluate_submissions
 from scripts.generation_journal import encoded, pointer
 from scripts.git_pair_evaluation import ROOT, dump, git
 from scripts.score_deepseek_pilot import extract_single_fence
+from scripts.evaluation_contract import require_valid_evaluations, checkout_provenance
 
 
 EXTENSION = ROOT/'experiments/query_outcomes_v2.json'
@@ -61,10 +62,6 @@ def check(bundle_path, package, output, builder_image):
         candidate.write_bytes(source.encode('utf-8'))
         evaluation = evaluate_submissions(extended, {request['arm']: candidate}, output/str(index),
                                           builder_image=builder_image)
-        # Model failures are measured results; infrastructure errors are not.
-        if any(str(r['failure']).startswith('infrastructure:') or r['failure'] == 'static_tool_failure'
-               for r in evaluation['rows']):
-            raise RuntimeError('retrospective probe infrastructure failed')
         trials.append({'request_id': request['id'], 'arm': request['arm'], 'ordinal': request['ordinal'],
                        'extracted_single_fence': changed, 'original_source_digest': digest(original),
                        'evaluated_source_digest': digest(source), 'evaluation': evaluation})
@@ -73,7 +70,9 @@ def check(bundle_path, package, output, builder_image):
               'base_contract_digest': task['base_contract_digest'], 'contract_digest': task['contract_digest'],
               'format_policy': 'symmetric_single_fence_extraction_only', 'references': references, 'trials': trials,
               'interpretation': 'One retrospective case. Preserve original pilot outcomes; no new generation, repair, or causal estimate.'}
+    report.update(checkout_provenance(report['code_commit']))
     dump(output/'summary.json', report)
+    require_valid_evaluations([references]+[t['evaluation'] for t in trials])
     return report
 
 

@@ -135,15 +135,23 @@ class GitPublisher:
         ref = self.reference(request['operation'], target.digest)
         result = self._command(['ls-remote', '--refs', '--exit-code', '--', self.remote, ref])
         rows = [line.split('\t') for line in result.stdout.splitlines()]
-        if result.returncode == 2 and not rows:
+        if result.returncode not in (0, 2):
+            raise ConnectionError('Git reference query has no confirmed response')
+        if (any(len(row) != 2 or not OID.fullmatch(row[0]) or set(row[0]) == {'0'}
+                or not row[1].startswith('refs/') or any(c.isspace() or ord(c) < 32 for c in row[1])
+                for row in rows) or len({row[1] for row in rows}) != len(rows)
+                or result.returncode == 2 and rows):
+            raise EvidenceMismatch('Git reference query returned malformed or duplicate records')
+        # ls-remote arguments are tail patterns, even for a full ref name.
+        # A refs/original/<ref> backup is not evidence about the exact target.
+        exact = [row for row in rows if row[1] == ref]
+        if not exact:
             business = None
-        elif result.returncode == 0 and rows == [[commit, ref]]:
+        elif exact == [[commit, ref]]:
             business = {'evidence_id': 'git-ref:' + digest([ref, commit]), 'outcome': 'Applied',
                         'details': {'output': {'ref': ref, 'commit': commit}}}
-        elif result.returncode == 0:
-            raise EvidenceMismatch('Git operation reference violates its immutable binding')
         else:
-            raise ConnectionError('Git reference query has no confirmed response')
+            raise EvidenceMismatch('Git operation reference violates its immutable binding')
         # This is a deterministic host quota: one unit per durable dispatch
         # right, including crash/timeout. It is not a remote billing observation.
         bills = [{'attempt': a['id'], 'evidence_id': 'git-dispatch:' + a['id'], 'actual': dict(UNITS)}

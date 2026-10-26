@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "status": "preflight_only_no_generation_authorized_by_this_file",
+  "output_parser": "source-or-single-fence-v1",
+  "accepted_output": ["raw source", "exactly one full fenced block labelled al0, python, py, or unlabelled"],
+  "rejected_output": ["empty output", "mixed prose and fenced source", "multiple fenced blocks", "incomplete or unsupported fence"],
+  "source_modification": "Only universal newline normalization and outer fence removal. Internal changes require a recorded model repair.",
+  "resource_policy": "OOMKilled, wall timeout and output limit are construction_limit submission failures at every construction stage.",
+  "compiler_policy": "Known AL-0 SourceError and pinned mypy source diagnostics are static_rejection; other trusted compiler failures are static_tool_failure.",
+  "infrastructure_policy": "Persist reports, fail the scoring CLI, and stop generation. Any rerun uses the same saved source under a new evaluation identity; never grant an extra model repair.",
+  "metrics": ["safe_task_success", "business_goal_completed", "false_success_claim", "model_attempts", "token_cost_upper_usd"],
+  "denominator": "Assigned independent tasks. Cases and adaptive rounds are not independent samples. Refusal, timeout, empty output, format rejection and budget exhaustion remain task failures.",
+  "paired_controls": ["task", "Catalog", "runtime", "fault schedule", "total budget", "maximum repairs", "output parser"],
+  "freeze_before_calls": ["independent task set and negative calibrations", "compiled teaching materials", "model identifier and parameters", "balanced seeded arm order", "per-task and total cost ledger", "maximum infrastructure reruns"],
+  "call_policy": "No new calls in this remediation. Prior pilot's six calls and USD 0.0169878 conservative reservation remain on the original USD 1 ledger."
+}

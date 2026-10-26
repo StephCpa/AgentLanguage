@@ -146,7 +146,9 @@ def generate_bindings(catalog: Catalog) -> str:
                    [binding, 'return self._builder.reconcile(name, tool, operation)'])
         else:
             raise TypeCheckError('unsupported tool kind in catalog')
-    lines += ['', '', 'SCHEMA_TYPES = '+repr(types), 'TOOL_TAGS = '+repr(tags), 'METHOD_NAMES = '+repr(methods), '']
+    lines += ['', '', 'SCHEMA_TYPES = '+repr(types),
+              ('TOOL_TAGS = ' if tags else 'TOOL_TAGS: dict[str, str] = ')+repr(tags),
+              'METHOD_NAMES = '+repr(methods), '']
     source = '\n'.join(lines)
     ast.parse(source)
     return source

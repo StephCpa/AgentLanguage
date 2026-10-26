@@ -114,7 +114,8 @@ def initialize(folder, package, config, materials):
         raise ValueError('participant interfaces differ from execution interfaces')
     sources = [*sorted((ROOT/'al0').rglob('*.py')), *[ROOT/'scripts'/name for name in (
         'generation_journal.py', 'development_tasks.py', 'git_pair_evaluation.py', 'git_pair_worker.py',
-        'isolated_plan_build.py', 'isolated_plan_worker.py', 'deepseek_pilot.py', 'score_deepseek_pilot.py')]]
+        'isolated_plan_build.py', 'isolated_plan_worker.py', 'deepseek_pilot.py', 'score_deepseek_pilot.py',
+        'evaluation_contract.py')]]
     implementation = {'base_commit': git('-C', ROOT, 'rev-parse', 'HEAD'),
         'source_digest': digest({p.relative_to(ROOT).as_posix(): p.read_text(encoding='utf-8') for p in sources})}
     value = {'version': 1, 'config': config, 'task': task, 'public': public, 'frozen': frozen,
@@ -161,6 +162,8 @@ def reserve(folder, arm, upper_usd):
         config, history = state['config'], rounds(db, arm)
         if any(r['phase'] != 'evaluated' for r in history):
             raise ValueError('existing request or evaluation is unresolved; do not resend it')
+        if any(json.loads(r['evaluation'])['category'] == 'infrastructure_failure' for r in history):
+            raise ValueError('infrastructure failure requires reevaluation of saved source, not another model attempt')
         if len(history) >= config['max_attempts']:
             raise ValueError('attempt limit reached')
         if any(json.loads(r['evaluation'])['task_success'] for r in history):
@@ -260,6 +263,7 @@ def refine_cost_bound(folder, request_id, upper_usd, evidence):
 
 
 def feedback(report, arm):
+    from scripts.evaluation_contract import infrastructure_failure
     failures = []
     for row in report['rows']:
         if row['safe_task_success']:
@@ -281,8 +285,7 @@ def feedback(report, arm):
                 diagnostic = encoded(value)
                 item[stage] = {'text': diagnostic[:16000], 'truncated': len(diagnostic) > 16000}
         failures.append(item)
-    infrastructure = any(str(row['failure']).startswith('infrastructure:') or
-                         row['failure'] == 'static_tool_failure' for row in report['rows'])
+    infrastructure = any(infrastructure_failure(row['failure']) for row in report['rows'])
     return {'task_success': report['arms'][arm]['task_success'],
             'category': 'infrastructure_failure' if infrastructure else
                         'success' if report['arms'][arm]['task_success'] else 'submission_failure',

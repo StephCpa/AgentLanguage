@@ -26,8 +26,9 @@ def main():
             plan = compile_source(Path('/input/submission.al0').read_text(encoding='utf-8'),
                                   catalog, filename='submission.al0').plan
         except SourceError as error:
-            print(error.diagnostic.render(), file=sys.stderr)
-            raise SystemExit(1) from None
+            print(json.dumps({'kind': 'al0_source_error', 'diagnostic': error.diagnostic.to_data(),
+                              'rendered': error.diagnostic.render()}), file=sys.stderr)
+            raise SystemExit(65) from None
     elif mode == 'sdk':
         sys.path.insert(0, '/input')
         spec = importlib.util.spec_from_file_location('candidate', '/input/submission.py')

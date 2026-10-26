@@ -1,0 +1,5 @@
+workflow main(value: Text) -> Text uses {} {
+    let row = record("ExampleRecord", {value: value});
+    let answer = field(row, "value");
+    return answer;
+}

@@ -44,6 +44,33 @@ def mypy_failure(result):
     return 'static_tool_failure'
 
 
+def construction_failure(mode, result):
+    """Frozen policy: bounded resource exhaustion is a submission failure.
+
+    Trusted compiler crashes are tool failures. Arbitrary SDK builder exceptions
+    are construction failures; neither is a source/type rejection.
+    """
+    if (result.get('timeout') or result.get('output_limited')
+            or result.get('container_state', {}).get('OOMKilled')):
+        return 'construction_limit'
+    if result.get('returncode') == 0:
+        return None
+    if mode == 'typecheck':
+        return mypy_failure(result)
+    if mode == 'al0':
+        try:
+            record = json.loads(result.get('stderr', ''))
+            if (result.get('returncode') == 65 and record['kind'] == 'al0_source_error'
+                    and isinstance(record['diagnostic'], dict) and isinstance(record['rendered'], str)):
+                return 'static_rejection'
+        except (ValueError, KeyError, TypeError):
+            pass
+        return 'static_tool_failure'
+    if mode == 'sdk':
+        return 'build_failure'
+    raise ValueError('unknown construction stage')
+
+
 def control(args, *, timeout=20):
     try:
         result = subprocess.run(args, capture_output=True, text=True, encoding='utf-8',
@@ -154,6 +181,8 @@ class DockerBuilder:
                 report['returncode'] = report['container_state']['ExitCode']
         except OSError:
             raise BuilderUnavailable('Docker attach could not start') from None
+        except (ValueError, KeyError, TypeError, AttributeError):
+            raise BuilderUnavailable('Docker inspect returned invalid state or policy data') from None
         finally:
             # Killing the CLI alone leaves containers/descendants alive. Always
             # remove our uniquely named container before accepting any output.
@@ -199,10 +228,8 @@ class DockerBuilder:
             for mode in (('typecheck', 'sdk') if arm == 'sdk' else ('al0',)):
                 result = self._execute(folder, mode)
                 stages[mode] = result
-                if result['timeout'] or result['output_limited']:
-                    return {'failure': 'construction_limit', 'stages': stages, 'plan': None}
-                if result['returncode'] != 0:
-                    failure = mypy_failure(result) if mode == 'typecheck' else 'static_rejection' if mode == 'al0' else 'build_failure'
+                failure = construction_failure(mode, result)
+                if failure:
                     return {'failure': failure,
                             'stages': stages, 'plan': None}
         try:

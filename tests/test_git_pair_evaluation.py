@@ -88,6 +88,25 @@ class GitPairEvaluationTests(unittest.TestCase):
         self.assertEqual(sdk_result['failure'], 'build_failure')
         self.assertIn('AL3002', sdk_result['stages']['build']['stderr'])
 
+    def test_duplicate_publication_after_crash_is_not_a_successful_recovery(self):
+        # A faulty recovery program explicitly creates a second publication
+        # slot after reconciling the first. Git really receives both refs.
+        import re
+        effects = re.search(r'uses \{([^}]+)\}', self.source).group(1)
+        source = self.source.replace('workflow paired-publication', 'workflow publish')+'''
+workflow main() -> Text uses {EFFECTS} {
+    let first = invoke(publish, {});
+    let duplicate = invoke(publish, {});
+    return duplicate;
+}
+'''.replace('EFFECTS', effects)
+        row = self.cell('duplicate-after-crash', source, fault='crash_after_push')
+        self.assertEqual([a['phase'] for a in row['accepted']], ['first', 'resume'])
+        self.assertEqual(row['result']['data'], 'Published')
+        self.assertFalse(row['safe_task_success'])
+        self.assertFalse(row['checks']['single_publish'])
+        self.assertEqual(len(row['oracle']['changed']), 2)
+
 
 if __name__ == '__main__':
     unittest.main()

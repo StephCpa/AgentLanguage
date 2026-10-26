@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "repository": "StephCpa/AgentLanguage",
+  "code_commit": "5a004f6a04be747ffc1a5d47059188ff6d855e7f",
+  "workflow_run": 40327816586,
+  "workflow_url": "https://github.com/StephCpa/AgentLanguage/actions/runs/40327816586",
+  "isolation_job": 121588992080,
+  "artifact": 12652570681,
+  "artifact_member": "generation_journal_ci.json",
+  "archived_as": "models/generation_journal_acceptance.json",
+  "regression": [
+    {
+      "python": "3.10",
+      "job": 121588991929,
+      "tests": 985,
+      "seconds": 169.776,
+      "passed": true
+    },
+    {
+      "python": "3.12",
+      "job": 121588991639,
+      "tests": 985,
+      "seconds": 166.344,
+      "passed": true
+    }
+  ],
+  "model_calls": 0,
+  "evidence_mode": "fixture"
+}

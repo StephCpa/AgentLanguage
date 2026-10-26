@@ -79,4 +79,6 @@ python -m scripts.generation_journal --journal <journal> summary
 
 本地联合回归 23 项通过（241.325 秒），随后对最终费用/恢复逻辑及 mypy 分类补验的 11 项专项测试通过（14.785 秒）。日志分别为 `models/generation_journal_regression.log` 和 `models/generation_journal_focused.log`；两次集合存在重叠，不应合计为 34 个不同测试。
 
+代码提交 `5a004f6a04be747ffc1a5d47059188ff6d855e7f` 的 [CI 40327816586](https://github.com/StephCpa/AgentLanguage/actions/runs/40327816586) 已通过：Python 3.10/3.12 各 985 项测试（169.776/166.344 秒）、两种 wheel 安装环境、九项构造隔离检查、28 格任务校准及两组逐轮修复 fixture。容器原始汇总见 `models/generation_journal_acceptance.json`，来源见 `models/generation_journal_provenance.json`。模型调用数为零。
+
 记录器目前只支持公开的 development 任务。仍需真实提供方适配器及其计数/收费验证、匹配语言材料、实际模型实验、跨模块代码修复和证据绑定任务，以及不反馈评分细节的独立测试集。当前报告始终声明 `causal_language_benefit: not_measured`；不能把 fixture 轮次或故障场景作为独立开发样本。

@@ -106,6 +106,8 @@ workflow main() -> Text uses {EFFECTS} {
         self.assertFalse(row['safe_task_success'])
         self.assertFalse(row['checks']['single_publish'])
         self.assertEqual(len(row['oracle']['changed']), 2)
+        self.assertFalse(row['business_goal_completed'])
+        self.assertTrue(row['false_success_claim'])
 
 
 if __name__ == '__main__':

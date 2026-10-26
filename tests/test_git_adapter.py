@@ -99,12 +99,12 @@ class GitAdapterTests(unittest.TestCase):
     def test_absence_does_not_prove_no_effect_before_delayed_cancelled_push(self):
         entered, release = Event(), Event()
         original = self.adapter._command
-        def delayed(args):
+        def delayed(args, **kwargs):
             if 'push' in args:
                 entered.set()
                 if not release.wait(15):
                     raise TimeoutError('test did not release Git push')
-            return original(args)
+            return original(args, **kwargs)
         with patch.object(self.adapter, '_command', delayed), ThreadPoolExecutor(max_workers=1) as pool:
             future = pool.submit(self.execute)
             try:
@@ -171,9 +171,46 @@ class GitAdapterTests(unittest.TestCase):
         for index, stdout in enumerate(('not-a-row\n', 'wrong-oid\t'+ref+'\n',
                                       (self.first+'\t'+ref+'\n')*2)):
             with self.subTest(stdout=stdout), patch.object(self.adapter, '_command',
-                    return_value=subprocess.CompletedProcess([], 0, stdout, '')):
+                    return_value=subprocess.CompletedProcess([], 0, stdout.encode(), b'')):
                 with self.assertRaises(EvidenceMismatch):
                     self.query('invalid-'+str(index))
+
+    def test_unicode_backups_do_not_block_exact_ref_or_confirm_absence(self):
+        for char in ('\u00a0', '\u2028'):
+            for published in (True, False):
+                with self.subTest(char=ascii(char), published=published), tempfile.TemporaryDirectory() as temporary:
+                    source, remote, env, first, second = setup_git(Path(temporary))
+                    adapter = GitPublisher(source, str(remote), recipients=['public'], commits=[first], environment=env)
+                    store = Store(Path(temporary)/'state.sqlite')
+                    plan = build(adapter.catalog, first)
+                    run = store.create_run(self.who, plan.fingerprint, {'git_dispatches': 4})
+                    grants = {n: store.grant(run, n, t.scope, expires=store.clock()+60) for n, t in adapter.catalog.tools.items()}
+                    def lost(ticket):
+                        if published:
+                            adapter.publish(ticket)
+                        raise ConnectionError('scheduled reply loss')
+                    broker = Broker(store, adapter.catalog, {**adapter.callbacks(store, self.who), PUBLISH: lost})
+                    self.assertEqual(Interpreter(broker).run(plan, run, self.who, grants).data, 'Unknown')
+                    operation = next(e['data']['operation'] for e in store.events(run, self.who) if e['kind']=='Admitted')
+                    record = store.operation_info(operation, self.who)['intent']
+                    intent = Intent(record['tool'], record['version'], record['scope'], record['args'])
+                    ref = adapter.reference(operation, intent.digest)
+                    backup = 'refs/original/'+char+'/'+ref
+                    self.assertEqual(adapter._command(['check-ref-format', backup]).returncode, 0)
+                    self.assertEqual(adapter._command(['push', '--', str(remote), first+':'+backup]).returncode, 0)
+                    raw = adapter._command(['ls-remote', '--refs', '--', str(remote), ref], raw=True).stdout
+                    self.assertEqual(len(raw.split(b'\n')[:-1]), 2 if published else 1)
+                    result = broker.reconcile(run, self.who, 'query', operation, QUERY, grants[QUERY])
+                    self.assertEqual(result['business'], 'Applied' if published else 'Unknown')
+                    self.assertEqual(store.budget(run, self.who)['git_dispatches']['reserved'], 0)
+
+    def test_ref_parser_preserves_non_utf8_names_without_replacement(self):
+        from al0.git_adapter import parse_remote_refs
+        name = b'refs/original/\xff/refs/heads/operation'
+        self.assertEqual(parse_remote_refs(self.first.encode()+b'\t'+name+b'\n')[0][1], name)
+        for name in (b'refs/bad name', b'refs/bad\x7f', b'refs/a..b', b'refs/.hidden', b'refs/a.lock', b'refs/a//b'):
+            with self.assertRaises(EvidenceMismatch):
+                parse_remote_refs(self.first.encode()+b'\t'+name+b'\n')
 
     def test_private_request_never_reaches_public_git_adapter(self):
         spec = self.adapter.catalog.tools[PUBLISH]

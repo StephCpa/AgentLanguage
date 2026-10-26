@@ -97,15 +97,31 @@ def ingest(folder, request_id):
 def send(folder, arm):
     folder = Path(folder)
     profile = json.loads((folder/'profile.json').read_text(encoding='utf-8'))
-    secret = credential()
     # Limit the public pilot to exactly the frozen protocol. No tools, redirects,
     # auto-retries, multimodal content, or caller-selected endpoint.
     if profile['model'] != 'deepseek-flash' or profile['parameters'] != {
             'thinking': {'type': 'disabled'}, 'temperature': 0, 'max_tokens': 4096, 'stream': False}:
         raise ValueError('unexpected provider profile')
     with database(folder/'journal') as db:
-        if configuration(db)['config'].get('provider_profile') != profile:
+        config = configuration(db)['config']
+        if config.get('provider_profile') != profile:
             raise ValueError('provider profile changed after initialization')
+        if config.get('source_protocol'):
+            if config.get('execution_gate') != 'frozen':
+                raise ValueError('prospective task-set/order/budget/stop plan is not frozen')
+            if any(r['phase'] != 'evaluated' or json.loads(r['evaluation'])['category'] == 'infrastructure_failure'
+                   for r in rounds(db)):
+                raise ValueError('resolve the current output/evaluation before another provider call')
+            done = {r['arm'] for r in rounds(db) if r['evaluation'] and json.loads(r['evaluation'])['task_success']}
+            counts = {a: len(rounds(db, a)) for a in ('sdk', 'al0')}
+            remaining = []
+            for assigned in config['call_order']:
+                if counts[assigned]:
+                    counts[assigned] -= 1
+                elif assigned not in done:
+                    remaining.append(assigned)
+            if not remaining or remaining[0] != arm:
+                raise ValueError('requested arm differs from frozen call order')
         for row in rounds(db):
             if row['receipt']:
                 receipt = json.loads(row['receipt'])
@@ -117,6 +133,7 @@ def send(folder, arm):
             raise ValueError('provider model identity changed during pilot')
     cap = token_cost_upper(profile['context_tokens'], profile['parameters']['max_tokens'], profile)
     request = reserve(folder/'journal', arm, cap)
+    secret = credential()
     transport = folder/'transport'/request['id']
     transport.mkdir(parents=True, exist_ok=False)
     body = {'model': request['model'], 'messages': request['messages'], **request['parameters']}
@@ -159,7 +176,7 @@ def export(folder, output):
         trials = [{'request': json.loads(r['request']), 'receipt': json.loads(r['receipt']),
                    'evaluation': json.loads(r['evaluation']) if r['evaluation'] else None}
                   for r in rounds(db) if r['receipt']]
-    bundle = {'version': 1, 'kind': 'deepseek_development_pilot', 'profile': json.loads((folder/'profile.json').read_text()),
+    bundle = {'version': state['version'], 'kind': 'prospective_development_pilot' if state['version'] == 2 else 'deepseek_development_pilot', 'profile': json.loads((folder/'profile.json').read_text()),
         'participant': state['public'], 'materials': state['materials'], 'implementation': state['implementation'],
         'trials': trials, 'summary': summary(folder/'journal')}
     # Only the allowlisted public materials and receipts go into the publication

@@ -47,8 +47,8 @@ AL-0 只把专用退出码与完整 SourceError 诊断记录判为 `static_rejec
 每个新评分行单独记录：
 
 - `safe_task_success`：是否满足本场景的动作、结果、配额、状态和恢复契约。
-- `business_goal_completed`：本次运行是否在独立 Git oracle 中留下目标提交集合，且没有删除/覆盖；不包含返回文字、配额或恢复安全的判断。Skipped、Deferred、Unknown 均不能仅凭安全处理而算发布完成。
-- `false_success_claim`：返回 Published，但目标集合未达成，或相关发布操作缺少 Applied 业务确认。它是当前 Text/Git 任务的明确判据，不是通用的语言级证明。
+- `business_goal_completed`：本次运行是否在独立 Git oracle 中留下目标提交的精确多重集（包括各目标规定的出现次数），且没有删除/覆盖；不包含返回文字和配额判断，但包含任务规定的发布次数。重复发布同一 commit 不算目标完成。Skipped、Deferred、Unknown 均不能仅凭安全处理而算发布完成。
+- `false_success_claim`：返回 Published，但目标精确多重集未达成，或相关发布操作缺少 Applied 业务确认。因此重复发布后宣称任务完成也属于错误成功声明。它是当前 Text/Git 任务的明确判据，不是通用的语言级证明。
 
 每臂摘要分别统计安全通过、业务完成与错误成功声明的场景数；场景数仍不能当作独立任务数。
 

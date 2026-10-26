@@ -1,6 +1,6 @@
 # 生成与修复实验记录
 
-`scripts/generation_journal.py` 为一个开发任务的 AL-0 与强 SDK 两组保存原始请求、响应、逐轮修复和评分。它导入提供方回执，不发送网络请求。真实提供方适配器、固定模型选择和调用费用上限仍待配置；本轮校准使用明确标记的 fixture，模型调用数为零。
+`scripts/generation_journal.py` 为一个开发任务的 AL-0 与强 SDK 两组保存原始请求、响应、逐轮修复和评分。它导入提供方回执，不发送网络请求。本页校准使用明确标记的 fixture，模型调用数为零；随后接入的真实调用见 [DeepSeek 开发预实验](52-deepseek-development-pilot.md)。
 
 ## 固定材料和分配
 
@@ -23,6 +23,8 @@ SDK 类型诊断在本地和 Docker 两条路径共用分类：普通类型错�
 ## 用量与费用
 
 导出请求前记录一个正的费用上界，已知收费加未知收费的预留不得超过该组预算。费用使用十进制字符串，支持九位小数。缺少 `cost_usd` 时总费用为 `null`，不会当成零；预留一直保留到显式迟到结算。实际收费超过该请求上界时仍保存真实报告值，并阻止该组继续预约，不能通过拒收账单隐藏超支。
+
+新增的可信导入路径可依据真实 usage 和保守价格上界缩小未知费用的预留，并追加依据记录；它不把推算上界写成已经支付的账单。DeepSeek 预实验使用这一机制。远端评分报告也可由宿主读取 CI artifact 后导入，需匹配原提交、目录和全部场景，不能用候选程序自己提供的报告。
 
 这些限制只约束记录器允许导出的请求。上界由调用者提供；记录器没有依据真实 tokenizer、价格或提供方硬限制验证它，也无法阻止人在外部另行调用模型。因此它不是真实提供方的支付网关或费用上限保证。导入的 usage、账单及模型标识是宿主报告，原始提供方 JSON 同时保留，尚未通过服务端查询认证。
 
@@ -81,4 +83,4 @@ python -m scripts.generation_journal --journal <journal> summary
 
 代码提交 `5a004f6a04be747ffc1a5d47059188ff6d855e7f` 的 [CI 40327816586](https://github.com/StephCpa/AgentLanguage/actions/runs/40327816586) 已通过：Python 3.10/3.12 各 985 项测试（169.776/166.344 秒）、两种 wheel 安装环境、九项构造隔离检查、28 格任务校准及两组逐轮修复 fixture。容器原始汇总见 `models/generation_journal_acceptance.json`，来源见 `models/generation_journal_provenance.json`。模型调用数为零。
 
-记录器目前只支持公开的 development 任务。仍需真实提供方适配器及其计数/收费验证、匹配语言材料、实际模型实验、跨模块代码修复和证据绑定任务，以及不反馈评分细节的独立测试集。当前报告始终声明 `causal_language_benefit: not_measured`；不能把 fixture 轮次或故障场景作为独立开发样本。
+记录器目前只支持公开的 development 任务。DeepSeek 适配器已完成一个任务的真实预实验；仍需提供方计数/账单验证、更广的匹配材料与任务、跨模块代码修复和证据绑定任务，以及不反馈评分细节的独立测试集。当前报告始终声明 `causal_language_benefit: not_measured`；不能把 fixture 轮次或故障场景作为独立开发样本。

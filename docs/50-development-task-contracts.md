@@ -48,6 +48,8 @@ python -m scripts.development_tasks evaluate --package <one-task-package> `
 
 本机参考校准的 28 格全部通过，三项任务在两个前端均完成所有场景并产生相同 IR。开发任务及原配对评测器的 13 项联合回归通过（217.237 秒），日志为 `models/development_tasks_regression.log`；其中还验证了具有动态计划命名的合法 SDK 只构造一次，并不会因与 AL-0 的 IR 字节不同而被误拒。
 
+提交 `4a01b20eb48906f269ca414304a525e35e396a6e` 的 [CI 40323233832](https://github.com/StephCpa/AgentLanguage/actions/runs/40323233832) 已在 Linux Docker 下完成全部 28 格参考校准，九项构造隔离检查也全部通过。Python 3.10/3.12 分别通过 974 项回归（168.006/162.731 秒），两种 installed-wheel 环境均通过。容器校准原始 JSON 归档为 `models/development_suite_acceptance.json`，来源记录为 `models/development_suite_provenance.json`。每个任务、每个前端均只构造一次，其余 22 格复用计划；所有格重放增加事件数为零。
+
 这些任务与参考答案用于检验不同语言机制的评分链路，尚未运行真实模型生成或修复实验。当前环境未发现模型 API 凭据，提供方、固定模型版本与费用上限仍待确定。报告明确记 `model_calls: 0` 和 `causal_language_benefit: not_measured`，不会将人工编写的参考答案算作模型首次通过率。
 
 后续需接入每轮原始提示、模型输出、诊断、修复、实际 usage/费用和最终外部状态记录；冻结与开发任务隔离的测试集，并继续补充跨模块修复和证据绑定工作负载。费用缺失不能按零成本计算，基础设施失败也不能归因于某个前端。

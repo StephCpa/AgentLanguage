@@ -270,6 +270,14 @@ def feedback(report, arm):
         for stage in ('static', 'ir', 'construction'):
             value = row['stages'].get(stage)
             if value and not row.get('construction_reused'):
+                if stage == 'construction':
+                    # Container policy/state remains in the audit artifact, not
+                    # in repair prompts. Only bounded compiler/process evidence.
+                    value = {'failure': value.get('failure'), 'diagnostic': value.get('diagnostic'),
+                             'stages': {name: {key: record[key] for key in
+                                 ('returncode', 'stdout', 'stderr', 'timeout', 'output_limited') if key in record}
+                                 for name, record in value.get('stages', {}).items()},
+                             **({'error': value['error']} if 'error' in value else {})}
                 diagnostic = encoded(value)
                 item[stage] = {'text': diagnostic[:16000], 'truncated': len(diagnostic) > 16000}
         failures.append(item)

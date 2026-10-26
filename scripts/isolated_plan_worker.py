@@ -7,6 +7,7 @@ import sys
 
 sys.path.insert(0, '/opt/al0')
 from al0.frontend import compile_source, read_catalog
+from al0.source import SourceError
 
 
 def main():
@@ -21,7 +22,12 @@ def main():
         raise SystemExit(result.returncode)
     catalog = read_catalog(Path('/input/catalog.json').read_text(encoding='utf-8'))
     if mode == 'al0':
-        plan = compile_source(Path('/input/submission.al0').read_text(encoding='utf-8'), catalog).plan
+        try:
+            plan = compile_source(Path('/input/submission.al0').read_text(encoding='utf-8'),
+                                  catalog, filename='submission.al0').plan
+        except SourceError as error:
+            print(error.diagnostic.render(), file=sys.stderr)
+            raise SystemExit(1) from None
     elif mode == 'sdk':
         sys.path.insert(0, '/input')
         spec = importlib.util.spec_from_file_location('candidate', '/input/submission.py')

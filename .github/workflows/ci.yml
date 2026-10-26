@@ -121,6 +121,15 @@ jobs:
             --output .git/deepseek-pilot-ci --fixture-root /tmp/al0-deepseek-pilot-v1 \
             --builder-image al0-plan-builder:ci > models/deepseek_pilot_ci.log 2>&1
           cp .git/deepseek-pilot-ci/summary.json models/deepseek_pilot_ci.json
+      - name: Check unconfirmed outcomes using saved submissions
+        if: hashFiles('experiments/deepseek_pilot_v1/captured.json') != ''
+        run: |
+          python -m scripts.check_query_outcomes \
+            --bundle experiments/deepseek_pilot_v1/captured.json \
+            --package /tmp/al0-deepseek-pilot-v1/tasks/conditional-release \
+            --output .git/query-outcomes-ci --builder-image al0-plan-builder:ci \
+            > models/query_outcomes_ci.log 2>&1
+          cp .git/query-outcomes-ci/summary.json models/query_outcomes_ci.json
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -135,3 +144,5 @@ jobs:
             models/generation_journal_ci.log
             models/deepseek_pilot_ci.json
             models/deepseek_pilot_ci.log
+            models/query_outcomes_ci.json
+            models/query_outcomes_ci.log

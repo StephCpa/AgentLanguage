@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "kind": "posthoc_conditional_release_coverage_extension",
+  "base_manifest": "experiments/development_tasks_v1.json",
+  "task": "conditional-release",
+  "requirement_addition": "When publication has no confirmed receipt and a subsequent real Git query finds no operation ref, return Unknown, preserve the unresolved business obligation, and do not resend. Absence is not proof of no effect. This is a retrospective coverage probe, not a new generation or a replacement for pilot v1 scoring.",
+  "case": {
+    "id": "publication-unconfirmed",
+    "inputs": {"enabled": true},
+    "budget": {"git_dispatches": 4},
+    "fault": "disconnect_before_push",
+    "expected": {
+      "commits": [],
+      "result": "Unknown",
+      "dispatches": 2,
+      "publish_attempts": 1,
+      "status": "CompletedWithObligations"
+    }
+  },
+  "not_covered": ["Pending", "ProvenNoEffect", "query transport failure", "eventual delayed publication"]
+}

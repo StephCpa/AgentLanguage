@@ -61,6 +61,7 @@ AL-0 是面向 Agent 的小型受检语言提案。它将模型候选、检查�
 50. [开发任务契约](docs/50-development-task-contracts.md)：条件发布、顺序发布、接纳回退、任务级评分及参与者材料边界。
 51. [生成与修复实验记录](docs/51-generation-repair-journal.md)：固定材料、逐轮回执与评分、未知费用和迟到结算。
 52. [DeepSeek 开发预实验](docs/52-deepseek-development-pilot.md)：真实 API 调用、1 美元总限额、冻结材料与容器评分。
+53. [查询未确认状态与构造诊断](docs/53-query-outcome-coverage.md)：独立版本的 Unknown 场景、已保存输出补测与精简源码诊断。
 
 ## 运行参考实现
 

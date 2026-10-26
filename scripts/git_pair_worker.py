@@ -44,6 +44,16 @@ def main():
             return permit
         store.authorize = revoke_after_authorize
     def publish(ticket):
+        if config['fault'] == 'disconnect_before_push':
+            # The host knows this injection precedes Git, but the workflow has
+            # only an ambiguous transport failure. A real empty-ref query must
+            # not be promoted to ProvenNoEffect or Applied.
+            with open(config['fault_trace'], 'a', encoding='utf-8') as stream:
+                stream.write(json.dumps({'operation': ticket.operation, 'phase': mode,
+                                         'fault': config['fault']})+'\n')
+                stream.flush()
+                os.fsync(stream.fileno())
+            raise ConnectionError('scheduled disconnect before Git push')
         response = adapter.publish(ticket)
         # Independent from Store receipt persistence; flush before process death.
         with trace_lock:

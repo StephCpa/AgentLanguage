@@ -55,6 +55,7 @@ AL-0 是面向 Agent 的小型受检语言提案。它将模型候选、检查�
 44. [受检提供方结果](docs/44-checked-inference-provider-outcomes.md)：可信 Refused、队列阻止后的 Waiting、取消退款、迟到费用与组合调度。
 45. [持久 ContextView 设计](docs/45-context-views.md)：来源与角色、必选约束、容量与筛选、固定快照、标签依赖及受检接入。
 46. [固定提交审计修复](docs/46-audit-remediation.md)：七项问题、跨模块组合回归、独立语义版本、旧记录边界及 Linux 安装验收。
+47. [真实 Git 发布适配器](docs/47-real-git-adapter.md)：宿主批准的提交、原子操作引用、未知结果对账、真实 Git 故障测试及 GitHub 在线验收。
 
 ## 运行参考实现
 

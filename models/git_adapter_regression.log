@@ -1,0 +1,16 @@
+test_absence_does_not_prove_no_effect_before_delayed_cancelled_push (tests.test_git_adapter.GitAdapterTests) ... ok
+test_cli_workflow_source_sdk_restart_and_independent_git_oracle (tests.test_git_adapter.GitAdapterTests) ... ok
+test_empty_lease_refuses_rebinding_to_a_different_commit (tests.test_git_adapter.GitAdapterTests) ... ok
+test_host_binding_changes_catalog_and_plan_identity (tests.test_git_adapter.GitAdapterTests) ... ok
+test_namespace_corruption_is_not_positive_reconciliation_evidence (tests.test_git_adapter.GitAdapterTests) ... ok
+test_private_request_never_reaches_public_git_adapter (tests.test_git_adapter.GitAdapterTests) ... ok
+test_process_death_after_git_commit_recovers_through_query (tests.test_git_adapter.GitAdapterTests) ... ok
+test_real_git_publication_and_broker_replay_do_not_repeat_dispatch (tests.test_git_adapter.GitAdapterTests) ... ok
+test_reply_loss_restart_query_and_late_quota_settlement (tests.test_git_adapter.GitAdapterTests) ... ok
+test_timeout_is_unknown_and_never_retried (tests.test_git_adapter.GitAdapterTests) ... ok
+test_unapproved_commit_and_revision_syntax_never_reach_git (tests.test_git_adapter.GitAdapterTests) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 18.735s
+
+OK

@@ -1,0 +1,26 @@
+{
+  "initial": "Published",
+  "final": "Published",
+  "business": "Applied",
+  "run": "61e59c5b-d844-4a14-a632-b746615ca28a",
+  "operation": "9485da96-0c1a-4bdc-b1a4-292874e25053",
+  "commit": "3f6af4a684beafcce83fbfb9b76a56d015f6354c",
+  "reference": "refs/heads/al0/publish/7804f5d69f105a8bbe1a3a1219e4f71156d080130106f11215c18cbe36f910db",
+  "source_sdk_ir_equal": true,
+  "replay_equal": true,
+  "replay_added_events": 0,
+  "budget": {
+    "git_dispatches": {
+      "total": 10,
+      "free": 8,
+      "reserved": 0,
+      "confirmed": 2,
+      "retired": 0
+    }
+  },
+  "status": {
+    "control": "Completed",
+    "status": "CompletedClean",
+    "obligations": []
+  }
+}
